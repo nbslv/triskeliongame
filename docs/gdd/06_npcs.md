@@ -66,9 +66,9 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | NPC | Onde | O que diz / faz |
 |---|---|---|
 | **Dona Fridolina** | Balcão da Hospedaria do Ganso Tonto | **Pousada (15 cobres) e loja.** "O monge? Três semanas de conta. Ele paga em bênção. Bênção não compra farinha." |
-| **Bento** (antes de entrar no grupo) | Mesa do canto | "Meu jovem, sente-se. Você tem cara de quem vai pagar a próxima." |
+| **Silvano** (antes de entrar no grupo) | Mesa do canto | "Meu jovem, sente-se. Você tem cara de quem vai pagar a próxima." |
 | **Caixeiro Aníbal** | Estrada (aparece em vários capítulos) | **Mascate ambulante**: vende um item raro por região. "Preço de amigo. De amigo rico." |
-| **Abade Plácido** | Mosteiro | Suspira. "O Irmão Bento é... uma provação que os céus nos enviaram." **Missão: "Os sinos da Serra"** — tocar 3 sinos na ordem certa (dica nos vitrais). Recompensa: *Contas do Abade*. |
+| **Abade Plácido** | Mosteiro | Suspira. "O Irmão Silvano é... uma provação que os céus nos enviaram." **Missão: "Os sinos da Serra"** — tocar 3 sinos na ordem certa (dica nos vitrais). Recompensa: *Contas do Abade*. |
 | **Irmã Dulce** | Horta do mosteiro | Ensina a Ícaro que cura "é prestar atenção". Vende Pomada de Arnica. |
 | **Lavrador Chico** | Trigal | **Missão: "Espantalho de volta"** — acalmar o Espantalho Zangado sem queimá-lo (usar Luz). Recompensa: Tacho de Doce. |
 

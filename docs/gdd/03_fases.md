@@ -97,7 +97,7 @@ Missões secundárias somam cerca de 45 min opcionais.
      batedores. Subida da serra; chefe: **Irmãos Torresmo** (revanche, juntos).
   4. O abade "libera" o monge para a peregrinação com um alívio mal disfarçado. Ele se junta
      "para fugir da conta". Repara, calado, num selo de mercador num caixote dos inimigos.
-- **Entra no grupo:** **Irmão Bento** (nome provisório). Ícaro aprende **Alento** de verdade.
+- **Entra no grupo:** **Irmão Silvano**. Ícaro aprende **Alento** de verdade.
 - **Dificuldade:** grupos de 2–3; aparece o primeiro efeito de estado (**Queimadura negra**) —
   e o primeiro personagem capaz de curá-lo.
 
@@ -211,9 +211,9 @@ Missões secundárias somam cerca de 45 min opcionais.
 |---|---|
 | Prólogo | Ícaro |
 | 1 | Ícaro (+ Lucian convidado) |
-| 2 | Ícaro, Bento |
-| 3 | Ícaro, Bento, **Valéria** |
-| 4 em diante | Ícaro, Bento, Valéria, **Celly** (grupo completo de 4) |
+| 2 | Ícaro, Silvano |
+| 3 | Ícaro, Silvano, **Valéria** |
+| 4 em diante | Ícaro, Silvano, Valéria, **Celly** (grupo completo de 4) |
 
 ## 5. Como a dificuldade cresce
 

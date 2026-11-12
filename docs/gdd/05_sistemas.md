@@ -24,10 +24,10 @@ Números aqui são **valores iniciais para balanceamento**: devem ir para `conte
 | Ícaro | 10 | 105 | 50 | 21 | 28 | 18 | 22 | 21 |
 | Ícaro | 20 | 175 | 90 | 37 | 50 | 32 | 40 | 37 |
 | Ícaro | 30 | 245 | 130 | 53 | 72 | 46 | 58 | 53 |
-| Bento | 5 (entra) | 78 | 26 | 16 | 13 | 12 | 17 | 10 |
-| Bento | 10 | 118 | 44 | 26 | 22 | 20 | 28 | 16 |
-| Bento | 20 | 198 | 78 | 46 | 40 | 36 | 50 | 28 |
-| Bento | 30 | 278 | 114 | 66 | 58 | 52 | 72 | 40 |
+| Silvano | 5 (entra) | 78 | 26 | 16 | 13 | 12 | 17 | 10 |
+| Silvano | 10 | 118 | 44 | 26 | 22 | 20 | 28 | 16 |
+| Silvano | 20 | 198 | 78 | 46 | 40 | 36 | 50 | 28 |
+| Silvano | 30 | 278 | 114 | 66 | 58 | 52 | 72 | 40 |
 | Valéria | 8 (entra) | 137 | — | 28 | — | 26 | 11 | 15 |
 | Valéria | 10 | 159 | — | 33 | — | 31 | 13 | 18 |
 | Valéria | 20 | 269 | — | 59 | — | 55 | 23 | 31 |
@@ -41,7 +41,7 @@ Crescimento por nível (somar ao valor de nível 1 e arredondar):
 | Herói | Nível 1 (PV/PM/FOR/MAG/DEF/ESP/AGI) | Por nível |
 |---|---|---|
 | Ícaro | 42 / 14 / 7 / 8 / 5 / 6 / 7 | +7 / +4 / +1,6 / +2,2 / +1,4 / +1,8 / +1,6 |
-| Bento | 46 / 12 / 8 / 6 / 6 / 8 / 5 | +8 / +3,5 / +2,0 / +1,8 / +1,6 / +2,2 / +1,2 |
+| Silvano | 46 / 12 / 8 / 6 / 6 / 8 / 5 | +8 / +3,5 / +2,0 / +1,8 / +1,6 / +2,2 / +1,2 |
 | Valéria | 60 / 0 / 10 / 0 / 9 / 4 / 6 | +11 / 0 / +2,6 / 0 / +2,4 / +1,0 / +1,3 |
 | Celly | 30 / 18 / 3 / 9 / 3 / 8 / 9 | +5 / +5 / +0,6 / +2,6 / +1,0 / +2,4 / +2,2 |
 
@@ -118,7 +118,7 @@ Crescimento por nível (somar ao valor de nível 1 e arredondar):
 |---|---|---|---|
 | 1 | **Tiro Certeiro** | 0 | Arco; Físico ×1,0; nunca erra |
 | 3 | **Lumnia: Centelha** | 4 PM | Luz ×1,6, um alvo |
-| 5 | **Alento** (com Bento) | 5 PM | Cura ×2,0, um aliado |
+| 5 | **Alento** (com Silvano) | 5 PM | Cura ×2,0, um aliado |
 | 8 | **Golpe Firme** (com Valéria) | 3 PM | Físico ×1,7 com o cajado; 30% Atordoa |
 | 9 | **Flecha de Luz** | 6 PM | Luz ×1,3; ignora resistência a Físico e a Luz |
 | 12 | **Lumnia: Clarão** | 10 PM | Luz ×1,3, todos; remove Queimadura negra do grupo |
@@ -127,7 +127,7 @@ Crescimento por nível (somar ao valor de nível 1 e arredondar):
 | 23 | **Chuva de Estrelas** | 22 PM | Luz ×1,8, todos |
 | Final | **Lumnia: Triskelion** | cena | Só na batalha final, com 3 de Calma |
 
-### Bento — **Graça** (0 a 5)
+### Silvano — **Graça** (0 a 5)
 - Cada **bastonada** que acerta dá +1 Graça (+2 se crítico).
 - Curas básicas custam só PM; as fortes custam PM **e** Graça.
 - Não tem nenhuma magia de dano. ("Nada nos ensinamentos proíbe bater com o bastão.")
@@ -217,10 +217,10 @@ Crescimento por nível (somar ao valor de nível 1 e arredondar):
 | 5 | 9–10 | +30 (únicas, de chefes e missões) | +25 | não se compram |
 
 Armas por herói: **Ícaro** — arcos (Físico) e o Cajado de Luminaer (dá *foco*; cresce com a
-história, não se troca); **Bento** — bastões; **Valéria** — espadas de duas mãos; **Celly** —
+história, não se troca); **Silvano** — bastões; **Valéria** — espadas de duas mãos; **Celly** —
 varinhas de ramo (foco).
 Amuletos dão efeitos, não números brutos (ex.: *Fita da Livinha* — Valéria começa com 40 de
-Fúria; *Contas do Abade* — Bento começa com 2 de Graça; *Dedal Amassado* — imunidade a Medo).
+Fúria; *Contas do Abade* — Silvano começa com 2 de Graça; *Dedal Amassado* — imunidade a Medo).
 
 ## 6. Batalha automática (AUTO) e velocidade
 
@@ -240,7 +240,7 @@ Fúria; *Contas do Abade* — Bento começa com 2 de Graça; *Dedal Amassado* �
 Luz mais barata que alcance todos, se houver 3+ inimigos; senão *Centelha*. 6. *Tiro Certeiro*
 no inimigo com menos PV.
 
-**Bento:** 4. Dois ou mais aliados com PV < 60% e Graça ≥ 2 → *Roda de Oração*. 5. Graça < 3 →
+**Silvano:** 4. Dois ou mais aliados com PV < 60% e Graça ≥ 2 → *Roda de Oração*. 5. Graça < 3 →
 *Bastonada* no inimigo com menos PV. 6. Senão, *Bastonada*. (Nunca usa *Golinho* no AUTO.)
 
 **Valéria:** 4. Aliado com PV < 35% e sem cura disponível no turno → *Guarda* nele.

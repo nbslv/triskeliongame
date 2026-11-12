@@ -40,15 +40,16 @@ pouco de PM e dá +1 Calma; magias de Lumnia consomem a Calma e ficam muito mais
 
 ---
 
-## O monge — **Irmão Bento** *(nome provisório — PENDENTE APROVAÇÃO DO AUTOR)*
+## O monge — **Irmão Silvano**
 
-**Opções de nome:**
-1. **Bento** *(escolhida como provisória)* — curto, sonoro, e irônico: "bento" é abençoado. Como
-   apelido de **Benedito**, o nome de príncipe, esconde a verdade à vista de todos.
-2. **Serafim** — angelical e vaidoso; combina com o cabelo, mas entrega menos a piada.
-3. **Teodoro ("Téo")** — mais sério; funciona se o autor quiser o monge menos cômico.
+**Nome (decidido pelo autor):** Irmão **Silvano**. O nome ecoa o cabelo prateado — e, para quem
+souber ouvir, o nome verdadeiro.
 
-Nome verdadeiro **[PROPOSTA]:** Príncipe **Benedito de Argêntia**.
+**Nome verdadeiro:** Príncipe **Silvério Augusto de Argêntia**, herdeiro desaparecido do reino
+mercador de **Argêntia** (capital: o porto de **Pratamar**). "Silvano" foi o apelido que a ama
+de leite lhe deu em criança; ao fugir, ele só precisou trocar a coroa pelo hábito e manter o
+apelido. A casa real de Argêntia é conhecida pelo cabelo prateado desde o berço — por isso ele
+jura a todo mundo que o dele é "de preocupação" (e depois gasta meia hora escovando).
 
 **Aparência.** Uns 28 anos, alto, bonito e ciente disso. **Cabelo prateado** comprido, solto,
 escovado com um capricho suspeito. Hábito de monge cor de açafrão, aberto no peito "por causa do

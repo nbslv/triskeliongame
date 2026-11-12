@@ -137,7 +137,7 @@ Cafezal, vila em chamas, o pai, a promessa, o colar, a fuga. Sem batalhas.
 - Ícaro parte em busca da pedra; o reino busca aliados.
 
 ### Ato 2 — Três estradas, um caminho (meio)
-- **Estrada do Trigo / Mosteiro:** entra o **monge** (Irmão Bento, nome provisório).
+- **Estrada do Trigo / Mosteiro:** entra o **monge** (Irmão Silvano).
 - **Bravaferro:** o reino sem magia, recém-saqueado. Entra **Valéria Lâmina de Ferro**.
 - **Floresta dos Sussurros:** a mata murchando. Entra **Celly**, a fada banida.
 - **Caverna dos Ecos:** cada herói ouve a própria dúvida. O grupo vira grupo.
@@ -206,7 +206,7 @@ Regra de ouro: **nunca dito, sempre mostrado**, até o fim.
 - *Fortaleza:* ela leva um golpe que era para ele. Os dois ficam com raiva um do outro por isso.
 - *Véspera da batalha:* quase dizem. O monge interrompe. (Ele sabe exatamente o que fez.)
 - *Epílogo:* mãos dadas na Colina do Mar. Uma fala só.
-Bento e Celly percebem muito antes dos dois, e apostam entre si.
+Silvano e Celly percebem muito antes dos dois, e apostam entre si.
 
 ### Valéria — da vingança à proteção
 Entra fervendo de ódio. A família sobreviveu, mas ela trata isso como dívida a cobrar. Ao longo

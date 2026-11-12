@@ -171,7 +171,7 @@ Todos os Caligosuins em formações completas, mais:
 - **Ataques:** cada reflexo usa as técnicas do herói que copia; *Sussurro* aplica **Medo** com a
   dúvida de cada um (texto na tela).
 - **Fraquezas:** cada reflexo é fraco ao elemento **de outro** herói (o Eco de Ícaro: Físico;
-  de Valéria: Feérico; de Celly: Luz; de Bento: Luz).
+  de Valéria: Feérico; de Celly: Luz; de Silvano: Luz).
 - **Truque:** *Encorajar* remove o Medo e **racha o reflexo** do herói encorajado (dano fixo
   grande). Vencer só na força é possível, mas lento.
 
@@ -191,7 +191,7 @@ Todos os Caligosuins em formações completas, mais:
   eles); *Porta na Cara* (Atordoa).
 - **Fraquezas:** Feérico. Resiste a Físico e Luz.
 - **Truque:** a cada 3 turnos ele **abre a porta** para contar o dinheiro: nesse turno, todo dano
-  é ×2 e Bento pode usar *Golinho* nele (fica Tonto). Derrotado, devolve tudo com juros.
+  é ×2 e Silvano pode usar *Golinho* nele (fica Tonto). Derrotado, devolve tudo com juros.
 
 ### 9. Madame Trufa e a Flor Murcha
 - **Aparência:** ver `02`. A Flor Murcha é o Nymphalion corrompido: uma coroa de runas secas
@@ -200,7 +200,7 @@ Todos os Caligosuins em formações completas, mais:
   desculpa, querida?"* (zera a Confiança de Celly). A Flor a protege: dano reduzido a 25%.
 - **Fase 2 — a Flor:** Celly enfrenta o Nymphalion; cada **runa de Celly** em campo faz uma
   pétala reflorescer (5 pétalas). A Flor responde com *Onda de Podridão*. Os outros protegem
-  Celly (Valéria: *Guarda*; Bento: cura; Ícaro: Lumnia para limpar a sombra).
+  Celly (Valéria: *Guarda*; Silvano: cura; Ícaro: Lumnia para limpar a sombra).
 - **Fase 3:** Nymphalion restaurado; Trufa sem proteção, fraca a Luz **e** Feérico.
 - **Fim:** Trufa foge por um alçapão, sem chapéu. (Reaparece no epílogo, de longe, emburrada.)
 
@@ -217,7 +217,7 @@ Todos os Caligosuins em formações completas, mais:
   Dádiva* (copia a última magia usada pelo grupo, corrompida). Fraqueza: Luz.
 - **Fase 2 — o Triskelion Negro:** três espirais de sombra giram atrás dele, cada uma ligada a
   um elemento. Cada espiral só quebra com o seu contrário: a **Luz** de Ícaro, a **Flor** de
-  Celly, e a terceira — a **Brasa** — só com **Físico** de Valéria e Bento (calor de gente).
+  Celly, e a terceira — a **Brasa** — só com **Físico** de Valéria e Silvano (calor de gente).
   Enquanto houver espiral, ele se regenera.
 - **Fim:** com as três quebradas, o comando de Ícaro vira **Respirar** (uma, duas, três Calmas —
   o jogador faz de propósito o que o prólogo não deixou) e depois **LUMNIA**. Cena final.
