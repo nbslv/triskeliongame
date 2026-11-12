@@ -27,6 +27,12 @@ export default defineConfig(({ mode }) => {
       target: 'es2020',
       assetsInlineLimit: 0,
       chunkSizeWarningLimit: 2000,
+      rollupOptions: {
+        output: {
+          // Phaser em chunk próprio: muda raramente, então o navegador reaproveita o cache.
+          manualChunks: { phaser: ['phaser'] },
+        },
+      },
     },
     test: {
       include: ['tests/**/*.test.ts'],

@@ -109,6 +109,8 @@ export function characterName(id: string | undefined): string {
   if (!id) return '';
   const c = characters.get(id);
   if (c) return c.name;
+  if (id === 'narrador' || id === 'narrator') return '';
+  if (id === 'tutorial') return 'Dica';
   return id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ');
 }
 

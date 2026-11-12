@@ -1,0 +1,26 @@
+{
+  "nota": "Criado pela sessão do motor só com os nomes exibidos na caixa de diálogo do prólogo (com acentos). A sessão de narrativa é dona deste arquivo e pode ampliá-lo/substituí-lo; o motor lê id, name/nome, sprite e color/cor.",
+  "personagens": [
+    { "id": "icaro", "nome": "Ícaro", "sprite": "icaro" },
+    { "id": "pai", "nome": "Pai", "sprite": "pai" },
+    { "id": "mae", "nome": "Mãe" },
+    { "id": "tonho", "nome": "Tonho" },
+    { "id": "nina", "nome": "Nina" },
+    { "id": "zefa", "nome": "Dona Zefa" },
+    { "id": "custodia", "nome": "Dona Custódia" },
+    { "id": "juca", "nome": "Seu Juca" },
+    { "id": "ermelinda", "nome": "Dona Ermelinda" },
+    { "id": "sargento", "nome": "Sargento Íris" },
+    { "id": "soldado_1", "nome": "Soldado Dário" },
+    { "id": "sobrevivente_1", "nome": "Sobrevivente" },
+    { "id": "sobrevivente_2", "nome": "Sobrevivente" },
+    { "id": "toucim", "nome": "Capitão Toucim", "sprite": "caligosuin" },
+    { "id": "cali_1", "nome": "Caligosuin", "sprite": "caligosuin" },
+    { "id": "cali_2", "nome": "Caligosuin", "sprite": "caligosuin" },
+    { "id": "cali_3", "nome": "Caligosuin", "sprite": "caligosuin" },
+    { "id": "cali_soldado", "nome": "Caligosuin", "sprite": "caligosuin" },
+    { "id": "aldeao", "nome": "Aldeão" },
+    { "id": "narrador", "nome": "" },
+    { "id": "tutorial", "nome": "Dica" }
+  ]
+}

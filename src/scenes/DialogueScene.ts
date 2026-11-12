@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, SCENES } from '../config/constants';
 import { audio } from '../core/audio';
-import { input } from '../core/input';
+import { BUTTON_LAYOUT, input } from '../core/input';
 import { settings } from '../core/settings';
 import { characterName } from '../content';
 import type { SayStep } from '../systems/dialogue/types';
@@ -9,8 +9,19 @@ import { MenuList } from '../ui/MenuList';
 import { ensurePortrait } from '../ui/placeholders';
 import { drawPanel, makeText } from '../ui/text';
 
-const BOX = { x: 8, y: GAME_HEIGHT - 108, w: GAME_WIDTH - 16, h: 100 };
 const TEXT_SIZE = 20;
+const BOX = { x: 8, y: GAME_HEIGHT - 108, w: GAME_WIDTH - 16, h: 100 };
+/** Com controles de toque, a caixa termina antes dos botões A/B (não fica embaixo deles). */
+function layoutBox(): void {
+  BOX.w = input.touchMode ? Math.min(GAME_WIDTH - 16, BUTTON_LAYOUT[1]!.x - BUTTON_LAYOUT[1]!.r - 14 - BOX.x) : GAME_WIDTH - 16;
+}
+
+type BoxStyle = 'normal' | 'narrador' | 'tutorial';
+const STYLE_COLORS: Record<BoxStyle, { fill?: number; border?: number; inner?: number; text: string }> = {
+  normal: { text: COLORS.text },
+  narrador: { fill: 0x14121e, border: 0x9a93a8, inner: 0x9a93a8, text: '#e6dcf5' },
+  tutorial: { fill: 0x10241c, border: 0x8fd6a8, inner: 0x8fd6a8, text: '#e8fff0' },
+};
 
 /**
  * Cena sobreposta com a caixa de diálogo: nome do falante, retrato opcional,
@@ -41,6 +52,7 @@ export class DialogueScene extends Phaser.Scene {
   }
 
   create(): void {
+    layoutBox();
     this.panel = this.add.graphics();
     drawPanel(this.panel, BOX.x, BOX.y, BOX.w, BOX.h);
     this.nameBox = this.add.graphics();
@@ -77,17 +89,26 @@ export class DialogueScene extends Phaser.Scene {
     this.clearMenu();
   }
 
-  private setSpeaker(speakerId: string | undefined, nameOverride: string | undefined, portraitKey: string | undefined): void {
+  private setSpeaker(speakerId: string | undefined, nameOverride: string | undefined, portraitKey: string | undefined): BoxStyle {
+    const style: BoxStyle =
+      speakerId === 'narrador' || speakerId === 'narrator' ? 'narrador' : speakerId === 'tutorial' ? 'tutorial' : 'normal';
+    const colors = STYLE_COLORS[style];
+    layoutBox();
+    this.panel.clear();
+    drawPanel(this.panel, BOX.x, BOX.y, BOX.w, BOX.h, 0.94, colors);
+    this.arrow.setPosition(BOX.x + BOX.w - 22, BOX.y + BOX.h - 22);
     const name = nameOverride ?? characterName(speakerId);
     this.nameBox.clear();
     this.nameText.setText(name);
     this.nameText.setVisible(!!name);
+    this.nameText.setColor(style === 'tutorial' ? '#8fd6a8' : COLORS.accent);
     if (name) {
       const w = this.nameText.width + 20;
-      drawPanel(this.nameBox, BOX.x + 10, BOX.y - 24, w, 24);
+      drawPanel(this.nameBox, BOX.x + 10, BOX.y - 24, w, 24, 0.94, colors);
       this.nameText.setPosition(BOX.x + 20, BOX.y - 22);
     }
-    if (portraitKey) {
+    const usePortrait = portraitKey && style === 'normal';
+    if (usePortrait) {
       const key = this.textures.exists(`portrait:${portraitKey}`)
         ? `portrait:${portraitKey}`
         : ensurePortrait(this, portraitKey, name);
@@ -99,6 +120,8 @@ export class DialogueScene extends Phaser.Scene {
       this.body.setPosition(BOX.x + 16, BOX.y + 12);
       this.body.setWordWrapWidth(BOX.w - 40, true);
     }
+    this.body.setColor(colors.text);
+    return style;
   }
 
   showSay(step: SayStep): Promise<void> {
@@ -106,6 +129,8 @@ export class DialogueScene extends Phaser.Scene {
     this.clearMenu();
     this.setSpeaker(step.speaker, step.name, step.portrait);
     this.root.setVisible(true);
+    // Pensamentos (texto entre parênteses) em tom mais suave.
+    if (/^\(.*\)$/s.test(step.text.trim()) && step.speaker !== 'narrador' && step.speaker !== 'tutorial') this.body.setColor('#c9c1dc');
     this.full = step.text;
     this.shown = 0;
     this.acc = 0;

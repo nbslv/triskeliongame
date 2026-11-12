@@ -19,11 +19,19 @@ export function makeText(
 }
 
 /** Painel com borda dupla (estilo caixa de RPG). */
-export function drawPanel(g: Phaser.GameObjects.Graphics, x: number, y: number, w: number, h: number, alpha = 0.94): void {
-  g.fillStyle(0x0b0a12, alpha);
+export function drawPanel(
+  g: Phaser.GameObjects.Graphics,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  alpha = 0.94,
+  colors: { fill?: number; border?: number; inner?: number } = {},
+): void {
+  g.fillStyle(colors.fill ?? 0x0b0a12, alpha);
   g.fillRoundedRect(x, y, w, h, 4);
-  g.lineStyle(2, COLORS.panelBorder, 1);
+  g.lineStyle(2, colors.border ?? COLORS.panelBorder, 1);
   g.strokeRoundedRect(x + 1, y + 1, w - 2, h - 2, 4);
-  g.lineStyle(1, COLORS.accentNum, 0.6);
+  g.lineStyle(1, colors.inner ?? COLORS.accentNum, 0.6);
   g.strokeRoundedRect(x + 4, y + 4, w - 8, h - 8, 2);
 }
