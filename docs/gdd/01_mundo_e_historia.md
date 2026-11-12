@@ -230,7 +230,7 @@ porque, àquela altura, já não precisa disso.
 
 ### O monge — a revelação do príncipe
 Vaidoso, cabeludo, mulherengo, bêbado; e a primeira pessoa a parar para ajudar qualquer um.
-É o **príncipe desaparecido de Argêntia**, em "período sabático" desde que viu de perto a
+O **Irmão Silvano** é o **príncipe Silvério Augusto, herdeiro desaparecido de Argêntia**, em "período sabático" desde que viu de perto a
 hipocrisia e a desigualdade da própria corte. **Por que se juntou a Ícaro:** oficialmente, para
 fugir de uma conta de taverna; de verdade, porque reconheceu em caixotes Caligosuins o selo de
 mercadores de Argêntia e precisava saber até onde aquilo ia — e porque viu num colhedor de café

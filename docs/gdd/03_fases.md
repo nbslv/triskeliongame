@@ -2,7 +2,7 @@
 
 ## 1. Estrutura do mundo
 
-**Proposta (PENDENTE APROVAÇÃO DO AUTOR): mundo conectado por mapa-múndi, com regiões
+**Proposta (pendente de aprovação do autor): mundo conectado por mapa-múndi, com regiões
 desbloqueadas pela história.**
 
 - O **mapa-múndi** é uma ilustração do continente de Trísia com **nós** (regiões) ligados por

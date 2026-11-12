@@ -291,7 +291,7 @@ Decide no primeiro minuto que Ícaro é "o mago da mana".
 - "Você é o mago da mana? Ela falou que você é fraquinho mas tem jeito."
 - "Promete que traz ela de volta. Promessa de mindinho. De mindinho é a que vale."
 
-**Em batalha.** Não luta. Manda **cartas com desenhos** nos pontos de save (pequenos bônus e
+**Em batalha.** Não luta. Manda **cartas com desenhos** que chegam às caixas de correio das cidades (pequenos bônus e
 piadas). **Papel:** a ternura de Valéria; o lembrete de que proteger vale mais que vingar.
 
 ---

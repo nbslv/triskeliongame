@@ -18,7 +18,7 @@
 | 5 | O túnel | `prologo_tunel` | Caminhada no escuro | 1 min | Luto, primeiro passo |
 | 6 | Os sobreviventes | `prologo_bambuzal` | Cutscene | 2 min | Acolhimento, promessa |
 
-Nomes criados para o prólogo (todos PENDENTE APROVAÇÃO DO AUTOR): **Vila Torrinha** (a vila),
+Nomes criados para o prólogo (propostas; ver perguntas em `docs/status/narrativa.md`): **Vila Torrinha** (a vila),
 **Anselmo** (o pai), **Helena** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
 **Dona Zefa** (capataz do cafezal), **Dona Custódia** e a galinha **Pamonha** (vizinhas),
 **Seu Juca** (padeiro), **Dona Ermelinda** (bibliotecária),
