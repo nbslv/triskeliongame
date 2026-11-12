@@ -1,0 +1,30 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 32,
+ "alvo": "barril_custodia",
+ "anims": {
+  "fechado": {
+   "frames": [
+    0
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "abrir": {
+   "frames": [
+    0,
+    1,
+    2
+   ],
+   "frameRate": 4,
+   "repeat": 0
+  },
+  "aberto": {
+   "frames": [
+    2
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}

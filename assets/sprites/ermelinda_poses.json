@@ -1,0 +1,16 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 24,
+ "alvo": "ermelinda",
+ "anims": {
+  "carimbar": {
+   "frames": [
+    0,
+    1,
+    0
+   ],
+   "frameRate": 6,
+   "repeat": 0
+  }
+ }
+}

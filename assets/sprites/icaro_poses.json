@@ -1,0 +1,92 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 24,
+ "alvo": "icaro",
+ "anims": {
+  "acordar": {
+   "frames": [
+    0,
+    0,
+    1
+   ],
+   "frameRate": 2,
+   "repeat": 0
+  },
+  "esconder_livro": {
+   "frames": [
+    2
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "colher": {
+   "frames": [
+    3,
+    4,
+    3
+   ],
+   "frameRate": 5,
+   "repeat": 0
+  },
+  "agachar": {
+   "frames": [
+    5
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "ajoelhar": {
+   "frames": [
+    6
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "conjurar": {
+   "frames": [
+    7,
+    8
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "conjurar_brilho": {
+   "frames": [
+    9,
+    10
+   ],
+   "frameRate": 5,
+   "repeat": -1
+  },
+  "erguer_viga": {
+   "frames": [
+    11,
+    12
+   ],
+   "frameRate": 3,
+   "repeat": -1
+  },
+  "encolhido": {
+   "frames": [
+    13
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "colar_brilho": {
+   "frames": [
+    14,
+    15
+   ],
+   "frameRate": 5,
+   "repeat": -1
+  },
+  "segurar_colar": {
+   "frames": [
+    16
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}

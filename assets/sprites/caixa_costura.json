@@ -1,0 +1,29 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 16,
+ "alvo": "caixa_costura",
+ "anims": {
+  "fechada": {
+   "frames": [
+    0
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "piscar": {
+   "frames": [
+    0,
+    1
+   ],
+   "frameRate": 3,
+   "repeat": -1
+  },
+  "aberta": {
+   "frames": [
+    2
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}

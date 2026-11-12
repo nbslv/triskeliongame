@@ -1,0 +1,24 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 24,
+ "alvo": "pai",
+ "anims": {
+  "sentado": {
+   "frames": [
+    0
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "beber_cafe": {
+   "frames": [
+    0,
+    1,
+    1,
+    0
+   ],
+   "frameRate": 2,
+   "repeat": 0
+  }
+ }
+}

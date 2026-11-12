@@ -1,0 +1,15 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 24,
+ "alvo": "aldeao",
+ "anims": {
+  "varrer": {
+   "frames": [
+    0,
+    1
+   ],
+   "frameRate": 3,
+   "repeat": -1
+  }
+ }
+}
