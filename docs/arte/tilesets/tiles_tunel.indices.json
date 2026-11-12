@@ -1,0 +1,49 @@
+{
+"pedra_1": 0,
+"pedra_2": 1,
+"pedra_3": 2,
+"escada_saida": 3,
+"poca": 4,
+"goteira_1": 5,
+"goteira_2": 6,
+"goteira_3": 7,
+"pedras_soltas": 8,
+"cavalinho_sabugo": 9,
+"rocha_topo": [
+[
+12,
+13,
+14
+],
+[
+24,
+25,
+26
+],
+[
+36,
+37,
+38
+]
+],
+"rocha_face": [
+[
+15,
+16,
+17
+],
+[
+27,
+28,
+29
+]
+],
+"canaleta_L": 18,
+"canaleta_M": 19,
+"canaleta_R": 20,
+"raiz_parede": 21,
+"raiz_chao": 22,
+"raiz_pendente": 23,
+"teia_no": 48,
+"teia_ne": 49
+}
