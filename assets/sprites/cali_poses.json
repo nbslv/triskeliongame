@@ -1,0 +1,43 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 24,
+ "alvo": "cali_soldado",
+ "anims": {
+  "bufar": {
+   "frames": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "frameRate": 6,
+   "repeat": -1
+  },
+  "espirrar": {
+   "frames": [
+    0,
+    4,
+    4,
+    0
+   ],
+   "frameRate": 6,
+   "repeat": 0
+  },
+  "alerta": {
+   "frames": [
+    5
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "bufar_lado": {
+   "frames": [
+    6,
+    7,
+    8
+   ],
+   "frameRate": 6,
+   "repeat": -1
+  }
+ }
+}

@@ -1,0 +1,39 @@
+{
+ "frameWidth": 24,
+ "frameHeight": 16,
+ "alvo": "pai",
+ "anims": {
+  "parado": {
+   "frames": [
+    1,
+    1,
+    1,
+    0
+   ],
+   "frameRate": 1,
+   "repeat": -1
+  },
+  "mostrar_caixa": {
+   "frames": [
+    2
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "empurrar": {
+   "frames": [
+    3,
+    1
+   ],
+   "frameRate": 6,
+   "repeat": 0
+  },
+  "entregar_caixa": {
+   "frames": [
+    4
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}

@@ -22,7 +22,7 @@ Paletas dos personagens principais: ver `02_personagens.md`.
 | `sobrevivente_1`, `sobrevivente_2` | Aldeão e aldeã genéricos (2 variações de cor para figurantes) | correr; sentado com cobertor |
 | `soldado_1` | Guarda de Luminaer: tabardo branco e dourado, lança, elmo simples | parado, andar |
 | `sargento` | Íris Candeia, ~35, pele escura, cabelo curto, tabardo branco/dourado com faixa azul, capa curta | andar |
-| `cali_soldado` (usado por `cali_1`…`5`) | Caligosuin soldado — ver seção 2 | andar, `bufar` (fumacinha preta), `espirrar`, `alerta` |
+| `cali_soldado` (usado por `cali_1`…`5`) | Caligosuin soldado — ver seção 2 | andar, `bufar` (fumacinha preta), `olhar_em_volta` (procura, desconfiado), `alerta` |
 | `toucim` | Capitão Toucim — ver seção 2 | andar, `apontar`, `bronca` |
 
 ## 2. Caligosuins — direção visual ("fofo-ameaçador")
@@ -106,7 +106,7 @@ pesada. O prólogo é triste em alguns momentos, mas a trilha nunca é de terror
 **Manhã:** `galo`, `cafe_servindo`.
 **Cafezal:** `passaros_tarde`, `livro_fechando`, `colher_cafe`, `cesto_balanca`, `moedas`,
 `passaros_fugindo`, `sino_vila`.
-**Vila:** `fogo_crepitar` (laço), `cali_bufo`, `cali_espirro`, `cali_alerta`,
+**Vila:** `fogo_crepitar` (laço), `cali_bufo`, `cali_alerta`,
 `cali_grunhidos_longe`, `cali_grunhidos_perto`, `galinha`, `madeira_estalando`.
 **Casa:** `madeira_rangendo`, `magia_brilho_fraco`, `magia_falha`, `brilho_colar`, `empurrao`,
 `caixa_abrindo`, `item_obtido`, `alcapao`.
@@ -115,4 +115,4 @@ pesada. O prólogo é triste em alguns momentos, mas a trilha nunca é de terror
 **Interface:** avanço de texto, confirmar, cancelar, "bip" de fala (um tom por personagem:
 grave para o pai, agudo para a Nina, ronquinho para os Caligosuins).
 
-Total: 29 efeitos de cena + interface.
+Total: 28 efeitos de cena + interface.

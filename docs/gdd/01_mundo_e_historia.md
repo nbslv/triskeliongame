@@ -2,8 +2,8 @@
 
 > Bíblia da história de **Triskelion**. Expande `docs/BRIEFING_ORIGINAL.md` sem contradizê-lo.
 > As respostas do autor em `docs/DECISOES_AUTOR.md` (rodada 1) já estão aplicadas aqui e valem
-> como fonte da verdade. O que ainda está marcado **PENDENTE APROVAÇÃO DO AUTOR** é proposta
-> desta sessão; a lista fica em `docs/status/narrativa.md`.
+> como fonte da verdade. O que ainda é proposta desta sessão está listado em
+> `docs/status/narrativa.md`.
 
 ## 1. O jogo em uma frase
 
@@ -247,7 +247,7 @@ arbustos. Sua magia falha *porque* ela tem certeza de que vai falhar. Evolução
 enfrenta o próprio eco (Caverna); é rejeitada de novo e, desta vez, não foge (Brumaflor);
 desperta e refloresce o Nymphalion (Fortaleza). No fim é reconhecida como heroína.
 
-**A nobreza de Celly — nova proposta (PENDENTE APROVAÇÃO DO AUTOR).**
+**A nobreza de Celly (aprovada pelo autor).**
 - Em Brumaflor, guardar o Nymphalion é **dever hereditário de um clã nobre**, a **Casa da
   Rosa-Primeira** — as fadas que plantaram a primeira runa. A cada geração, uma filha do clã
   faz o voto de guardiã e vai morar sozinha, com simplicidade, ao lado do canteiro da magia.

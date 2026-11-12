@@ -110,6 +110,7 @@ checkpoints, patrulhas, examináveis).
 | `gatilho_estrada_inicio` | estrada (ao carregar) | `prologo_07_estrada` |
 | `gatilho_estrada_fugitivos` | estrada, meio | `prologo_07b_estrada_fugitivos` |
 | `gatilho_vila_entrada` | vila (ao carregar) | `prologo_08_vila_entrada` |
+| `evento_quase_visto` (do sistema de furtividade, não é área) | vila | `prologo_09b_perdeu_de_vista` — no máximo 1 vez por trecho; não bloqueia o jogador |
 | `gatilho_vila_praca` | vila, borda da praça | `prologo_10_praca` |
 | `gatilho_casa` | vila, soleira da casa | `prologo_12_pai_confissao` → `13` → `14` (encadeados) |
 | `gatilho_tunel_inicio` | túnel (ao carregar) | `prologo_15_tunel_inicio` |

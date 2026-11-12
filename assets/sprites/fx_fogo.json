@@ -1,0 +1,16 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 32,
+ "alvo": "fx_fogo",
+ "anims": {
+  "queimar": {
+   "frames": [
+    0,
+    1,
+    2
+   ],
+   "frameRate": 8,
+   "repeat": -1
+  }
+ }
+}

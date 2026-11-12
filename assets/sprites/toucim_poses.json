@@ -1,0 +1,22 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 32,
+ "alvo": "toucim",
+ "anims": {
+  "apontar": {
+   "frames": [
+    1
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "bronca": {
+   "frames": [
+    2,
+    3
+   ],
+   "frameRate": 6,
+   "repeat": -1
+  }
+ }
+}

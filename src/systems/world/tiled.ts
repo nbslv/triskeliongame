@@ -47,7 +47,7 @@ export interface TiledTileset {
   image?: string;
   tilewidth?: number;
   tileheight?: number;
-  tiles?: { id: number; properties?: TiledProperty[] }[];
+  tiles?: { id: number; properties?: TiledProperty[]; animation?: { tileid: number; duration: number }[] }[];
 }
 
 export interface TiledMap {
@@ -139,6 +139,41 @@ export function routePoints(o: TiledObject): { x: number; y: number }[] {
   return pts.map((p) => ({ x: o.x + p.x, y: o.y + p.y }));
 }
 
+export interface TileAnimation {
+  /** gids dos quadros, em ordem. */
+  frames: { gid: number; duration: number }[];
+  /** Duração total do ciclo (ms). */
+  total: number;
+}
+
+/**
+ * Tiles animados no formato padrão do Tiled: no tileset embutido,
+ * `tiles: [{ id, animation: [{ tileid, duration }, ...] }]`. Retorna gid → animação.
+ */
+export function tileAnimations(map: Pick<TiledMap, 'tilesets'>): Map<number, TileAnimation> {
+  const out = new Map<number, TileAnimation>();
+  for (const ts of map.tilesets) {
+    for (const t of ts.tiles ?? []) {
+      const frames = (t.animation ?? [])
+        .filter((f) => Number.isInteger(f.tileid) && f.duration > 0)
+        .map((f) => ({ gid: ts.firstgid + f.tileid, duration: f.duration }));
+      if (frames.length < 2) continue;
+      out.set(ts.firstgid + t.id, { frames, total: frames.reduce((a, f) => a + f.duration, 0) });
+    }
+  }
+  return out;
+}
+
+/** Quadro (gid) da animação no instante `ms` (relógio global: todos os tiles iguais ficam sincronizados, como no Tiled). */
+export function animFrameAt(anim: TileAnimation, ms: number): number {
+  let t = ((ms % anim.total) + anim.total) % anim.total;
+  for (const f of anim.frames) {
+    if (t < f.duration) return f.gid;
+    t -= f.duration;
+  }
+  return anim.frames[anim.frames.length - 1]!.gid;
+}
+
 /** Validação leve de um mapa (usada pelos testes de conteúdo). */
 export function validateMap(id: string, map: TiledMap, knownMaps: ReadonlySet<string>, knownDialogues: ReadonlySet<string>): string[] {
   const errs: string[] = [];
@@ -147,6 +182,13 @@ export function validateMap(id: string, map: TiledMap, knownMaps: ReadonlySet<st
   if (map.tilewidth !== 16 || map.tileheight !== 16) errs.push(`${id}: tiles devem ser 16×16`);
   for (const ts of map.tilesets) {
     if (ts.source) errs.push(`${id}: tileset "${ts.source}" é externo; use "Embed tileset" no Tiled`);
+    for (const t of ts.tiles ?? []) {
+      for (const f of t.animation ?? []) {
+        const count = (ts as { tilecount?: number }).tilecount;
+        if (!(f.duration > 0)) errs.push(`${id}: tileset "${ts.name}" tile ${t.id}: quadro com duração inválida`);
+        if (count !== undefined && (f.tileid < 0 || f.tileid >= count)) errs.push(`${id}: tileset "${ts.name}" tile ${t.id}: quadro ${f.tileid} fora do tileset`);
+      }
+    }
   }
   const markerNames = new Set<string>();
   const routeNames = new Set<string>();
