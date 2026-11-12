@@ -41,6 +41,10 @@ export interface DialogueHost {
   scene(step: SceneStep): Promise<'continue' | 'stop'>;
   checkpoint(at?: Target): void;
   autosave(): void;
+  anim(actor: string, anim: string): void;
+  title(text: string, subtitle: string | undefined, ms: number): Promise<void>;
+  activity(id: string, params: Record<string, string | number | boolean>): Promise<void>;
+  light(radius: number, ms: number): Promise<void>;
   /** Carrega outro roteiro para `call`. */
   loadScript(id: string): DialogueScript | undefined;
 }
@@ -211,6 +215,18 @@ export class DialogueRunner {
         this.pushScript(sub);
         break;
       }
+      case 'anim':
+        h.anim(step.actor, step.anim);
+        break;
+      case 'title':
+        await h.title(step.text, step.subtitle, step.ms ?? 1500);
+        break;
+      case 'activity':
+        await h.activity(step.id, step.params ?? {});
+        break;
+      case 'light':
+        await h.light(step.radius, step.ms ?? 600);
+        break;
       case 'end': {
         // Dentro de um `call`, `end` só encerra o roteiro chamado.
         const roots = this.stack.filter((f) => f.root).length;

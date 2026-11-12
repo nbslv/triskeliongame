@@ -39,6 +39,8 @@ export const SCENES = {
   titulo: 'Titulo',
   opcoes: 'Opcoes',
   espacos: 'Espacos',
+  backup: 'Backup',
+  titulo_card: 'CartaoTitulo',
   mundo: 'Mundo',
   dialogo: 'Dialogo',
   menu: 'Menu',

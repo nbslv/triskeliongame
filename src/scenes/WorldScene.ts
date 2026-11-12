@@ -15,8 +15,9 @@ import { bus } from '../core/events';
 import { evaluateCondition, flags } from '../core/flags';
 import { input } from '../core/input';
 import { session } from '../core/session';
-import { characterSprite, gameConfig, getDialogue, maps } from '../content';
-import { director } from '../systems/dialogue/director';
+import { characterSprite, gameConfig, maps } from '../content';
+import { director, resolveScript } from '../systems/dialogue/director';
+import { runActivity } from '../systems/activity/registry';
 import type { Target } from '../systems/dialogue/types';
 import { Patrol } from '../systems/stealth/Patrol';
 import { Actor } from '../systems/world/Actor';
@@ -58,6 +59,9 @@ interface Zone {
 
 const contains = (r: Rect, x: number, y: number) => x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h;
 const str = (v: PropValue | undefined): string | undefined => (v === undefined || v === '' ? undefined : String(v));
+const isTrue = (v: PropValue | undefined): boolean => v === true || v === 'true';
+const OPPOSITE: Record<Direction, Direction> = { up: 'down', down: 'up', left: 'right', right: 'left' };
+const AUTOSAVE_EVERY_MS = 60_000;
 const num = (v: PropValue | undefined, d: number): number => (typeof v === 'number' ? v : v !== undefined && v !== '' ? Number(v) || d : d);
 
 /**
@@ -78,6 +82,11 @@ export class WorldScene extends Phaser.Scene {
   private exits: Zone[] = [];
   private hides: Rect[] = [];
   private checkpoints: Zone[] = [];
+  private inspects: Zone[] = [];
+  private glows = new Map<Zone, Phaser.GameObjects.GameObject>();
+  private lastSafe = { x: 0, y: 0 };
+  private exploreMs = 0;
+  private dark: { rt: Phaser.GameObjects.RenderTexture; brush: Phaser.GameObjects.Image; radius: number } | null = null;
   private markers = new Map<string, { x: number; y: number }>();
   private fadeRect!: Phaser.GameObjects.Rectangle;
   private transitioning = false;
@@ -98,6 +107,10 @@ export class WorldScene extends Phaser.Scene {
     this.exits = [];
     this.hides = [];
     this.checkpoints = [];
+    this.inspects = [];
+    this.glows = new Map();
+    this.dark = null;
+    this.exploreMs = 0;
     this.markers = new Map();
     this.collisionLayers = [];
     this.tileLayers = [];
@@ -149,7 +162,13 @@ export class WorldScene extends Phaser.Scene {
       cam.fadeIn(250, 0, 0, 0);
     }
 
+    // Mapa escuro (túnel): círculo de luz em volta do jogador
+    const mp0 = props(this.mapData);
+    if (isTrue(mp0.escuro ?? mp0.dark)) this.createDarkness(num(mp0.luz_raio ?? mp0.light_radius, 56));
+
     // Posição e checkpoint
+    session.active = true;
+    this.lastSafe = { x: this.player.x, y: this.player.y };
     session.position = this.currentPosition();
     if (!data.respawn) this.setCheckpointAt(this.player.x, this.player.y);
 
@@ -177,6 +196,11 @@ export class WorldScene extends Phaser.Scene {
         const id = this.pendingDialogue;
         this.pendingDialogue = undefined;
         void director.run(id);
+      } else if (!director.active) {
+        // Gatilhos "ao carregar" (activation = load)
+        for (const z of this.triggers) {
+          if (this.activation(z) === 'load' && this.fireTrigger(z)) break;
+        }
       }
     });
   }
@@ -262,15 +286,82 @@ export class WorldScene extends Phaser.Scene {
         case 'checkpoint':
           this.checkpoints.push({ obj, rect, p, inside: false });
           break;
+        case 'inspect': {
+          // Pontos viram uma área de 1 tile em volta.
+          const r = rect.w && rect.h ? rect : { x: obj.x - 8, y: obj.y - 12, w: 16, h: 16 };
+          const z: Zone = { obj, rect: r, p, inside: false };
+          this.inspects.push(z);
+          if (isTrue(p.glow ?? p.brilho) && !flags.isSet(this.usedFlag(z))) this.addGlow(z);
+          break;
+        }
         default:
           break;
       }
     }
   }
 
+  private addGlow(z: Zone): void {
+    const cx = z.rect.x + z.rect.w / 2;
+    const cy = z.rect.y + z.rect.h / 2;
+    const g = this.add.star(cx, cy - 6, 4, 1.5, 4, 0xfff3b0).setDepth(DEPTH.above - 1).setAlpha(0.9);
+    this.tweens.add({ targets: g, alpha: 0.2, scale: 0.6, yoyo: true, repeat: -1, duration: 600, ease: 'Sine.easeInOut' });
+    this.glows.set(z, g);
+  }
+
+  private createDarkness(radius: number): void {
+    if (!this.textures.exists('luz_pincel')) {
+      const t = this.textures.createCanvas('luz_pincel', 256, 256)!;
+      const ctx = t.getContext();
+      const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.6, 'rgba(255,255,255,0.9)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 256, 256);
+      t.refresh();
+    }
+    const rt = this.add.renderTexture(0, 0, GAME_WIDTH, GAME_HEIGHT).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.above + 50);
+    const brush = this.make.image({ key: 'luz_pincel', add: false });
+    this.dark = { rt, brush, radius };
+  }
+
+  private drawDarkness(): void {
+    const d = this.dark;
+    if (!d) return;
+    const cam = this.cameras.main;
+    d.rt.clear();
+    d.rt.fill(0x000000, 0.97);
+    if (d.radius > 0) {
+      d.brush.setScale((d.radius * 2) / 256 * 1.25);
+      d.brush.setPosition(this.player.x - cam.scrollX, this.player.y - 10 - cam.scrollY);
+      d.rt.erase(d.brush);
+    }
+  }
+
+  /** Muda o raio de luz em mapas escuros (passo `light`). */
+  setLight(radius: number, ms: number): Promise<void> {
+    if (!this.dark) {
+      const mp = props(this.mapData);
+      this.createDarkness(num(mp.luz_raio ?? mp.light_radius, 56));
+    }
+    const d = this.dark!;
+    return new Promise((resolve) => {
+      this.tweens.add({ targets: d, radius, duration: Math.max(1, ms), onComplete: () => resolve() });
+    });
+  }
+
   private spawnEnemy(obj: TiledObject, p: Record<string, PropValue>, routes: Map<string, TiledObject>): void {
-    const routeObj = obj.polyline || obj.polygon ? obj : routes.get(String(p.route ?? p.rota ?? ''));
-    const route = routeObj ? routePoints(routeObj) : [];
+    const routeName = String(p.route ?? p.rota ?? '');
+    const routeObj = obj.polyline || obj.polygon ? obj : routes.get(routeName);
+    let route = routeObj ? routePoints(routeObj) : [];
+    if (!routeObj && routeName) {
+      // Rota por marcadores numerados: <rota>_p1, <rota>_p2, ...
+      route = [...this.markers.entries()]
+        .map(([name, pt]) => ({ n: Number(new RegExp(`^${routeName}_p(\\d+)$`).exec(name)?.[1]), pt }))
+        .filter((e) => Number.isFinite(e.n))
+        .sort((a, b) => a.n - b.n)
+        .map((e) => e.pt);
+    }
     const start = route[0] ?? objectCenter(obj);
     const sprite = str(p.sprite) ?? characterSprite(obj.name) ?? 'caligosuin';
     const a = new Actor(this, obj.name || `inimigo_${obj.id}`, sprite, start.x, start.y, (str(p.facing ?? p.direcao) as Direction) ?? 'down');
@@ -343,7 +434,15 @@ export class WorldScene extends Phaser.Scene {
   override update(time: number, delta: number): void {
     if (!this.player || !this.ready) return;
     const cutscene = director.active;
-    if (!cutscene && !this.transitioning) session.playtimeMs += delta;
+    this.drawDarkness();
+    if (!cutscene && !this.transitioning) {
+      session.playtimeMs += delta;
+      this.exploreMs += delta;
+      if (this.exploreMs >= AUTOSAVE_EVERY_MS && !this.caught) {
+        this.exploreMs = 0;
+        this.autosave(false);
+      }
+    }
 
     for (const p of this.patrols) {
       p.paused = cutscene || this.transitioning;
@@ -384,6 +483,7 @@ export class WorldScene extends Phaser.Scene {
 
     // Zonas
     if (this.checkZones()) return;
+    if (!this.exits.some((z) => z.inside)) this.lastSafe = { x: this.player.x, y: this.player.y };
 
     // Furtividade
     if (!this.hidden) {
@@ -415,7 +515,7 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     if (best) {
-      const dlg = str(best.p.dialogue ?? best.p.dialogo);
+      const dlg = this.dialogueFor(best.p);
       if (dlg) {
         this.player.walk(0, 0);
         best.actor.faceToward(this.player.x, this.player.y);
@@ -424,15 +524,85 @@ export class WorldScene extends Phaser.Scene {
         return true;
       }
     }
-    // Gatilhos de interação (placas, portas trancadas...)
+    // Examináveis / atividades / gatilhos de interação — o mais próximo do ponto à frente
+    const here = (z: Zone) => contains(z.rect, px, py) || contains(z.rect, this.player.x, this.player.y - 3);
+    for (const z of this.inspects) {
+      if (here(z) && this.useInspect(z)) return true;
+    }
     for (const z of this.triggers) {
-      const act = str(z.p.activation ?? z.p.ativacao);
-      if (act !== 'interact' && act !== 'interagir') continue;
-      if (contains(z.rect, px, py) || contains(z.rect, this.player.x, this.player.y - 3)) {
-        if (this.fireTrigger(z)) return true;
-      }
+      if (this.activation(z) !== 'interact') continue;
+      if (here(z) && this.fireTrigger(z)) return true;
     }
     return false;
+  }
+
+  private activation(z: Zone): 'touch' | 'interact' | 'load' {
+    const a = str(z.p.activation ?? z.p.ativacao);
+    if (a === 'interact' || a === 'interagir') return 'interact';
+    if (a === 'load' || a === 'carregar' || a === 'ao_carregar') return 'load';
+    return 'touch';
+  }
+
+  /** Diálogo do objeto: `alt_dialogue` quando `alt_if` for verdadeira, senão `dialogue`. */
+  private dialogueFor(p: Record<string, PropValue>): string | undefined {
+    const altIf = str(p.alt_if ?? p.alt_se);
+    const alt = str(p.alt_dialogue ?? p.dialogo_alt);
+    if (alt && altIf && evaluateCondition(altIf, flags)) return alt;
+    return str(p.dialogue ?? p.dialogo);
+  }
+
+  private usedFlag(z: Zone): string {
+    return `usado.${this.mapId}.${z.obj.name || z.obj.id}`;
+  }
+
+  /**
+   * Objeto examinável/atividade (botão A). Propriedades: dialogue, alt_dialogue/alt_if, activity (+ param_*),
+   * once, used_dialogue, counter/counter_goal/counter_flag (contador, ex.: colheita), glow.
+   */
+  private useInspect(z: Zone): boolean {
+    const p = z.p;
+    if (!this.conditionsMet(p)) return false;
+    const counter = str(p.counter ?? p.contador);
+    const once = isTrue(p.once ?? p.unica) || !!counter;
+    const used = flags.isSet(this.usedFlag(z));
+    if (once && used) {
+      const again = str(p.used_dialogue ?? p.dialogo_usado);
+      if (again && resolveScript(again)) {
+        void director.run(again, { self: z.obj.name || undefined });
+        return true;
+      }
+      return false;
+    }
+    const activity = str(p.activity ?? p.atividade);
+    const dlg = this.dialogueFor(p);
+    if (!activity && !(dlg && resolveScript(dlg))) {
+      console.warn(`[mundo] examinável "${z.obj.name}" sem diálogo/atividade válido`);
+      return false;
+    }
+    this.player.walk(0, 0);
+    flags.set(this.usedFlag(z), true);
+    this.glows.get(z)?.destroy();
+    this.glows.delete(z);
+    if (counter) {
+      const n = flags.add(counter, 1);
+      const goal = num(p.counter_goal ?? p.contador_meta, 0);
+      const done = str(p.counter_flag ?? p.contador_flag);
+      if (goal > 0 && n >= goal && done) flags.set(done, true);
+    }
+    if (activity) {
+      const params: Record<string, PropValue> = {};
+      for (const [k, v] of Object.entries(p)) if (k.startsWith('param_')) params[k.slice(6)] = v;
+      input.clearPresses();
+      void runActivity(this, activity, params).then(() => {
+        input.clearPresses();
+        input.setJoystickEnabled(true);
+        this.autosave(false);
+      });
+      return true;
+    }
+    // Examinar não é cutscene: passa o objeto como "self" (sem autosave/retomada).
+    void director.run(dlg!, { self: z.obj.name || 'objeto' });
+    return true;
   }
 
   private triggerFlag(z: Zone): string {
@@ -443,8 +613,8 @@ export class WorldScene extends Phaser.Scene {
     const once = z.p.once ?? z.p.unica ?? true;
     if (once !== false && flags.isSet(this.triggerFlag(z))) return false;
     if (!this.conditionsMet(z.p)) return false;
-    const dlg = str(z.p.dialogue ?? z.p.dialogo);
-    if (!dlg || !getDialogue(dlg)) {
+    const dlg = this.dialogueFor(z.p);
+    if (!dlg || !resolveScript(dlg)) {
       console.warn(`[mundo] gatilho "${z.obj.name}" sem diálogo válido`);
       return false;
     }
@@ -467,8 +637,7 @@ export class WorldScene extends Phaser.Scene {
       z.inside = inside;
     }
     for (const z of this.triggers) {
-      const act = str(z.p.activation ?? z.p.ativacao);
-      if (act === 'interact' || act === 'interagir') continue;
+      if (this.activation(z) !== 'touch') continue;
       const inside = contains(z.rect, x, y);
       const entered = inside && !z.inside;
       z.inside = inside;
@@ -479,14 +648,40 @@ export class WorldScene extends Phaser.Scene {
       const entered = inside && !z.inside;
       z.inside = inside;
       if (entered && this.conditionsMet(z.p)) {
-        const map = str(z.p.map ?? z.p.mapa);
-        if (!map) continue;
-        const entry = str(z.p.entry ?? z.p.entrada);
-        this.changeMap(map, entry, (str(z.p.facing ?? z.p.direcao) as Direction) ?? this.player.facing);
-        return true;
+        if (this.takeExit(z)) return true;
       }
     }
     return false;
+  }
+
+  /**
+   * Porta/saída. `locked_if` (condição) bloqueia e roda `locked_dialogue`; `return: true` volta ao ponto
+   * guardado ao entrar (interiores com várias portas de fora); senão vai para `map` + `entry`.
+   */
+  private takeExit(z: Zone): boolean {
+    const p = z.p;
+    const lockedIf = str(p.locked_if ?? p.trancada_se);
+    if (lockedIf && evaluateCondition(lockedIf, flags)) {
+      this.player.walk(0, 0);
+      this.player.sprite.setPosition(this.lastSafe.x, this.lastSafe.y);
+      z.inside = false;
+      const msg = str(p.locked_dialogue ?? p.dialogo_trancada);
+      if (msg && resolveScript(msg)) void director.run(msg, { self: z.obj.name || 'porta' });
+      return true;
+    }
+    const facing = (str(p.facing ?? p.direcao) as Direction | undefined) ?? this.player.facing;
+    if (isTrue(p.return ?? p.voltar) && session.returnPoint && maps.has(session.returnPoint.map)) {
+      const rp = session.returnPoint;
+      session.returnPoint = null;
+      this.changeMap(rp.map, { x: rp.x, y: rp.y }, rp.facing);
+      return true;
+    }
+    const map = str(p.map ?? p.mapa);
+    if (!map) return false;
+    // Guarda onde voltar (um passo antes da porta, virado para o lado oposto).
+    session.returnPoint = { map: this.mapId, x: Math.round(this.lastSafe.x), y: Math.round(this.lastSafe.y), facing: OPPOSITE[this.player.facing] };
+    this.changeMap(map, str(p.entry ?? p.entrada), facing);
+    return true;
   }
 
   private onSpotted(p: Patrol): void {
@@ -530,7 +725,7 @@ export class WorldScene extends Phaser.Scene {
     session.save('auto');
   }
 
-  changeMap(map: string, at?: Target, facing?: Direction): void {
+  changeMap(map: string, at?: Target | { x: number; y: number }, facing?: Direction): void {
     if (this.transitioning) return;
     if (!maps.has(map)) {
       console.error(`[mundo] mapa "${map}" não existe`);
@@ -565,6 +760,8 @@ export class WorldScene extends Phaser.Scene {
     const x = this.player.x;
     const y = this.player.y - 3;
     for (const z of [...this.triggers, ...this.exits, ...this.checkpoints]) z.inside = contains(z.rect, x, y);
+    session.position = this.currentPosition();
+    this.exploreMs = 0;
     this.cameras.main.startFollow(this.player.sprite, true, 0.15, 0.15);
   }
 
@@ -640,6 +837,14 @@ export class WorldScene extends Phaser.Scene {
     return Promise.all(waits).then(() => undefined);
   }
 
+  cutAnim(id: string, anim: string): void {
+    const a = this.actors.get(id) ?? (id === 'player' || id === 'jogador' ? this.player : undefined);
+    if (!a) return;
+    if (anim === 'normal' || anim === 'parado') a.face(a.facing);
+    else if (this.anims.exists(`${a.textureKey}:${anim}`)) a.sprite.anims.play(`${a.textureKey}:${anim}`, true);
+    // Sem animação desenhada: ignora (nenhuma cena depende disso).
+  }
+
   cutSpawn(id: string, at: Target, sprite?: string, facing?: Direction): void {
     const p = this.resolveTarget(at);
     if (!p) return;
@@ -665,6 +870,7 @@ export class WorldScene extends Phaser.Scene {
   /** Para testes/depuração: estado resumido. */
   debugState() {
     return {
+      dark: this.dark ? Math.round(this.dark.radius) : null,
       map: this.mapId,
       player: this.player ? this.currentPosition() : null,
       hidden: this.hidden,

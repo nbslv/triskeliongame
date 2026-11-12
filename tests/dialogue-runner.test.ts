@@ -29,6 +29,10 @@ function makeHost(choices: number[] = [], scripts: Record<string, DialogueScript
     },
     checkpoint: () => void log.push('checkpoint'),
     autosave: () => void log.push('autosave'),
+    anim: (a, an) => void log.push(`anim:${a}:${an}`),
+    title: async (t) => void log.push(`title:${t}`),
+    activity: async (id) => void log.push(`activity:${id}`),
+    light: async (r) => void log.push(`light:${r}`),
     loadScript: (id) => scripts[id],
   };
   return { host, log };
@@ -155,6 +159,10 @@ describe('DialogueRunner', () => {
         { type: 'scene', map: 'outro' },
         { type: 'checkpoint' },
         { type: 'autosave' },
+        { type: 'anim', actor: 'icaro', anim: 'colher' },
+        { type: 'title', text: 'FIM' },
+        { type: 'activity', id: 'treino' },
+        { type: 'light', radius: 40 },
       ]),
       host,
       new FlagStore(false),
@@ -174,6 +182,10 @@ describe('DialogueRunner', () => {
       'scene:outro',
       'checkpoint',
       'autosave',
+      'anim:icaro:colher',
+      'title:FIM',
+      'activity:treino',
+      'light:40',
     ]);
   });
 

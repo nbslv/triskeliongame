@@ -62,7 +62,7 @@ export interface TiledMap {
   properties?: TiledProperty[];
 }
 
-export type EntityKind = 'npc' | 'enemy' | 'hide' | 'trigger' | 'exit' | 'checkpoint' | 'route' | 'marker' | 'unknown';
+export type EntityKind = 'npc' | 'enemy' | 'hide' | 'trigger' | 'exit' | 'checkpoint' | 'route' | 'marker' | 'inspect' | 'unknown';
 
 const KIND_ALIASES: Record<string, EntityKind> = {
   npc: 'npc',
@@ -80,6 +80,15 @@ const KIND_ALIASES: Record<string, EntityKind> = {
   route: 'route',
   marcador: 'marker',
   marker: 'marker',
+  examinar: 'inspect',
+  examinavel: 'inspect',
+  'examinável': 'inspect',
+  inspect: 'inspect',
+  interativo: 'inspect',
+  atividade: 'inspect',
+  activity: 'inspect',
+  porta: 'exit',
+  door: 'exit',
 };
 
 export function props(o: { properties?: TiledProperty[] } | undefined): Record<string, PropValue> {
@@ -95,6 +104,7 @@ export function objectKind(o: TiledObject, layerName = ''): EntityKind {
   if (KIND_ALIASES[cls]) return KIND_ALIASES[cls]!;
   if (layerName.toLowerCase() === 'markers' || layerName.toLowerCase() === 'marcadores') return 'marker';
   if (o.polyline || o.polygon) return 'route';
+  if (o.properties?.some((p) => p.name === 'activity' || p.name === 'atividade')) return 'inspect';
   return 'unknown';
 }
 
@@ -151,16 +161,23 @@ export function validateMap(id: string, map: TiledMap, knownMaps: ReadonlySet<st
   for (const { obj, kind } of objs) {
     const p = props(obj);
     const where = `${id}: objeto #${obj.id} "${obj.name}" (${kind})`;
-    const dlg = p.dialogue ?? p.dialogo;
-    if (typeof dlg === 'string' && dlg && !knownDialogues.has(dlg)) errs.push(`${where}: diálogo "${dlg}" não existe`);
+    for (const key of ['dialogue', 'dialogo', 'alt_dialogue', 'dialogo_alt', 'locked_dialogue', 'dialogo_trancada', 'used_dialogue']) {
+      const dlg = p[key];
+      if (typeof dlg !== 'string' || !dlg) continue;
+      for (const id of dlg.split(',').map((x) => x.trim())) {
+        if (!knownDialogues.has(id)) errs.push(`${where}: diálogo "${id}" (${key}) não existe`);
+      }
+    }
     if (kind === 'exit') {
       const target = String(p.map ?? p.mapa ?? '');
-      if (!target) errs.push(`${where}: saída sem propriedade "map"`);
-      else if (!knownMaps.has(target)) errs.push(`${where}: mapa "${target}" não existe`);
+      const isReturn = p.return === true || p.voltar === true;
+      if (!target && !isReturn) errs.push(`${where}: saída sem propriedade "map" (ou "return": true)`);
+      else if (target && !knownMaps.has(target)) errs.push(`${where}: mapa "${target}" não existe`);
     }
     if (kind === 'enemy' && !obj.polyline && !obj.polygon) {
       const r = p.route ?? p.rota;
-      if (typeof r === 'string' && r && !routeNames.has(r)) errs.push(`${where}: rota "${r}" não existe`);
+      const byMarkers = typeof r === 'string' && [...markerNames].some((m) => m.startsWith(`${r}_p`));
+      if (typeof r === 'string' && r && !routeNames.has(r) && !byMarkers) errs.push(`${where}: rota "${r}" não existe`);
     }
     if (kind === 'npc' || kind === 'enemy') {
       if (!obj.name) errs.push(`${where}: NPC/inimigo precisa de nome (é o id usado nos roteiros)`);

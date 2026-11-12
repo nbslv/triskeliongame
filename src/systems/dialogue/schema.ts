@@ -142,6 +142,12 @@ const step: z.ZodType<Step> = z.lazy(() =>
     z.object({ type: z.literal('checkpoint'), at: target.optional() }).strict(),
     z.object({ type: z.literal('autosave') }).strict(),
     z.object({ type: z.literal('call'), id: z.string().min(1) }).strict(),
+    z.object({ type: z.literal('anim'), actor: z.string().min(1), anim: z.string().min(1) }).strict(),
+    z.object({ type: z.literal('title'), text: z.string().min(1), subtitle: z.string().optional(), ms: ms.optional() }).strict(),
+    z
+      .object({ type: z.literal('activity'), id: z.string().min(1), params: z.record(z.union([z.string(), z.number(), z.boolean()])).optional() })
+      .strict(),
+    z.object({ type: z.literal('light'), radius: z.number().min(0), ms: ms.optional() }).strict(),
   ]).superRefine((s, ctx) => {
     const fail = (message: string) => ctx.addIssue({ code: z.ZodIssueCode.custom, message });
     switch (s.type) {
@@ -176,6 +182,96 @@ export const dialogueSchema = z
   })
   .strict() as unknown as z.ZodType<DialogueScript>;
 
+/** Nomes de emote usados pela narrativa → símbolo do balão. */
+export const EMOTE_NAMES: Record<string, string> = {
+  exclamacao: '!',
+  interrogacao: '?',
+  reticencias: '...',
+  suor: '💧',
+  coracao: '♥',
+  nota: '♪',
+  raiva: '💢',
+  sono: 'Zz',
+  ideia: '💡',
+};
+
+/** Velocidades nomeadas do `move` (px/s). */
+export const MOVE_SPEEDS: Record<string, number> = { walk: 60, andar: 60, run: 130, correr: 130, slow: 35, devagar: 35 };
+
+/**
+ * Converte os ALIASES aceitos para a forma canônica, antes de validar:
+ * goto.to→label · if.not→cond "!flag" · music.fade→fadeMs, id "none"→null · scene.spawn→at ·
+ * spawn.dir→facing · camera.actor→follow · move.speed "run"/"walk"→número · emote por nome→símbolo.
+ * Não altera o objeto original.
+ */
+export function normalizeScript(json: unknown): unknown {
+  if (!json || typeof json !== 'object' || !Array.isArray((json as { steps?: unknown }).steps)) return json;
+  const norm = (list: unknown[]): unknown[] =>
+    list.map((raw) => {
+      if (!raw || typeof raw !== 'object') return raw;
+      const s = { ...(raw as Record<string, unknown>) };
+      const rename = (from: string, to: string) => {
+        if (from in s && !(to in s)) {
+          s[to] = s[from];
+          delete s[from];
+        }
+      };
+      switch (s.type) {
+        case 'goto':
+          rename('to', 'label');
+          break;
+        case 'if':
+          if (s.not === true && typeof s.flag === 'string') {
+            s.cond = s.equals !== undefined ? `${s.flag} != ${String(s.equals)}` : `!${s.flag}`;
+            delete s.flag;
+            delete s.equals;
+          }
+          if (s.not === false || s.not === true) delete s.not;
+          if (Array.isArray(s.then)) s.then = norm(s.then);
+          if (Array.isArray(s.else)) s.else = norm(s.else);
+          break;
+        case 'choice':
+          if (Array.isArray(s.options)) {
+            s.options = s.options.map((o) => {
+              if (!o || typeof o !== 'object') return o;
+              const oo = { ...(o as Record<string, unknown>) };
+              if (Array.isArray(oo.steps)) oo.steps = norm(oo.steps);
+              return oo;
+            });
+          }
+          break;
+        case 'music':
+          rename('fade', 'fadeMs');
+          if (s.id === 'none' || s.id === 'nenhuma' || s.id === '') s.id = null;
+          break;
+        case 'scene':
+          rename('spawn', 'at');
+          rename('dir', 'facing');
+          break;
+        case 'spawn':
+          rename('dir', 'facing');
+          break;
+        case 'move':
+          rename('dir', 'facing');
+          if (typeof s.speed === 'string' && MOVE_SPEEDS[s.speed] !== undefined) s.speed = MOVE_SPEEDS[s.speed];
+          break;
+        case 'camera':
+          rename('actor', 'follow');
+          break;
+        case 'emote':
+          if (typeof s.emote === 'string' && EMOTE_NAMES[s.emote]) s.emote = EMOTE_NAMES[s.emote];
+          break;
+        case 'fade':
+          rename('color', 'to');
+          break;
+        default:
+          break;
+      }
+      return s;
+    });
+  return { ...(json as object), steps: norm((json as { steps: unknown[] }).steps) };
+}
+
 export interface ValidationResult {
   ok: boolean;
   errors: string[];
@@ -187,7 +283,7 @@ export interface ValidationResult {
  * todo `goto` aponta para label existente, `call` aponta para roteiro conhecido (se informado).
  */
 export function validateDialogue(json: unknown, knownIds?: ReadonlySet<string>): ValidationResult {
-  const parsed = dialogueSchema.safeParse(json);
+  const parsed = dialogueSchema.safeParse(normalizeScript(json));
   if (!parsed.success) {
     return {
       ok: false,

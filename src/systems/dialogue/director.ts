@@ -4,8 +4,11 @@ import { audio } from '../../core/audio';
 import { bus } from '../../core/events';
 import { flags } from '../../core/flags';
 import { input } from '../../core/input';
+import { session } from '../../core/session';
 import { getDialogue } from '../../content';
 import { DialogueRunner, type DialogueHost } from './runner';
+import { runActivity } from '../activity/registry';
+import type { TitleCardData } from '../../scenes/TitleCardScene';
 import type { DialogueScript, SayStep, Target } from './types';
 import type { WorldScene } from '../../scenes/WorldScene';
 import type { DialogueScene } from '../../scenes/DialogueScene';
@@ -39,17 +42,25 @@ export class CutsceneDirector implements DialogueHost {
     return this.game.scene.getScene(SCENES.dialogo) as DialogueScene;
   }
 
-  /** Executa um roteiro por id (ou objeto). Resolve quando ele termina. */
+  /**
+   * Executa um roteiro por id (ou objeto). Resolve quando ele termina.
+   * `id` pode ser uma lista separada por vírgula ("a,b,c"): os roteiros rodam em sequência, como um só.
+   * Cutscenes (tudo que não é conversa com NPC) gravam autosave no início e no fim; se a página
+   * fechar no meio, o save de retomada volta ao início dela.
+   */
   async run(idOrScript: string | DialogueScript, opts: { self?: string } = {}): Promise<void> {
     if (this.runner) {
       console.warn('[cutscene] já existe roteiro em execução; ignorando', idOrScript);
       return;
     }
-    const script = typeof idOrScript === 'string' ? getDialogue(idOrScript) : idOrScript;
+    const script = typeof idOrScript === 'string' ? resolveScript(idOrScript) : idOrScript;
     if (!script) {
       console.error(`[cutscene] roteiro "${String(idOrScript)}" não encontrado em content/dialogues/`);
       return;
     }
+    const isCutscene = !opts.self;
+    session.beginCutscene(isCutscene && typeof idOrScript === 'string' ? idOrScript : undefined);
+    if (isCutscene) this.world?.autosave(true);
     this.selfActor = opts.self;
     const runner = new DialogueRunner(script, this, flags);
     this.runner = runner;
@@ -65,9 +76,11 @@ export class CutsceneDirector implements DialogueHost {
     } finally {
       this.runner = null;
       this.selfActor = undefined;
+      session.endCutscene();
       if (outcome !== 'scene') {
         this.dialog?.hideNow();
         this.world?.onCutsceneEnd();
+        if (isCutscene) this.world?.autosave(true);
       }
       input.clearPresses();
       input.setJoystickEnabled(true);
@@ -79,6 +92,7 @@ export class CutsceneDirector implements DialogueHost {
   abort(): void {
     this.runner?.stop();
     this.runner = null;
+    session.endCutscene();
     this.fadeState = { color: 0, alpha: 0 };
   }
 
@@ -166,9 +180,38 @@ export class CutsceneDirector implements DialogueHost {
     this.world.autosave(true);
   }
 
+  anim(actor: string, anim: string): void {
+    this.world.cutAnim(this.actorId(actor), anim);
+  }
+
+  title(text: string, subtitle: string | undefined, ms: number): Promise<void> {
+    this.dialog.hideNow();
+    return new Promise((resolve) => {
+      this.game.scene.run(SCENES.titulo_card, { text, subtitle, ms, done: resolve } satisfies TitleCardData);
+    });
+  }
+
+  async activity(id: string, params: Record<string, string | number | boolean>): Promise<void> {
+    this.dialog.hideNow();
+    await runActivity(this.world, id, params);
+    input.clearPresses();
+  }
+
+  light(radius: number, ms: number): Promise<void> {
+    return this.world.setLight(radius, ms);
+  }
+
   loadScript(id: string): DialogueScript | undefined {
     return getDialogue(id);
   }
+}
+
+/** "a,b,c" → roteiro sintético que chama a, b e c em sequência. */
+export function resolveScript(id: string): DialogueScript | undefined {
+  const ids = id.split(',').map((s) => s.trim()).filter(Boolean);
+  if (ids.length <= 1) return getDialogue(ids[0] ?? id);
+  if (ids.some((i) => !getDialogue(i))) return undefined;
+  return { id, steps: ids.map((i) => ({ type: 'call' as const, id: i })) };
 }
 
 export const director = new CutsceneDirector();

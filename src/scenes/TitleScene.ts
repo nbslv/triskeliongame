@@ -2,14 +2,14 @@ import Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, SCENES } from '../config/constants';
 import { audio } from '../core/audio';
 import { input } from '../core/input';
-import { saves } from '../core/save';
-import { session } from '../core/session';
+import { RESUME_SLOT, saves } from '../core/save';
+import { formatDate, session } from '../core/session';
 import { gameConfig } from '../content';
 import { director } from '../systems/dialogue/director';
 import { MenuList } from '../ui/MenuList';
 import { makeText } from '../ui/text';
 import type { WorldData } from './WorldScene';
-import type { SlotsData } from './SlotsScene';
+import { mapDisplayName, startFromSave, type SlotsData } from './SlotsScene';
 
 export class TitleScene extends Phaser.Scene {
   private menu!: MenuList;
@@ -48,22 +48,26 @@ export class TitleScene extends Phaser.Scene {
     }
     this.tweens.add({ targets: tri, angle: 360, duration: 24000, repeat: -1 });
 
-    makeText(this, GAME_WIDTH / 2, 150, 'TRISKELION', 56, COLORS.accent).setOrigin(0.5);
+    makeText(this, GAME_WIDTH / 2, 148, 'TRISKELION', 56, COLORS.accent).setOrigin(0.5);
     makeText(this, GAME_WIDTH - 8, GAME_HEIGHT - 6, `v${__GAME_VERSION__}`, 14, COLORS.textDim).setOrigin(1, 1);
 
-    const hasSave = saves.hasAny();
-    this.menu = new MenuList(
-      this,
-      GAME_WIDTH / 2 - 50,
-      210,
-      [
-        { label: 'Novo jogo', action: () => this.newGame() },
-        { label: 'Continuar', enabled: hasSave, action: () => this.openSlots() },
-        { label: 'Opções', action: () => this.openOptions() },
-      ],
-      { size: 24, spacing: 30 },
-    );
-    if (hasSave) this.menu.index = 1;
+    session.active = false;
+    const latest = saves.latest();
+    const hasSave = latest !== null;
+    const resume = latest?.slot === RESUME_SLOT ? latest.data : null;
+    const items = [
+      { label: 'Novo jogo', action: () => this.newGame() },
+      { label: 'Continuar', enabled: hasSave, action: () => this.openSlots() },
+      { label: 'Opções', action: () => this.openOptions() },
+      { label: 'Backup do save', action: () => this.openOverlay(SCENES.backup) },
+    ];
+    if (resume) {
+      items.unshift({ label: 'Retomar de onde parou', action: () => startFromSave(this, resume) });
+      makeText(this, GAME_WIDTH / 2, 188, `${mapDisplayName(resume.position.map)} · ${formatDate(resume.savedAt)}`, 16, COLORS.textDim).setOrigin(0.5);
+    }
+    this.menu = new MenuList(this, GAME_WIDTH / 2 - 80, resume ? 206 : 200, items, { size: 22, spacing: 27 });
+    if (resume) this.menu.index = 0;
+    else if (hasSave) this.menu.index = 1;
     this.menu.update(0);
     audio.playMusic('titulo', 1200);
     this.events.on(Phaser.Scenes.Events.RESUME, () => {
@@ -90,6 +94,12 @@ export class TitleScene extends Phaser.Scene {
     this.menu.active = false;
     this.scene.pause();
     this.scene.launch(SCENES.espacos, { mode: 'load', parent: SCENES.titulo } satisfies SlotsData);
+  }
+
+  private openOverlay(key: string): void {
+    this.menu.active = false;
+    this.scene.pause();
+    this.scene.launch(key, { parent: SCENES.titulo });
   }
 
   private openOptions(): void {

@@ -85,3 +85,45 @@ body {
 }
 .senha-form input { width: 200px; }
 .senha-form button { background: #c8963e; color: #0b0a12; cursor: pointer; }
+
+/* Backup de saves (HTML sobre o canvas) */
+.backup {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -44%);
+  width: min(86vw, 640px);
+  max-height: 80vh;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  color: #f4ecd8;
+}
+.backup p { margin: 0; }
+.backup-botoes { display: flex; flex-wrap: wrap; gap: 6px; }
+.backup button,
+.backup-arquivo {
+  font: inherit;
+  border: 2px solid #f4ecd8;
+  background: #1c1a2b;
+  color: #f4ecd8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.backup textarea {
+  flex: 1;
+  min-height: 60px;
+  height: 28vh;
+  font: 13px monospace;
+  background: #0b0a12;
+  color: #f4ecd8;
+  border: 1px solid #9a93a8;
+  -webkit-user-select: text;
+  user-select: text;
+  touch-action: auto;
+}

@@ -185,6 +185,35 @@ export interface AutosaveStep {
   type: 'autosave';
 }
 
+export interface AnimStep {
+  type: 'anim';
+  actor: string;
+  /** Pose/animação: toca `<sprite>:<anim>` se existir; "normal" volta ao parado. Sem animação = ignorado. */
+  anim: string;
+}
+
+export interface TitleStep {
+  type: 'title';
+  text: string;
+  subtitle?: string;
+  /** Tempo mínimo na tela antes de aceitar toque (padrão 1500). */
+  ms?: number;
+}
+
+export interface ActivityStep {
+  type: 'activity';
+  /** id registrado em src/systems/activity/index.ts */
+  id: string;
+  params?: Record<string, string | number | boolean>;
+}
+
+export interface LightStep {
+  type: 'light';
+  /** Raio do círculo de luz em mapas escuros (0 = breu; omitido = valor do mapa). */
+  radius: number;
+  ms?: number;
+}
+
 export interface CallStep {
   type: 'call';
   /** Executa outro roteiro (content/dialogues/<id>.json) e volta. */
@@ -213,7 +242,11 @@ export type Step =
   | EndStep
   | CheckpointStep
   | AutosaveStep
-  | CallStep;
+  | CallStep
+  | AnimStep
+  | TitleStep
+  | ActivityStep
+  | LightStep;
 
 export type StepType = Step['type'];
 
