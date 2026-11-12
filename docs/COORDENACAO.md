@@ -15,6 +15,11 @@ começar e NÃO altera decisões marcadas como "Decidido" sem passar pela coorde
 | Privacidade | Código em repositório **privado**. Jogo publicado em link não divulgado com **senha na entrada**. |
 | Primeira entrega | **Fatia vertical do Prólogo** (vila em chamas → reencontro com o pai → fuga → grupo de sobreviventes). Sem batalhas no prólogo, por decisão de história. |
 | Protagonista | Ícaro (cabelo loiro). O final do briefing cita "Makoto": tratado como erro de digitação, é o **Ícaro** quem coloca o triskelion no cajado. |
+| Monge | **Irmão Silvano** (nome de monge; "Silvano" ecoa o cabelo prateado). O nome real de príncipe é revelado no fim — definido pela sessão de narrativa. |
+| Duração | Prólogo: 10–15 min. Jogo completo: **8–24 h** (história principal ~10–14 h; o resto em missões secundárias, exploração e extras). |
+| Salvamento | Crítico. Autosave frequente (troca de mapa, após cutscenes e batalhas) + 3 espaços manuais + pontos de save no mundo. Nunca perder mais que ~5 min de progresso. |
+| Público | Projeto pessoal do autor, compartilhado com outras pessoas (inclusive quem não joga muito RPG). Tutoriais claros, dificuldade selecionável (Tranquila / Aventura / Desafio), batalha AUTO. |
+| Clima e música | Majoritariamente **aconchegante e fofo** (estilo cozy de fazenda/vilarejo), com momentos de tensão e batalha. Trilha **original**, composta como dados e pré-renderizada em OGG/MP3 com loop: instrumentos suaves (violão dedilhado, marimba, flauta, celesta, cordas leves, pads). Batalha e tensão usam a mesma paleta de instrumentos com mais ritmo e tons menores — nunca agressivo. Responsabilidade da sessão de Arte e Áudio. |
 
 ## 2. Stack técnica (Decidido)
 
