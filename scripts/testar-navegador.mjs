@@ -351,6 +351,37 @@ await goMap('teste_arte', 'inicio');
   await page.screenshot({ path: `${OUT}/11-tilesets-arte.png` });
 }
 
+// Arte: poses (anim), sprites especiais e emotes por ícone
+await goMap('teste', 'inicio');
+{
+  const r = await page.evaluate(async () => {
+    const g = window.__TRISKELION__;
+    const w = g.scene.getScene('Mundo');
+    const out = {
+      poses: ['icaro:colher', 'pai:mostrar_caixa', 'cali_soldado:bufar', 'toucim:bronca', 'caixa_costura:aberta'].filter((k) => g.anims.exists(k)).length,
+      emoteIcon: g.textures.exists('emote_exclamacao') && g.textures.exists('emote_suor'),
+    };
+    w.cutSpawn('cali_1', [12, 11], undefined, 'down');
+    w.cutSpawn('toucim', [14, 11], undefined, 'down');
+    out.caliSprite = w.actors.get('cali_1').textureKey;
+    out.toucimH = w.actors.get('toucim').sprite.height;
+    w.cutAnim('icaro', 'colher');
+    out.icaroAnim = w.player.sprite.anims.currentAnim?.key;
+    w.cutAnim('toucim', 'bronca');
+    out.toucimAnim = w.actors.get('toucim').sprite.anims.currentAnim?.key;
+    void w.cutEmote('cali_1', '!', 1500);
+    void w.cutEmote('toucim', '💧', 1500);
+    return out;
+  });
+  check(r.poses === 5, `animações de pose da arte criadas (${r.poses}/5)`);
+  check(r.icaroAnim === 'icaro:colher' && r.toucimAnim === 'toucim:bronca', `passo anim toca a pose (${r.icaroAnim}, ${r.toucimAnim})`);
+  check(r.caliSprite === 'cali_soldado' && r.toucimH === 32, `cali_N usa cali_soldado e toucim é 16×32 (${r.caliSprite}, h=${r.toucimH})`);
+  check(r.emoteIcon, 'ícones de emote carregados');
+  await wait(300);
+  await page.screenshot({ path: `${OUT}/12-poses-emotes.png` });
+  await evalWorld("w.cutDespawn('cali_1'); w.cutDespawn('toucim'); w.cutAnim('icaro', 'normal');");
+}
+
 // Salvar manualmente pelo menu (espaço 1)
 await goMap('teste', 'inicio');
 await tap(640 - 30, 26);

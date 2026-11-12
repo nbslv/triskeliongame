@@ -3,6 +3,16 @@ import { DEPTH, type Direction } from '../../config/constants';
 import { ensureCharacterAnims, ensureCharacterTexture } from '../../ui/placeholders';
 import { makeText } from '../../ui/text';
 
+/** Símbolo do balão → nome do ícone (assets/images/emote_<nome>.png). */
+const EMOTE_ICON: Record<string, string> = {
+  '!': 'exclamacao',
+  '?': 'interrogacao',
+  '...': 'reticencias',
+  '💧': 'suor',
+  '♥': 'coracao',
+  '♪': 'nota',
+};
+
 /**
  * Personagem no mapa (jogador, NPC, inimigo ou ator de cutscene).
  * Origem nos pés (0.5, 1): `x,y` é o ponto no chão. Corpo de física pequeno nos pés.
@@ -11,6 +21,8 @@ export class Actor {
   readonly sprite: Phaser.Physics.Arcade.Sprite;
   facing: Direction = 'down';
   private moving = false;
+  /** Em pose de cutscene (não volta sozinho ao parado). */
+  posing = false;
   private moveTween: Phaser.Tweens.Tween | null = null;
 
   constructor(
@@ -47,7 +59,18 @@ export class Actor {
 
   face(dir: Direction): void {
     this.facing = dir;
+    this.posing = false;
     if (!this.moving) this.sprite.anims.play(`${this.textureKey}:idle-${dir}`, true);
+  }
+
+  /** Toca uma pose (pode ser de outra folha/tamanho); a origem continua nos pés. "normal" volta via face(). */
+  playPose(animKey: string): void {
+    this.stopMove();
+    this.body.setVelocity(0, 0);
+    this.moving = false;
+    this.posing = true;
+    this.sprite.anims.timeScale = 1;
+    this.sprite.anims.play(animKey, true);
   }
 
   faceToward(x: number, y: number): void {
@@ -60,6 +83,8 @@ export class Actor {
   /** Movimento controlado por velocidade (jogador / patrulha). */
   walk(vx: number, vy: number): void {
     this.body.setVelocity(vx, vy);
+    if (vx === 0 && vy === 0 && this.posing) return;
+    this.posing = false;
     if (vx === 0 && vy === 0) {
       if (this.moving) {
         this.moving = false;
@@ -117,14 +142,19 @@ export class Actor {
   /** Balão de emoção acima da cabeça. */
   emote(symbol: string, ms = 900): Promise<void> {
     const s = this.scene;
-    const t = makeText(s, 0, 0, symbol, 16, '#1a1420').setOrigin(0.5, 0.5);
-    const w = Math.max(14, t.width + 8);
+    // Ícone da arte (assets/images/emote_<nome>.png) quando existir; senão, texto.
+    const name = EMOTE_ICON[symbol] ?? symbol;
+    const iconKey = `emote_${name}`;
+    const t: Phaser.GameObjects.Text | Phaser.GameObjects.Image = s.textures.exists(iconKey)
+      ? s.add.image(0, -1, iconKey).setOrigin(0.5, 0.5)
+      : makeText(s, 0, 0, symbol, 16, '#1a1420').setOrigin(0.5, 0.5);
+    const w = Math.max(14, t.width + (t instanceof Phaser.GameObjects.Image ? 4 : 8));
     const g = s.add.graphics();
     g.fillStyle(0xfffbe8, 1);
     g.lineStyle(1, 0x1a1420, 1);
-    g.fillRoundedRect(-w / 2, -9, w, 16, 4);
-    g.strokeRoundedRect(-w / 2, -9, w, 16, 4);
-    g.fillTriangle(-3, 6, 3, 6, 0, 10);
+    g.fillRoundedRect(-w / 2, -11, w, 20, 4);
+    g.strokeRoundedRect(-w / 2, -11, w, 20, 4);
+    g.fillTriangle(-3, 8, 3, 8, 0, 12);
     const c = s.add.container(this.x, this.y - this.sprite.displayHeight - 8, [g, t]).setDepth(DEPTH.emote);
     c.setScale(0.2);
     s.tweens.add({ targets: c, scale: 1, duration: 140, ease: 'Back.easeOut' });

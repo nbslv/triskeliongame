@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, SCENES } from '../config/constants';
 import { passwordRequired } from '../core/password';
 import { assetManifest, dialogueErrors } from '../content';
-import { ensureCharacterTexture, ensurePlaceholderTileset } from '../ui/placeholders';
+import { createPoseAnimations, ensureCharacterTexture, ensurePlaceholderTileset } from '../ui/placeholders';
 import { makeText } from '../ui/text';
 
 /** Carrega os arquivos de assets/ (se houver) com barra de progresso e gera placeholders. */
@@ -37,6 +37,7 @@ export class PreloadScene extends Phaser.Scene {
 
   create(): void {
     ensurePlaceholderTileset(this);
+    createPoseAnimations(this);
     ['icaro', 'pai', 'caligosuin', 'aldeao'].forEach((k) => ensureCharacterTexture(this, k));
     if (dialogueErrors.length) {
       console.error(`[preload] ${dialogueErrors.length} roteiro(s) com erro — veja acima. Rode "npm test".`);
