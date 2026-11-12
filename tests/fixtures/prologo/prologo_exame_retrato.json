@@ -1,0 +1,8 @@
+{
+  "id": "prologo_exame_retrato",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um retrato a carvão, torto na parede que sobrou: um homem sério, uma mulher rindo, um bebê berrando."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Ela ria até em retrato. O pai nunca deixou tirar isso da parede.)"},
+    {"type": "end"}
+  ]
+}

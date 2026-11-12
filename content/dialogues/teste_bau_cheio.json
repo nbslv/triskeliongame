@@ -1,0 +1,5 @@
+{
+  "id": "teste_bau_cheio",
+  "description": "TESTE: diálogo alternativo do baú.",
+  "steps": [{ "type": "say", "speaker": "narrador", "text": "[teste] Agora o baú está cheio de café. O alt_dialogue funcionou." }]
+}

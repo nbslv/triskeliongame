@@ -1,0 +1,168 @@
+import { validateDialogue } from '../systems/dialogue/schema';
+import type { DialogueScript } from '../systems/dialogue/types';
+
+/**
+ * Carrega os DADOS de content/ e lista os arquivos de assets/ em tempo de build (import.meta.glob).
+ * Nada aqui contém história: só leitura e validação.
+ */
+
+const dialogueModules = import.meta.glob('/content/dialogues/*.json', { eager: true, import: 'default' });
+const mapModules = import.meta.glob('/content/maps/*.json', { eager: true, import: 'default' });
+const characterModules = import.meta.glob('/content/characters.json', { eager: true, import: 'default' });
+const gameModules = import.meta.glob('/content/jogo.json', { eager: true, import: 'default' });
+
+const baseName = (path: string) => path.split('/').pop()!.replace(/\.[^.]+$/, '');
+
+export interface GameConfig {
+  /** Mapa inicial do "Novo jogo". */
+  startMap: string;
+  /** Marcador (camada markers) onde o jogador nasce. */
+  startMarker: string;
+  /** Roteiro executado logo ao começar (opcional). */
+  startDialogue?: string;
+  /** id do ator controlado pelo jogador nos roteiros. */
+  playerId: string;
+  /** Spritesheet do jogador. */
+  playerSprite: string;
+}
+
+const DEFAULT_GAME: GameConfig = {
+  startMap: 'teste',
+  startMarker: 'inicio',
+  playerId: 'icaro',
+  playerSprite: 'icaro',
+};
+
+export const gameConfig: GameConfig = {
+  ...DEFAULT_GAME,
+  ...((Object.values(gameModules)[0] as Partial<GameConfig> | undefined) ?? {}),
+};
+
+// ---------- diálogos ----------
+
+export const dialogues = new Map<string, DialogueScript>();
+export const dialogueErrors: string[] = [];
+
+{
+  const ids = new Set(Object.keys(dialogueModules).map(baseName));
+  for (const [path, json] of Object.entries(dialogueModules)) {
+    const res = validateDialogue(json, ids);
+    if (res.ok && res.script) {
+      if (res.script.id !== baseName(path)) {
+        console.warn(`[conteúdo] ${path}: id "${res.script.id}" difere do nome do arquivo`);
+      }
+      dialogues.set(baseName(path), res.script);
+    } else {
+      const msg = `${path}:\n  ${res.errors.join('\n  ')}`;
+      dialogueErrors.push(msg);
+      console.error('[conteúdo] roteiro inválido', msg);
+    }
+  }
+}
+
+export function getDialogue(id: string): DialogueScript | undefined {
+  return dialogues.get(id);
+}
+
+// ---------- mapas ----------
+
+export const maps = new Map<string, unknown>();
+for (const [path, json] of Object.entries(mapModules)) maps.set(baseName(path), json);
+
+// ---------- personagens ----------
+
+interface CharacterInfo {
+  id: string;
+  name: string;
+  sprite?: string;
+  color?: string;
+}
+
+const characters = new Map<string, CharacterInfo>();
+{
+  const raw = Object.values(characterModules)[0] as unknown;
+  const add = (id: string, c: Record<string, unknown>) => {
+    const name = (c.name ?? c.nome ?? c.displayName) as string | undefined;
+    characters.set(id, {
+      id,
+      name: name ?? id,
+      sprite: (c.sprite ?? c.spritesheet) as string | undefined,
+      color: (c.color ?? c.cor) as string | undefined,
+    });
+  };
+  // Aceita { "personagens": [...] }, [...] ou { "<id>": {...} }.
+  const list = Array.isArray(raw)
+    ? raw
+    : raw && typeof raw === 'object' && Array.isArray((raw as Record<string, unknown>).personagens)
+      ? ((raw as Record<string, unknown>).personagens as unknown[])
+      : raw && typeof raw === 'object' && Array.isArray((raw as Record<string, unknown>).characters)
+        ? ((raw as Record<string, unknown>).characters as unknown[])
+        : null;
+  if (list) {
+    for (const c of list) if (c && typeof c === 'object' && 'id' in c) add(String((c as { id: unknown }).id), c as Record<string, unknown>);
+  } else if (raw && typeof raw === 'object') {
+    for (const [id, c] of Object.entries(raw)) if (c && typeof c === 'object') add(id, c as Record<string, unknown>);
+  }
+}
+
+export function characterName(id: string | undefined): string {
+  if (!id) return '';
+  const c = characters.get(id);
+  if (c) return c.name;
+  if (id === 'narrador' || id === 'narrator') return '';
+  if (id === 'tutorial') return 'Dica';
+  return id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ');
+}
+
+export function characterSprite(id: string): string | undefined {
+  return characters.get(id)?.sprite;
+}
+
+// ---------- assets (arte/áudio da sessão de arte) ----------
+
+const imageUrls = import.meta.glob('/assets/images/**/*.png', { eager: true, query: '?url', import: 'default' });
+const portraitUrls = import.meta.glob('/assets/portraits/**/*.png', { eager: true, query: '?url', import: 'default' });
+const tilesetUrls = import.meta.glob('/assets/tilesets/**/*.png', { eager: true, query: '?url', import: 'default' });
+const spriteUrls = import.meta.glob('/assets/sprites/**/*.png', { eager: true, query: '?url', import: 'default' });
+const spriteMeta = import.meta.glob('/assets/sprites/**/*.json', { eager: true, import: 'default' });
+const musicUrls = import.meta.glob('/assets/audio/music/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
+const sfxUrls = import.meta.glob('/assets/audio/sfx/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
+
+export interface AssetEntry {
+  key: string;
+  url: string;
+}
+export interface SpriteEntry extends AssetEntry {
+  frameWidth: number;
+  frameHeight: number;
+}
+
+const toEntries = (rec: Record<string, unknown>, prefix = ''): AssetEntry[] =>
+  Object.entries(rec).map(([path, url]) => ({ key: prefix + baseName(path), url: url as string }));
+
+/** Agrupa formatos alternativos do mesmo áudio (ex.: tema.ogg + tema.mp3). */
+const toAudioEntries = (rec: Record<string, unknown>, prefix: string): { key: string; urls: string[] }[] => {
+  const byKey = new Map<string, string[]>();
+  for (const [path, url] of Object.entries(rec)) {
+    const k = prefix + baseName(path);
+    byKey.set(k, [...(byKey.get(k) ?? []), url as string]);
+  }
+  return [...byKey].map(([key, urls]) => ({ key, urls }));
+};
+
+export const assetManifest = {
+  images: toEntries(imageUrls),
+  portraits: toEntries(portraitUrls, 'portrait:'),
+  tilesets: toEntries(tilesetUrls, 'tileset:'),
+  sprites: Object.entries(spriteUrls).map(([path, url]): SpriteEntry => {
+    const meta = (spriteMeta[path.replace(/\.png$/, '.json')] ?? {}) as Partial<SpriteEntry>;
+    return {
+      key: baseName(path),
+      url: url as string,
+      frameWidth: meta.frameWidth ?? 16,
+      frameHeight: meta.frameHeight ?? 24,
+    };
+  }),
+  music: toAudioEntries(musicUrls, 'music:'),
+  sfx: toAudioEntries(sfxUrls, 'sfx:'),
+};

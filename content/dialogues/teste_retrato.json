@@ -1,0 +1,5 @@
+{
+  "id": "teste_retrato",
+  "description": "TESTE: objeto examinável.",
+  "steps": [{ "type": "say", "speaker": "narrador", "text": "[teste] Um retrato antigo, um pouco torto na parede." }]
+}

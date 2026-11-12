@@ -1,0 +1,8 @@
+{
+  "id": "prologo_viz_custodia_retrato",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um retrato de um homem de bigode enorme, com uma fita preta no canto: 'Zé, que descanse'."},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Quarenta anos de casados. Roncava feito trovoada. Hoje eu durmo mal é com o silêncio."},
+    {"type": "end"}
+  ]
+}

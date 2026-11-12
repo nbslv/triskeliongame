@@ -1,0 +1,8 @@
+{
+  "id": "prologo_casa_cadeira",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Uma cadeira de balanço perto da janela, com uma manta dobrada no encosto."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Ninguém senta. O pai diz que é porque ela range. Ela não range.)"},
+    {"type": "end"}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "prologo_viz_juca_receita",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um papel amarelado, emoldurado: 'Broa da Vó Nena'. Metade dos ingredientes está borrada de propósito."},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Segredo de família. O que tá borrado é carinho. E banha."},
+    {"type": "end"}
+  ]
+}

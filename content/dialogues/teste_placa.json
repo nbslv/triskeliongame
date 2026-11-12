@@ -1,0 +1,7 @@
+{
+  "id": "teste_placa",
+  "description": "Placa de TESTE (gatilho com ativação por interação).",
+  "steps": [
+    { "type": "say", "text": "[teste] Uma placa. Gatilhos com activation=interact disparam com A." }
+  ]
+}

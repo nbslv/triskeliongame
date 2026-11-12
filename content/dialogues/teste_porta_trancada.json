@@ -1,0 +1,5 @@
+{
+  "id": "teste_porta_trancada",
+  "description": "TESTE: porta bloqueada por flag (locked_if).",
+  "steps": [{ "type": "say", "speaker": "tutorial", "text": "[teste] A porta está trancada. Fale com o aldeão primeiro." }]
+}

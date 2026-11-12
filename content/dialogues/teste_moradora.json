@@ -1,0 +1,10 @@
+{
+  "id": "teste_moradora",
+  "description": "TESTE: NPC morador de interior.",
+  "steps": [
+    { "type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "[teste] Seja bem-vindo! Ação, coração, pão, órfã, à toa, você, avô, Ícaro, Íris, Úrsula, Ônix." },
+    { "type": "move", "actor": "self", "to": "moradora_cozinha", "speed": "walk" },
+    { "type": "face", "actor": "self", "to": "icaro" },
+    { "type": "say", "speaker": "custodia", "text": "[teste] Pode olhar o retrato e o baú. Para sair, use a porta de baixo." }
+  ]
+}

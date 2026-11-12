@@ -1,0 +1,22 @@
+{
+  "id": "prologo_01_abertura",
+  "steps": [
+    {"type": "music", "id": "tema_cafezal", "fade": 800},
+    {"type": "sfx", "id": "passaros_tarde"},
+    {"type": "fade", "to": "clear", "ms": 1500},
+    {"type": "wait", "ms": 600},
+    {"type": "say", "speaker": "tonho", "text": "Ícaro!"},
+    {"type": "wait", "ms": 300},
+    {"type": "say", "speaker": "tonho", "text": "Ô, ÍCARO!"},
+    {"type": "emote", "actor": "icaro", "emote": "exclamacao"},
+    {"type": "sfx", "id": "livro_fechando"},
+    {"type": "anim", "actor": "icaro", "anim": "esconder_livro"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "Tô colhendo! Tô colhendo!"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Tá colhendo o quê, letra? Faz meia hora que esse pé de café tá te olhando, esperando."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Era só um parágrafo."},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Era um capítulo, que eu contei as páginas virando. Vem cá antes que a Dona Zefa veja."},
+    {"type": "say", "speaker": "tutorial", "text": "Vá até o Tonho."},
+    {"type": "flag", "set": "prologo.abertura_vista"},
+    {"type": "end"}
+  ]
+}

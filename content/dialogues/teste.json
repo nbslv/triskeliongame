@@ -1,0 +1,61 @@
+{
+  "id": "teste",
+  "description": "Roteiro de TESTE do motor: exercita todos os tipos de passo. Não é conteúdo do jogo.",
+  "steps": [
+    { "type": "music", "id": "teste_tensao", "fadeMs": 600 },
+    { "type": "emote", "actor": "icaro", "emote": "?" },
+    { "type": "say", "speaker": "icaro", "portrait": "icaro", "text": "[teste] Este é o roteiro de teste do motor. Toque ou aperte A para avançar." },
+    { "type": "spawn", "actor": "visitante", "sprite": "pai", "at": "spawn_visitante", "facing": "down" },
+    { "type": "move", "actor": "visitante", "to": "ponto_a", "speed": 70 },
+    { "type": "face", "actor": "visitante", "to": "icaro" },
+    { "type": "face", "actor": "icaro", "dir": "up" },
+    { "type": "emote", "actor": "visitante", "emote": "!", "ms": 600 },
+    { "type": "sfx", "id": "alerta" },
+    { "type": "say", "speaker": "visitante", "name": "Visitante", "text": "[teste] Fala com nome sobrescrito e sem retrato. Agora uma escolha:" },
+    {
+      "type": "choice",
+      "options": [
+        { "text": "Ir para o label A", "goto": "ramo_a" },
+        { "text": "Executar passos aninhados", "steps": [
+          { "type": "flag", "set": "teste.aninhado" },
+          { "type": "say", "speaker": "visitante", "text": "[teste] Passos aninhados executados; seguindo para o label A." }
+        ] },
+        { "text": "Opção só com flag", "if": "teste.visto_antes", "goto": "fim" }
+      ]
+    },
+    { "type": "label", "name": "ramo_a" },
+    { "type": "flag", "set": "teste.visto_antes" },
+    { "type": "flag", "add": "teste.contador", "by": 1 },
+    { "type": "if", "flag": "teste.aninhado", "then": [
+      { "type": "say", "speaker": "icaro", "text": "[teste] if/then: a flag teste.aninhado está ligada." }
+    ], "else": [
+      { "type": "say", "speaker": "icaro", "text": "[teste] if/else: a flag teste.aninhado está desligada." }
+    ] },
+    { "type": "if", "cond": "teste.contador >= 2", "goto": "repetido" },
+    { "type": "camera", "to": "camera_foco", "ms": 900 },
+    { "type": "wait", "ms": 400 },
+    { "type": "shake", "ms": 300, "intensity": 0.008 },
+    { "type": "camera", "follow": "icaro", "ms": 600 },
+    { "type": "move", "actor": "visitante", "to": [16, 11], "speed": 90, "wait": false },
+    { "type": "move", "actor": "icaro", "to": "checkpoint_cutscene", "speed": 60, "facing": "left" },
+    { "type": "checkpoint" },
+    { "type": "despawn", "actor": "visitante" },
+    { "type": "fade", "to": "black", "ms": 500 },
+    { "type": "scene", "map": "teste2", "at": "centro", "facing": "down" },
+    { "type": "fade", "to": "clear", "ms": 500 },
+    { "type": "say", "text": "[teste] Troca de mapa no meio do roteiro funcionou. Voltando..." },
+    { "type": "fade", "to": "white", "ms": 300 },
+    { "type": "scene", "map": "teste", "at": "checkpoint_cutscene", "facing": "right" },
+    { "type": "fade", "to": "clear", "ms": 300 },
+    { "type": "call", "id": "teste_npc" },
+    { "type": "autosave" },
+    { "type": "goto", "label": "fim" },
+    { "type": "label", "name": "repetido" },
+    { "type": "say", "text": "[teste] Contador >= 2: caminho curto." },
+    { "type": "label", "name": "fim" },
+    { "type": "music", "id": "teste_vila", "fadeMs": 800 },
+    { "type": "say", "speaker": "icaro", "text": "[teste] Fim do roteiro de teste.", "auto": 1500 },
+    { "type": "end" },
+    { "type": "say", "text": "[teste] Esta fala nunca aparece (depois de end)." }
+  ]
+}

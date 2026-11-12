@@ -1,0 +1,30 @@
+{
+  "id": "prologo_10_praca",
+  "steps": [
+    {"type": "move", "actor": "icaro", "to": "marcador_vila_esconderijo_praca"},
+    {"type": "anim", "actor": "icaro", "anim": "agachar"},
+    {"type": "camera", "to": "marcador_vila_praca_centro", "ms": 1200},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_bravo", "text": "Revirem tudo! Madame Trufa quer livro, pergaminho, qualquer coisa que cheire a magia!"},
+    {"type": "say", "speaker": "cali_2", "portrait": "cali_soldado", "text": "Capitão Toucim, senhor... esta vila só cheira a café."},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_neutro", "text": "Então tragam o café!"},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_bravo", "text": "Não. Esperem. Queimem o café."},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_neutro", "text": "...Não. Tragam. É cheiroso."},
+    {"type": "say", "speaker": "cali_2", "portrait": "cali_soldado", "text": "E a casa dos livros, capitão? Já tá pegando fogo."},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_bravo", "text": "QUEM QUEIMOU A CASA DOS LIVROS ANTES DE OLHAR OS LIVROS?!"},
+    {"type": "emote", "actor": "cali_3", "emote": "suor"},
+    {"type": "say", "speaker": "cali_3", "portrait": "cali_soldado", "text": "...Eu espirrei, senhor."},
+    {"type": "wait", "ms": 500},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_neutro", "text": "Não importa. A barreira caiu. O cajado da torre apagou feito vela em vendaval."},
+    {"type": "say", "speaker": "toucim", "portrait": "toucim_neutro", "text": "Hoje o reino da luz aprende a ter medo do escuro. Ordens do General: nada fica de pé. Andem!"},
+    {"type": "camera", "actor": "icaro", "ms": 600},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "(A barreira de Luminaer... caiu? Isso não é um saque. É uma guerra.)"},
+    {"type": "camera", "to": "marcador_vila_biblioteca", "ms": 1000},
+    {"type": "wait", "ms": 800},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "(A biblioteca...)"},
+    {"type": "camera", "actor": "icaro", "ms": 600},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "(Depois. Primeiro o pai. A Rua do Terreiro é logo depois do chafariz.)"},
+    {"type": "anim", "actor": "icaro", "anim": "normal"},
+    {"type": "flag", "set": "prologo.ouviu_toucim"},
+    {"type": "end"}
+  ]
+}
