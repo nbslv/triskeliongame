@@ -1,0 +1,87 @@
+{
+"fogo_1": 0,
+"fogo_2": 1,
+"fogo_3": 2,
+"fogo_alto_1": [
+[
+3
+],
+[
+15
+]
+],
+"fogo_alto_2": [
+[
+4
+],
+[
+16
+]
+],
+"fogo_alto_3": [
+[
+5
+],
+[
+17
+]
+],
+"brasas_1": 6,
+"brasas_2": 7,
+"fogo_negro_1": 24,
+"fogo_negro_2": 25,
+"fogo_negro_3": 26,
+"fogo_negro_alto_1": [
+[
+27
+],
+[
+39
+]
+],
+"fogo_negro_alto_2": [
+[
+28
+],
+[
+40
+]
+],
+"fogo_negro_alto_3": [
+[
+29
+],
+[
+41
+]
+],
+"mancha_negra_1": 30,
+"mancha_negra_2": 31,
+"fumaca_preta_1": [
+[
+48
+],
+[
+60
+]
+],
+"fumaca_preta_2": [
+[
+49
+],
+[
+61
+]
+],
+"fumaca_preta_3": [
+[
+50
+],
+[
+62
+]
+],
+"cinzas_caindo_1": 51,
+"cinzas_caindo_2": 52,
+"cinzas_caindo_3": 53
+}

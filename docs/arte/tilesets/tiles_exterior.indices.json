@@ -1,0 +1,645 @@
+{
+"grama_1": 0,
+"grama_2": 1,
+"grama_3": 2,
+"grama_flores_1": 3,
+"grama_flores_2": 4,
+"terra_1": 5,
+"terra_2": 6,
+"terra_vermelha_1": 7,
+"terra_vermelha_2": 8,
+"calcamento_1": 9,
+"calcamento_2": 10,
+"terreiro_1": 11,
+"terreiro_2": 12,
+"folhas_1": 13,
+"folhas_2": 14,
+"borda_terra": [
+[
+16,
+17,
+18
+],
+[
+32,
+33,
+34
+],
+[
+48,
+49,
+50
+]
+],
+"borda_terra_int": [
+[
+19,
+20
+],
+[
+35,
+36
+]
+],
+"borda_terra_vermelha": [
+[
+21,
+22,
+23
+],
+[
+37,
+38,
+39
+],
+[
+53,
+54,
+55
+]
+],
+"borda_terra_vermelha_int": [
+[
+24,
+25
+],
+[
+40,
+41
+]
+],
+"borda_calcamento": [
+[
+26,
+27,
+28
+],
+[
+42,
+43,
+44
+],
+[
+58,
+59,
+60
+]
+],
+"borda_calcamento_int": [
+[
+29,
+30
+],
+[
+45,
+46
+]
+],
+"borda_grama": [
+[
+64,
+65,
+66
+],
+[
+80,
+81,
+82
+],
+[
+96,
+97,
+98
+]
+],
+"borda_grama_int": [
+[
+67,
+68
+],
+[
+83,
+84
+]
+],
+"borda_terreiro": [
+[
+69,
+70,
+71
+],
+[
+85,
+86,
+87
+],
+[
+101,
+102,
+103
+]
+],
+"borda_terreiro_int": [
+[
+72,
+73
+],
+[
+88,
+89
+]
+],
+"barranco_L": 112,
+"barranco_M": 113,
+"barranco_R": 114,
+"barranco_escada": 115,
+"barranco_vermelho_L": 116,
+"barranco_vermelho_M": 117,
+"barranco_vermelho_R": 118,
+"barranco_vermelho_escada": 119,
+"arvore_1": [
+[
+128,
+129
+],
+[
+144,
+145
+],
+[
+160,
+161
+]
+],
+"arvore_2": [
+[
+130,
+131
+],
+[
+146,
+147
+],
+[
+162,
+163
+]
+],
+"pe_cafe_verde": [
+[
+132
+],
+[
+148
+]
+],
+"pe_cafe_maduro": [
+[
+133
+],
+[
+149
+]
+],
+"pe_cafe_colhido": [
+[
+134
+],
+[
+150
+]
+],
+"bambu": [
+[
+135
+],
+[
+151
+],
+[
+167
+]
+],
+"arbusto": 136,
+"arbusto_frutas": 137,
+"toco": 138,
+"capim_1": 139,
+"capim_2": 140,
+"bambu_denso": 141,
+"bambu_denso_topo": 142,
+"cerca_h": 176,
+"cerca_v": 177,
+"cerca_canto_no": 178,
+"cerca_canto_ne": 179,
+"cerca_canto_so": 180,
+"cerca_canto_se": 181,
+"arame_h": 182,
+"arame_v": 183,
+"porteira": [
+[
+184,
+185
+]
+],
+"porteira_aberta": [
+[
+186,
+187
+]
+],
+"mata_burro": [
+[
+188,
+189
+]
+],
+"mureta_h": 190,
+"mureta_v": 191,
+"mureta_pilar": 192,
+"telhado": [
+[
+208,
+209,
+210
+],
+[
+224,
+225,
+226
+],
+[
+240,
+241,
+242
+]
+],
+"telhado_palha": [
+[
+211,
+212,
+213
+],
+[
+227,
+228,
+229
+],
+[
+243,
+244,
+245
+]
+],
+"telhado_queimado": [
+[
+214,
+215,
+216
+],
+[
+230,
+231,
+232
+],
+[
+246,
+247,
+248
+]
+],
+"chamine": [
+[
+217
+],
+[
+233
+]
+],
+"fumaca_chamine": [
+[
+218
+],
+[
+234
+]
+],
+"parede": [
+[
+256,
+257,
+258
+],
+[
+272,
+273,
+274
+]
+],
+"parede_queimada": [
+[
+259,
+260,
+261
+],
+[
+275,
+276,
+277
+]
+],
+"parede_madeira": [
+[
+262,
+263,
+264
+],
+[
+278,
+279,
+280
+]
+],
+"porta": [
+[
+265
+],
+[
+281
+]
+],
+"porta_aberta": [
+[
+266
+],
+[
+282
+]
+],
+"porta_queimada": [
+[
+267
+],
+[
+283
+]
+],
+"porta_queimada_aberta": [
+[
+268
+],
+[
+284
+]
+],
+"janela": 269,
+"janela_flores": 270,
+"janela_aberta": 271,
+"janela_fogo": 288,
+"placa_padaria": 289,
+"placa_venda": 290,
+"placa_biblioteca": 291,
+"portao_barracao": [
+[
+292,
+293
+],
+[
+308,
+309
+]
+],
+"toldo": [
+[
+294,
+295,
+296
+]
+],
+"ruina_parede": [
+[
+320,
+321,
+322
+]
+],
+"viga_caida": [
+[
+323,
+324,
+325
+]
+],
+"viga_caida_fria": [
+[
+326,
+327,
+328
+]
+],
+"telhado_caido": [
+[
+329,
+330
+],
+[
+345,
+346
+]
+],
+"entulho_1": 331,
+"entulho_2": 332,
+"chao_queimado_1": 333,
+"chao_queimado_2": 334,
+"cinzas_1": 335,
+"cinzas_2": 352,
+"chafariz": [
+[
+368,
+369,
+370
+],
+[
+384,
+385,
+386
+],
+[
+400,
+401,
+402
+]
+],
+"portao_vila": [
+[
+371,
+372,
+373
+],
+[
+387,
+388,
+389
+],
+[
+403,
+404,
+405
+]
+],
+"carroca": [
+[
+374,
+375,
+376
+],
+[
+390,
+391,
+392
+]
+],
+"carroca_sacas": [
+[
+377,
+378,
+379
+],
+[
+393,
+394,
+395
+]
+],
+"carroca_feno": [
+[
+380,
+381,
+382
+],
+[
+396,
+397,
+398
+]
+],
+"carroca_queimada": [
+[
+416,
+417,
+418
+],
+[
+432,
+433,
+434
+]
+],
+"sacas": [
+[
+419,
+420
+],
+[
+435,
+436
+]
+],
+"varal": [
+[
+421,
+422,
+423
+],
+[
+437,
+438,
+439
+]
+],
+"balanca": [
+[
+424,
+425
+],
+[
+440,
+441
+]
+],
+"lampiao": [
+[
+426
+],
+[
+442
+]
+],
+"lampiao_aceso": [
+[
+427
+],
+[
+443
+]
+],
+"lampiao_derretido": [
+[
+428
+],
+[
+444
+]
+],
+"bandeira_cali": [
+[
+429
+],
+[
+445
+]
+],
+"bandeira_cali_chamuscada": [
+[
+430
+],
+[
+446
+]
+],
+"barril_grande": [
+[
+431
+],
+[
+447
+]
+],
+"barril": 448,
+"barril_aberto": 449,
+"saca": 450,
+"cesto": 451,
+"cesto_cheio": 452,
+"caixote": 453,
+"lenha": 454,
+"placa_poste": 455,
+"alcapao": 456,
+"alcapao_aberto": 457,
+"galinha_1": 458,
+"galinha_2": 459,
+"canteiro": [
+[
+460,
+461
+]
+],
+"banco": [
+[
+462,
+463
+]
+],
+"fogueira_coberta": 464,
+"fogueira_apagada": 465,
+"trouxa": 466,
+"cobertor": 467
+}
