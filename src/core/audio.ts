@@ -53,10 +53,10 @@ class ProceduralMusic {
     this.gain.gain.value = 0;
     this.gain.connect(dest);
     this.scale = SCALES[h % SCALES.length]!;
-    this.root = 48 + (h >> 4) % 12;
-    this.stepDur = 60 / (70 + ((h >> 8) % 50)) / 2;
+    this.root = 48 + (h >>> 4) % 12;
+    this.stepDur = 60 / (70 + ((h >>> 8) % 50)) / 2;
     let s = h;
-    const rnd = () => ((s = (Math.imul(s, 1103515245) + 12345) >>> 0) >> 16) / 65536;
+    const rnd = () => ((s = (Math.imul(s, 1103515245) + 12345) >>> 0) >>> 16) / 65536;
     this.pattern = Array.from({ length: 16 }, () => (rnd() < 0.3 ? -1 : Math.floor(rnd() * this.scale.length * 1.5)));
     this.bass = Array.from({ length: 4 }, () => Math.floor(rnd() * this.scale.length));
   }
@@ -83,6 +83,7 @@ class ProceduralMusic {
   }
 
   private note(midi: number, t: number, dur: number, type: OscillatorType, vol: number): void {
+    if (!Number.isFinite(midi)) return;
     const o = this.ctx.createOscillator();
     const g = this.ctx.createGain();
     o.type = type;
@@ -201,7 +202,7 @@ export class AudioService {
     if (!ctx || !this.sfxBus || ctx.state !== 'running') return;
     const shape = SFX_SHAPES[id] ?? (() => {
       const h = hash(id);
-      return [200 + (h % 600), 100 + ((h >> 10) % 900), 0.12 + ((h >> 20) % 10) / 50, 'square'] as [number, number, number, OscillatorType];
+      return [200 + (h % 600), 100 + ((h >>> 10) % 900), 0.12 + ((h >>> 20) % 10) / 50, 'square'] as [number, number, number, OscillatorType];
     })();
     const [f0, f1, dur, type] = shape;
     const t = ctx.currentTime;

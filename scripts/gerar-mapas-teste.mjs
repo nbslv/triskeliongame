@@ -92,7 +92,7 @@ function makeMap(w, h, props) {
   // área de furtividade: cercas com passagem pelo caminho
   m.rect(26, 1, 26, 12, (x, y) => m.obj(x, y, T.cerca));
   m.rect(26, 17, 26, 28, (x, y) => m.obj(x, y, T.cerca));
-  m.rect(26, 2, 44, 28, (x, y) => { if (m.w && x > 26) m.ground(x, y, (x + y) % 7 === 0 ? T.cinzas : T.grama); });
+  m.rect(26, 2, 44, 28, (x, y) => { if (m.w && x > 26) m.ground(x, y, (((x * 73856093) ^ (y * 19349663)) >>> 0) % 11 < 2 ? T.cinzas : T.grama); });
   m.rect(27, 14, 46, 15, (x, y) => m.ground(x, y, T.terra));
   // esconderijos por tile: arbustos e barris ao longo do caminho
   for (const [x, y] of [[29, 13], [29, 16], [33, 13], [33, 16], [38, 13], [38, 16], [41, 13], [41, 16]]) m.obj(x, y, T.arbusto);
