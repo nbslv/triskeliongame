@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { DIRECTIONS, DIRECTION_ROW, TILE_SIZE, type Direction } from '../config/constants';
+import { assetManifest } from '../content';
 
 /**
  * Texturas PROVISÓRIAS geradas por código, usadas até a sessão de arte entregar
@@ -135,9 +136,11 @@ export function ensureCharacterAnims(scene: Phaser.Scene, key: string): void {
   if (scene.anims.exists(`${key}:walk-down`)) return;
   const tex = scene.textures.get(key);
   const total = tex.frameTotal - 1; // exclui __BASE
-  const cols = Math.max(1, Math.floor(total / 4));
+  // Objetos de uma linha só (ex.: caixa_costura, barril_custodia) não têm 4 direções: tudo usa o quadro 0.
+  const fourDirs = total >= 4 && total % 4 === 0;
+  const cols = fourDirs ? total / 4 : 0;
   for (const dir of DIRECTIONS) {
-    const row = DIRECTION_ROW[dir];
+    const row = fourDirs ? DIRECTION_ROW[dir] : 0;
     const base = row * cols;
     const walk = cols >= 4 ? [base + 1, base + 2, base + 3, base] : cols === 3 ? [base + 1, base, base + 2, base] : [base];
     scene.anims.create({
@@ -258,4 +261,31 @@ export function ensurePortrait(scene: Phaser.Scene, key: string, label: string):
   ctx.fillText((label || key).charAt(0).toUpperCase(), 32, 30);
   tex.refresh();
   return texKey;
+}
+
+/**
+ * Animações de POSE da arte: cada `assets/sprites/<folha>.json` com `alvo` e `anims` vira
+ * `<alvo>:<nome>` (ex.: `icaro:colher`, `pai:mostrar_caixa`), tocadas pelo passo `anim` dos roteiros.
+ */
+export function createPoseAnimations(scene: Phaser.Scene): string[] {
+  const created: string[] = [];
+  for (const sheet of assetManifest.sprites) {
+    if (!sheet.anims || !scene.textures.exists(sheet.key)) continue;
+    const alvo = sheet.alvo ?? sheet.key;
+    const max = scene.textures.get(sheet.key).frameTotal - 1;
+    for (const [name, a] of Object.entries(sheet.anims)) {
+      const key = `${alvo}:${name}`;
+      if (scene.anims.exists(key)) continue;
+      const frames = a.frames.filter((f) => f >= 0 && f < max);
+      if (frames.length === 0) continue;
+      scene.anims.create({
+        key,
+        frames: frames.map((frame) => ({ key: sheet.key, frame })),
+        frameRate: a.frameRate ?? 4,
+        repeat: a.repeat ?? 0,
+      });
+      created.push(key);
+    }
+  }
+  return created;
 }

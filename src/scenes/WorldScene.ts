@@ -15,7 +15,7 @@ import { bus } from '../core/events';
 import { evaluateCondition, flags } from '../core/flags';
 import { input } from '../core/input';
 import { session } from '../core/session';
-import { characterSprite, gameConfig, maps } from '../content';
+import { SPRITE_ALIASES, characterSprite, gameConfig, maps } from '../content';
 import { director, resolveScript } from '../systems/dialogue/director';
 import { runActivity } from '../systems/activity/registry';
 import type { Target } from '../systems/dialogue/types';
@@ -876,8 +876,11 @@ export class WorldScene extends Phaser.Scene {
   cutAnim(id: string, anim: string): void {
     const a = this.actors.get(id) ?? (id === 'player' || id === 'jogador' ? this.player : undefined);
     if (!a) return;
-    if (anim === 'normal' || anim === 'parado') a.face(a.facing);
-    else if (this.anims.exists(`${a.textureKey}:${anim}`)) a.sprite.anims.play(`${a.textureKey}:${anim}`, true);
+    // Pose da arte: <sprite>:<anim>, <id do ator>:<anim> ou um sprite equivalente (caligosuin ↔ cali_soldado).
+    const candidates = [a.textureKey, a.id, ...(SPRITE_ALIASES[a.textureKey] ?? [])];
+    const key = candidates.map((c) => `${c}:${anim}`).find((k) => this.anims.exists(k));
+    if (key) a.playPose(key);
+    else if (anim === 'normal' || anim === 'parado') a.face(a.facing);
     // Sem animação desenhada: ignora (nenhuma cena depende disso).
   }
 
