@@ -4,7 +4,9 @@ Para cada região: quem está lá, onde fica, o que diz (falas de exemplo — as
 para `content/dialogues/`), missões secundárias, lojas e dicas. NPCs **mudam de fala** conforme
 a história avança; as mudanças mais importantes estão anotadas.
 
-Todos os nomes são **[PROPOSTA]**. Missões secundárias são curtas (3–8 min), nunca obrigatórias,
+**Casas exploráveis, lojas, pousadas e locais de treino de cada cidade** estão em
+`07_cidades_e_servicos.md`; aqui ficam os NPCs de rua, as missões e as dicas.
+O monge chama-se **Irmão Silvano** (decidido pelo autor). Os demais nomes são **[PROPOSTA]**. Missões secundárias são curtas (3–8 min), nunca obrigatórias,
 e sempre contam um pedacinho do mundo.
 
 ---
@@ -16,7 +18,10 @@ Falas completas em `content/dialogues/prologo_*.json`.
 |---|---|---|
 | **Tonho** | Cafezal; depois bambuzal | Amigo de colheita; tutorial; humor |
 | **Dona Zefa** | Balança do cafezal | Capataz; planta a mãe e a teimosia do pai |
-| **Dona Custódia** (e a galinha **Pamonha**) | Barril, Rua do Terreiro; bambuzal | Conta por que o pai voltou |
+| **O pai (Anselmo)** | Casa de Ícaro, à mesa (manhã) | Café da manhã; o conflito e o afeto |
+| **Dona Custódia** (e a galinha **Pamonha**) | Casa dela (manhã); barril, Rua do Terreiro; bambuzal | Ovos; fofoca do pai na biblioteca; conta por que o pai voltou |
+| **Seu Juca** | Padaria (manhã) | Pão de Ontem; "a luz da torre piscou" |
+| **Dona Ermelinda** | Biblioteca (manhã) | O livro atrasado; a ficha "Helena" |
 | **Aldeões em fuga** | Estrada | Dão nome ao inimigo e o destino |
 | **Sargento Íris Candeia**, **Soldado Dário** | Bambuzal | Escolta; ponte para Lucian |
 | **Nina** | Bambuzal | Irmã do Tonho; dá a Rapadura Amassada |
@@ -65,7 +70,7 @@ Falas completas em `content/dialogues/prologo_*.json`.
 
 | NPC | Onde | O que diz / faz |
 |---|---|---|
-| **Dona Fridolina** | Balcão da Hospedaria do Ganso Tonto | **Pousada (15 cobres) e loja.** "O monge? Três semanas de conta. Ele paga em bênção. Bênção não compra farinha." |
+| **Dona Fridolina** | Balcão da Hospedaria do Ganso Tonto | **Pousada (15 cobres, para descansar) e loja.** "O monge? Três semanas de conta. Ele paga em bênção. Bênção não compra farinha." |
 | **Silvano** (antes de entrar no grupo) | Mesa do canto | "Meu jovem, sente-se. Você tem cara de quem vai pagar a próxima." |
 | **Caixeiro Aníbal** | Estrada (aparece em vários capítulos) | **Mascate ambulante**: vende um item raro por região. "Preço de amigo. De amigo rico." |
 | **Abade Plácido** | Mosteiro | Suspira. "O Irmão Silvano é... uma provação que os céus nos enviaram." **Missão: "Os sinos da Serra"** — tocar 3 sinos na ordem certa (dica nos vitrais). Recompensa: *Contas do Abade*. |
@@ -179,7 +184,10 @@ Todos os NPCs importantes reaparecem em uma linha cada:
 
 ## Regras gerais para NPCs
 
-- **Toda região tem:** 1 loja de consumíveis, 1 dica de batalha, 1 missão secundária, 1 piada.
+- **Toda região tem:** 1 loja de consumíveis, 1 dica de batalha, 2–3 missões secundárias
+  (as desta lista + os ganchos das casas extras em `07`), 1 piada.
+- **Salvar não depende de NPC:** o jogador salva pelo menu a qualquer momento; pousadas são
+  para descansar, cozinhar e conversar.
 - **Dicas** vêm sempre de personagens, nunca de menus (a sargento, o zelador, a erveira...).
 - **Ninguém é só vitrine:** todo lojista tem uma fala que muda depois do chefe da região.
 - **A desigualdade aparece sem sermão:** fila da sopa × pátio da faculdade; palafita × mármore;

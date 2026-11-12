@@ -111,19 +111,23 @@ Todos os Caligosuins em formações completas, mais:
 
 ## 4. Chefes
 
-| # | Chefe | Capítulo | Nível sugerido |
+| # | Chefe | Capítulo | Nível sugerido do grupo |
 |---|---|---|---|
-| 1 | Capitão Toucim (1º encontro) | 1 — Muralha | 2 |
-| 2 | General Bafo-Brasa (sobrevivência) | 1 — Torre | 3 |
-| 3 | Irmãos Torresmo | 2 — Serra Calma | 6 |
-| 4 | Valéria (duelo) / Pernil, o Arrombador | 3 — Arena / Minas | 8 / 9 |
-| 5 | Cervo Murcho | 4 — Coração da Floresta | 12 |
-| 6 | O Eco | 5 — Lago Parado | 14 |
-| 7 | Guardiã Espinheira | 6 — Estufa | 16 |
-| 8 | Cofre-Vivo | 7 — Armazém 7 | 19 |
-| 9 | Capitão Toucim (3º) / Madame Trufa e a Flor Murcha | 8 — Fortaleza | 22 / 23 |
-| 10 | General Bafo-Brasa | 10 — Portão | 26 |
-| 11 | Arquimago Morgrunho | 10 — Torre | 27+ |
+| 1 | Capitão Toucim (1º encontro) | 1 — Muralha | 3 |
+| 2 | General Bafo-Brasa (sobrevivência) | 1 — Torre | 4 |
+| 3 | Irmãos Torresmo | 2 — Serra Calma | 8 |
+| 4 | Valéria (duelo) / Pernil, o Arrombador | 3 — Arena / Minas | 11 / 13 |
+| 5 | Cervo Murcho | 4 — Coração da Floresta | 17 |
+| 6 | O Eco | 5 — Lago Parado | 20 |
+| 7 | Guardiã Espinheira | 6 — Estufa | 24 |
+| 8 | Cofre-Vivo | 7 — Armazém 7 | 28 |
+| 9 | Capitão Toucim (3º) / Madame Trufa e a Flor Murcha | 8 — Fortaleza | 32 / 33 |
+| 10 | General Bafo-Brasa | 10 — Portão | 38 |
+| 11 | Arquimago Morgrunho | 10 — Torre | 39+ |
+
+Os níveis são os da dificuldade **Tranquila** (a única da versão inicial): os chefes ficam 1–2
+níveis abaixo do grupo, anunciam o golpe forte um turno antes, e depois de duas derrotas o jogo
+oferece "Uma mãozinha" (ver `05_sistemas.md`).
 
 ### 1. Capitão Toucim
 - **Aparência:** ver `02_personagens.md`. **Onde:** Muralha Sul (1º), Passo da Bigorna

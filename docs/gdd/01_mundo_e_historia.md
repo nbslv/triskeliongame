@@ -114,10 +114,13 @@ visitados (espaço para continuação).
 
 ## 5. Estrutura em atos
 
-Duração total-alvo: **4–6 h** (PENDENTE APROVAÇÃO). Detalhe de capítulos em `03_fases.md`.
+Duração (decidida pelo autor): **8–24 h** no total; história principal de ~10–14 h. Detalhe de
+capítulos em `03_fases.md`. O jogo é **majoritariamente aconchegante**: cada capítulo alterna
+uma cidade tranquila (casas, lojas, treinos, conversas de fogueira) com um trecho de aventura.
 
 ### Prólogo — A noite em que a Torrinha apagou
-Cafezal, vila em chamas, o pai, a promessa, o colar, a fuga. Sem batalhas.
+Uma manhã comum em casa e na vila, o cafezal, a vila em chamas, o pai, a promessa, o colar, a
+fuga. Sem batalhas.
 (Roteiro completo: `10_prologo_roteiro.md`.)
 
 ### Ato 1 — A luz que teima (começo)
@@ -160,7 +163,9 @@ Cafezal, vila em chamas, o pai, a promessa, o colar, a fuga. Sem batalhas.
   o arquimago **Morgrunho**, Ícaro encaixa o triskelion no cajado e conjura a Lumnia completa,
   com Celly, Valéria e o monge sustentando o círculo. O fogo negro se apaga no reino inteiro.
 
-### Epílogo
+### Epílogo (jogável)
+O jogador leva cada amigo para casa — inclusive ao **Palácio de Pratamar**, onde o Irmão Silvano
+volta a ser o príncipe **Silvério Augusto de Argêntia**.
 - Todos são reconhecidos como heróis. Celly é recebida em Brumaflor como heroína, e descobre-se
   que era da nobreza feérica. O monge volta para assumir o trono e enfrentar a desigualdade do
   seu reino. A faculdade abre as portas a quem não pode pagar.

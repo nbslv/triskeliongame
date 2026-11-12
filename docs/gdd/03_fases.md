@@ -12,6 +12,9 @@ desbloqueadas pela história.**
   livremente, conversa, abre baús e encontra inimigos.
 - Nós novos aparecem quando a história libera; nós antigos **continuam visitáveis** (lojas,
   missões secundárias, NPCs que mudam de fala).
+- **Toda cidade tem**: casas exploráveis (a principal do capítulo + 1 ou 2 extras), lojas,
+  pousada, um local de treino de força e um de magia — tudo em `07_cidades_e_servicos.md`.
+- O botão **Acampar** no mapa-múndi abre o acampamento do grupo (a partir do Capítulo 2).
 - Exceções: o **Prólogo** é linear e fechado (sem mapa-múndi); a **Vila Torrinha** só reabre no
   Ato 3; a **Batalha de Áurea** tranca o mapa até o fim (o jogo avisa antes: "ponto sem volta").
 - **Inimigos nos mapas de exploração são visíveis** (andam pelo cenário; encostar inicia a
@@ -35,31 +38,49 @@ desbloqueadas pela história.**
 
 ## 2. Meta de duração
 
-**Jogo completo: 4–6 h. Prólogo: 10–15 min.** (PENDENTE APROVAÇÃO DO AUTOR)
+**Decidido pelo autor:** prólogo de 10–15 min; jogo completo de **8–24 h**, com história
+principal de **~10–14 h** e o resto em missões secundárias, exploração e extras.
 
-| Capítulo | Região | Duração | Nível ao sair |
+| Capítulo | Região | História principal | Nível ao sair |
 |---|---|---|---|
-| Prólogo | Cafezal, Vila Torrinha | 10–15 min | 1 |
-| 1 | Áurea sitiada | 35–45 min | 4 |
-| 2 | Estrada do Trigo e Mosteiro | 25–30 min | 7 |
-| 3 | Bravaferro | 30–35 min | 10 |
-| 4 | Floresta dos Sussurros | 25–30 min | 13 |
-| 5 | Caverna dos Ecos | 20–25 min | 15 |
-| 6 | Brumaflor | 25–30 min | 17 |
-| 7 | Pratamar | 30–35 min | 20 |
-| 8 | Charco e Fortaleza Fuligem | 35–40 min | 24 |
-| 9 | Volta à Torrinha | 10–15 min | 25 |
-| 10 | A Batalha de Áurea + Epílogo | 35–45 min | 27–30 |
-| | **Total** | **≈ 4 h 40 – 5 h 45** | |
+| Prólogo | Vila Torrinha, Cafezal | 10–15 min | 1 |
+| 1 | Áurea sitiada | 1 h 10 | 5 |
+| 2 | Estrada do Trigo e Mosteiro | 1 h | 9 |
+| 3 | Bravaferro | 1 h 20 | 14 |
+| 4 | Floresta dos Sussurros | 1 h 10 | 18 |
+| 5 | Caverna dos Ecos | 50 min | 21 |
+| 6 | Brumaflor | 1 h 15 | 25 |
+| 7 | Pratamar | 1 h 20 | 29 |
+| 8 | Charco e Fortaleza Fuligem | 1 h 30 | 34 |
+| 9 | Volta à Torrinha | 25 min | 35 |
+| 10 | A Batalha de Áurea | 1 h 15 | 40 |
+| 11 | Epílogo jogável: o Palácio de Pratamar e a Colina do Mar | 30 min | — |
+| | **Total da história principal** | **≈ 12 h** (10–14 h conforme o ritmo) | |
 
-Missões secundárias somam cerca de 45 min opcionais.
+**De onde vem o tempo de cada capítulo** (exemplo de um capítulo de 1 h 15): chegada e cidade,
+com casas, lojas e conversas (20 min) · estrada ou masmorra com 15–20 batalhas (30 min) ·
+cenas de história e chefe (20 min) · uma conversa de fogueira (5 min).
+
+**Extras (opcionais), para quem quer chegar às 20–24 h:**
+
+| Extra | Tempo |
+|---|---|
+| Missões secundárias (2–3 por região, ~30 no total) | 4–5 h |
+| Treinos de força e magia em todas as cidades | 1 h 30 – 2 h |
+| Casas extras, examináveis, fofocas | 1 h – 1 h 30 |
+| Cozinhar, pescar, colher, decorar o acampamento | 2–3 h |
+| Conversas de fogueira e cartas da Livinha | 1 h |
+| Caderno do Ícaro completo (bestiário, receitas, carimbos) | 1–2 h |
+| Pós-jogo: reconstruir a Vila Torrinha (seção 6) | 1–2 h |
+
+Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
 
 ## 3. Capítulos
 
 ### Prólogo — A noite em que a Torrinha apagou
-- **Regiões:** Cafezal → Estrada → Vila Torrinha → Túnel → Bambuzal.
-- **Objetivo:** colher café; achar o pai; fugir.
-- **Jogabilidade:** tutoriais de movimento/interação; furtividade; **sem batalhas**.
+- **Regiões:** Casa de Ícaro e Vila Torrinha (manhã) → Cafezal → Estrada → Vila em chamas → Túnel → Bambuzal.
+- **Objetivo:** tomar café com o pai; colher café; achar o pai; fugir.
+- **Jogabilidade:** casas exploráveis; tutoriais de movimento/interação; furtividade; **sem batalhas**.
 - **Grupo:** Ícaro.
 - Detalhe: `10_prologo_roteiro.md`.
 
@@ -202,8 +223,23 @@ Missões secundárias somam cerca de 45 min opcionais.
   3. Subida da torre, com cada aliado segurando um andar.
   4. Chefe final: **Arquimago Morgrunho** (duas fases). No fim, Ícaro *respira*, encaixa o
      triskelion e conjura a **Lumnia completa**.
-- **Epílogo:** heróis; Celly nobre; o príncipe volta para casa; a faculdade aberta; a Colina do
-  Mar.
+- **Autosave** antes do "ponto sem volta", antes de cada chefe e a cada andar da torre.
+
+### Capítulo 11 — Epílogo jogável: de volta para casa
+- **Mapas:** Áurea em festa; **Palácio de Pratamar** (interior completo); Brumaflor (o lar de
+  Celly, agora com visita); Forja-Alta; Colina do Mar.
+- **Objetivo:** levar cada amigo para casa. Sem batalhas.
+- **Batidas:**
+  1. Áurea: os heróis são reconhecidos. A faculdade abre as portas; a matrícula de 3.000 cobres.
+  2. **Pratamar:** o príncipe **Silvério Augusto** — o Irmão Silvano — volta ao palácio de onde
+     fugiu. O jogador explora os aposentos dele e entende, objeto por objeto, por que ele saiu e
+     por que volta (detalhe em `07_cidades_e_servicos.md`). Ele assume o posto para enfrentar a
+     desigualdade do reino; a primeira ordem é abrir os celeiros do palácio ao Cais Baixo.
+  3. **Brumaflor:** Celly é recebida como heroína; descobre-se que é da nobreza feérica.
+     O lar dela, antes vazio e com a porta lacrada, enche de visitas.
+  4. **Forja-Alta:** jantar na casa dos Lâmina de Ferro. A Livinha cobra a promessa de mindinho.
+  5. **Colina do Mar:** Ícaro e Valéria, de mãos dadas, visitam os túmulos dos pais dele.
+- **Depois dos créditos:** o save volta ao mundo aberto, com o pós-jogo liberado.
 
 ## 4. Quem entra no grupo, e onde
 
@@ -228,8 +264,21 @@ Missões secundárias somam cerca de 45 min opcionais.
 Princípios:
 - **Inimigos comuns** devem ser vencíveis no **AUTO** se o grupo estiver no nível esperado;
   **chefes** pedem controle manual (o AUTO não usa bem as mecânicas próprias).
-- Um ponto de save com cura grátis **antes de todo chefe**.
-- Perder uma batalha comum: volta ao último save/autosave sem perder XP nem itens ganhos.
-  Perder para um chefe: opção "Tentar de novo" na hora, com PV/PM cheios.
+- **Salvar é livre** (menu, a qualquer momento) e o autosave é constante — ver `05_sistemas.md`.
+  Antes de todo chefe há um **Lampião dourado** (cura grátis + autosave).
+- Perder uma batalha comum: o grupo acorda ali perto com metade do PV/PM, sem perder nada.
+  Perder para um chefe: "Tentar de novo" na hora, com PV/PM cheios.
+- A versão inicial tem **só a dificuldade Tranquila**; a curva abaixo é a dela.
 - Não é preciso "farmar": seguir a história e enfrentar os inimigos do caminho basta para o
   nível esperado. Quem explorar tudo chega 2–3 níveis acima.
+
+## 6. Pós-jogo: reconstruir a Torrinha
+
+Depois dos créditos, a **Vila Torrinha** vira um projeto aconchegante e sem pressa:
+- Dona Zefa, Tonho, Nina, Dona Custódia, Seu Juca e Dona Ermelinda voltam um a um, conforme o
+  jogador entrega materiais (madeira de Bravaferro, telhas de Áurea, mudas de Brumaflor).
+- Cada casa reconstruída reabre como interior explorável, com falas novas.
+- A casa de Ícaro ganha, enfim, um **telhado novo** (o pote "TELHADO" do prólogo) — e, se o
+  jogador quiser, um segundo andar. ("Mago é coisa de quem nasceu em casa de dois andares.")
+- O cafezal volta a produzir: colheita como atividade livre, com o *Café da Torrinha* de prêmio.
+- A biblioteca reabre com os livros recuperados na missão "Devolução atrasada".
