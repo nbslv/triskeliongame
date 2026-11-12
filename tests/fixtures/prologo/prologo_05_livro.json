@@ -1,0 +1,14 @@
+{
+  "id": "prologo_05_livro",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "No fundo do cesto, embrulhado num pano de prato: 'Fundamentos de Magia Restauradora, Volume 1'."},
+    {"type": "say", "speaker": "narrador", "text": "Carimbo: BIBLIOTECA DA VILA TORRINHA. DEVOLVER EM 14 DIAS."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(Catorze dias... Faz quatro meses. A bibliotecária finge que não vê, eu finjo que vou devolver.)"},
+    {"type": "say", "speaker": "narrador", "text": "Capítulo 3 — 'Alento', a primeira magia de cura. 'Requer calma, respiração firme e mãos quentes.'"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Calma, respiração firme, mãos quentes. Uma hora dessas eu consigo passar do brilhinho.)"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Taxa de matrícula da Faculdade de Magia: três mil cobres. Eu tenho doze. É um começo.)"},
+    {"type": "say", "speaker": "tutorial", "text": "Estudar fortalece a Magia. Mais adiante, bibliotecas e santuários terão treinos de magia."},
+    {"type": "flag", "set": "prologo.leu_livro"},
+    {"type": "end"}
+  ]
+}

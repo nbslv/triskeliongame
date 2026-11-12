@@ -1,0 +1,19 @@
+{
+  "id": "prologo_viz_biblioteca",
+  "steps": [
+    {"type": "if", "flag": "prologo.visitou_biblioteca", "goto": "curto"},
+    {"type": "say", "speaker": "ermelinda", "portrait": "ermelinda_neutro", "text": "Silêncio. E limpe os pés."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Bom dia, Dona Ermelinda."},
+    {"type": "say", "speaker": "ermelinda", "portrait": "ermelinda_neutro", "text": "'Fundamentos de Magia Restauradora, Volume 1'. Catorze dias de prazo. Está com o senhor há quatro meses."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "Eu ia devolver esta semana, eu juro, é que o capítulo três..."},
+    {"type": "say", "speaker": "ermelinda", "portrait": "ermelinda_neutro", "text": "Eu não perguntei. Livro parado na estante não ensina ninguém."},
+    {"type": "say", "speaker": "ermelinda", "portrait": "ermelinda_neutro", "text": "O Volume 2 chega mês que vem. Vou esquecer ele em cima do balcão. Sou muito distraída."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "...Obrigado, Dona Ermelinda."},
+    {"type": "say", "speaker": "ermelinda", "portrait": "ermelinda_neutro", "text": "Silêncio."},
+    {"type": "flag", "set": "prologo.visitou_biblioteca"},
+    {"type": "end"},
+    {"type": "label", "name": "curto"},
+    {"type": "say", "speaker": "ermelinda", "portrait": "ermelinda_neutro", "text": "Silêncio. ...E juízo."},
+    {"type": "end"}
+  ]
+}

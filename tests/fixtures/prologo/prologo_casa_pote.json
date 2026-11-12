@@ -1,0 +1,8 @@
+{
+  "id": "prologo_casa_pote",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um pote de barro com uma etiqueta na letra do pai: 'TELHADO'. Dentro, quarenta cobres e um botão."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Faz três invernos que a viga do meio reclama. Faz três invernos que o pote não enche.)"},
+    {"type": "end"}
+  ]
+}

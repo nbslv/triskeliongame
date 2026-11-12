@@ -1,0 +1,8 @@
+{
+  "id": "prologo_viz_custodia_croche",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um cobertor de crochê pela metade, do tamanho errado para uma pessoa. Tem dois buracos para asas."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(É pra galinha.)"},
+    {"type": "end"}
+  ]
+}

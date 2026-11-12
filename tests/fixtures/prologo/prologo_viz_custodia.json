@@ -1,0 +1,22 @@
+{
+  "id": "prologo_viz_custodia",
+  "steps": [
+    {"type": "if", "flag": "prologo.visitou_custodia", "goto": "curto"},
+    {"type": "sfx", "id": "galinha"},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Ícaro! Entra, entra. Limpa o pé. A Pamonha tá chocando e não gosta de visita com barro."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Bom dia, Dona Custódia. Bom dia, Pamonha."},
+    {"type": "sfx", "id": "galinha"},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Ela gosta de você. De mim ela só gosta na hora do milho."},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Separei meia dúzia de ovos pro seu pai. Ele não pede nada, aquele cabeça-dura, então eu mando."},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Sabia que ontem ele ficou parado na frente da biblioteca? Um tempão. Olhando a porta."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "Meu pai? Na biblioteca?"},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Não entrou. Mas ficou. Eu vi daqui, que eu vejo tudo daqui."},
+    {"type": "sfx", "id": "item_obtido"},
+    {"type": "say", "speaker": "narrador", "text": "Ícaro recebeu Ovos da Pamonha."},
+    {"type": "flag", "set": "prologo.visitou_custodia"},
+    {"type": "end"},
+    {"type": "label", "name": "curto"},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Vai trabalhar, menino. E fala pro Anselmo que ovo não é esmola, é vizinhança."},
+    {"type": "end"}
+  ]
+}

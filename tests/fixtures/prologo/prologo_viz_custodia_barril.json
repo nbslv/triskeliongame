@@ -1,0 +1,8 @@
+{
+  "id": "prologo_viz_custodia_barril",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um barril de melado do tamanho de uma pessoa, encostado na porta."},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Tá vazio. Quase. Cabe uma pessoa aí dentro, sabia? Eu medi. Nunca se sabe."},
+    {"type": "end"}
+  ]
+}

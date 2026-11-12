@@ -1,0 +1,14 @@
+{
+  "id": "prologo_09_visto",
+  "steps": [
+    {"type": "sfx", "id": "cali_alerta"},
+    {"type": "emote", "actor": "icaro", "emote": "exclamacao"},
+    {"type": "say", "speaker": "cali_soldado", "portrait": "cali_soldado", "text": "OINC! Tem um aqui! Tem um AQUI!"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "(Não...!)"},
+    {"type": "fade", "to": "black", "ms": 400},
+    {"type": "wait", "ms": 300},
+    {"type": "say", "speaker": "narrador", "text": "Ícaro se jogou por um vão da cerca e voltou rastejando até o último esconderijo."},
+    {"type": "fade", "to": "clear", "ms": 400},
+    {"type": "end"}
+  ]
+}

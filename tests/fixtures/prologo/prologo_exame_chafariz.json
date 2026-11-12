@@ -1,0 +1,7 @@
+{
+  "id": "prologo_exame_chafariz",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "O chafariz da praça. A água continua correndo, como se não tivesse sido avisada."},
+    {"type": "end"}
+  ]
+}

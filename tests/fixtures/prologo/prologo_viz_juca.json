@@ -1,0 +1,20 @@
+{
+  "id": "prologo_viz_juca",
+  "steps": [
+    {"type": "if", "flag": "prologo.visitou_juca", "goto": "curto"},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Olha o futuro mago! Pega um pão de ontem, que o de hoje é pra quem paga."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "O de ontem do senhor é melhor que o de hoje dos outros, seu Juca."},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Por isso que eu gosto desse menino. Sabe mentir com educação."},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Escuta essa: o mascate que passou ontem jurou que a luz da torre da capital piscou semana passada."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "A luz do cajado? Mas ninguém enxerga aquela luz."},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Os magos enxergam. Diz que saíram correndo de pijama. Deve ser conversa de mascate."},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "...Deve ser."},
+    {"type": "sfx", "id": "item_obtido"},
+    {"type": "say", "speaker": "narrador", "text": "Ícaro recebeu Pão de Ontem."},
+    {"type": "flag", "set": "prologo.visitou_juca"},
+    {"type": "end"},
+    {"type": "label", "name": "curto"},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Bom trabalho, Ícaro. Se sobrar sonho no fim do dia, eu guardo um pra você."},
+    {"type": "end"}
+  ]
+}

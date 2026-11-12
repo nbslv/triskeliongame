@@ -1,0 +1,9 @@
+{
+  "id": "prologo_viz_biblioteca_ficha",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "O fichário de empréstimos. A ficha de Ícaro tem tantas linhas que ganhou uma segunda folha, colada com goma."},
+    {"type": "say", "speaker": "narrador", "text": "Bem no fundo da gaveta, uma ficha amarelada: 'Helena'. Só o primeiro nome. Quase tantas linhas quanto a dele."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "(...A mãe vinha aqui.)"},
+    {"type": "end"}
+  ]
+}
