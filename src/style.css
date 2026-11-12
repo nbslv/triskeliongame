@@ -1,0 +1,87 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0a12;
+  color: #f4ecd8;
+  font-family: 'VT323', monospace;
+  /* sem zoom por gesto, sem rolagem elástica, sem seleção/menu de toque longo */
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+#game canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  touch-action: none;
+}
+
+/* Aviso "gire o aparelho": só em telas de toque em modo retrato. */
+#girar {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #0b0a12;
+  color: #f4ecd8;
+  font-size: 28px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+}
+.girar-icone {
+  font-size: 56px;
+  animation: girar 2s ease-in-out infinite;
+}
+@keyframes girar {
+  0%, 30% { transform: rotate(0deg); }
+  60%, 100% { transform: rotate(-90deg); }
+}
+@media (orientation: portrait) and (pointer: coarse) {
+  #girar { display: flex; }
+}
+
+/* Tela de senha (camada HTML sobre o canvas, para usar o teclado nativo do celular). */
+.senha-form {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -10%);
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  font-family: 'VT323', monospace;
+}
+.senha-form input,
+.senha-form button {
+  font-family: inherit;
+  font-size: 22px;
+  border: 2px solid #f4ecd8;
+  background: #1c1a2b;
+  color: #f4ecd8;
+  padding: 6px 10px;
+  border-radius: 4px;
+  -webkit-user-select: text;
+  user-select: text;
+  touch-action: manipulation;
+}
+.senha-form input { width: 200px; }
+.senha-form button { background: #c8963e; color: #0b0a12; cursor: pointer; }

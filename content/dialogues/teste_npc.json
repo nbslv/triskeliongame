@@ -1,0 +1,13 @@
+{
+  "id": "teste_npc",
+  "description": "NPC de TESTE do motor. 'self' é o NPC com quem se falou.",
+  "steps": [
+    { "type": "emote", "actor": "self", "emote": "♪", "ms": 500 },
+    { "type": "if", "flag": "teste.falou_npc", "goto": "de_novo" },
+    { "type": "say", "speaker": "aldeao", "portrait": "aldeao", "text": "[teste] Olá! Sou um NPC de teste. Mais à direita há um Caligosuin de patrulha: esconda-se nos arbustos e barris." },
+    { "type": "flag", "set": "teste.falou_npc" },
+    { "type": "end" },
+    { "type": "label", "name": "de_novo" },
+    { "type": "say", "speaker": "aldeao", "portrait": "aldeao", "text": "[teste] Já conversamos. Boa sorte!" }
+  ]
+}
