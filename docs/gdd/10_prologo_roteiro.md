@@ -1,6 +1,6 @@
 # 10 — Prólogo: roteiro cena a cena
 
-> **"A noite em que a Torrinha apagou"**
+> **"A noite em que Valesol apagou"**
 > Duração-alvo: **10–15 min** no caminho direto (decidido pelo autor); quem examinar todas as casas
 > da manhã chega a ~18 min. Sem batalhas. Sem violência explícita.
 > As falas completas estão em `content/dialogues/prologo_*.json`; aqui fica a direção de cada cena:
@@ -10,7 +10,7 @@
 
 | # | Cena | Mapa | Jogabilidade | Duração | Emoção |
 |---|---|---|---|---|---|
-| 0 | Manhã na Torrinha | `prologo_casa_icaro`, `prologo_vila_manha` + 3 interiores | Tutorial de andar e examinar; casas exploráveis | 2–3 min (até 6 explorando) | Rotina, afeto ranzinza |
+| 0 | Manhã em Valesol | `prologo_casa_icaro`, `prologo_vila_manha` + 3 interiores | Tutorial de andar e examinar; casas exploráveis | 2–3 min (até 6 explorando) | Rotina, afeto ranzinza |
 | 1 | Cafezal ao entardecer | `prologo_cafezal` | Colheita (prévia de treino de força), correr | 2–3 min | Aconchego, humor |
 | 2 | A fumaça / estrada | `prologo_estrada` | Corrida curta | 1 min | Alarme |
 | 3 | Vila em chamas | `prologo_vila` | Furtividade (3 trechos) | 3–4 min | Tensão (com alívio cômico) |
@@ -18,8 +18,8 @@
 | 5 | O túnel | `prologo_tunel` | Caminhada no escuro | 1 min | Luto, primeiro passo |
 | 6 | Os sobreviventes | `prologo_bambuzal` | Cutscene | 2 min | Acolhimento, promessa |
 
-Nomes criados para o prólogo (propostas; ver perguntas em `docs/status/narrativa.md`): **Vila Torrinha** (a vila),
-**Anselmo** (o pai), **Helena** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
+Nomes do prólogo (Valesol, Tadeo e Aurora decididos pelo autor; os demais são propostas desta sessão): **Valesol** (a vila),
+**Tadeo** (o pai), **Aurora** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
 **Dona Zefa** (capataz do cafezal), **Dona Custódia** e a galinha **Pamonha** (vizinhas),
 **Seu Juca** (padeiro), **Dona Ermelinda** (bibliotecária),
 **Capitão Toucim** (oficial Caligosuin atrapalhado), **Sargento Íris Candeia** (Guarda de Luminaer),
@@ -27,7 +27,7 @@ Nomes criados para o prólogo (propostas; ver perguntas em `docs/status/narrativ
 
 ---
 
-## Cena 0 — Manhã na Torrinha (casas exploráveis)
+## Cena 0 — Manhã em Valesol (casas exploráveis)
 
 **Diálogos:** `prologo_00_abertura`, `prologo_00b_cafe_com_pai`, `prologo_00c_porta_sem_cafe`,
 `prologo_00d_saida_vila`; examináveis `prologo_casa_*`; vizinhos `prologo_viz_*`.
@@ -37,7 +37,7 @@ conhecer a vida de Ícaro antes de perdê-la. A vila que queima na Cena 3 é a m
 andou de manhã; a casa onde o pai está caído é a mesma onde tomaram café.
 
 **Abertura (tela preta).** Quatro frases de narração: a luz de Luminaer "nunca dorme", o cajado
-na torre, Aurelius Solis. E o corte de tom: *"Na Vila Torrinha, a gente pensa em café."*
+na torre, Aurelius Solis. E o corte de tom: *"Em Valesol, a gente pensa em café."*
 
 **A casa de Ícaro** (`prologo_casa_icaro`: uma peça só, com cozinha, dois catres e a porta dos
 fundos para o terreiro). Ícaro acorda com uma página colada na bochecha; o pai grita da cozinha.
@@ -57,7 +57,7 @@ cuidado."*
 | Cadeira de balanço | `prologo_casa_cadeira` | Ninguém senta; "ela não range" — o luto do pai |
 | Fogão e bule | `prologo_casa_fogao` | O pai não comeu a broa dele: guardou para o filho levar |
 | Pote "TELHADO" | `prologo_casa_pote` | Quarenta cobres e um botão; "a viga do meio reclama" — a pobreza e a viga que vai cair |
-| Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Anselmo" e "Helena" |
+| Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Tadeo" e "Aurora" |
 | Alçapão do terreiro | `prologo_casa_alcapao` | O túnel do rego seco: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
 
 **A vila de manhã** (`prologo_vila_manha`: o mesmo desenho de `prologo_vila`, inteiro e com
@@ -72,7 +72,7 @@ sol). Três portas abertas, todas opcionais:
 - **Biblioteca** (`prologo_viz_biblioteca` + estante, fichário): Dona Ermelinda cobra o livro de
   quatro meses e promete "esquecer" o Volume 2 no balcão. Na estante, a biografia de Aurelius
   com **três espirais rabiscadas** na margem. No fundo do fichário, uma ficha antiga:
-  **"Helena"**.
+  **"Aurora"**.
 
 **Saída.** No portão da vila, `prologo_00d_saida_vila` pergunta se o jogador quer ir para o
 cafezal (aviso gentil de que a manhã acaba). Corte narrado: "O dia passou como passam os dias de
@@ -139,16 +139,21 @@ Tonho se separa para buscar a irmã (a casa dele é fora da vila). A despedida �
 
 ## Cena 3 — A vila em chamas (furtividade)
 
-**Diálogos:** `prologo_08_vila_entrada`, `prologo_09_visto`, `prologo_10_praca`,
-`prologo_11_custodia`, e os examináveis `prologo_exame_*`.
+**Diálogos:** `prologo_08_vila_entrada`, `prologo_09_visto`, `prologo_09b_perdeu_de_vista`,
+`prologo_10_praca`, `prologo_11_custodia`, e os examináveis `prologo_exame_*`.
+
+**Tom (decisão do autor):** na vila destruída **não há piada** com Ícaro, com os moradores nem
+com o cenário. O único humor permitido vem dos Caligosuins entre si — perdendo Ícaro de vista,
+achando que viram alguma coisa, uma troca curta de falas — e sem forçar. O humor da manhã e do
+cafezal fica onde está; o contraste é o que dói.
 
 **Imagem.** A mesma vila da manhã, queimando. A panorâmica nomeia os lugares que o jogador
 acabou de visitar ("a padaria, a venda, a rua do chafariz"). O fogo é **preto com
 borda roxa** e "não ilumina nada": a luz da cena vem do céu e de brasas comuns.
 
-**Primeiro Caligosuin.** Porco de pé, manto, presas enormes — e espirra na própria bandeira.
-É a regra visual da raça: **fofo-ameaçador**. Logo depois Ícaro nota que o mesmo fogo derreteu
-o ferro do lampião: são desastrados, não inofensivos.
+**Primeiro Caligosuin.** Porco de pé, manto, presas enormes. Ele para, acha que ouviu alguma
+coisa, olha para o lado errado e decide que "foi o vento" — é a regra da raça, **fofo-ameaçador**.
+Em seguida Ícaro o vê encostar a tocha num lampião: o ferro derrete. Desatentos, não inofensivos.
 
 ### Regras da furtividade (para o motor e para a sessão de mapas)
 
@@ -158,6 +163,9 @@ o ferro do lampião: são desastrados, não inofensivos.
   do lado oposto ao inimigo, Ícaro fica agachado e o cone não o detecta.
 - **Ser visto** = `prologo_09_visto` (duas falas, fade) e volta ao **último ponto seguro**
   (marcadores `checkpoint_*`). Sem "game over", sem contagem de falhas, sem dano.
+- **Quase visto** (opcional, no máximo uma vez por trecho): quando Ícaro escapa de um cone por
+  pouco, os dois soldados mais próximos trocam as falas de `prologo_09b_perdeu_de_vista`
+  ("Fumaça não tem cabelo." / "...Então foi fumaça.") sem tirar o controle do jogador.
 - Correr (B) é permitido e não faz barulho — é o prólogo; a regra é uma só e simples.
 - Dificuldade: paciência, não reflexo. Toda patrulha tem uma janela folgada (≥ 2 s).
 - Acessibilidade: depois de 3 detecções no mesmo trecho, o cone daquele trecho encolhe um tile.
@@ -171,17 +179,18 @@ o ferro do lampião: são desastrados, não inofensivos.
 | C — Rua do Terreiro | `checkpoint_beco` → casa | 2 patrulhas cruzadas + sacas de café como cobertura | Combinar tudo; Dona Custódia no barril no meio |
 
 **Cutscene da praça (`prologo_10_praca`).** Escondido, Ícaro ouve o **Capitão Toucim**. A cena faz
-três trabalhos: (1) humor — "tragam o café / queimem o café / tragam, é cheiroso" e o soldado
-que queimou a biblioteca espirrando; (2) exposição — eles procuram **livros e magia** a mando de
-**Madame Trufa**, "a barreira caiu, o cajado apagou"; (3) ameaça sem imagem — "ordens do General:
-nada fica de pé". Depois, a câmera mostra a **biblioteca** queimando: a perda pessoal de Ícaro.
+três trabalhos: (1) exposição — eles procuram **livros e magia** a mando de **Madame Trufa**;
+"a barreira caiu, o cajado apagou"; (2) ameaça sem imagem — "ordens do General: nada fica de
+pé"; (3) um único respiro, entre eles: "esta vila só cheira a café" / "então tragam o café" /
+"pra quê, capitão?" / "soldado não pergunta pra quê". Depois, a câmera mostra a **biblioteca**
+queimando: a perda pessoal de Ícaro.
 
-**Dona Custódia (`prologo_11_custodia`, opcional mas no caminho).** Escondida num barril de
-melado com a galinha Pamonha. Dá a informação que dói: o pai **já estava a salvo e voltou para
-dentro de casa buscar alguma coisa**. Ícaro manda ela para o bambuzal — primeira vez que ele
-cuida de alguém em vez de ser cuidado.
+**Dona Custódia (`prologo_11_custodia`, opcional mas no caminho).** Escondida no barril de
+melado que o jogador viu de manhã, com a galinha. Sem graça nenhuma, só medo. Dá a informação
+que dói: o pai **já estava a salvo e voltou para dentro de casa buscar alguma coisa**. Ícaro a
+manda para o bambuzal — primeira vez que ele cuida de alguém em vez de ser cuidado.
 
-**Examináveis:** biblioteca, chafariz, padaria, sacas de café (uma linha cada, tom agridoce).
+**Examináveis:** biblioteca, chafariz, padaria, sacas de café (uma linha cada, tom sóbrio).
 
 ---
 
@@ -192,7 +201,7 @@ cuida de alguém em vez de ser cuidado.
 Antes de se aproximar do pai, o jogador pode examinar `prologo_exame_retrato` e
 `prologo_exame_colchao` (os livros "empilhados com capricho": o pai sempre soube).
 
-**Imagem.** A casa de Ícaro: duas peças, meio telhado caído. Anselmo está preso da cintura para
+**Imagem.** A casa de Ícaro: duas peças, meio telhado caído. Tadeo está preso da cintura para
 baixo por uma viga em brasa (fogo comum, alaranjado — o único canto "quente" da vila).
 Na mão, uma **caixinha de costura** de madeira. Nenhum ferimento é mostrado; o retrato
 `pai_ferido` tem fuligem, suor e cansaço, nada além disso. A música para; entra `tema_pai`.
@@ -200,7 +209,7 @@ Na mão, uma **caixinha de costura** de madeira. Nenhum ferimento é mostrado; o
 **Batida 1 — Por que ele voltou.** *"Vim buscar isto. A caixinha de costura da sua mãe."*
 
 **Batida 2 — A confissão.** A mãe não morreu de febre: estudantes ricos, magia proibida numa
-praça da capital, três atingidos, dois mortos. *"A Helena foi uma delas."* O pai sabia dos
+praça da capital, três atingidos, dois mortos. *"A Aurora foi uma delas."* O pai sabia dos
 livros o tempo todo (*"quem você acha que vira o colchão nesta casa?"* — o riso no meio do
 choro é a assinatura do jogo). E a revelação: Ícaro é "fora da curva" como a mãe; a repressão
 era medo.

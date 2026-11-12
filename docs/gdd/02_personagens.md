@@ -2,7 +2,7 @@
 
 Para cada personagem: aparência (com paleta), personalidade, jeito de falar (3 falas de
 exemplo), habilidades de batalha e papel na história. Números e listas completas de magias
-estão em `05_sistemas.md`. Nomes que não vêm do briefing estão marcados **[PROPOSTA]**.
+estão em `05_sistemas.md`. Nomes e idades já seguem `docs/DECISOES_AUTOR.md`.
 
 ---
 
@@ -51,7 +51,7 @@ de leite lhe deu em criança; ao fugir, ele só precisou trocar a coroa pelo há
 apelido. A casa real de Argêntia é conhecida pelo cabelo prateado desde o berço — por isso ele
 jura a todo mundo que o dele é "de preocupação" (e depois gasta meia hora escovando).
 
-**Aparência.** Uns 28 anos, alto, bonito e ciente disso. **Cabelo prateado** comprido, solto,
+**Aparência.** 28 anos, alto, bonito e ciente disso. **Cabelo prateado** comprido, solto,
 escovado com um capricho suspeito. Hábito de monge cor de açafrão, aberto no peito "por causa do
 calor", faixa vinho na cintura, sandálias, um cantil que não é de água, colar de contas de
 madeira. **Bastão** de carvalho com ponteiras de ferro. No Ato 3, anda de capuz.
@@ -63,6 +63,17 @@ madeira. **Bastão** de carvalho com ponteiras de ferro. No Ato 3, anda de capuz
 | Vinho | `#7A2E3B` | faixa, cantil |
 | Madeira clara | `#B98B5E` | bastão, contas |
 | Verde-menta | `#9EE6C0` | brilho de cura |
+
+**Formação e princípio.** Formado na **Escola de Cura de Pratamar** (Argêntia), uma das três
+melhores escolas de magia do mundo, especializada em cura — por isso domina a cura e a ensina a
+Ícaro. **Recusa-se a usar magia de ataque:** viu os ricos do seu reino ficarem fortes e usarem
+o poder para extorquir e amedrontar os mais pobres, e escolheu viver como monge para nunca ser
+um deles.
+
+**Regra de convivência (decisão do autor).** Flerta com meio mundo, **nunca com Valéria**: ela
+tem 19 anos, é muito nova para ele, e ele a trata como a caçula encrenqueira do grupo. Ela,
+explosiva, dá bronca toda vez que o pega flertando com outras ("Você é MONGE!") — por
+indignação, sem nenhum sentimento por ele.
 
 **Personalidade.** Vaidoso, galanteador, sempre com sede; leal até o osso e incapaz de passar
 por alguém caído sem parar. Usa a palhaçada como biombo: quando o assunto fica sério de
@@ -87,7 +98,7 @@ cômico *Golinho*: recupera PM e aumenta a Força, mas reduz a precisão por 2 t
 
 ## Valéria Lâmina de Ferro
 
-**Aparência.** 20 anos, mais alta e mais larga que Ícaro. **Cabelo vermelho** numa trança
+**Aparência.** 19 anos, mais alta e mais larga que Ícaro. **Cabelo vermelho** numa trança
 grossa, sardas, uma cicatriz pequena no queixo. Armadura de placas de aço escovado com detalhes
 em cobre, capa curta verde-musgo, espada longa de duas mãos (**"Dona Justa"**, o nome é dela).
 Uma fita cor-de-rosa amarrada no punho da espada — presente da irmã, assunto proibido.
@@ -152,10 +163,14 @@ quando ela acerta e quando um aliado usa *Encorajar*, cai quando ela apanha fort
 história aumentam a Confiança inicial e eliminam a falha. No fim, conjura o **Nymphalion**.
 
 **Papel.** Terceira companheira; guia para o reino das fadas; guardiã do Nymphalion; redenção.
+**Nobreza (aprovada pelo autor):** é **Celestia da Rosa-Primeira**, herdeira do clã nobre
+cujo dever hereditário é guardar o Nymphalion. Ao ser banida, teve nome e clã riscados pela lei
+do *Despetalar*; por vergonha, apresenta-se só como "Celly". O grupo só descobre no epílogo
+(detalhe em `01_mundo_e_historia.md`).
 
 ---
 
-## O pai — **Anselmo** [PROPOSTA]
+## O pai — **Tadeo**
 
 **Aparência.** Uns 60 anos, corpo gasto de roça, costas travadas. Cabelo grisalho ralo, barba por
 fazer, sobrancelha grossa sempre franzida. Camisa xadrez desbotada, calça de brim, chapéu de
@@ -181,7 +196,7 @@ fala mais do que em dezoito anos.
 
 ---
 
-## A mãe — **Helena** (Solis) [PROPOSTA de nome]
+## A mãe — **Aurora** (Solis)
 
 Só aparece em voz, silhueta, retrato a carvão e na carta. Ria fácil, lia escondido, acendia
 lampião sem fósforo. Paleta: dourado-luz `#FFE08A`, creme `#F3E6C8`, azul-noite `#2F3E63`.
@@ -206,6 +221,8 @@ profundo, espada curta e um cajado de comando.
 
 **Personalidade.** Calmo, justo, cansado. Bom de ouvir. Carrega uma culpa antiga com disciplina.
 Com Ícaro, é mais paciente do que o posto permitiria — e desvia quando perguntam por quê.
+**Desconfia** que Aurora descendia dos Solis, mas é só uma teoria: confia a missão ao garoto e
+**não conta nada a ele** (só admite no Capítulo 9, depois da carta).
 
 **Jeito de falar.** Pausado, claro, ordens que soam como pedidos. Usa "rapaz". Humor raro e
 seco.
@@ -218,7 +235,7 @@ comandos. Na batalha final, lidera os aliados. **Papel:** mentor; elo com o pass
 
 ---
 
-## Rei Teobaldo III de Luminaer [PROPOSTA de nome]
+## Rei Teobaldo III de Luminaer
 
 **Aparência.** 65 anos, baixinho e redondo, barba branca fofa, coroa fina um pouco torta, manto
 branco e dourado comprido demais, pantufas reais por baixo. Anda com uma xícara de chá.
@@ -242,7 +259,7 @@ covarde: é indeciso. Aprende a decidir quando não há mais conselho para consu
 
 ---
 
-## Diretor Eusébio Pergaminho [PROPOSTA de nome]
+## Diretor Eusébio Pergaminho
 
 **Aparência.** 70 anos, alto e curvo como um ponto de interrogação, careca com tufos brancos
 laterais, óculos de meia-lua, sobrancelhas enormes. Toga roxa com gola de arminho, corrente com
@@ -269,7 +286,7 @@ mais muda.
 
 ---
 
-## A irmãzinha de Valéria — **Lívia, "Livinha"** [PROPOSTA de nome]
+## A irmãzinha de Valéria — **Lívia, "Livinha"**
 
 **Aparência.** 8 anos, miúda, cabelo ruivo-claro em dois coques, sardas. Sempre de **vestido de
 princesa** lilás com babados, tiara de lata, e — por cima — um peitoral de panela, "igual ao da
@@ -296,7 +313,7 @@ piadas). **Papel:** a ternura de Valéria; o lembrete de que proteger vale mais 
 
 ---
 
-## Líderes Caligosuins [PROPOSTA de nomes]
+## Líderes Caligosuins
 
 Regra visual da raça: baixinhos, rechonchudos, cinza-ardósia, presas enormes, fumacinha preta de
 borda roxa no focinho, mantos vinho curtos demais. Nomes inspirados em comida de porco (humor).
@@ -307,9 +324,10 @@ fogo negro `#1A1423` com borda `#7B3FA0`, olhos `#FFD23F`.
 **Aparência.** O único Caligosuin magro e alto. Velhíssimo, pele quase preta, presas rachadas
 com anéis de ferro, olhos brancos sem pupila. Manto preto longo com forro roxo `#7B3FA0`, coroa
 de carvão. O fogo dele não é fumacinha: é uma labareda preta, silenciosa.
-**Personalidade.** Frio, paciente, ressentido. Acredita de verdade que o mundo deve aos porcos.
+**Personalidade.** Frio, paciente, cruel por gosto. Não tem mágoa nem desculpa: escolheu o
+caos porque quer o mundo de joelhos.
 **Fala.** Baixo, sem "oinc", sem pressa.
-- "Luz. Flor. E para nós, o borralho. Chamaram isso de pacto."
+- "Ninguém nos tirou nada, menino. Isso é o que me diverte: eu quero assim mesmo."
 - "Eu não quero o seu reino, menino. Eu quero que ele nunca tenha existido."
 - "Apaguem."
 **Batalha.** Chefe final, duas fases (ver `04`). **Papel:** o antagonista.
@@ -343,8 +361,10 @@ soldados; gosta de café e de ser chamado de capitão.
 - "Tragam o café! Não. Queimem o café. ...Não. Tragam. É cheiroso."
 - "Você de novo, loirinho?! Eu ia ser promovido hoje!"
 - "Eu só queria um uniforme do meu tamanho e um pouquinho de respeito."
-**Batalha.** Mini-chefe três vezes (foge sempre). **Papel:** alívio cômico do lado inimigo; a
-prova, no epílogo, de que os soldados rasos têm conserto.
+**Batalha.** Mini-chefe três vezes (foge sempre). **Papel:** alívio cômico do lado inimigo e
+**desertor individual**: no terceiro encontro larga a bandeira e vai embora por conta própria —
+por cansaço e por gosto de café, não por nobreza. No epílogo, vende café numa banca de estrada.
+Não há redenção coletiva dos Caligosuins.
 
 ---
 

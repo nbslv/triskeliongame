@@ -2,7 +2,7 @@
 
 ## 1. Estrutura do mundo
 
-**Proposta (pendente de aprovação do autor): mundo conectado por mapa-múndi, com regiões
+**Aprovado pelo autor: mundo conectado por mapa-múndi, com regiões
 desbloqueadas pela história.**
 
 - O **mapa-múndi** é uma ilustração do continente de Trísia com **nós** (regiões) ligados por
@@ -15,7 +15,7 @@ desbloqueadas pela história.**
 - **Toda cidade tem**: casas exploráveis (a principal do capítulo + 1 ou 2 extras), lojas,
   pousada, um local de treino de força e um de magia — tudo em `07_cidades_e_servicos.md`.
 - O botão **Acampar** no mapa-múndi abre o acampamento do grupo (a partir do Capítulo 2).
-- Exceções: o **Prólogo** é linear e fechado (sem mapa-múndi); a **Vila Torrinha** só reabre no
+- Exceções: o **Prólogo** é linear e fechado (sem mapa-múndi); a vila de **Valesol** só reabre no
   Ato 3; a **Batalha de Áurea** tranca o mapa até o fim (o jogo avisa antes: "ponto sem volta").
 - **Inimigos nos mapas de exploração são visíveis** (andam pelo cenário; encostar inicia a
   batalha). Sem encontros aleatórios invisíveis: combina com o tom leve e com sessões curtas.
@@ -27,7 +27,7 @@ desbloqueadas pela história.**
                             |
  [Colina do Mar]   [Floresta dos Sussurros]
         |                   |
- [Vila Torrinha]--[ÁUREA]--[Estrada do Trigo]--[Bravaferro]
+ [Valesol]--[ÁUREA]--[Estrada do Trigo]--[Bravaferro]
         |            |             |
    [Cafezal]         |      [Mosteiro da Serra Calma]
                      |
@@ -43,7 +43,7 @@ principal de **~10–14 h** e o resto em missões secundárias, exploração e e
 
 | Capítulo | Região | História principal | Nível ao sair |
 |---|---|---|---|
-| Prólogo | Vila Torrinha, Cafezal | 10–15 min | 1 |
+| Prólogo | Valesol, Cafezal | 10–15 min | 1 |
 | 1 | Áurea sitiada | 1 h 10 | 5 |
 | 2 | Estrada do Trigo e Mosteiro | 1 h | 9 |
 | 3 | Bravaferro | 1 h 20 | 14 |
@@ -52,7 +52,7 @@ principal de **~10–14 h** e o resto em missões secundárias, exploração e e
 | 6 | Brumaflor | 1 h 15 | 25 |
 | 7 | Pratamar | 1 h 20 | 29 |
 | 8 | Charco e Fortaleza Fuligem | 1 h 30 | 34 |
-| 9 | Volta à Torrinha | 25 min | 35 |
+| 9 | Volta a Valesol | 25 min | 35 |
 | 10 | A Batalha de Áurea | 1 h 15 | 40 |
 | 11 | Epílogo jogável: o Palácio de Pratamar e a Colina do Mar | 30 min | — |
 | | **Total da história principal** | **≈ 12 h** (10–14 h conforme o ritmo) | |
@@ -71,14 +71,14 @@ cenas de história e chefe (20 min) · uma conversa de fogueira (5 min).
 | Cozinhar, pescar, colher, decorar o acampamento | 2–3 h |
 | Conversas de fogueira e cartas da Livinha | 1 h |
 | Caderno do Ícaro completo (bestiário, receitas, carimbos) | 1–2 h |
-| Pós-jogo: reconstruir a Vila Torrinha (seção 6) | 1–2 h |
+| Pós-jogo: reconstruir a vila de Valesol (seção 6) | 1–2 h |
 
 Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
 
 ## 3. Capítulos
 
-### Prólogo — A noite em que a Torrinha apagou
-- **Regiões:** Casa de Ícaro e Vila Torrinha (manhã) → Cafezal → Estrada → Vila em chamas → Túnel → Bambuzal.
+### Prólogo — A noite em que Valesol apagou
+- **Regiões:** Casa de Ícaro e Valesol (manhã) → Cafezal → Estrada → Vila em chamas → Túnel → Bambuzal.
 - **Objetivo:** tomar café com o pai; colher café; achar o pai; fugir.
 - **Jogabilidade:** casas exploráveis; tutoriais de movimento/interação; furtividade; **sem batalhas**.
 - **Grupo:** Ícaro.
@@ -197,21 +197,22 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
 - **Objetivo:** recuperar o Nymphalion.
 - **Batidas:**
   1. Infiltração (volta a furtividade do prólogo, agora opcional: lutar ou esconder-se).
-  2. A Biblioteca Roubada: livros de todos os reinos — inclusive os da Torrinha que não
+  2. A Biblioteca Roubada: livros de todos os reinos — inclusive os de Valesol que não
      queimaram. Ícaro acha o seu cartão de empréstimo.
-  3. Mini-chefe: **Capitão Toucim** (terceira vez; desiste no meio).
+  3. Mini-chefe: **Capitão Toucim** (terceira vez; no meio da luta larga a bandeira e deserta).
   4. Chefe: **Madame Trufa** e a **Flor Murcha**. Celly desperta; o Nymphalion refloresce.
      Valéria escolhe proteger em vez de vingar.
   5. A fortaleza está **vazia de tropas**: o exército já marcha para Áurea.
 - **Ganha:** Celly — **Nymphalion**; Confiança sem falhas.
 - **Dificuldade:** a masmorra mais longa; grupos de 4–5; o chefe mais difícil até aqui.
 
-### Capítulo 9 — Volta à Torrinha
-- **Mapas:** Ruínas da Vila Torrinha; a casa; Colina do Mar (só vista ao longe, por enquanto).
+### Capítulo 9 — Volta a Valesol
+- **Mapas:** Ruínas de Valesol; a casa; Colina do Mar (só vista ao longe, por enquanto).
 - **Objetivo:** atalho para Áurea — e um desvio que Ícaro precisa fazer.
 - **Batidas:** sem batalhas (simetria com o prólogo). O mato já nasce entre as cinzas; um pé de
-  café brotou no terreiro. A caixinha de costura; o fundo falso; **a carta de Helena**.
-  A Casca do colar racha: as três espirais. Lucian chega e conta o resto.
+  café brotou no terreiro. A caixinha de costura; o fundo falso; **a carta de Aurora**.
+  O envelope diz: "Para o Ícaro, no dia em que fizer dezoito anos". A Casca do colar racha: as
+  três espirais. Lucian chega e admite, enfim, o que sempre desconfiou e nunca contou.
 - **Ganha:** **Pedra de Triskelion** (o Colar da Mãe muda de nome e de ícone).
 
 ### Capítulo 10 — A Batalha de Áurea
@@ -235,7 +236,9 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
      fugiu. O jogador explora os aposentos dele e entende, objeto por objeto, por que ele saiu e
      por que volta (detalhe em `07_cidades_e_servicos.md`). Ele assume o posto para enfrentar a
      desigualdade do reino; a primeira ordem é abrir os celeiros do palácio ao Cais Baixo.
-  3. **Brumaflor:** Celly é recebida como heroína; descobre-se que é da nobreza feérica.
+  3. **Brumaflor:** Celly é recebida como heroína. O Conselho revoga o banimento e devolve o
+     nome dela em voz alta — **Celestia da Rosa-Primeira** — e só então o grupo descobre que
+     ela é nobre (ver `01_mundo_e_historia.md`).
      O lar dela, antes vazio e com a porta lacrada, enche de visitas.
   4. **Forja-Alta:** jantar na casa dos Lâmina de Ferro. A Livinha cobra a promessa de mindinho.
   5. **Colina do Mar:** Ícaro e Valéria, de mãos dadas, visitam os túmulos dos pais dele.
@@ -272,13 +275,13 @@ Princípios:
 - Não é preciso "farmar": seguir a história e enfrentar os inimigos do caminho basta para o
   nível esperado. Quem explorar tudo chega 2–3 níveis acima.
 
-## 6. Pós-jogo: reconstruir a Torrinha
+## 6. Pós-jogo: reconstruir Valesol
 
-Depois dos créditos, a **Vila Torrinha** vira um projeto aconchegante e sem pressa:
+Depois dos créditos, a vila de **Valesol** vira um projeto aconchegante e sem pressa:
 - Dona Zefa, Tonho, Nina, Dona Custódia, Seu Juca e Dona Ermelinda voltam um a um, conforme o
   jogador entrega materiais (madeira de Bravaferro, telhas de Áurea, mudas de Brumaflor).
 - Cada casa reconstruída reabre como interior explorável, com falas novas.
 - A casa de Ícaro ganha, enfim, um **telhado novo** (o pote "TELHADO" do prólogo) — e, se o
   jogador quiser, um segundo andar. ("Mago é coisa de quem nasceu em casa de dois andares.")
-- O cafezal volta a produzir: colheita como atividade livre, com o *Café da Torrinha* de prêmio.
+- O cafezal volta a produzir: colheita como atividade livre, com o *Café Valesol* de prêmio.
 - A biblioteca reabre com os livros recuperados na missão "Devolução atrasada".

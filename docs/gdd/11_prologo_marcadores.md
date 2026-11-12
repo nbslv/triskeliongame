@@ -110,6 +110,7 @@ checkpoints, patrulhas, examináveis).
 | `gatilho_estrada_inicio` | estrada (ao carregar) | `prologo_07_estrada` |
 | `gatilho_estrada_fugitivos` | estrada, meio | `prologo_07b_estrada_fugitivos` |
 | `gatilho_vila_entrada` | vila (ao carregar) | `prologo_08_vila_entrada` |
+| `evento_quase_visto` (do sistema de furtividade, não é área) | vila | `prologo_09b_perdeu_de_vista` — no máximo 1 vez por trecho; não bloqueia o jogador |
 | `gatilho_vila_praca` | vila, borda da praça | `prologo_10_praca` |
 | `gatilho_casa` | vila, soleira da casa | `prologo_12_pai_confissao` → `13` → `14` (encadeados) |
 | `gatilho_tunel_inicio` | túnel (ao carregar) | `prologo_15_tunel_inicio` |
@@ -159,11 +160,11 @@ Regras completas de furtividade: `10_prologo_roteiro.md`, Cena 3.
 | `cali_1` … `cali_5`, `cali_soldado` (genérico) | Soldados Caligosuins | vila |
 | `toucim` | Capitão Toucim | vila |
 | `custodia` | Dona Custódia (+ galinha Pamonha no colo) | vila (no barril), bambuzal |
-| `pai` | Anselmo | casa de Ícaro (manhã, sentado à mesa); vila (casa em ruínas) |
+| `pai` | Tadeo | casa de Ícaro (manhã, sentado à mesa); vila (casa em ruínas) |
 | `juca` | Seu Juca, o padeiro | padaria |
 | `ermelinda` | Dona Ermelinda, a bibliotecária | biblioteca |
 | figurantes da manhã | 3–4 moradores sem fala obrigatória (varrendo, carregando lenha), galinhas | vila de manhã |
-| `mae` | Helena — só voz/silhueta no flashback | — |
+| `mae` | Aurora — só voz/silhueta no flashback | — |
 | `soldado_1` | Soldado Dário | bambuzal |
 | `sargento` | Sargento Íris Candeia | bambuzal |
 | `nina` | Irmã do Tonho (7 anos) | bambuzal |

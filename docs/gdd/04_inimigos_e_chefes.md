@@ -1,5 +1,8 @@
 # 04 — Inimigos e chefes
 
+Decisão do autor: os Caligosuins são **maus por escolha**; a ameaça séria está nos líderes e os
+soldados são mais cômicos (atrapalhados, não inocentes).
+
 Direção geral: **fofo-ameaçador**. Todo inimigo deve ter um detalhe engraçado ou simpático *e*
 um detalhe que dá medo. Ninguém "morre" em tela: inimigos derrotados **fogem, desmaiam com
 estrelinhas, ou se desfazem em fumaça**; criaturas corrompidas voltam ao normal.
@@ -35,7 +38,7 @@ saindo por um buraco do manto. Todos têm **fraqueza a Luz** e **resistência a 
 | **Caligosuin Couraçado** | armadura saqueada grande demais | Cap. 3, 8, 10 | *Investida* (forte); *Trombada* (Atordoa) | Luz, Feérico. **Resiste a Físico** |
 | **Caligosuin Feiticeiro** | chapéu pontudo, cajadinho torto | Cap. 4, 7, 8, 10 | *Chama Negra* (Sombra, todos); *Murchar* | Luz, Físico (PV baixo). Alvo prioritário |
 | **Caligosuin Tambor** | tambor nas costas | Cap. 8, 10 | *Rufar* (+Força nos aliados); não ataca | Físico. Derrotar primeiro |
-| **Leitão Fagulha** | filhote com capacete, cospe fagulhinhas | Cap. 8 | *Fagulha* (1 de dano); *Chorar* (chama reforço) | Não precisa ser derrotado: usar *Encorajar* faz ele ir embora feliz |
+| **Recruta Fagulha** | recruta novato, capacete grande demais, cospe fagulhinhas | Cap. 8 | *Fagulha* (1 de dano); *Gritar* (chama reforço) | Luz, Físico. Derrotar primeiro, antes que chame alguém |
 
 ## 3. Inimigos comuns por região
 
@@ -100,7 +103,7 @@ Sentinelas feéricas em treino (duelos, ninguém se machuca de verdade).
 | **Sapo-Borralho** | sapo cinza que arrota fuligem | *Arroto* (Tonto, todos) | Luz, Feérico |
 | **Lamaçal Vivo** | montinho de lama com olhos | *Engolir* (prende 1 herói por 1 turno) | Brasa (seca), Luz |
 | **Livro Raivoso** | livro roubado que morde | *Página Cortante*; *Capítulo Chato* (Atordoa) | Brasa... mas Ícaro se recusa: usar **Luz** (acalma e vira item) |
-| Feiticeiros, Couraçados, Tambores, Leitões | — | — | — |
+| Feiticeiros, Couraçados, Tambores, Recrutas Fagulha | — | — | — |
 
 ### A Batalha de Áurea (Cap. 10)
 Todos os Caligosuins em formações completas, mais:
@@ -134,7 +137,9 @@ oferece "Uma mãozinha" (ver `05_sistemas.md`).
   (2º, opcional), Fortaleza Fuligem (3º).
 - **Ataques:** *Ordem!* (chama 1 Recruta); *Presada*; *Bufada do Capitão* (Sombra, todos, fraca).
 - **Fraquezas:** Luz, Físico. **Truque:** com menos de 30% de PV, *Retirada Estratégica*: foge.
-  No 3º encontro, desiste no meio, senta e reclama da vida — a batalha acaba em diálogo.
+  No 3º encontro, **deserta**: no meio da luta larga a bandeira, declara que "isso não paga o
+  que eu apanho" e vai embora. A batalha acaba em diálogo. (Desertor individual; reaparece no
+  epílogo vendendo café. Os outros Caligosuins não têm redenção.)
 
 ### 2. General Bafo-Brasa (Torre Alta) — sobrevivência
 - **Ataques:** *Marretada* (tira ~60% do PV de um alvo); *Discurso* (perde o turno falando).
@@ -221,7 +226,7 @@ oferece "Uma mãozinha" (ver `05_sistemas.md`).
   Dádiva* (copia a última magia usada pelo grupo, corrompida). Fraqueza: Luz.
 - **Fase 2 — o Triskelion Negro:** três espirais de sombra giram atrás dele, cada uma ligada a
   um elemento. Cada espiral só quebra com o seu contrário: a **Luz** de Ícaro, a **Flor** de
-  Celly, e a terceira — a **Brasa** — só com **Físico** de Valéria e Silvano (calor de gente).
+  Celly, e a terceira — o **Ferro** — só com **Físico** de Valéria e Silvano (coragem de gente).
   Enquanto houver espiral, ele se regenera.
 - **Fim:** com as três quebradas, o comando de Ícaro vira **Respirar** (uma, duas, três Calmas —
   o jogador faz de propósito o que o prólogo não deixou) e depois **LUMNIA**. Cena final.

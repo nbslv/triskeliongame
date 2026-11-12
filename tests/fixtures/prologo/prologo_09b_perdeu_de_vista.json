@@ -1,0 +1,11 @@
+{
+  "id": "prologo_09b_perdeu_de_vista",
+  "steps": [
+    {"type": "say", "speaker": "cali_soldado", "portrait": "cali_soldado", "text": "Cadê? Tava aqui agorinha."},
+    {"type": "say", "speaker": "cali_2", "portrait": "cali_soldado", "text": "Você viu o quê?"},
+    {"type": "say", "speaker": "cali_soldado", "portrait": "cali_soldado", "text": "Uma coisa. Amarela. Em cima. Tipo um cabelo."},
+    {"type": "say", "speaker": "cali_2", "portrait": "cali_soldado", "text": "Fumaça não tem cabelo."},
+    {"type": "say", "speaker": "cali_soldado", "portrait": "cali_soldado", "text": "...Então foi fumaça."},
+    {"type": "end"}
+  ]
+}

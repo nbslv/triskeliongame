@@ -84,6 +84,8 @@ scripts/                  gerador do mapa de teste, teste no navegador
 ### Personagens
 `content/characters.json` (sessão de narrativa). O motor lê, se existir, `id`, `name`/`nome`
 e `sprite` — aceita lista, `{ "personagens": [...] }` ou objeto `{ "<id>": {...} }`.
+Sem cadastro, `cali_<N>` usa o sprite `cali_soldado`; `caligosuin` e `cali_soldado` são equivalentes
+(poses de um valem para o outro).
 
 ### Arte e áudio (sessão de arte)
 Basta colocar os arquivos; o build encontra sozinho:
@@ -91,7 +93,9 @@ Basta colocar os arquivos; o build encontra sozinho:
 | Pasta | Chave | Uso |
 |---|---|---|
 | `assets/sprites/<id>.png` (+ opcional `<id>.json` com `{"frameWidth":16,"frameHeight":24}`) | `<id>` | Spritesheet de personagem: **4 linhas** (baixo, esquerda, direita, cima) × 3 ou 4 colunas (coluna 0 = parado). Padrão 16×24. |
+| `assets/sprites/<folha>.json` com `alvo` + `anims` | `<alvo>:<nome>` | **Poses** (folhas separadas, qualquer tamanho de quadro): `{ "frameWidth", "frameHeight", "alvo": "icaro", "anims": { "colher": { "frames": [3,4,3], "frameRate": 5, "repeat": 0 } } }`. Criadas no Preload; o passo `anim` toca `<sprite do ator>:<nome>` (ou `<id do ator>:<nome>`), mantendo a origem nos pés. `"normal"` volta ao parado. Objetos de uma linha só (ex.: `caixa_costura`) viram atores com quadro 0 parado. |
 | `assets/portraits/<chave>.png` | `portrait:<chave>` | Retrato 64×64 do `say.portrait`. |
+| `assets/images/emote_<nome>.png` | `emote_<nome>` | Ícone 16×16 do balão de `emote` (`exclamacao`, `interrogacao`, `reticencias`, `suor`, `coracao`, `nota`...); sem ícone, usa texto. |
 | `assets/tilesets/<nome>.png` | `tileset:<nome>` | Tileset com o mesmo nome do Tiled. |
 | `assets/images/<id>.png` | `<id>` | Imagens avulsas. |
 | `assets/audio/music/<id>.ogg|mp3` | `music:<id>` | Música (`music` nos roteiros, `music` no mapa). Pode ter .ogg e .mp3 juntos. |

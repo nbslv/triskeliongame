@@ -1,127 +1,84 @@
 # Status — Frente 1: Narrativa e Game Design
 
-Branch: `claude/triskelion-narrativa` (já com o merge das decisões do autor registradas em
-`docs/COORDENACAO.md` até o commit `4227b94` do branch de coordenação).
+Branch: `claude/triskelion-narrativa`, com o merge do branch de coordenação até o commit
+`cab53df` (inclui `docs/DECISOES_AUTOR.md`, o motor e os testes).
 
-## 1. O que foi feito
+## 1. Estado das entregas
 
-### Prólogo jogável
-| Arquivo | Conteúdo |
+| Arquivo | Conteúdo | Estado |
+|---|---|---|
+| `content/dialogues/prologo_*.json` | 49 roteiros, 326 falas | Passam em `npm test` (236 testes); cópia em `tests/fixtures/prologo/` atualizada |
+| `docs/gdd/10_prologo_roteiro.md` | Roteiro em 7 cenas, furtividade, flags, autosaves | Atualizado |
+| `docs/gdd/11_prologo_marcadores.md` | 10 mapas, marcadores, gatilhos, atores | Atualizado |
+| `docs/gdd/12_prologo_lista_assets.md` | Sprites, 29 retratos, tilesets, 10 músicas, 28 efeitos | Atualizado |
+| `docs/gdd/01` a `07` | Mundo, personagens, fases, inimigos, sistemas, NPCs, cidades | Atualizados |
+
+**Não feito:**
+- Falas em JSON existem só para o prólogo. Os capítulos 1–11 e as casas de `07` estão em
+  Markdown (resumo, textos de exame e falas-base).
+- `content/characters.json`, `enemies.json` e `items.json` não foram criados; os números estão
+  em `05_sistemas.md` e `04_inimigos_e_chefes.md`.
+- Nada foi jogado: durações e balanceamento são estimativas.
+- A lista de inimigos de `04` não foi ampliada para o jogo de ~12 h; só os níveis dos chefes.
+- Não toquei em `content/maps/`, `src/` nem em `docs/COORDENACAO.md` / `docs/BRIEFING_ORIGINAL.md`.
+
+## 2. Decisões do autor aplicadas
+
+### Rodada das mensagens da coordenação
+| Decisão | Onde |
 |---|---|
-| `docs/gdd/10_prologo_roteiro.md` | Roteiro em 7 cenas (0 a 6), regras da furtividade, tabela de flags, **autosaves previstos**, convenções dos JSON |
-| `content/dialogues/prologo_*.json` | **48 arquivos, 326 falas**, no formato do contrato. Validados por script: JSON bem formado, todo `goto`/`if`/`choice` aponta para um `label` existente, nenhuma fala passa de 130 caracteres, todo marcador citado está documentado |
-| `docs/gdd/11_prologo_marcadores.md` | 10 mapas (5 novos: casa de Ícaro, vila de manhã, casa da Custódia, padaria, biblioteca), marcadores, gatilhos, interativos, patrulhas, atores |
-| `docs/gdd/12_prologo_lista_assets.md` | Sprites e animações, direção visual dos Caligosuins, 29 retratos, tilesets (com interiores), **10 músicas descritas por clima e instrumentos**, 29 efeitos sonoros |
+| Monge = **Irmão Silvano**; nome real **Silvério Augusto de Argêntia** | todo o GDD |
+| Duração 8–24 h (história ~10–14 h) | `03`, `05` |
+| Só a dificuldade **Tranquila** | `05` |
+| Clima cozy; músicas por clima e instrumentos | `05` seção 8; `12` |
+| Salvar a qualquer momento; gravar ao sair da página | `05` seção 9; `03`, `06`, `10` |
+| Casas exploráveis; 1–2 casas extras, lojas e treinos por cidade | `07`; prólogo (Cena 0) |
 
-### Game Design Document
-| Arquivo | Conteúdo |
-|---|---|
-| `docs/gdd/01_mundo_e_historia.md` | Significado do triskelion, mitologia, reinos, atos, arcos |
-| `docs/gdd/02_personagens.md` | 13 personagens: aparência, paleta (hex), personalidade, 3 falas, batalha, papel |
-| `docs/gdd/03_fases.md` | Mapa-múndi por nós, prólogo + 11 capítulos, duração (~12 h de história), extras, pós-jogo |
-| `docs/gdd/04_inimigos_e_chefes.md` | Elementos, estados, família Caligosuin, inimigos por região, 11 chefes |
-| `docs/gdd/05_sistemas.md` | Atributos, XP, fórmulas, mecânica de cada herói, itens, AUTO, **treino**, **atividades cozy**, **acampamento**, **salvamento**, economia, curva (dificuldade Tranquila) |
-| `docs/gdd/06_npcs.md` | NPCs de rua por região, missões secundárias, dicas |
-| `docs/gdd/07_cidades_e_servicos.md` | **Novo.** Por cidade: casa principal (cômodos, examináveis com texto, moradores, o que revela), 1–2 casas extras com gancho, lojas, pousada, treinos de força e magia com minijogo |
+### `docs/DECISOES_AUTOR.md` (rodada 1)
+| Item | O que mudou | Onde |
+|---|---|---|
+| q2 | Torrinha → **Valesol**, Anselmo → **Tadeo**, Helena → **Aurora**. Ids de falante (`pai`, `mae`) mantidos. Nenhum id, flag, marcador ou mapa continha "torrinha" | diálogos; todo o GDD |
+| q6 | Província de nomes de luz e sol; clima ensolarado, cafezais em encostas e vales altos; **café Valesol**; a família de Ícaro é só de peões | `01`; falas do pai e da Zefa |
+| q1 | Argêntia tem uma das 3 melhores escolas de magia, a **Escola de Cura de Pratamar**; Silvano se recusa a usar magia de ataque | `01`, `02`, `07` |
+| q9 | Lucian só **desconfia** da linhagem Solis e **não conta nada** a Ícaro; admite apenas depois da carta | `01`, `02`, `03`, `07` |
+| q11 | A carta seria entregue no **aniversário de 18 anos**; a mãe escondeu a linhagem por preferir a família à glória | `01`, `03` |
+| q16 | O pós-jogo é a reconstrução de **Valesol** | `01`, `03` |
+| q8 | Caligosuins **maus por escolha**; terceira espiral = **Ferro/Coragem**; **Toucim** é desertor individual e cômico; sem redenção coletiva | `01`, `02`, `04`, `06`, `07` |
+| q12 | Nova origem de Celly, **aprovada**: Celestia da Rosa-Primeira, herdeira do clã cujo dever é guardar o Nymphalion; o *Despetalar* riscou nome e clã; o grupo só descobre no epílogo | `01`, `02`, `03`, `06`, `07` |
+| q17 | Valéria tem **19**; Silvano **nunca** flerta com ela; ela dá bronca quando ele flerta com outras, sem sentimento por ele | `01`, `02` |
+| q18 | Sem humor na vila destruída, exceto entre os Caligosuins (perdem Ícaro de vista, acham que viram algo, uma troca curta) | diálogos 08, 09b (novo), 10, 11 e examináveis; `10` |
+| q3, q4, q5, q7, q10, q13, q14, q15, q19 | Aprovadas como estavam; marcas de "proposta" removidas | `01`, `02`, `03` |
 
-### Decisões do autor já aplicadas (segunda passada)
-| Decisão | Onde foi aplicada |
-|---|---|
-| Monge = **Irmão Silvano** | Todo o GDD. Nome real definido: **príncipe Silvério Augusto de Argêntia** (porto de Pratamar); "Silvano" é o apelido que a ama lhe deu |
-| Duração 8–24 h (história ~10–14 h) | `03_fases.md` (tabela por capítulo, extras), `05_sistemas.md` (nível máximo 50, ~40 no fim, ~200 batalhas) |
-| Só a dificuldade **Tranquila** | `05_sistemas.md` (régua de inimigos, regras gentis, AUTO); as outras ficam como nota de expansão |
-| Clima majoritariamente cozy | `05_sistemas.md` seção 8 (colher, cozinhar, pescar, ajudar moradores, decorar o acampamento, conversas de fogueira); músicas por instrumento em `12` |
-| **Salvar a qualquer momento** + gravar ao sair da página | `05_sistemas.md` seção 9; `03`, `06`, `10`. Os Lampiões de Aurelius deixaram de ser pontos de save: agora curam e servem de viagem rápida |
-| **Casas exploráveis** | Prólogo: nova Cena 0 (casa de Ícaro, casa da Custódia, padaria, biblioteca), com todos os textos em JSON. Valéria, Celly e o palácio de Silvano: `07_cidades_e_servicos.md` |
-| 1–2 casas extras, lojas e treinos por cidade | `07_cidades_e_servicos.md`; regras de treino em `05_sistemas.md` seção 7 |
-| Prévia de treino no prólogo, sem loja | Colheita ("fortalece a Força") e livro escondido ("fortalece a Magia") |
+### Consequências que valem conferir
+- Para cumprir q8 saíram do GDD: os "Suínos da Brasa", o inimigo Leitão Fagulha e o cozinheiro
+  Caligosuin simpático. O cozinheiro Banha virou um **humano capturado**; o dormitório dos
+  leitões virou uma **Sala dos Troféus**.
+- Para não colidir com o nome da mãe: a magia "Lumnia: Aurora" virou **Lumnia: Amanhecer** e a
+  prisioneira "Aurora" virou **Alvina**. "Morgrunho, o Sem-Aurora" ficou.
+- No prólogo saíram o espirro na bandeira, a discussão "tragam o café / queimem o café", a
+  biblioteca queimada por um espirro e as piadas da Dona Custódia no barril.
 
-### O que NÃO foi feito
-- Falas em JSON existem só para o prólogo. Os capítulos 1–11 estão em resumo; as casas de
-  `07` têm o texto de cada objeto e falas-base, mas ainda em Markdown, não em `content/dialogues/`.
-- `content/characters.json`, `enemies.json`, `items.json` não foram criados (os números estão em
-  `05_sistemas.md` e `04_inimigos_e_chefes.md`).
-- Nada foi testado em jogo: durações e balanceamento são estimativas.
-- Os inimigos de `04` não foram recontados para o jogo mais longo: a lista serve, mas regiões
-  com 1 h+ de exploração provavelmente pedem 1–2 inimigos comuns a mais cada.
+## 3. Para as outras sessões
 
-## 2. Decisões desta sessão (reversíveis)
+- **Motor:** novo roteiro `prologo_09b_perdeu_de_vista`, para um evento opcional de "quase
+  visto" na furtividade (no máximo 1 vez por trecho, sem tirar o controle). O efeito
+  `cali_espirro` deixou de ser usado.
+- **Arte:** o Caligosuin soldado troca a animação `espirrar` por `olhar_em_volta`.
+- **Mapas:** nenhum marcador mudou de nome; `11` só ganhou a linha do evento acima.
+- O GDD pede vários sistemas além de batalha (5 minijogos de treino, cozinhar, pescar,
+  acampamento, caixas de correio). A ordem de implementação é decisão da coordenação.
 
-**Prólogo**
-- Começa de **manhã, em casa**: café com o pai (o conflito e o afeto em um minuto), casa e três
-  vizinhos exploráveis; depois o cafezal ao entardecer. A vila que queima é a mesma da manhã.
-- O pai **já estava a salvo e voltou** para buscar a caixinha de costura da esposa, onde estava
-  o colar; entrega o colar na despedida.
-- Objetos da manhã que voltam à noite: a caixinha, a viga do telhado (pote "TELHADO"), o
-  alçapão do túnel, o barril da Custódia, o colchão com os livros.
-- Furtividade com uma regra só; ser visto volta ao último ponto seguro.
-- A morte do pai não é mostrada nem descrita.
+## 4. Pendências para o autor
 
-**História**
-- Triskelion = pacto de três dádivas: Luz, Flor e Brasa (esta, corrompida em fogo negro).
-- Aurelius tirou a pedra do cajado e a confiou à família, que sumiu de propósito.
-- Lucian é a terceira vítima do acidente; Helena salvou a vida dele.
-- A revelação do colar vem por uma carta, numa volta às ruínas da Torrinha.
-- Celly foi achada bebê e criada por uma doceira; o brasão nobre dela serve de calço de porta.
-- Silvano saiu porque nobres do reino dele vendiam suprimentos aos Caligosuins.
-- O diretor era o supervisor ausente no dia do acidente.
-- Epílogo jogável (leva cada amigo para casa) e pós-jogo de reconstrução da Torrinha.
+Todas as 19 perguntas anteriores e a origem de Celly estão resolvidas. Restam três pontos
+pequenos, nenhum bloqueia o prólogo:
 
-**Design**
-- Mapa-múndi de nós; inimigos visíveis no mapa.
-- Mecânicas próprias: Calma (Ícaro), Graça (Silvano), Fúria (Valéria), Confiança (Celly).
-- Treino: 3 sessões de força e 3 de magia por cidade a cada capítulo; cinco modelos de minijogo
-  (Ritmo, Sequência, Carregar, Fôlego, Duelo amigo); sempre com opção "treinar no automático".
-
-**Tipos de passo novos nos diálogos (para o motor)**
-- `anim` (`actor`, `anim`): troca de pose; pode ser ignorado.
-- `title` (`text`, `subtitle`): cartão de título.
-- `say` com `speaker: "tutorial"` e `speaker: "narrador"`.
-- Campos assumidos: tabela no fim de `10_prologo_roteiro.md`.
-
-## 3. Pontos de atenção para a coordenação
-
-- **Não discordo de nenhuma decisão de `COORDENACAO.md`.**
-- O prólogo pede do motor: furtividade (cone de visão, esconderijos, checkpoint), contador de
-  colheita (marca `prologo.colheita_completa`), máscara de escuridão no túnel, **troca de mapa
-  por porta** (interiores) e porta bloqueada por flag (`prologo.cafe_com_pai`).
-- `prologo_vila_manha` e `prologo_vila` precisam ter **a mesma planta** (aviso em `11`).
-- `prologo_12` → `13` → `14` são encadeados sem devolver o controle; autosave antes, na soleira.
-- A duração do prólogo no caminho direto fica em 10–15 min; quem examinar tudo na manhã chega
-  a ~18 min.
-- Sistemas novos que o GDD passou a pedir, além de batalha: treinos (5 minijogos), cozinhar,
-  pescar, acampamento com decoração, caixas de correio. São muitos; sugiro que a coordenação
-  defina a ordem de implementação.
-
-## 4. Perguntas para o autor
-
-**Nomes**
-1. Aprova **Silvério Augusto de Argêntia** como nome real do Irmão Silvano?
-2. Aprova **Vila Torrinha**, **Anselmo** (pai) e **Helena** (mãe)?
-3. Aprova **Áurea**, **Bravaferro**, **Argêntia/Pratamar**, **Brumaflor**, **Trísia**?
-4. Aprova os líderes Caligosuins — **Morgrunho**, **General Bafo-Brasa**, **Madame Trufa**,
-   **Capitão Toucim** — e a ideia de nomes inspirados em comida de porco?
-5. **Lívia ("Livinha")**, **Rei Teobaldo III**, **Diretor Eusébio Pergaminho**: aprova?
-
-**História**
-6. O prólogo começar de manhã, com o café com o pai, antes do cafezal: aprova?
-7. O pai entregar o colar na despedida (em vez de Ícaro já usá-lo desde criança): pode?
-8. A terceira espiral: os Caligosuins como povo que já foi bom, com soldados recuperáveis no
-   fim — ou prefere que sejam simplesmente maus? (Alternativa pronta: Ferro/Coragem.)
-9. Lucian como a terceira vítima do acidente, salvo por Helena: aprova?
-10. O diretor como o supervisor que falhou no dia do acidente: aprova, ou pesa demais?
-11. A revelação do colar numa volta à Torrinha, por uma carta da mãe: aprova?
-12. Celly ter sido achada bebê (por isso não sabia que era nobre): aprova?
-13. O motivo de Silvano (nobres do reino dele abastecendo os Caligosuins): aprova?
-14. O briefing diz que os Caligosuins querem "dizimar outras raças". Mantive a ameaça nos
-    líderes e deixei os soldados cômicos. O equilíbrio está bom?
-
-**Tamanho e formato**
-15. Mapa-múndi por nós (toca na região e viaja) em vez de mundo aberto caminhável: confirma?
-16. Epílogo jogável e pós-jogo de reconstruir a Torrinha: entram, ou ficam para depois?
-17. Idades: Ícaro 18, Valéria 20, Silvano ~28. De acordo?
-
-**Tom**
-18. O humor do prólogo (Tonho, o espirro, "tragam o café") antes e durante a tragédia: na
-    medida?
-19. O Capitão Toucim vendendo café no epílogo: fica ou sai?
+1. **Uma fala na cena do pai.** Deixei *"Quem você acha que vira o colchão nesta casa?"* — é a
+   prova de que o pai sempre soube dos livros, dita com ternura. Está dentro da vila destruída;
+   se o autor considerar humor, troco por uma versão sem graça nenhuma.
+2. **Nomes menores que criei e ninguém aprovou:** os lugares da província (Morro do Clarão,
+   Ribeirão Dourado, Serra da Alvorada), a **Escola de Cura de Pratamar** e a Mestra Serena, a
+   **Casa da Rosa-Primeira** já aprovada com a tia-avó Anciã Dália, e os NPCs de `06` e `07`.
+3. **Tamanho do que o GDD promete:** treinos, cozinha, pesca, acampamento decorável e pós-jogo
+   somam muito trabalho de motor. Vale o autor dizer o que é essencial para a primeira versão
+   completa e o que pode ficar para depois.

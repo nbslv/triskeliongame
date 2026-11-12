@@ -66,9 +66,6 @@ Branch: `claude/triskelion-engine`
 ### Incompatibilidades com o prólogo
 
 Nenhuma bloqueante. Observações para as outras frentes:
-- `anim`: as poses (`colher`, `ajoelhar`, `encolhido`, `colar_brilho`...) só aparecem quando a arte entregar
-  animações com a chave `<sprite>:<anim>` (ver ARQUITETURA.md); até lá são ignoradas.
-- Emote `suor` usa o emoji 💧 (fonte do sistema); a arte pode trocar por um ícone.
 - `content/characters.json` foi criado pelo motor só com os nomes do prólogo — **a narrativa é dona do arquivo**.
 - Para a sessão de mapas: colheita = 5 objetos `examinar` com `dialogue: prologo_03_pe_de_cafe`,
   `counter: prologo.colheita`, `counter_goal: 5`, `counter_flag: prologo.colheita_completa`, `glow: true`;
@@ -76,6 +73,32 @@ Nenhuma bloqueante. Observações para as outras frentes:
   `gatilho_casa` com `dialogue: "prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa"`;
   túnel com `escuro: true`; porta da casa de manhã com `locked_if: "!prologo.cafe_com_pai"` e
   `locked_dialogue: prologo_00c_porta_sem_cafe`.
+
+## Ciclo 3
+
+- **Tiles animados** no formato padrão do Tiled (`animation` no tileset embutido), sincronizados pelo relógio
+  global; testes unitários (`tests/tiles.test.ts`). O que a arte deve preencher em `tiles_fogo.json` está em
+  MAPAS.md ("Tiles animados").
+- **Tilesets da arte** conferidos: todos os `docs/arte/tilesets/tiles_*.json` têm imagem correspondente em
+  `assets/tilesets/` e propriedades válidas (teste automático). Mapa `content/maps/teste_arte.json`
+  (`tiles_exterior_noite` + `tiles_fogo` com animações) carrega sem avisos; fogo anima; `collides` (fogo, cerca)
+  e `hide` (arbusto) funcionam — verificado no Chromium (`docs/tecnico/capturas/07-tilesets-arte.png`).
+
+## Ciclo 4 (pedidos da arte em docs/status/arte.md)
+
+- **Poses**: todo `assets/sprites/*.json` com `alvo` + `anims` vira animação `<alvo>:<nome>` no Preload; o passo
+  `anim` toca a pose (procura `<sprite>:<anim>`, `<id>:<anim>` e o sprite equivalente) e a mantém até o ator andar,
+  virar ou receber `anim: "normal"`. Folhas de outro tamanho (`pai_deitado` 24×16) mantêm a origem nos pés.
+- **Sprites**: `toucim` usa `toucim` (16×32); `cali_1`…`cali_N` e `cali_soldado` usam `cali_soldado`;
+  `caligosuin` ↔ `cali_soldado` são equivalentes. Objetos de uma linha (`caixa_costura`, `barril_custodia`)
+  funcionam como atores (quadro 0 parado + poses).
+- **Emotes por ícone** (`assets/images/emote_<nome>.png`), com texto de reserva.
+- **Teste** `tests/arte.test.ts`: todos os retratos (64×64), poses e emotes usados nos 48+ roteiros do prólogo
+  existem nos assets — nenhum faltando. Teste de navegador: +4 verificações (poses criadas e tocadas,
+  `cali_N`/`toucim`, ícones). Captura `docs/tecnico/capturas/08-poses-emotes.png`.
+- O pedido 4 da arte (tiles animados) foi atendido no ciclo 3; falta a arte preencher `animation` em
+  `tiles_fogo.json` (tabela em MAPAS.md). Alternativa `fx_fogo*` como ator decorativo também funciona
+  (`spawn` com `sprite: "fx_fogo"` + `anim: "queimar"`).
 
 ## Decisões
 

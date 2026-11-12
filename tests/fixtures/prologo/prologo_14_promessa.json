@@ -12,7 +12,7 @@
     {"type": "wait", "ms": 500},
     {"type": "anim", "actor": "icaro", "anim": "ajoelhar"},
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Para. Para, filho."},
-    {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Essa viga não sai nem com dois bois. E as minhas pernas já não iam me levar a lugar nenhum."},
+    {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Essa viga não sai. E as minhas pernas já não iam me levar a lugar nenhum."},
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "A adega do terreiro. O túnel do rego seco, lembra? Sai no bambuzal, do outro lado do morro."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "O senhor me proibiu de brincar lá."},
     {"type": "say", "speaker": "pai", "portrait": "pai_sorriso_fraco", "text": "E você brincou assim mesmo. Hoje eu agradeço a teimosia."},

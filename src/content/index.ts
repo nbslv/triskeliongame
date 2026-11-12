@@ -114,8 +114,18 @@ export function characterName(id: string | undefined): string {
   return id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ');
 }
 
+/** Sprites equivalentes (a arte desenhou `cali_soldado`; `caligosuin` é a chave padrão dos inimigos). */
+export const SPRITE_ALIASES: Record<string, string[]> = {
+  caligosuin: ['cali_soldado'],
+  cali_soldado: ['caligosuin'],
+};
+
 export function characterSprite(id: string): string | undefined {
-  return characters.get(id)?.sprite;
+  const s = characters.get(id)?.sprite;
+  if (s) return s;
+  // Soldados Caligosuins numerados (cali_1…cali_N) usam o sprite genérico.
+  if (/^cali_\d+$/.test(id) || id === 'cali_soldado') return 'cali_soldado';
+  return undefined;
 }
 
 // ---------- assets (arte/áudio da sessão de arte) ----------
@@ -132,9 +142,17 @@ export interface AssetEntry {
   key: string;
   url: string;
 }
+export interface PoseAnim {
+  frames: number[];
+  frameRate?: number;
+  repeat?: number;
+}
 export interface SpriteEntry extends AssetEntry {
   frameWidth: number;
   frameHeight: number;
+  /** Folhas de pose: ator/sprite alvo das animações (`<alvo>:<anim>`). */
+  alvo?: string;
+  anims?: Record<string, PoseAnim>;
 }
 
 const toEntries = (rec: Record<string, unknown>, prefix = ''): AssetEntry[] =>
@@ -161,6 +179,8 @@ export const assetManifest = {
       url: url as string,
       frameWidth: meta.frameWidth ?? 16,
       frameHeight: meta.frameHeight ?? 24,
+      alvo: meta.alvo,
+      anims: meta.anims,
     };
   }),
   music: toAudioEntries(musicUrls, 'music:'),

@@ -26,6 +26,39 @@ Qualquer quantidade, desenhadas na ordem do Tiled.
 | `collides` (bool) | **camada** | Todo tile não vazio da camada é sólido. |
 | `above` (bool) | **camada** | Desenhada por cima dos personagens (copas de árvore, telhados). Camadas com nome começando em `acima`/`above`/`topo` também. |
 
+### Tiles animados (fogo, fumaça, água...)
+
+O motor anima tiles no **formato padrão do Tiled**: no tileset embutido, o tile que vai no mapa (o
+primeiro quadro) recebe a lista `animation`. No Tiled: *Tileset → Tile Animation Editor*. No JSON:
+
+```json
+"tiles": [
+  { "id": 0, "properties": [{ "name": "collides", "type": "bool", "value": true }],
+    "animation": [ { "tileid": 0, "duration": 160 }, { "tileid": 1, "duration": 160 }, { "tileid": 2, "duration": 160 } ] }
+]
+```
+
+- `tileid` é o índice local no tileset; `duration` em ms. Todos os tiles iguais ficam sincronizados.
+- Coloque no mapa **o tile que tem a animação** (o quadro 1). As propriedades (`collides`, `hide`) são as
+  desse tile.
+- Peças de 2 tiles (labareda alta: topo + base) precisam de uma animação em **cada** metade, com a mesma
+  duração, para andarem juntas.
+
+**O que a arte deve preencher em `docs/arte/tilesets/tiles_fogo.json`** (quadros em sequência, ~160 ms):
+
+| Tile (id) | Quadros (`tileid`) |
+|---|---|
+| `fogo` 0 | 0, 1, 2 |
+| `fogo_alto` topo 3 / base 15 | 3, 4, 5 / 15, 16, 17 |
+| `fogo_negro` 24 | 24, 25, 26 |
+| `fogo_negro_alto` topo 27 / base 39 | 27, 28, 29 / 39, 40, 41 |
+| `fumaca_preta` topo 48 / base 60 | 48, 49, 50 / 60, 61, 62 |
+| `cinzas_caindo` 51 | 51, 52, 53 |
+
+Enquanto o arquivo da arte não tiver `animation`, o gerador do mapa de teste
+(`scripts/gerar-mapa-teste-arte.mjs`) acrescenta exatamente essas animações — pode servir de referência.
+Mapa de conferência: `content/maps/teste_arte.json` (tilesets `tiles_exterior_noite` + `tiles_fogo`).
+
 ## Camadas de objetos
 
 Os objetos são identificados pela **classe** (campo *Class*/*Type* no Tiled). Podem ficar em qualquer

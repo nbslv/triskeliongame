@@ -147,7 +147,7 @@ Fórmula: `valor = nível 1 + crescimento × (nível − 1)`, arredondado.
 | 13 | **Flecha de Luz** | 6 PM | Luz ×1,3; ignora resistência a Físico e a Luz |
 | 17 | **Lumnia: Clarão** | 10 PM | Luz ×1,3, todos; remove Queimadura negra do grupo |
 | 22 | **Runa-Broto** (com Celly) | 8 PM | Escudo: absorve 1 golpe de um aliado |
-| 27 | **Lumnia: Aurora** | 16 PM | Luz ×2,4, um alvo; dissipa bônus do inimigo |
+| 27 | **Lumnia: Amanhecer** | 16 PM | Luz ×2,4, um alvo; dissipa bônus do inimigo |
 | 33 | **Chuva de Estrelas** | 22 PM | Luz ×1,8, todos |
 | Final | **Lumnia: Triskelion** | cena | Só na batalha final, com 3 de Calma |
 
@@ -226,7 +226,7 @@ Habilidades extras vêm de **treino** (seção 7), missões e chefes — nunca s
 | Tacho de Doce | +150 PV, grupo todo | 180 |
 | Café Coado | +20 PM | 25 |
 | Café Forte | +60 PM | 70 |
-| Café da Torrinha (raro) | PV e PM totais de um herói | não se vende; baús, missões, cozinha |
+| Café Valesol (raro) | PV e PM totais de um herói | não se vende; baús, missões, cozinha |
 | Chá de Boldo | cura Enjoo e Tonto | 15 |
 | Pomada de Arnica | cura Queimadura negra | 20 |
 | Água de Cheiro | cura Murcho e Medo | 20 |
@@ -254,7 +254,7 @@ Fúria; *Contas do Abade* — Silvano começa com 2 de Graça; *Dedal Amassado* 
   próximo herói). **2×** acelera animações e texto. As duas opções ficam salvas.
 - Na Tranquila, o AUTO **vence qualquer batalha comum** com o grupo no nível esperado, e vence
   a maioria dos chefes (mais devagar do que na mão). É uma opção legítima para quem não joga RPG.
-- O AUTO **nunca usa** itens raros (Café da Torrinha, Mel Feérico) nem *Fugir*.
+- O AUTO **nunca usa** itens raros (Café Valesol, Mel Feérico) nem *Fugir*.
 
 ### Regras de IA (em ordem de prioridade; a primeira que valer é usada)
 
