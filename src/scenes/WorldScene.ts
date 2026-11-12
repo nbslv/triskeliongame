@@ -26,6 +26,9 @@ import {
   objectCenter,
   props,
   routePoints,
+  tileAnimations,
+  animFrameAt,
+  type TileAnimation,
   type PropValue,
   type TiledMap,
   type TiledObject,
@@ -86,6 +89,8 @@ export class WorldScene extends Phaser.Scene {
   private glows = new Map<Zone, Phaser.GameObjects.GameObject>();
   private lastSafe = { x: 0, y: 0 };
   private exploreMs = 0;
+  /** Tiles animados (formato do Tiled): instâncias por animação. */
+  private animTiles: { anim: TileAnimation; tiles: Phaser.Tilemaps.Tile[]; current: number }[] = [];
   private dark: { rt: Phaser.GameObjects.RenderTexture; brush: Phaser.GameObjects.Image; radius: number } | null = null;
   private markers = new Map<string, { x: number; y: number }>();
   private fadeRect!: Phaser.GameObjects.Rectangle;
@@ -110,6 +115,7 @@ export class WorldScene extends Phaser.Scene {
     this.inspects = [];
     this.glows = new Map();
     this.dark = null;
+    this.animTiles = [];
     this.exploreMs = 0;
     this.markers = new Map();
     this.collisionLayers = [];
@@ -130,6 +136,7 @@ export class WorldScene extends Phaser.Scene {
     this.mapId = data.map;
     this.mapData = raw as TiledMap;
     this.buildTilemap();
+    this.collectAnimatedTiles();
     this.buildObjects();
 
     // Jogador
@@ -239,6 +246,32 @@ export class WorldScene extends Phaser.Scene {
         this.collisionLayers.push(layer);
       }
     });
+  }
+
+  /** Junta as instâncias de cada tile animado (o gid original guarda a animação). */
+  private collectAnimatedTiles(): void {
+    const anims = tileAnimations(this.mapData);
+    if (anims.size === 0) return;
+    const byGid = new Map<number, Phaser.Tilemaps.Tile[]>();
+    for (const layer of this.tileLayers) {
+      layer.forEachTile((t) => {
+        if (anims.has(t.index)) {
+          const list = byGid.get(t.index) ?? [];
+          list.push(t);
+          byGid.set(t.index, list);
+        }
+      });
+    }
+    for (const [gid, tiles] of byGid) this.animTiles.push({ anim: anims.get(gid)!, tiles, current: gid });
+  }
+
+  private updateAnimatedTiles(time: number): void {
+    for (const a of this.animTiles) {
+      const gid = animFrameAt(a.anim, time);
+      if (gid === a.current) continue;
+      a.current = gid;
+      for (const t of a.tiles) t.index = gid;
+    }
   }
 
   private layerHasCollision(layer: Phaser.Tilemaps.TilemapLayer): boolean {
@@ -433,6 +466,7 @@ export class WorldScene extends Phaser.Scene {
 
   override update(time: number, delta: number): void {
     if (!this.player || !this.ready) return;
+    this.updateAnimatedTiles(time);
     const cutscene = director.active;
     this.drawDarkness();
     if (!cutscene && !this.transitioning) {
@@ -873,6 +907,7 @@ export class WorldScene extends Phaser.Scene {
   debugState() {
     return {
       dark: this.dark ? Math.round(this.dark.radius) : null,
+      animatedTiles: this.animTiles.map((a) => ({ frame: a.current, count: a.tiles.length })),
       map: this.mapId,
       player: this.player ? this.currentPosition() : null,
       hidden: this.hidden,
