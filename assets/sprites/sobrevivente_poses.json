@@ -1,0 +1,21 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 24,
+ "alvo": "sobrevivente_1",
+ "anims": {
+  "sentado_cobertor": {
+   "frames": [
+    0
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  },
+  "sentado_cobertor_2": {
+   "frames": [
+    1
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}

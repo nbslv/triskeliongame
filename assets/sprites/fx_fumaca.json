@@ -1,0 +1,16 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 32,
+ "alvo": "fx_fumaca",
+ "anims": {
+  "subir": {
+   "frames": [
+    0,
+    1,
+    2
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}
