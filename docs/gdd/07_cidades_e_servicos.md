@@ -212,8 +212,6 @@ Não é uma cidade: são três casas na clareira antes da mata.
 ## 6. Brumaflor, reino das fadas (Capítulo 6)
 
 ### Casa principal — **O lar de Celly: a Casa da Guardiã**
-*(A origem de Celly abaixo é proposta nova — PENDENTE APROVAÇÃO DO AUTOR.)*
-
 Pela tradição, a guardiã do Nymphalion deixa o casarão do clã e vai morar sozinha, com
 simplicidade, ao lado do canteiro da magia. A casa de Celly é um **botão de rosa que nunca
 abriu**, colado ao **Canteiro Vazio**. Na porta, uma fita cinza: **"DESPETALADA"**. Celly demora

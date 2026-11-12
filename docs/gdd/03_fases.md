@@ -238,7 +238,7 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
      desigualdade do reino; a primeira ordem é abrir os celeiros do palácio ao Cais Baixo.
   3. **Brumaflor:** Celly é recebida como heroína. O Conselho revoga o banimento e devolve o
      nome dela em voz alta — **Celestia da Rosa-Primeira** — e só então o grupo descobre que
-     ela é nobre (proposta PENDENTE APROVAÇÃO DO AUTOR; ver `01_mundo_e_historia.md`).
+     ela é nobre (ver `01_mundo_e_historia.md`).
      O lar dela, antes vazio e com a porta lacrada, enche de visitas.
   4. **Forja-Alta:** jantar na casa dos Lâmina de Ferro. A Livinha cobra a promessa de mindinho.
   5. **Colina do Mar:** Ícaro e Valéria, de mãos dadas, visitam os túmulos dos pais dele.

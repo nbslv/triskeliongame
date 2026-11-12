@@ -163,7 +163,7 @@ quando ela acerta e quando um aliado usa *Encorajar*, cai quando ela apanha fort
 história aumentam a Confiança inicial e eliminam a falha. No fim, conjura o **Nymphalion**.
 
 **Papel.** Terceira companheira; guia para o reino das fadas; guardiã do Nymphalion; redenção.
-**Nobreza (PENDENTE APROVAÇÃO DO AUTOR):** é **Celestia da Rosa-Primeira**, herdeira do clã nobre
+**Nobreza (aprovada pelo autor):** é **Celestia da Rosa-Primeira**, herdeira do clã nobre
 cujo dever hereditário é guardar o Nymphalion. Ao ser banida, teve nome e clã riscados pela lei
 do *Despetalar*; por vergonha, apresenta-se só como "Celly". O grupo só descobre no epílogo
 (detalhe em `01_mundo_e_historia.md`).

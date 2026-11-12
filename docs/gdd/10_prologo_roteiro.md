@@ -139,16 +139,21 @@ Tonho se separa para buscar a irmã (a casa dele é fora da vila). A despedida �
 
 ## Cena 3 — A vila em chamas (furtividade)
 
-**Diálogos:** `prologo_08_vila_entrada`, `prologo_09_visto`, `prologo_10_praca`,
-`prologo_11_custodia`, e os examináveis `prologo_exame_*`.
+**Diálogos:** `prologo_08_vila_entrada`, `prologo_09_visto`, `prologo_09b_perdeu_de_vista`,
+`prologo_10_praca`, `prologo_11_custodia`, e os examináveis `prologo_exame_*`.
+
+**Tom (decisão do autor):** na vila destruída **não há piada** com Ícaro, com os moradores nem
+com o cenário. O único humor permitido vem dos Caligosuins entre si — perdendo Ícaro de vista,
+achando que viram alguma coisa, uma troca curta de falas — e sem forçar. O humor da manhã e do
+cafezal fica onde está; o contraste é o que dói.
 
 **Imagem.** A mesma vila da manhã, queimando. A panorâmica nomeia os lugares que o jogador
 acabou de visitar ("a padaria, a venda, a rua do chafariz"). O fogo é **preto com
 borda roxa** e "não ilumina nada": a luz da cena vem do céu e de brasas comuns.
 
-**Primeiro Caligosuin.** Porco de pé, manto, presas enormes — e espirra na própria bandeira.
-É a regra visual da raça: **fofo-ameaçador**. Logo depois Ícaro nota que o mesmo fogo derreteu
-o ferro do lampião: são desastrados, não inofensivos.
+**Primeiro Caligosuin.** Porco de pé, manto, presas enormes. Ele para, acha que ouviu alguma
+coisa, olha para o lado errado e decide que "foi o vento" — é a regra da raça, **fofo-ameaçador**.
+Em seguida Ícaro o vê encostar a tocha num lampião: o ferro derrete. Desatentos, não inofensivos.
 
 ### Regras da furtividade (para o motor e para a sessão de mapas)
 
@@ -158,6 +163,9 @@ o ferro do lampião: são desastrados, não inofensivos.
   do lado oposto ao inimigo, Ícaro fica agachado e o cone não o detecta.
 - **Ser visto** = `prologo_09_visto` (duas falas, fade) e volta ao **último ponto seguro**
   (marcadores `checkpoint_*`). Sem "game over", sem contagem de falhas, sem dano.
+- **Quase visto** (opcional, no máximo uma vez por trecho): quando Ícaro escapa de um cone por
+  pouco, os dois soldados mais próximos trocam as falas de `prologo_09b_perdeu_de_vista`
+  ("Fumaça não tem cabelo." / "...Então foi fumaça.") sem tirar o controle do jogador.
 - Correr (B) é permitido e não faz barulho — é o prólogo; a regra é uma só e simples.
 - Dificuldade: paciência, não reflexo. Toda patrulha tem uma janela folgada (≥ 2 s).
 - Acessibilidade: depois de 3 detecções no mesmo trecho, o cone daquele trecho encolhe um tile.
@@ -171,17 +179,18 @@ o ferro do lampião: são desastrados, não inofensivos.
 | C — Rua do Terreiro | `checkpoint_beco` → casa | 2 patrulhas cruzadas + sacas de café como cobertura | Combinar tudo; Dona Custódia no barril no meio |
 
 **Cutscene da praça (`prologo_10_praca`).** Escondido, Ícaro ouve o **Capitão Toucim**. A cena faz
-três trabalhos: (1) humor — "tragam o café / queimem o café / tragam, é cheiroso" e o soldado
-que queimou a biblioteca espirrando; (2) exposição — eles procuram **livros e magia** a mando de
-**Madame Trufa**, "a barreira caiu, o cajado apagou"; (3) ameaça sem imagem — "ordens do General:
-nada fica de pé". Depois, a câmera mostra a **biblioteca** queimando: a perda pessoal de Ícaro.
+três trabalhos: (1) exposição — eles procuram **livros e magia** a mando de **Madame Trufa**;
+"a barreira caiu, o cajado apagou"; (2) ameaça sem imagem — "ordens do General: nada fica de
+pé"; (3) um único respiro, entre eles: "esta vila só cheira a café" / "então tragam o café" /
+"pra quê, capitão?" / "soldado não pergunta pra quê". Depois, a câmera mostra a **biblioteca**
+queimando: a perda pessoal de Ícaro.
 
-**Dona Custódia (`prologo_11_custodia`, opcional mas no caminho).** Escondida num barril de
-melado com a galinha Pamonha. Dá a informação que dói: o pai **já estava a salvo e voltou para
-dentro de casa buscar alguma coisa**. Ícaro manda ela para o bambuzal — primeira vez que ele
-cuida de alguém em vez de ser cuidado.
+**Dona Custódia (`prologo_11_custodia`, opcional mas no caminho).** Escondida no barril de
+melado que o jogador viu de manhã, com a galinha. Sem graça nenhuma, só medo. Dá a informação
+que dói: o pai **já estava a salvo e voltou para dentro de casa buscar alguma coisa**. Ícaro a
+manda para o bambuzal — primeira vez que ele cuida de alguém em vez de ser cuidado.
 
-**Examináveis:** biblioteca, chafariz, padaria, sacas de café (uma linha cada, tom agridoce).
+**Examináveis:** biblioteca, chafariz, padaria, sacas de café (uma linha cada, tom sóbrio).
 
 ---
 
