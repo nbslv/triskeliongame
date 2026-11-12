@@ -39,7 +39,7 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `flag` | `set` + `value?` (padrão `true`), `clear`, `add` + `by?` (padrão 1) | Liga/define, apaga ou soma em flags. Pode combinar no mesmo passo. |
 | `move` | `actor`, `to`, `speed?` (px/s, padrão 60), `wait?` (padrão `true`), `facing?` | Anda em linha reta até o alvo (ignora colisão). `wait:false` deixa andando enquanto o roteiro continua. |
 | `face` | `actor` + `dir` (`down`/`left`/`right`/`up`) **ou** `to` (ator/marcador) | Vira o ator. |
-| `emote` | `actor`, `emote`, `ms?` (900), `wait?` (true) | Balão sobre a cabeça: `"!"`, `"?"`, `"..."`, `"♥"`, `"♪"`, `"💧"`… |
+| `emote` | `actor`, `emote`, `ms?` (900), `wait?` (true) | Balão sobre a cabeça: `"!"`, `"?"`, `"..."`, `"💧"`, `"♥"`, `"♪"` ou o nome (`"exclamacao"`...). Usa o ícone `assets/images/emote_<nome>.png` quando existe. |
 | `wait` | `ms` | Pausa. |
 | `sfx` | `id`, `volume?` (0–1) | Efeito: `assets/audio/sfx/<id>.ogg|mp3`; sem arquivo, toca um bipe provisório. |
 | `music` | `id` (ou `null` para parar), `fadeMs?` (800), `volume?` | Troca de música com crossfade: `assets/audio/music/<id>.*`; sem arquivo, melodia provisória. |
@@ -58,7 +58,7 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `checkpoint` | `at?` | Define o ponto de retorno da furtividade (padrão: posição atual do jogador). |
 | `autosave` | — | Grava no espaço automático. |
 | `call` | `id` | Executa outro roteiro e volta (útil para trechos repetidos). |
-| `anim` | `actor`, `anim` | Toca a animação `<sprite>:<anim>` se a arte tiver; `"normal"` volta ao parado. Sem animação, é ignorado. |
+| `anim` | `actor`, `anim` | Toca a pose da arte `<sprite do ator>:<anim>` (folhas `assets/sprites/*_poses.json`, ver ARQUITETURA.md) e mantém até o próximo `move`/`face`/`anim "normal"`. Pose inexistente é ignorada. |
 | `title` | `text`, `subtitle?`, `ms?` (1500) | Cartão de título em tela cheia; A/toque continua. |
 | `activity` | `id`, `params?` | Abre uma atividade registrada (loja, treino, minijogo); o resultado vai para flags/save. |
 | `light` | `radius`, `ms?` (600) | Raio do círculo de luz em mapas escuros (0 = breu). |
