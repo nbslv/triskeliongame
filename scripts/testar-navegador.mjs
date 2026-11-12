@@ -199,9 +199,12 @@ check(
 );
 
 // Casa: entra pela porta (agora destrancada), fala com a moradora, examina, sai e volta ao lado de fora
+await teleport(136, 165, 'up');
+await wait(100);
 s = await walkTo(136, 140, 6000);
 await wait(900);
 s = await state();
+if (s.map !== 'teste_casa') console.log('  (debug porta)', JSON.stringify(s.player), s.cutscene);
 check(s.map === 'teste_casa', `porta leva ao interior (${s.map})`);
 await teleport(72, 100, 'up'); // abaixo da moradora (4,4)
 await wait(100);
@@ -225,6 +228,8 @@ s = await state();
 check(s.map === 'teste' && s.player.y > 144 && Math.abs(s.player.x - 136) < 12, `saída do interior volta para fora da porta (${s.map} ${s.player.x},${s.player.y})`);
 
 // Gatilho da cutscene de teste em x=288..304, y=208..272
+await teleport(136, 191, 'down');
+await wait(100);
 s = await walkTo(296, 238);
 check(s.cutscene, 'gatilho inicia a cutscene de teste');
 let sawTeste2 = false;

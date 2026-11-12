@@ -525,7 +525,9 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     // Examináveis / atividades / gatilhos de interação — o mais próximo do ponto à frente
-    const here = (z: Zone) => contains(z.rect, px, py) || contains(z.rect, this.player.x, this.player.y - 3);
+    // Área um pouco maior que o objeto: não exige alinhamento ao pixel.
+    const grown = (r: Rect): Rect => ({ x: r.x - 4, y: r.y - 4, w: r.w + 8, h: r.h + 8 });
+    const here = (z: Zone) => contains(grown(z.rect), px, py) || contains(z.rect, this.player.x, this.player.y - 3);
     for (const z of this.inspects) {
       if (here(z) && this.useInspect(z)) return true;
     }

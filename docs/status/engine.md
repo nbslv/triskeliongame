@@ -33,6 +33,50 @@ Branch: `claude/triskelion-engine`
   cutscene completa com troca de mapa, esconderijo, ser visto e voltar ao checkpoint, botão MENU — tudo OK.
   Capturas em `docs/tecnico/capturas/`.
 
+## Ciclo 2 (pedidos da coordenação — todos atendidos)
+
+- **Save (crítico)**: versão 3, gravação atômica (`.tmp` → `.bak` → principal), leitura com queda para a
+  última cópia válida; salvar a qualquer momento pelo menu (3 espaços, bloqueado em cutscene); autosave na
+  troca de mapa, em checkpoint, no início e no fim de cutscenes, após atividades e a cada 60 s de exploração;
+  **save de retomada** em `visibilitychange`/`pagehide` (+`beforeunload`/`freeze` de reforço) e
+  "Retomar de onde parou" no título (local + horário). Retomada no meio de cutscene volta ao início dela
+  (estado de antes + replay do roteiro). Exportar/importar (arquivo ou texto) em Título → "Backup do save".
+- **Dificuldade**: `state.difficulty` no save (`tranquila` padrão); sem opção na tela.
+- **Inventário, moedas e atributos** tipados no save (`state`), helpers em `session`; sem interface.
+- **Atividades**: `src/systems/activity/` — objeto Tiled com `activity` (+ `param_*`) ou passo `activity`
+  abre cena registrada; resultado (flags, moedas, itens, atributos, recorde) aplicado e autosalvo.
+  Exemplo: `TestActivityScene` / objeto `altar_teste` em `teste2`.
+- **Interiores**: portas com `entry` ou `return: true` (volta ao ponto de onde entrou), porta trancada
+  (`locked_if` + `locked_dialogue`), examináveis (`examinar`, com `alt_dialogue`/`alt_if`, `glow`, `once`),
+  moradores, fade. Casa de teste `teste_casa` (dois cômodos). Padrão documentado em MAPAS.md.
+- **UI**: com controles de toque a caixa de diálogo termina antes dos botões A/B; toque em qualquer lugar da
+  caixa avança; estilos de `narrador`, `tutorial` ("Dica") e pensamento; nomes com acento via
+  `content/characters.json`; Phaser em chunk próprio (`phaser-*.js` 1,46 MB + jogo 161 kB).
+- **Prólogo**: os 48 roteiros de `origin/claude/triskelion-narrativa` validam e rodam até o fim
+  (`tests/prologo-compat.test.ts`, cópia em `tests/fixtures/prologo/`, atualizar com
+  `scripts/atualizar-fixture-prologo.sh`). Suporte a `anim` (toca se houver arte, senão ignora), `title`,
+  falantes `narrador`/`tutorial` e todos os campos do fim de `10_prologo_roteiro.md` (via aliases, ver DIALOGO.md).
+  Contador de colheita genérico (`counter`/`counter_goal`/`counter_flag`), máscara de escuridão com
+  círculo de luz (`escuro`/`luz_raio` + passo `light`), gatilhos `activation: load`, diálogo condicional de
+  NPC (`alt_dialogue`/`alt_if`), roteiros encadeados (`"a,b,c"`), patrulha por marcadores `<rota>_pN`.
+- **Testes**: 174 no Vitest. Teste de navegador ampliado (32 verificações, todas OK): porta trancada, casa,
+  acentos na fonte e nos nomes, caixa x botões, colheita, atividade, túnel escuro, salvar pelo menu e
+  **recarregar a página e voltar à mesma posição**.
+
+### Incompatibilidades com o prólogo
+
+Nenhuma bloqueante. Observações para as outras frentes:
+- `anim`: as poses (`colher`, `ajoelhar`, `encolhido`, `colar_brilho`...) só aparecem quando a arte entregar
+  animações com a chave `<sprite>:<anim>` (ver ARQUITETURA.md); até lá são ignoradas.
+- Emote `suor` usa o emoji 💧 (fonte do sistema); a arte pode trocar por um ícone.
+- `content/characters.json` foi criado pelo motor só com os nomes do prólogo — **a narrativa é dona do arquivo**.
+- Para a sessão de mapas: colheita = 5 objetos `examinar` com `dialogue: prologo_03_pe_de_cafe`,
+  `counter: prologo.colheita`, `counter_goal: 5`, `counter_flag: prologo.colheita_completa`, `glow: true`;
+  Zefa = `npc` com `dialogue: prologo_04_zefa`, `alt_dialogue: prologo_06_colheita_fim`, `alt_if: prologo.colheita_completa`;
+  `gatilho_casa` com `dialogue: "prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa"`;
+  túnel com `escuro: true`; porta da casa de manhã com `locked_if: "!prologo.cafe_com_pai"` e
+  `locked_dialogue: prologo_00c_porta_sem_cafe`.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai
@@ -58,8 +102,7 @@ Branch: `claude/triskelion-engine`
 
 ## Pendente / próximos passos
 
-- Batalha por turnos (frente própria), inventário, HUD de exploração.
-- Bundle de 1,6 MB (Phaser inteiro); dá para separar o Phaser em chunk próprio se o carregamento pesar.
+- Batalha por turnos (frente própria), interface de inventário/loja, HUD de exploração.
 - Iluminação/efeitos da vila em chamas (partículas de fogo, fumaça) quando houver arte.
 - Pathfinding nos `move` (hoje é linha reta; use marcadores intermediários).
 - Testar em iPhone/Android reais (só emulado no Chromium).
