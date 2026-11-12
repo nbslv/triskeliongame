@@ -77,6 +77,16 @@ Nenhuma bloqueante. Observações para as outras frentes:
   túnel com `escuro: true`; porta da casa de manhã com `locked_if: "!prologo.cafe_com_pai"` e
   `locked_dialogue: prologo_00c_porta_sem_cafe`.
 
+## Ciclo 3
+
+- **Tiles animados** no formato padrão do Tiled (`animation` no tileset embutido), sincronizados pelo relógio
+  global; testes unitários (`tests/tiles.test.ts`). O que a arte deve preencher em `tiles_fogo.json` está em
+  MAPAS.md ("Tiles animados").
+- **Tilesets da arte** conferidos: todos os `docs/arte/tilesets/tiles_*.json` têm imagem correspondente em
+  `assets/tilesets/` e propriedades válidas (teste automático). Mapa `content/maps/teste_arte.json`
+  (`tiles_exterior_noite` + `tiles_fogo` com animações) carrega sem avisos; fogo anima; `collides` (fogo, cerca)
+  e `hide` (arbusto) funcionam — verificado no Chromium (`docs/tecnico/capturas/07-tilesets-arte.png`).
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai

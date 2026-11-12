@@ -67,7 +67,7 @@ put(objetos, 20, 13, f(F.negro_alto_base));
 put(acima, 25, 13, f(F.fumaca_topo));
 put(acima, 25, 14, f(F.fumaca_base));
 for (const [x, y] of [[4, 4], [9, 12], [13, 3], [27, 8]]) put(acima, x, y, f(F.cinzas));
-put(chao, 15, 6, f(F.brasas));
+put(objetos, 15, 6, f(F.brasas)); // brasas são transparentes (camada acima do chão)
 
 const point = (id, name, tx, ty) => ({ id, name, type: '', point: true, x: tx * 16 + 8, y: ty * 16 + 15, width: 0, height: 0, rotation: 0, visible: true });
 const map = {

@@ -324,6 +324,33 @@ await wait(500);
 await joystickRelease();
 await page.screenshot({ path: `${OUT}/09-tunel-escuro.png` });
 
+// Tilesets da arte: carregam, fogo animado, collides e hide
+await goMap('teste_arte', 'inicio');
+{
+  const r = await page.evaluate(async () => {
+    const w = window.__TRISKELION__.scene.getScene('Mundo');
+    const a1 = w.debugState().animatedTiles.map((a) => a.frame);
+    await new Promise((res) => setTimeout(res, 250));
+    const a2 = w.debugState().animatedTiles.map((a) => a.frame);
+    return {
+      keys: w.tilemap.tilesets.map((t) => t.image?.key),
+      animated: a1.length,
+      changed: a1.some((f, i) => f !== a2[i]),
+      fireSolid: w.isSolid(18 * 16 + 8, 5 * 16 + 8),
+      grassFree: !w.isSolid(8 * 16 + 8, 12 * 16 + 8),
+    };
+  });
+  check(r.keys.every((k) => k && k !== 'tileset:placeholder'), `tilesets da arte carregados (${r.keys.join(', ')})`);
+  check(r.animated > 0 && r.changed, `tiles animados trocam de quadro (${r.animated} animações)`);
+  check(r.fireSolid && r.grassFree, 'propriedade collides dos tilesets da arte');
+  await teleport(11 * 16 + 8, 7 * 16 + 12, 'down');
+  await wait(200);
+  check((await state()).hidden, 'propriedade hide dos tilesets da arte (arbusto)');
+  await teleport(18 * 16 + 8, 7 * 16 + 15, 'up');
+  await wait(300);
+  await page.screenshot({ path: `${OUT}/11-tilesets-arte.png` });
+}
+
 // Salvar manualmente pelo menu (espaço 1)
 await goMap('teste', 'inicio');
 await tap(640 - 30, 26);
