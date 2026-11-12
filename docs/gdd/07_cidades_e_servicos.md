@@ -24,7 +24,7 @@ Regras de treino, preços e economia: `05_sistemas.md` (seções 7 e 10). NPCs d
 
 ---
 
-## 1. Vila Torrinha (Prólogo; reconstruída no pós-jogo)
+## 1. Valesol (Prólogo; reconstruída no pós-jogo)
 
 Detalhe completo, com todos os textos já em JSON: `10_prologo_roteiro.md` (Cena 0).
 
@@ -33,7 +33,7 @@ Detalhe completo, com todos os textos já em JSON: `10_prologo_roteiro.md` (Cena
 | **Casa de Ícaro** | Casa principal | Uma peça só, terreiro nos fundos. Colchão com livros escondidos, retrato a carvão, **caixinha de costura da mãe**, cadeira de balanço em que ninguém senta, pote "TELHADO", enxada com dois nomes, alçapão do túnel. Morador: o pai |
 | **Casa da Dona Custódia** | Casa extra | Galinha Pamonha, retrato do finado Zé, barril de melado, crochê para galinha. Gancho: o pai parado em frente à biblioteca |
 | **Padaria do Seu Juca** | Casa extra / comércio | Forno que nunca apagou, receita borrada, desenho "ICARO MAGO". Gancho: a luz da torre piscou |
-| **Biblioteca** | Prévia de treino de magia | Dona Ermelinda; biografia de Aurelius com três espirais; a ficha "Helena" |
+| **Biblioteca** | Prévia de treino de magia | Dona Ermelinda; biografia de Aurelius com três espirais; a ficha "Aurora" |
 | **Cafezal** | Prévia de treino de força | A colheita do tutorial |
 
 Sem loja e sem números no prólogo (só prévias). No pós-jogo, cada casa reconstruída reabre.
@@ -49,11 +49,11 @@ Sem loja e sem números no prólogo (só prévias). No pós-jogo, cada casa reco
 
 | Objeto | Texto ao examinar | O que revela |
 |---|---|---|
-| Mapa na parede | "Luminaer inteira, com alfinetes. Um alfinete azul está espetado numa vila pequena demais para ter nome no mapa. Alguém escreveu a lápis: 'Torrinha'." | Lucian acompanhava a vila de longe |
-| Vassoura de piaçava, pendurada como um troféu | "Uma vassoura velha, numa moldura. Plaquinha: 'Recebida em combate. Mereci.'" | A vassoura com que Anselmo o expulsou (revelado no Cap. 9) |
+| Mapa na parede | "Luminaer inteira, com alfinetes. Um alfinete azul está espetado numa vila pequena demais para ter nome no mapa. Alguém escreveu a lápis: 'Valesol'." | Lucian acompanhava a vila de longe |
+| Vassoura de piaçava, pendurada como um troféu | "Uma vassoura velha, numa moldura. Plaquinha: 'Recebida em combate. Mereci.'" | A vassoura com que Tadeo o expulsou (revelado no Cap. 9) |
 | Escrivaninha | "Rascunhos de um regulamento: 'Da proibição de magia sem supervisão em local público'. Quinze versões. Todas com o carimbo: INDEFERIDO — Conselho da Faculdade." | Ele luta há anos por causa do acidente |
 | Luva esquerda sobre a cama | "Uma luva de couro mais grossa que a direita. Por dentro, forrada de lã." | A cicatriz; o braço lento |
-| Gaveta trancada (abre no Cap. 9) | "Um desenho a carvão, amassado e alisado muitas vezes: uma moça rindo, com a mão erguida, e uma luz saindo da mão." | Helena, no dia do acidente |
+| Gaveta trancada (abre no Cap. 9) | "Um desenho a carvão, amassado e alisado muitas vezes: uma moça rindo, com a mão erguida, e uma luz saindo da mão." | Aurora, no dia do acidente |
 | Cama de Ícaro | "Um catre de quartel com um cobertor bom demais para ser de quartel." | O cuidado de Lucian |
 | Prateleira de Ícaro | "Vazia. Por enquanto." (enche de lembranças a cada capítulo) | O progresso da jornada |
 
@@ -222,7 +222,7 @@ Na beira da Vila das Pétalas, um botão fechado, com uma fita cinza atravessada
 | Diário (três páginas) | "'Hoje uma senhora elegante de chapéu veio ver o Nymphalion. Disse que eu parecia cansada e que ela seguraria um minutinho. Foi tão gentil.' / (página seguinte, borrada) 'Eu só queria que alguém fosse gentil.' / (o resto do caderno está em branco)" | Como Madame Trufa a enganou |
 | Vaso na janela | "Uma muda, verde e regada. Depois de tantos meses, alguém vem aqui regar." | Dona Margarida |
 | Cama de pétala | "Feita, com o travesseiro afofado. E um casaquinho de crochê por cima, novo." | Idem |
-| Calço da porta | "Um medalhão de prata pesado, usado para a porta não bater. Tem uma rosa com um sol atrás." — Celly: "Ah, isso veio comigo no cestinho, quando me acharam. Serve bem de calço." | **O brasão do clã da Rosa-da-Aurora** — a nobreza de Celly, usada como calço de porta |
+| Calço da porta | "Um medalhão de prata pesado, usado para a porta não bater. Tem uma rosa com um sol atrás." — Celly: "Ah, isso veio comigo no cestinho, quando me acharam. Serve bem de calço." | **O brasão do clã da Rosa-Primeira** — a nobreza de Celly, usada como calço de porta |
 | Canteiro dos fundos | "Runas-broto treinadas em fileira. Todas murchas. Uma, no cantinho, ainda tem cor." | A magia dela nunca morreu de todo |
 
 **Moradores:** ninguém, até o epílogo. **Visita:** Dona Margarida entra com um bolo. — "Eu
@@ -328,7 +328,7 @@ preguiça da coroa; e que volta para mudá-lo.
 |---|---|
 | **Caverna dos Ecos** (Cap. 5) | Tenda do Eremita Baltazar (loja pequena, rede para descansar). Treino de magia: **Sequência** nos cristais. Sem treino de força ("aqui não se bate em nada, que desaba") |
 | **Fortaleza Fuligem** (Cap. 8) | Cozinhas do Cozinheiro Banha: loja de comida e "pousada" (um canto quente atrás do forno). **Dormitório dos Leitões** como casa extra — *examinável:* "Desenhos na parede: porquinhos de mãos dadas em volta de uma fogueira laranja. Alguém riscou a fogueira de preto por cima. Dá para ver que foi com raiva, e que não foi um leitão." Gancho: os Caligosuins já tiveram outro fogo |
-| **Ruínas da Torrinha** (Cap. 9) | Sem serviços. Um lampião dourado no cafezal, com a Dona Zefa |
+| **Ruínas de Valesol** (Cap. 9) | Sem serviços. Um lampião dourado no cafezal, com a Dona Zefa |
 | **Acampamento do grupo** | Descanso, cozinha, decoração, conversas de fogueira (`05_sistemas.md`, seção 8) |
 
 ---
@@ -337,7 +337,7 @@ preguiça da coroa; e que volta para mudá-lo.
 
 | Região | Casa principal | Casas extras | Faixa das lojas | Treino de força | Treino de magia |
 |---|---|---|---|---|---|
-| Vila Torrinha (prólogo) | Casa de Ícaro | Custódia; padaria | — (sem loja) | Cafezal (prévia) | Livro escondido (prévia) |
+| Valesol (prólogo) | Casa de Ícaro | Custódia; padaria | — (sem loja) | Cafezal (prévia) | Livro escondido (prévia) |
 | Áurea | Alojamento de Lucian | Dona Abigail; os Montalvão | 1 → 2 → 4 | Pátio da Guarda | Biblioteca; Torre |
 | Ganso Tonto / Mosteiro | Cela de Silvano | Fridolina; Chico | 1 | Lenheiro | Jardim de pedra; sinos |
 | Bravaferro | Casa dos Lâmina de Ferro | Mestre Tenaz; Viúva Ferrolho | 2 | Arena (com Valéria); quintal (Livinha) | Mirante (meditação) |

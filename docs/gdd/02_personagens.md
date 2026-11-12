@@ -155,7 +155,7 @@ história aumentam a Confiança inicial e eliminam a falha. No fim, conjura o **
 
 ---
 
-## O pai — **Anselmo** [PROPOSTA]
+## O pai — **Tadeo** [PROPOSTA]
 
 **Aparência.** Uns 60 anos, corpo gasto de roça, costas travadas. Cabelo grisalho ralo, barba por
 fazer, sobrancelha grossa sempre franzida. Camisa xadrez desbotada, calça de brim, chapéu de
@@ -181,7 +181,7 @@ fala mais do que em dezoito anos.
 
 ---
 
-## A mãe — **Helena** (Solis) [PROPOSTA de nome]
+## A mãe — **Aurora** (Solis) [PROPOSTA de nome]
 
 Só aparece em voz, silhueta, retrato a carvão e na carta. Ria fácil, lia escondido, acendia
 lampião sem fósforo. Paleta: dourado-luz `#FFE08A`, creme `#F3E6C8`, azul-noite `#2F3E63`.

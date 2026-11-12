@@ -13,7 +13,7 @@ Paletas dos personagens principais: ver `02_personagens.md`.
 | `icaro` | 18 anos, loiro despenteado, camisa creme de mangas dobradas, colete marrom-café, calça azul desbotada remendada, botina | `acordar`, `esconder_livro`, `colher`, `agachar`, `ajoelhar`, `conjurar`, `conjurar_brilho` (luz morna nas mãos), `erguer_viga`, `encolhido`, `colar_brilho`, `segurar_colar`, correr |
 | `tonho` | 18 anos, magro, chapéu de palha torto, camisa verde-oliva, sorriso de dente lascado | correr |
 | `zefa` | ~60 anos, baixinha e larga, lenço vermelho na cabeça, avental de lona, mãos na cintura | parada (2 quadros) |
-| `pai` | Anselmo, ~60, grisalho, barba por fazer, camisa xadrez desbotada | De manhã: **sentado à mesa** (`sentado`, `beber_cafe`). À noite: **deitado** sob a viga (`parado`, `mostrar_caixa`, `empurrar`, `entregar_caixa`) |
+| `pai` | Tadeo, ~60, grisalho, barba por fazer, camisa xadrez desbotada | De manhã: **sentado à mesa** (`sentado`, `beber_cafe`). À noite: **deitado** sob a viga (`parado`, `mostrar_caixa`, `empurrar`, `entregar_caixa`) |
 | `juca` | Padeiro, ~50, barrigudo, bigode enfarinhado, avental branco, touca | parado atrás do balcão (2 quadros) |
 | `ermelinda` | Bibliotecária, ~70, magra e reta, coque apertado, óculos na ponta do nariz, xale cinza | parada (2 quadros), `carimbar` |
 | figurantes | 2 aldeões + galinhas ciscando | andar; `varrer` |

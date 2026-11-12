@@ -1,6 +1,6 @@
 # 10 — Prólogo: roteiro cena a cena
 
-> **"A noite em que a Torrinha apagou"**
+> **"A noite em que Valesol apagou"**
 > Duração-alvo: **10–15 min** no caminho direto (decidido pelo autor); quem examinar todas as casas
 > da manhã chega a ~18 min. Sem batalhas. Sem violência explícita.
 > As falas completas estão em `content/dialogues/prologo_*.json`; aqui fica a direção de cada cena:
@@ -10,7 +10,7 @@
 
 | # | Cena | Mapa | Jogabilidade | Duração | Emoção |
 |---|---|---|---|---|---|
-| 0 | Manhã na Torrinha | `prologo_casa_icaro`, `prologo_vila_manha` + 3 interiores | Tutorial de andar e examinar; casas exploráveis | 2–3 min (até 6 explorando) | Rotina, afeto ranzinza |
+| 0 | Manhã em Valesol | `prologo_casa_icaro`, `prologo_vila_manha` + 3 interiores | Tutorial de andar e examinar; casas exploráveis | 2–3 min (até 6 explorando) | Rotina, afeto ranzinza |
 | 1 | Cafezal ao entardecer | `prologo_cafezal` | Colheita (prévia de treino de força), correr | 2–3 min | Aconchego, humor |
 | 2 | A fumaça / estrada | `prologo_estrada` | Corrida curta | 1 min | Alarme |
 | 3 | Vila em chamas | `prologo_vila` | Furtividade (3 trechos) | 3–4 min | Tensão (com alívio cômico) |
@@ -18,8 +18,8 @@
 | 5 | O túnel | `prologo_tunel` | Caminhada no escuro | 1 min | Luto, primeiro passo |
 | 6 | Os sobreviventes | `prologo_bambuzal` | Cutscene | 2 min | Acolhimento, promessa |
 
-Nomes criados para o prólogo (propostas; ver perguntas em `docs/status/narrativa.md`): **Vila Torrinha** (a vila),
-**Anselmo** (o pai), **Helena** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
+Nomes criados para o prólogo (propostas; ver perguntas em `docs/status/narrativa.md`): **Valesol** (a vila),
+**Tadeo** (o pai), **Aurora** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
 **Dona Zefa** (capataz do cafezal), **Dona Custódia** e a galinha **Pamonha** (vizinhas),
 **Seu Juca** (padeiro), **Dona Ermelinda** (bibliotecária),
 **Capitão Toucim** (oficial Caligosuin atrapalhado), **Sargento Íris Candeia** (Guarda de Luminaer),
@@ -27,7 +27,7 @@ Nomes criados para o prólogo (propostas; ver perguntas em `docs/status/narrativ
 
 ---
 
-## Cena 0 — Manhã na Torrinha (casas exploráveis)
+## Cena 0 — Manhã em Valesol (casas exploráveis)
 
 **Diálogos:** `prologo_00_abertura`, `prologo_00b_cafe_com_pai`, `prologo_00c_porta_sem_cafe`,
 `prologo_00d_saida_vila`; examináveis `prologo_casa_*`; vizinhos `prologo_viz_*`.
@@ -37,7 +37,7 @@ conhecer a vida de Ícaro antes de perdê-la. A vila que queima na Cena 3 é a m
 andou de manhã; a casa onde o pai está caído é a mesma onde tomaram café.
 
 **Abertura (tela preta).** Quatro frases de narração: a luz de Luminaer "nunca dorme", o cajado
-na torre, Aurelius Solis. E o corte de tom: *"Na Vila Torrinha, a gente pensa em café."*
+na torre, Aurelius Solis. E o corte de tom: *"Em Valesol, a gente pensa em café."*
 
 **A casa de Ícaro** (`prologo_casa_icaro`: uma peça só, com cozinha, dois catres e a porta dos
 fundos para o terreiro). Ícaro acorda com uma página colada na bochecha; o pai grita da cozinha.
@@ -57,7 +57,7 @@ cuidado."*
 | Cadeira de balanço | `prologo_casa_cadeira` | Ninguém senta; "ela não range" — o luto do pai |
 | Fogão e bule | `prologo_casa_fogao` | O pai não comeu a broa dele: guardou para o filho levar |
 | Pote "TELHADO" | `prologo_casa_pote` | Quarenta cobres e um botão; "a viga do meio reclama" — a pobreza e a viga que vai cair |
-| Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Anselmo" e "Helena" |
+| Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Tadeo" e "Aurora" |
 | Alçapão do terreiro | `prologo_casa_alcapao` | O túnel do rego seco: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
 
 **A vila de manhã** (`prologo_vila_manha`: o mesmo desenho de `prologo_vila`, inteiro e com
@@ -72,7 +72,7 @@ sol). Três portas abertas, todas opcionais:
 - **Biblioteca** (`prologo_viz_biblioteca` + estante, fichário): Dona Ermelinda cobra o livro de
   quatro meses e promete "esquecer" o Volume 2 no balcão. Na estante, a biografia de Aurelius
   com **três espirais rabiscadas** na margem. No fundo do fichário, uma ficha antiga:
-  **"Helena"**.
+  **"Aurora"**.
 
 **Saída.** No portão da vila, `prologo_00d_saida_vila` pergunta se o jogador quer ir para o
 cafezal (aviso gentil de que a manhã acaba). Corte narrado: "O dia passou como passam os dias de
@@ -192,7 +192,7 @@ cuida de alguém em vez de ser cuidado.
 Antes de se aproximar do pai, o jogador pode examinar `prologo_exame_retrato` e
 `prologo_exame_colchao` (os livros "empilhados com capricho": o pai sempre soube).
 
-**Imagem.** A casa de Ícaro: duas peças, meio telhado caído. Anselmo está preso da cintura para
+**Imagem.** A casa de Ícaro: duas peças, meio telhado caído. Tadeo está preso da cintura para
 baixo por uma viga em brasa (fogo comum, alaranjado — o único canto "quente" da vila).
 Na mão, uma **caixinha de costura** de madeira. Nenhum ferimento é mostrado; o retrato
 `pai_ferido` tem fuligem, suor e cansaço, nada além disso. A música para; entra `tema_pai`.
@@ -200,7 +200,7 @@ Na mão, uma **caixinha de costura** de madeira. Nenhum ferimento é mostrado; o
 **Batida 1 — Por que ele voltou.** *"Vim buscar isto. A caixinha de costura da sua mãe."*
 
 **Batida 2 — A confissão.** A mãe não morreu de febre: estudantes ricos, magia proibida numa
-praça da capital, três atingidos, dois mortos. *"A Helena foi uma delas."* O pai sabia dos
+praça da capital, três atingidos, dois mortos. *"A Aurora foi uma delas."* O pai sabia dos
 livros o tempo todo (*"quem você acha que vira o colchão nesta casa?"* — o riso no meio do
 choro é a assinatura do jogo). E a revelação: Ícaro é "fora da curva" como a mãe; a repressão
 era medo.

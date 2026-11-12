@@ -11,17 +11,17 @@ e sempre contam um pedacinho do mundo.
 
 ---
 
-## Prólogo — Cafezal e Vila Torrinha
+## Prólogo — Cafezal e Valesol
 Falas completas em `content/dialogues/prologo_*.json`.
 
 | NPC | Onde | Função |
 |---|---|---|
 | **Tonho** | Cafezal; depois bambuzal | Amigo de colheita; tutorial; humor |
 | **Dona Zefa** | Balança do cafezal | Capataz; planta a mãe e a teimosia do pai |
-| **O pai (Anselmo)** | Casa de Ícaro, à mesa (manhã) | Café da manhã; o conflito e o afeto |
+| **O pai (Tadeo)** | Casa de Ícaro, à mesa (manhã) | Café da manhã; o conflito e o afeto |
 | **Dona Custódia** (e a galinha **Pamonha**) | Casa dela (manhã); barril, Rua do Terreiro; bambuzal | Ovos; fofoca do pai na biblioteca; conta por que o pai voltou |
 | **Seu Juca** | Padaria (manhã) | Pão de Ontem; "a luz da torre piscou" |
-| **Dona Ermelinda** | Biblioteca (manhã) | O livro atrasado; a ficha "Helena" |
+| **Dona Ermelinda** | Biblioteca (manhã) | O livro atrasado; a ficha "Aurora" |
 | **Aldeões em fuga** | Estrada | Dão nome ao inimigo e o destino |
 | **Sargento Íris Candeia**, **Soldado Dário** | Bambuzal | Escolta; ponte para Lucian |
 | **Nina** | Bambuzal | Irmã do Tonho; dá a Rapadura Amassada |
@@ -34,8 +34,8 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | NPC | Onde | O que diz / faz |
 |---|---|---|
 | **Tonho** | Fila da sopa | "Aqui a sopa é de graça e a fila é cara." Depois do Cap. 1, vira ajudante da reconstrução; a cada capítulo conta uma novidade da capital. |
-| **Nina** | Perto do poço | Coleciona pedrinhas. **Missão: "Pedrinhas da Nina"** — trazer uma pedra bonita de cada região (7). Recompensa final: *Café da Torrinha* ×2 e um desenho do grupo. |
-| **Dona Custódia** | Canto das galinhas | Se `prologo.falou_custodia`: dá o amuleto *Pena da Pamonha* (+10% de chance de fuga). "Meu Anselmo ia gostar de te ver de pé, menino." |
+| **Nina** | Perto do poço | Coleciona pedrinhas. **Missão: "Pedrinhas da Nina"** — trazer uma pedra bonita de cada região (7). Recompensa final: *Café Valesol* ×2 e um desenho do grupo. |
+| **Dona Custódia** | Canto das galinhas | Se `prologo.falou_custodia`: dá o amuleto *Pena da Pamonha* (+10% de chance de fuga). "Meu Tadeo ia gostar de te ver de pé, menino." |
 | **Sargento Íris** | Portão interno | Dicas de batalha. "Defender não é covardia. É matemática." |
 | **Seu Juca, o padeiro** | Forno improvisado | Loja: Rapadura, Broa de Milho. "A padaria queimou. A receita, não." |
 
@@ -52,7 +52,7 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | NPC | Onde | O que diz / faz |
 |---|---|---|
 | **Diretor Eusébio Pergaminho** | Gabinete | "Sem matrícula, sem biblioteca." (A matrícula custa 3.000 cobres.) No Ato 3: a confissão. |
-| **Dona Clotilde, a bibliotecária** | Biblioteca | Deixa Ícaro ler escondido "porque o regulamento não proíbe olhar". Se `prologo.leu_livro`: "O senhor tem um livro da Torrinha há quatro meses? Colega minha. Era brava." **Missão: "Devolução atrasada"** — recuperar 5 livros espalhados pelo mundo (o último, na Fortaleza Fuligem). Recompensa: magia *Flecha de Luz* antecipada e, no fim, o cartão de sócio. |
+| **Dona Clotilde, a bibliotecária** | Biblioteca | Deixa Ícaro ler escondido "porque o regulamento não proíbe olhar". Se `prologo.leu_livro`: "O senhor tem um livro de Valesol há quatro meses? Colega minha. Era brava." **Missão: "Devolução atrasada"** — recuperar 5 livros espalhados pelo mundo (o último, na Fortaleza Fuligem). Recompensa: magia *Flecha de Luz* antecipada e, no fim, o cartão de sócio. |
 | **Otávio e Pérola** | Pátio | Alunos ricos. Começam esnobes ("colhedor de quê?"); depois do Cap. 1, sem graça; no Ato 3, lutam na muralha. |
 | **Zelador Fausto** | Escadaria da torre | Conheceu o cajado "antes de ele dar trabalho". Dica: "Ele brilha mais quando o senhor tá calmo. Igual planta." |
 | **Anciã Honorata** | Sala do Conselho | Conta a lenda da Pedra de Triskelion. |
@@ -61,7 +61,7 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | NPC | Onde | O que diz / faz |
 |---|---|---|
 | **Rei Teobaldo III** | Sala do trono | Oferece chá. Dá a missão principal. |
-| **Comandante Lucian Alvorada** | Muralha; Sala de Guerra | Mentor. Entre capítulos, ensina uma lição (e deixa escapar uma lembrança de Helena por vez). |
+| **Comandante Lucian Alvorada** | Muralha; Sala de Guerra | Mentor. Entre capítulos, ensina uma lição (e deixa escapar uma lembrança de Aurora por vez). |
 | **Camareira Rosa** | Corredor | Fofocas do castelo = resumo da história até ali (serve de "onde eu parei?"). |
 
 ---
@@ -152,15 +152,15 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | **Cozinheiro Banha** | Cozinhas da fortaleza | Caligosuin que só quer cozinhar. Deixa o grupo passar em troca de uma receita (Broa de Milho). **Vende comida.** "Fogo preto não doura nada. Uma tristeza." |
 | **Leitões Fagulha** | Dormitório | Filhotes. Um pergunta se "a moça de asa" conta história. (Sem batalha se o grupo *Encorajar*.) |
 | **Capitão Toucim** | Corredor da biblioteca | Depois do 3º encontro: "Eu só queria um uniforme do meu tamanho." Indica o caminho. |
-| **Prisioneira Aurora** | Cela | Maga de Luminaer capturada. **Missão: "Chave do carcereiro"**. Recompensa: magia *Chuva de Estrelas* antecipada. |
+| **Prisioneira Alvina** | Cela | Maga de Luminaer capturada. **Missão: "Chave do carcereiro"**. Recompensa: magia *Chuva de Estrelas* antecipada. |
 
 ---
 
-## Volta à Torrinha (Cap. 9)
+## Volta a Valesol (Cap. 9)
 
 | NPC | Onde | O que diz / faz |
 |---|---|---|
-| **Dona Zefa** | Cafezal | Sobreviveu. Replantando. "Café leva três anos pra dar. Eu tenho tempo." Dá *Café da Torrinha*. |
+| **Dona Zefa** | Cafezal | Sobreviveu. Replantando. "Café leva três anos pra dar. Eu tenho tempo." Dá *Café Valesol*. |
 | **Lucian** | Ruínas da casa | Conta a história do acidente e da vassoura. |
 | *(sem inimigos, sem loja)* | | Um pé de café brotou no terreiro. Examinar: "Teimoso. Puxou a quem?" |
 

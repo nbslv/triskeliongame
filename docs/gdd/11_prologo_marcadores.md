@@ -159,11 +159,11 @@ Regras completas de furtividade: `10_prologo_roteiro.md`, Cena 3.
 | `cali_1` … `cali_5`, `cali_soldado` (genérico) | Soldados Caligosuins | vila |
 | `toucim` | Capitão Toucim | vila |
 | `custodia` | Dona Custódia (+ galinha Pamonha no colo) | vila (no barril), bambuzal |
-| `pai` | Anselmo | casa de Ícaro (manhã, sentado à mesa); vila (casa em ruínas) |
+| `pai` | Tadeo | casa de Ícaro (manhã, sentado à mesa); vila (casa em ruínas) |
 | `juca` | Seu Juca, o padeiro | padaria |
 | `ermelinda` | Dona Ermelinda, a bibliotecária | biblioteca |
 | figurantes da manhã | 3–4 moradores sem fala obrigatória (varrendo, carregando lenha), galinhas | vila de manhã |
-| `mae` | Helena — só voz/silhueta no flashback | — |
+| `mae` | Aurora — só voz/silhueta no flashback | — |
 | `soldado_1` | Soldado Dário | bambuzal |
 | `sargento` | Sargento Íris Candeia | bambuzal |
 | `nina` | Irmã do Tonho (7 anos) | bambuzal |
