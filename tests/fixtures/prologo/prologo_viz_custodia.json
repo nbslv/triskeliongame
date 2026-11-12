@@ -16,7 +16,7 @@
     {"type": "flag", "set": "prologo.visitou_custodia"},
     {"type": "end"},
     {"type": "label", "name": "curto"},
-    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Vai trabalhar, menino. E fala pro Anselmo que ovo não é esmola, é vizinhança."},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Vai trabalhar, menino. E fala pro Tadeo que ovo não é esmola, é vizinhança."},
     {"type": "end"}
   ]
 }

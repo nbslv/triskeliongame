@@ -25,7 +25,7 @@
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Brincando com magia proibida no meio da praça. Sem mestre, sem cuidado, só pra aparecer."},
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "A magia escapou. Pegou três pessoas. Uma ficou muito ferida. Duas não voltaram pra casa."},
     {"type": "wait", "ms": 500},
-    {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "A Helena foi uma delas."},
+    {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "A Aurora foi uma delas."},
     {"type": "emote", "actor": "icaro", "emote": "reticencias"},
     {"type": "wait", "ms": 900},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "Por que o senhor nunca me contou?"},
@@ -37,7 +37,7 @@
     {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "..."},
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Ela era fora da curva, a sua mãe. Acendia o lampião sem fósforo, de distraída. E você é igual."},
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Eu sempre soube. Você pode ser um mago grande, filho. Dos de verdade."},
-    {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "E eu tive medo. A magia me levou a Helena. Achei que, se eu apagasse isso em você, eu te guardava."},
+    {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "E eu tive medo. A magia me levou a Aurora. Achei que, se eu apagasse isso em você, eu te guardava."},
     {"type": "say", "speaker": "pai", "portrait": "pai_ferido", "text": "Nunca foi pra te diminuir. Era medo. Só medo de um velho."},
     {"type": "flag", "set": "prologo.encontrou_pai"},
     {"type": "end"}

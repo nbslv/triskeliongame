@@ -12,7 +12,7 @@
     {"type": "say", "speaker": "pai", "portrait": "pai_ranzinza", "text": "Abre. Pra quem tem três mil cobres e sobrenome comprido."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "Tem gente que entra por prova."},
     {"type": "say", "speaker": "pai", "portrait": "pai_ranzinza", "text": "Tem gente que ganha na rifa também. Eu nunca conheci."},
-    {"type": "say", "speaker": "pai", "portrait": "pai_neutro", "text": "Mago é coisa de quem nasceu em casa de dois andares, menino. A gente é do café. As coisas são como são."},
+    {"type": "say", "speaker": "pai", "portrait": "pai_neutro", "text": "Mago é coisa de quem nasceu em casa de dois andares, menino. A gente é peão de cafezal. As coisas são como são."},
     {"type": "choice", "options": [{"text": "Ficar quieto", "goto": "q"}, {"text": "\"A mãe não achava isso.\"", "goto": "m"}]},
     {"type": "label", "name": "m"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "A mãe não achava isso."},

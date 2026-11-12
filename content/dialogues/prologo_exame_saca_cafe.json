@@ -1,7 +1,7 @@
 {
   "id": "prologo_exame_saca_cafe",
   "steps": [
-    {"type": "say", "speaker": "narrador", "text": "Sacas de café da última colheita. Dão um ótimo esconderijo. E um cheiro de casa."},
+    {"type": "say", "speaker": "narrador", "text": "Sacas de café da última colheita. Dá para se esconder atrás delas. Ainda têm cheiro de casa."},
     {"type": "end"}
   ]
 }

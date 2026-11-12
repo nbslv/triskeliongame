@@ -3,7 +3,7 @@
   "steps": [
     {"type": "move", "actor": "icaro", "to": "marcador_cafezal_balanca"},
     {"type": "sfx", "id": "cesto_balanca"},
-    {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Deixa eu ver... Dezoito quilos. Limpo, maduro, sem folha. Assim que se faz."},
+    {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Deixa eu ver... Dezoito quilos. Limpo, maduro, sem folha. Café Valesol se colhe é assim."},
     {"type": "move", "actor": "tonho", "to": "marcador_cafezal_balanca_tonho"},
     {"type": "sfx", "id": "cesto_balanca"},
     {"type": "say", "speaker": "zefa", "portrait": "zefa_brava", "text": "Tonho: seis quilos. Dois são pedra."},
@@ -16,7 +16,7 @@
     {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Dois mil novecentos e setenta e seis."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Ih, tá quase."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "Seu pai ainda pega no seu pé por causa disso?"},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "Ele diz que mago é coisa de quem nasceu em casa de dois andares. Que a gente é do café, e pronto."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "Ele diz que mago é coisa de quem nasceu em casa de dois andares. Que a gente é peão, e pronto."},
     {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Seu pai fala muita coisa. Fala menos do que sente, aquele lá."},
     {"type": "music", "id": "none", "fade": 1500},
     {"type": "sfx", "id": "passaros_fugindo"},
