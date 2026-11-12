@@ -82,7 +82,7 @@ Tudo aqui é **corrompido**, não mau: ao vencer, voltam a ser bichos e plantas 
 Sentinelas feéricas em treino (duelos, ninguém se machuca de verdade).
 | Inimigo | Aparência | Ataques | Fraquezas |
 |---|---|---|---|
-| **Sentinela Espinho** | fada de armadura de casca de noz, lança de espinho | *Estocada* (rápida); *Esquiva* | Sombra não se usa aqui; Brasa, acerto garantido de Luz |
+| **Sentinela Espinho** | fada de armadura de casca de noz, lança de espinho | *Estocada* (rápida); *Esquiva* | Brasa. Magias de Luz nunca erram contra ela |
 | **Abelha-Escudeira** | abelha gorda com escudo de pétala | *Guarda* (protege aliada) | Físico |
 | **Besouro de Guerra** | besouro-rinoceronte com selinha | *Carga* | Feérico (vira de barriga pra cima) |
 
