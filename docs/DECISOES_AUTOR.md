@@ -51,3 +51,9 @@ fonte da verdade e vale por cima das propostas do GDD.
 - **q18 Humor no prólogo.** Durante as cenas da vila destruída, menos humor. O humor pode vir dos
   Caligosuins perdendo Ícaro de vista, achando que viram algo, ou numa conversa engraçada
   entre eles, sem forçar.
+
+## Rodada 2
+- **Origem de Celly: APROVADA** (12/11/2026). Ela é Celestia da Rosa-Primeira, herdeira do clã
+  nobre cujo dever hereditário é guardar o Nymphalion. Foi banida pela pena do *Despetalar*, que
+  riscou seu nome e seu clã, e se apresenta só como "Celly". O grupo só descobre a nobreza dela
+  no fim, quando o Conselho devolve o nome. Remover a marca "PENDENTE APROVAÇÃO" do GDD.
