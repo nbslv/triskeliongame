@@ -75,6 +75,7 @@ export class Mapa {
   put(camada, x, y, ts, idx) {
     if (!this.dentro(x, y)) return;
     const i = typeof idx === 'string' ? this.ind(ts, idx) : idx;
+    if (idx !== null && !Number.isInteger(i)) throw new Error(`${this.id}: tile inválido em put(${camada},${x},${y},${ts},${JSON.stringify(idx)}) — use bloco() para blocos`);
     this.dados[camada][y * this.w + x] = idx === null ? 0 : this.firstgid[ts] + i;
   }
   limpar(camada, x, y) {
@@ -110,6 +111,35 @@ export class Mapa {
         const c = i === 0 ? 0 : i === w - 1 ? 2 : 1;
         this.put(camada, x0 + i, y0 + j, ts, m[r][c]);
       }
+    }
+  }
+
+  /** Bloco com a(s) linha(s) de cima na camada `acima` (cobrem o jogador) e o resto em `objetos`. */
+  blocoAlto(x, y, ts, nome, linhasAcima, camadaBase = 'objetos') {
+    const mat = this.ind(ts, nome);
+    mat.forEach((l, j) => l.forEach((v, i) => v !== null && this.put(j < linhasAcima ? 'acima' : camadaBase, x + i, y + j, ts, v)));
+  }
+
+  /** Autotile de manchas (borda_* + borda_*_int) sobre o conjunto de células `cel` (Set "x,y"). */
+  autotile(camada, ts, bordaNome, cel, tipoDe = () => bordaNome, presenca = cel) {
+    const tem = (x, y) => presenca.has(`${x},${y}`);
+    for (const k of cel) {
+      const [x, y] = k.split(',').map(Number);
+      const b = tipoDe(x, y);
+      const m3 = this.ind(ts, b);
+      const m2 = this.ind(ts, `${b}_int`);
+      const n = tem(x, y - 1), s = tem(x, y + 1), e = tem(x + 1, y), w = tem(x - 1, y);
+      let t;
+      if (n && s && e && w) {
+        if (!tem(x + 1, y - 1)) t = m2[1][0];
+        else if (!tem(x - 1, y - 1)) t = m2[1][1];
+        else if (!tem(x + 1, y + 1)) t = m2[0][1];
+        else if (!tem(x - 1, y + 1)) t = m2[0][0];
+        else t = m3[1][1];
+      } else {
+        t = m3[!n ? 0 : !s ? 2 : 1][!w ? 0 : !e ? 2 : 1];
+      }
+      this.put(camada, x, y, ts, t);
     }
   }
 

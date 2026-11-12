@@ -69,18 +69,19 @@ export function casaIcaro() {
   m.bloco('objetos', 5, 6, E, 'porta_aberta');
   m.put('chao2', 5, 5, E, 'calcamento_1'); // degrau de pedra
   // terreiro: varal, canteiros, lenha, cesto, galinhas, alçapão
-  m.bloco('objetos', 6, 1, E, 'varal');
+  m.bloco('objetos', 8, 1, E, 'varal');
   m.bloco('objetos', 2, 2, E, 'canteiro');
   m.put('objetos', 11, 1, E, 'lenha');
   m.put('objetos', 12, 1, E, 'lenha');
   m.put('objetos', 12, 4, E, 'cesto_cheio');
   m.put('objetos', 1, 4, E, 'barril');
-  m.put('objetos', 10, 3, E, 'alcapao');
+  m.put('objetos', 5, 2, E, 'alcapao');
   m.put('objetos2', 4, 4, E, 'galinha_1');
   m.put('objetos2', 8, 5, E, 'galinha_2');
   m.put('chao2', 2, 5, E, 'grama_flores_1');
   m.put('chao2', 9, 4, E, 'terreiro_1');
-  m.examinar('exame_casa_alcapao', 10, 3, { dialogue: 'prologo_casa_alcapao' });
+  m.bloco('objetos', 10, 4, E, 'canteiro');
+  m.examinar('exame_casa_alcapao', 5, 2, { dialogue: 'prologo_casa_alcapao' });
   m.zona('saida_terreiro_para_casa', 'saida', 5, 5, 1, 1, { map: 'prologo_casa_icaro', entry: 'marcador_casa_porta_fundos', facing: 'up' });
   m.marcador('marcador_casa_terreiro', 5, 4);
 
