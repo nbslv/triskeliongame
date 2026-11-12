@@ -1,0 +1,270 @@
+# 10 — Prólogo: roteiro cena a cena
+
+> **"A noite em que a Torrinha apagou"**
+> Duração-alvo: **10–15 min** (PENDENTE APROVAÇÃO DO AUTOR). Sem batalhas. Sem violência explícita.
+> As falas completas estão em `content/dialogues/prologo_*.json`; aqui fica a direção de cada cena:
+> o que o jogador faz, o que sente, e o que cada cena planta para o resto do jogo.
+
+## Visão geral
+
+| # | Cena | Mapa | Jogabilidade | Duração | Emoção |
+|---|---|---|---|---|---|
+| 1 | Abertura e cafezal | `prologo_cafezal` | Tutorial de andar, interagir, correr | 3–4 min | Aconchego, humor |
+| 2 | A fumaça / estrada | `prologo_estrada` | Corrida curta | 1 min | Alarme |
+| 3 | Vila em chamas | `prologo_vila` | Furtividade (3 trechos) | 4–5 min | Tensão (com alívio cômico) |
+| 4 | O pai | `prologo_vila` (casa em ruínas) | Cutscene com escolhas | 3–4 min | Coração do prólogo |
+| 5 | O túnel | `prologo_tunel` | Caminhada no escuro | 1 min | Luto, primeiro passo |
+| 6 | Os sobreviventes | `prologo_bambuzal` | Cutscene | 2 min | Acolhimento, promessa |
+
+Nomes criados para o prólogo (todos PENDENTE APROVAÇÃO DO AUTOR): **Vila Torrinha** (a vila),
+**Anselmo** (o pai), **Helena** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
+**Dona Zefa** (capataz do cafezal), **Dona Custódia** e a galinha **Pamonha** (vizinhas),
+**Capitão Toucim** (oficial Caligosuin atrapalhado), **Sargento Íris Candeia** (Guarda de Luminaer),
+**"Alento"** (a magia de cura de iniciante), **rego seco** (o túnel de irrigação abandonado).
+
+---
+
+## Cena 1 — O cafezal ao entardecer
+
+**Diálogos:** `prologo_01_abertura`, `prologo_02_tonho_tutorial`, `prologo_03_pe_de_cafe`,
+`prologo_03b_pe_verde`, `prologo_04_zefa`, `prologo_05_livro`, `prologo_06_colheita_fim`.
+
+**Abertura (tela preta).** Quatro frases de narração: a luz de Luminaer "nunca dorme", o cajado na
+torre, Aurelius Solis. E o corte de tom: *"Na Vila Torrinha, a gente pensa em café."* Isso
+apresenta a lenda em 15 segundos e avisa o jogador que o jogo tem humor.
+
+**Imagem.** Luz dourada de fim de tarde, fileiras de pés de café em morro suave, frutos
+vermelhos. Ícaro está sentado num toco, lendo, com o cesto vazio do lado. Tonho grita o nome
+dele; Ícaro esconde o livro no cesto (animação `esconder_livro`).
+
+**Jogabilidade — tutorial em três passos, sem tela de texto longa:**
+1. **Andar:** ir até o Tonho (marcador `marcador_cafezal_tonho`).
+2. **Interagir (A):** colher **5 pés de café maduros** (os que brilham em vermelho). Pés verdes
+   dão uma fala engraçada e não contam. O primeiro pé colhido dispara uma lembrança do pai
+   ("café bom a gente conhece pelo peso na mão").
+3. **Correr (B):** ensinado aqui de leve e reforçado na estrada.
+
+Ao colher o 5º pé, o motor marca `prologo.colheita_completa`. Falar com a Dona Zefa na balança
+com essa flag dispara `prologo_06_colheita_fim` (sem a flag, dispara `prologo_04_zefa`).
+
+**Opcionais (recompensam curiosidade, plantam história):**
+- **O cesto de Ícaro** (`prologo_05_livro`): o livro da biblioteca, atrasado há quatro meses;
+  o capítulo de **"Alento"** — *"requer calma, respiração firme e mãos quentes"* — que é
+  exatamente o que vai faltar na Cena 4; e a matrícula de 3.000 cobres contra os 12 de Ícaro.
+- **Dona Zefa** (`prologo_04_zefa`): o pai teimoso com dor nas costas; a mãe "com o nariz numa
+  página"; *"seu pai não gosta que a gente fale"*.
+
+**Fim da cena.** Pesagem (18 kg do Ícaro, 6 kg do Tonho — "dois são pedra"), pagamento, a piada
+dos "dois mil novecentos e setenta e seis" que faltam, e a fala que resume o conflito com o pai:
+*"mago é coisa de quem nasceu em casa de dois andares"*. A música some. Pássaros fogem. Cheiro
+de "ovo podre com fogueira". A câmera sobe para a coluna de fumaça preta. O sino da vila toca.
+
+**O que esta cena planta:** a rotina e a pobreza sem melodrama; o sonho da faculdade; o pai
+ranzinza (ausente da cena, presente em todas as conversas); a mãe; a magia "Alento"; Tonho e Nina.
+
+---
+
+## Cena 2 — A estrada
+
+**Diálogos:** `prologo_07_estrada` (ao entrar), `prologo_07b_estrada_fugitivos` (gatilho no meio).
+
+Mapa estreito, da direita para a esquerda, céu passando de laranja para roxo sujo. O jogador
+corre (B). No meio, dois moradores fugindo dão as três informações que o jogador precisa:
+1. O nome do inimigo: **Caligosuins**, "os focinhos-de-brasa".
+2. O destino final: os soldados estão juntando gente **no bambuzal, atrás do morro**.
+3. Por que Ícaro entra na vila: o pai "mal anda com aquelas costas".
+
+Tonho se separa para buscar a irmã (a casa dele é fora da vila). A despedida é uma piada
+("você me deve um terço de dezoito quilos") — o jogo não deixa a tensão virar desespero ainda.
+
+---
+
+## Cena 3 — A vila em chamas (furtividade)
+
+**Diálogos:** `prologo_08_vila_entrada`, `prologo_09_visto`, `prologo_10_praca`,
+`prologo_11_custodia`, e os examináveis `prologo_exame_*`.
+
+**Imagem.** A vila que o jogador ainda não conhecia aparece já queimando — por isso a panorâmica
+nomeia os lugares pelo afeto ("a padaria, a venda, a rua do chafariz"). O fogo é **preto com
+borda roxa** e "não ilumina nada": a luz da cena vem do céu e de brasas comuns.
+
+**Primeiro Caligosuin.** Porco de pé, manto, presas enormes — e espirra na própria bandeira.
+É a regra visual da raça: **fofo-ameaçador**. Logo depois Ícaro nota que o mesmo fogo derreteu
+o ferro do lampião: são desastrados, não inofensivos.
+
+### Regras da furtividade (para o motor e para a sessão de mapas)
+
+- Cada Caligosuin tem um **cone de visão** visível (luz roxa no chão, ~5 tiles de alcance,
+  ~60° de abertura) e uma rota de patrulha fixa em laço (marcadores `patrulha_*`).
+- **Esconderijos** (carroças, barris, pilhas de sacas de café, muretas): encostado em um deles,
+  do lado oposto ao inimigo, Ícaro fica agachado e o cone não o detecta.
+- **Ser visto** = `prologo_09_visto` (duas falas, fade) e volta ao **último ponto seguro**
+  (marcadores `checkpoint_*`). Sem "game over", sem contagem de falhas, sem dano.
+- Correr (B) é permitido e não faz barulho — é o prólogo; a regra é uma só e simples.
+- Dificuldade: paciência, não reflexo. Toda patrulha tem uma janela folgada (≥ 2 s).
+- Acessibilidade: depois de 3 detecções no mesmo trecho, o cone daquele trecho encolhe um tile.
+
+### Os três trechos
+
+| Trecho | De → até | Inimigos | Ideia |
+|---|---|---|---|
+| A — Rua da Venda | entrada → `checkpoint_praca` | 1 patrulha em linha reta | Ensinar: esperar atrás da carroça, atravessar |
+| B — Praça do Chafariz | `checkpoint_praca` → `checkpoint_beco` | 2 patrulhas + Toucim parado (cone fixo, que gira a cada 4 s) | Ensinar: ler o ritmo; cutscene do Toucim no começo |
+| C — Rua do Terreiro | `checkpoint_beco` → casa | 2 patrulhas cruzadas + sacas de café como cobertura | Combinar tudo; Dona Custódia no barril no meio |
+
+**Cutscene da praça (`prologo_10_praca`).** Escondido, Ícaro ouve o **Capitão Toucim**. A cena faz
+três trabalhos: (1) humor — "tragam o café / queimem o café / tragam, é cheiroso" e o soldado
+que queimou a biblioteca espirrando; (2) exposição — eles procuram **livros e magia** a mando de
+**Madame Trufa**, "a barreira caiu, o cajado apagou"; (3) ameaça sem imagem — "ordens do General:
+nada fica de pé". Depois, a câmera mostra a **biblioteca** queimando: a perda pessoal de Ícaro.
+
+**Dona Custódia (`prologo_11_custodia`, opcional mas no caminho).** Escondida num barril de
+melado com a galinha Pamonha. Dá a informação que dói: o pai **já estava a salvo e voltou para
+dentro de casa buscar alguma coisa**. Ícaro manda ela para o bambuzal — primeira vez que ele
+cuida de alguém em vez de ser cuidado.
+
+**Examináveis:** biblioteca, chafariz, padaria, sacas de café (uma linha cada, tom agridoce).
+
+---
+
+## Cena 4 — O pai
+
+**Diálogos (em sequência, sem devolver o controle entre eles, exceto onde indicado):**
+`prologo_12_pai_confissao` → `prologo_13_cura` → `prologo_14_promessa`.
+Antes de se aproximar do pai, o jogador pode examinar `prologo_exame_retrato` e
+`prologo_exame_colchao` (os livros "empilhados com capricho": o pai sempre soube).
+
+**Imagem.** A casa de Ícaro: duas peças, meio telhado caído. Anselmo está preso da cintura para
+baixo por uma viga em brasa (fogo comum, alaranjado — o único canto "quente" da vila).
+Na mão, uma **caixinha de costura** de madeira. Nenhum ferimento é mostrado; o retrato
+`pai_ferido` tem fuligem, suor e cansaço, nada além disso. A música para; entra `tema_pai`.
+
+**Batida 1 — Por que ele voltou.** *"Vim buscar isto. A caixinha de costura da sua mãe."*
+
+**Batida 2 — A confissão.** A mãe não morreu de febre: estudantes ricos, magia proibida numa
+praça da capital, três atingidos, dois mortos. *"A Helena foi uma delas."* O pai sabia dos
+livros o tempo todo (*"quem você acha que vira o colchão nesta casa?"* — o riso no meio do
+choro é a assinatura do jogo). E a revelação: Ícaro é "fora da curva" como a mãe; a repressão
+era medo.
+
+**Batida 3 — A cura que não vem (`prologo_13_cura`).** Ícaro tenta "Alento". O jogador participa:
+três escolhas seguidas (todas levam ao mesmo resultado — a luz acende, treme e apaga). A fala do
+livro vira um mantra que desmonta: *"calma, respiração firme, mãos quentes"* → *"eu não consigo
+respirar"*. O pai o consola: *"ninguém acende lampião no meio da ventania"*.
+**Planta do colar:** na segunda tentativa, algo dentro da caixinha **pisca junto** com a magia
+(efeito `brilho_colar`, 1 segundo). A narração diz só: "Ninguém viu."
+
+**Batida 4 — Eles estão vindo.** Câmera na rua de cima: Toucim e dois soldados descendo com
+tochas pretas. O pai **empurra** Ícaro e manda ir para a capital.
+
+**Batida 5 — A viga (`prologo_14_promessa`).** Ícaro tenta erguer a madeira (tremor de tela,
+som de madeira). Não sai. O pai indica a fuga: **a adega do terreiro, o túnel do rego seco**,
+onde Ícaro brincava escondido.
+
+**Batida 6 — Perdão e promessa.** O pedido de desculpas; as duas promessas — **sobreviver e
+procurar o comandante Lucian Alvorada**; e **viver, não só sobreviver**. Uma escolha de duas
+opções equivalentes ("Eu prometo." / "...Eu prometo, pai.") faz o jogador dizer a promessa
+com o próprio dedo. Ícaro pergunta de onde o pai conhece um comandante: *"História comprida.
+Ele te conta."* (gancho para o Ato 1).
+
+**Batida 7 — O colar.** Dentro da caixa, um cordão gasto e "uma pedrinha opaca, do tamanho de um
+grão de café". *"Pediu pra eu te entregar quando você estivesse pronto. Eu nunca achei que
+você estivesse. Era eu que não estava."*
+**Flashback (4 segundos, tela branca, `tema_mae`):** a voz da mãe — *"Tá sentindo, meu solzinho?
+Fica morninha perto do peito. É pra você nunca sentir frio."* Nada é explicado. ("Solzinho" é um
+apelido carinhoso que só ganha segundo sentido no fim do jogo.)
+Ícaro recebe o item-chave **Colar da Mãe** (não pode ser vendido nem removido).
+
+**Batida 8 — Despedida.** *"Eu também te amo, filho. Desde o primeiro berro." / "Tenho orgulho
+de você. Devia ter dito antes. Tô dizendo agora." / "Vai viver, Ícaro."*
+Ícaro corre pela porta dos fundos até o alçapão do terreiro. **A câmera segue Ícaro e nunca
+volta para o pai.** Fade para preto.
+
+> **Regra de direção (decisão do autor):** a morte do pai não é mostrada nem descrita. No túnel,
+> ouvem-se passos e uma porta, abafados; depois, a narração diz apenas *"Lá em cima, o barulho
+> parou. Depois, só o fogo."*
+
+---
+
+## Cena 5 — O túnel do rego seco
+
+**Diálogos:** `prologo_15_tunel_inicio`, `prologo_15b_tunel_brinquedo` (opcional).
+
+Preto total, sons abafados, silêncio longo (deixar o silêncio durar — ~4 s). Ícaro encolhido.
+O colar acende sozinho, "cor de fim de tarde", morno "igual ela dizia". Jogabilidade: uma
+caminhada curta com um círculo de luz ao redor de Ícaro (a luz **é** o colar — o jogador usa o
+objeto mais importante do jogo sem saber). Sem inimigos, sem quebra-cabeça.
+
+**Opcional:** um cavalinho de sabugo com um "I" riscado. O pai passou uma tarde inteira
+procurando esse brinquedo com ele, "reclamando, sem parar de procurar". É a última imagem do pai
+no prólogo: não a do ferido, a do pai de sempre.
+
+Saída: gatilho no fim do túnel → `scene` para `prologo_bambuzal`.
+
+---
+
+## Cena 6 — O bambuzal e os sobreviventes
+
+**Diálogo:** `prologo_16_sobreviventes`.
+
+Noite, grilos, bambus, uma dúzia de pessoas com cobertores. Dois soldados e a **Sargento Íris
+Candeia**. A pergunta protocolar — *"Tem mais alguém vindo atrás de você?"* — e o *"...Não."*
+é onde o jogador entende, sem ninguém dizer, o que aconteceu.
+
+O acolhimento vem em três gestos pequenos (o "cozy" depois da perda):
+- a sargento oferece água e cobertor, "não tem muito mais que isso";
+- Dona Custódia põe a galinha no colo dele, "o jeito dela de dar um abraço";
+- Tonho fica sem piada pela primeira vez na vida e só senta do lado; Nina dá uma **Rapadura
+  Amassada** (primeiro item de cura do inventário — cura 20 PV no Ato 1).
+
+A câmera mostra a capital ao longe: clarões nos portões e **uma luzinha na torre mais alta,
+"teimando em não apagar"** (o cajado). Ícaro pergunta pelo comandante Lucian Alvorada — *"é ele
+que tá segurando aquele portão"* — segura o colar: *"Eu fiz uma promessa."*
+
+Fecho narrado em três frases, cartão de título **TRISKELION — Fim do Prólogo**,
+flag `prologo.concluido`, autosave.
+
+---
+
+## Flags do prólogo
+
+| Flag | Quando é marcada | Marcada por |
+|---|---|---|
+| `prologo.abertura_vista` | fim da abertura | diálogo 01 |
+| `prologo.colheita_iniciada` | Tonho explica a tarefa | diálogo 02 |
+| `prologo.colheu_primeiro` | primeiro pé colhido | diálogo 03 |
+| `prologo.colheita_completa` | 5º pé colhido | **motor** (contador) |
+| `prologo.zefa_conversou`, `prologo.leu_livro` | opcionais do cafezal | diálogos 04, 05 |
+| `prologo.viu_fumaca` | fim do cafezal | diálogo 06 |
+| `prologo.tonho_separou` | estrada | diálogo 07b |
+| `prologo.furtivo_iniciado` | entrada da vila | diálogo 08 |
+| `prologo.ouviu_toucim` | praça | diálogo 10 |
+| `prologo.falou_custodia` | opcional | diálogo 11 |
+| `prologo.encontrou_pai`, `prologo.tentou_cura` | casa | diálogos 12, 13 |
+| `prologo.pegou_colar`, `prologo.pai_despedida` | casa | diálogo 14 |
+| `prologo.tunel_iniciado`, `prologo.achou_brinquedo` | túnel | diálogos 15, 15b |
+| `prologo.concluido` | fim | diálogo 16 |
+
+Flags opcionais que o resto do jogo lê: `prologo.leu_livro` (Lucian comenta o livro atrasado),
+`prologo.falou_custodia` (ela agradece na capital e dá um item), `prologo.achou_brinquedo`
+(fala extra na cena final da colina).
+
+## Convenções usadas nos JSON (para o motor)
+
+Tudo segue o contrato de `docs/COORDENACAO.md`. Onde o contrato não detalha campos, usei:
+
+| Tipo | Campos usados |
+|---|---|
+| `say` | `speaker`, `portrait` (opcional), `text`. Falas entre parênteses são **pensamento**. `speaker: "narrador"` = caixa sem nome/retrato. `speaker: "tutorial"` = dica de controle (o motor pode estilizar diferente). |
+| `move` | `actor`, `to` (nome de marcador), `speed: "run"` opcional |
+| `face` / `emote` | `actor`, `dir` / `emote` (`exclamacao`, `interrogacao`, `reticencias`, `suor`) |
+| `camera` | `to` (marcador) **ou** `actor` (volta a seguir o ator), `ms` |
+| `spawn` / `despawn` | `actor`, `at` (marcador), `dir` |
+| `music` | `id` (`"none"` = silêncio), `fade` em ms |
+| `if` | `flag`, `goto`, `not: true` opcional |
+| `goto` | `to` (nome de label) |
+| `scene` | `map`, `spawn` (marcador de entrada) |
+| **`anim`** (tipo novo, proposto) | `actor`, `anim` — troca a pose/animação de um ator ou objeto. Se o motor não tiver, pode ignorar: nenhuma cena depende dele para ser entendida. |
+| **`title`** (tipo novo, proposto) | `text`, `subtitle` — cartão de título no fim do prólogo. |
+
+Limite de texto: nenhuma fala passa de 130 caracteres.

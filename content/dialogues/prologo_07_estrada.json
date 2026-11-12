@@ -1,0 +1,8 @@
+{
+  "id": "prologo_07_estrada",
+  "steps": [
+    {"type": "fade", "to": "clear", "ms": 500},
+    {"type": "say", "speaker": "tutorial", "text": "Segure B para correr."},
+    {"type": "end"}
+  ]
+}

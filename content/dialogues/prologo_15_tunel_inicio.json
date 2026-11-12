@@ -1,0 +1,29 @@
+{
+  "id": "prologo_15_tunel_inicio",
+  "steps": [
+    {"type": "wait", "ms": 800},
+    {"type": "sfx", "id": "passos_acima_abafados"},
+    {"type": "wait", "ms": 1200},
+    {"type": "sfx", "id": "porta_arrombada_abafada"},
+    {"type": "wait", "ms": 1500},
+    {"type": "say", "speaker": "narrador", "text": "..."},
+    {"type": "wait", "ms": 1200},
+    {"type": "fade", "to": "clear", "ms": 1500},
+    {"type": "anim", "actor": "icaro", "anim": "encolhido"},
+    {"type": "say", "speaker": "narrador", "text": "Lá em cima, o barulho parou. Depois, só o fogo."},
+    {"type": "wait", "ms": 1000},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "(Não olha pra trás. Ele pediu.)"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "(Ele pediu...)"},
+    {"type": "wait", "ms": 800},
+    {"type": "sfx", "id": "brilho_colar"},
+    {"type": "anim", "actor": "icaro", "anim": "colar_brilho"},
+    {"type": "say", "speaker": "narrador", "text": "No escuro, a pedrinha do colar soltou uma luz fraca, cor de fim de tarde."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "(...Tá morno. Igual ela dizia.)"},
+    {"type": "anim", "actor": "icaro", "anim": "normal"},
+    {"type": "music", "id": "tema_tunel", "fade": 800},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "(Viver. Não só sobreviver. Anda, Ícaro. Um pé depois do outro.)"},
+    {"type": "say", "speaker": "tutorial", "text": "A luz do colar ilumina o caminho. Siga o túnel até o bambuzal."},
+    {"type": "flag", "set": "prologo.tunel_iniciado"},
+    {"type": "end"}
+  ]
+}

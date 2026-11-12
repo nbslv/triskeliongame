@@ -1,0 +1,7 @@
+{
+  "id": "prologo_exame_padaria",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "A padaria do seu Juca. O cheiro de pão queimado quase vence o outro cheiro. Quase."},
+    {"type": "end"}
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "prologo_02_tonho_tutorial",
+  "steps": [
+    {"type": "if", "flag": "prologo.colheita_iniciada", "goto": "ja"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "Seguinte: a Dona Zefa quer mais cinco cestos antes do sol sumir. Eu já fiz a minha parte."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "Você colheu quantos?"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Eu supervisionei. É um trabalho invisível, mas alguém tem que fazer."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Invisível mesmo. Nunca vi."},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "Os pés carregadinhos são os que tão brilhando de vermelho. Cata cinco e leva na balança da Zefa."},
+    {"type": "say", "speaker": "tutorial", "text": "Chegue perto de um pé de café maduro e aperte A para colher. Segure B para correr."},
+    {"type": "say", "speaker": "tutorial", "text": "Objetivo: colha 5 pés de café maduros e leve à balança da Dona Zefa."},
+    {"type": "flag", "set": "prologo.colheita_iniciada"},
+    {"type": "end"},
+    {"type": "label", "name": "ja"},
+    {"type": "if", "flag": "prologo.colheita_completa", "goto": "pronto"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Vai lá, mago do cafezal. Os vermelhinhos. Eu fico aqui supervisionando a sombra."},
+    {"type": "end"},
+    {"type": "label", "name": "pronto"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "Encheu? Então leva pra Zefa. E fala que metade fui eu."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "Não vou falar isso."},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Um terço, então. Negocia!"},
+    {"type": "end"}
+  ]
+}

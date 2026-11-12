@@ -1,0 +1,32 @@
+{
+  "id": "prologo_08_vila_entrada",
+  "steps": [
+    {"type": "fade", "to": "clear", "ms": 800},
+    {"type": "music", "id": "tema_vila_em_chamas", "fade": 800},
+    {"type": "sfx", "id": "fogo_crepitar"},
+    {"type": "camera", "to": "marcador_vila_panoramica", "ms": 2500},
+    {"type": "wait", "ms": 1500},
+    {"type": "say", "speaker": "narrador", "text": "A Vila Torrinha. A padaria, a venda, a rua do chafariz. Tudo aceso por um fogo que não ilumina nada."},
+    {"type": "camera", "actor": "icaro", "ms": 600},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "(Fogo preto... e esse cheiro. Como se o mundo tivesse estragado.)"},
+    {"type": "spawn", "actor": "cali_1", "at": "marcador_vila_cali_intro_a", "dir": "down"},
+    {"type": "sfx", "id": "cali_bufo"},
+    {"type": "move", "actor": "cali_1", "to": "marcador_vila_cali_intro_b"},
+    {"type": "emote", "actor": "icaro", "emote": "exclamacao"},
+    {"type": "move", "actor": "icaro", "to": "marcador_vila_esconderijo_1", "speed": "run"},
+    {"type": "anim", "actor": "icaro", "anim": "agachar"},
+    {"type": "say", "speaker": "narrador", "text": "Um porco. De pé. De manto. Com presas do tamanho de foices e fumaça preta saindo do focinho."},
+    {"type": "sfx", "id": "cali_espirro"},
+    {"type": "shake", "ms": 200},
+    {"type": "say", "speaker": "cali_1", "portrait": "cali_soldado", "text": "Oinc... A-A-ATCHIM!"},
+    {"type": "say", "speaker": "narrador", "text": "O espirro acertou a própria bandeira. Ele abanou o fogo com o casco, olhou pros lados e fingiu que nada aconteceu."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(...Desastrado. Mas aquele fogo derreteu o ferro do lampião.)"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "(Sem arma. Sem magia de ataque. Eu só tenho as pernas e os lugares onde brinquei a vida inteira.)"},
+    {"type": "say", "speaker": "tutorial", "text": "Os Caligosuins enxergam dentro do cone de luz roxa. Fique fora dele."},
+    {"type": "say", "speaker": "tutorial", "text": "Carroças, barris e sacas de café escondem você. Encostado neles, o cone não te alcança."},
+    {"type": "say", "speaker": "tutorial", "text": "Se for visto, você volta ao último esconderijo seguro. Espere o momento certo e avance."},
+    {"type": "say", "speaker": "tutorial", "text": "Objetivo: chegue à sua casa, no fim da Rua do Terreiro."},
+    {"type": "flag", "set": "prologo.furtivo_iniciado"},
+    {"type": "end"}
+  ]
+}
