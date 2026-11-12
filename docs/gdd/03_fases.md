@@ -2,7 +2,7 @@
 
 ## 1. Estrutura do mundo
 
-**Proposta (pendente de aprovação do autor): mundo conectado por mapa-múndi, com regiões
+**Aprovado pelo autor: mundo conectado por mapa-múndi, com regiões
 desbloqueadas pela história.**
 
 - O **mapa-múndi** é uma ilustração do continente de Trísia com **nós** (regiões) ligados por
@@ -199,7 +199,7 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
   1. Infiltração (volta a furtividade do prólogo, agora opcional: lutar ou esconder-se).
   2. A Biblioteca Roubada: livros de todos os reinos — inclusive os de Valesol que não
      queimaram. Ícaro acha o seu cartão de empréstimo.
-  3. Mini-chefe: **Capitão Toucim** (terceira vez; desiste no meio).
+  3. Mini-chefe: **Capitão Toucim** (terceira vez; no meio da luta larga a bandeira e deserta).
   4. Chefe: **Madame Trufa** e a **Flor Murcha**. Celly desperta; o Nymphalion refloresce.
      Valéria escolhe proteger em vez de vingar.
   5. A fortaleza está **vazia de tropas**: o exército já marcha para Áurea.
@@ -211,7 +211,8 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
 - **Objetivo:** atalho para Áurea — e um desvio que Ícaro precisa fazer.
 - **Batidas:** sem batalhas (simetria com o prólogo). O mato já nasce entre as cinzas; um pé de
   café brotou no terreiro. A caixinha de costura; o fundo falso; **a carta de Aurora**.
-  A Casca do colar racha: as três espirais. Lucian chega e conta o resto.
+  O envelope diz: "Para o Ícaro, no dia em que fizer dezoito anos". A Casca do colar racha: as
+  três espirais. Lucian chega e admite, enfim, o que sempre desconfiou e nunca contou.
 - **Ganha:** **Pedra de Triskelion** (o Colar da Mãe muda de nome e de ícone).
 
 ### Capítulo 10 — A Batalha de Áurea
@@ -235,7 +236,9 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
      fugiu. O jogador explora os aposentos dele e entende, objeto por objeto, por que ele saiu e
      por que volta (detalhe em `07_cidades_e_servicos.md`). Ele assume o posto para enfrentar a
      desigualdade do reino; a primeira ordem é abrir os celeiros do palácio ao Cais Baixo.
-  3. **Brumaflor:** Celly é recebida como heroína; descobre-se que é da nobreza feérica.
+  3. **Brumaflor:** Celly é recebida como heroína. O Conselho revoga o banimento e devolve o
+     nome dela em voz alta — **Celestia da Rosa-Primeira** — e só então o grupo descobre que
+     ela é nobre (proposta PENDENTE APROVAÇÃO DO AUTOR; ver `01_mundo_e_historia.md`).
      O lar dela, antes vazio e com a porta lacrada, enche de visitas.
   4. **Forja-Alta:** jantar na casa dos Lâmina de Ferro. A Livinha cobra a promessa de mindinho.
   5. **Colina do Mar:** Ícaro e Valéria, de mãos dadas, visitam os túmulos dos pais dele.

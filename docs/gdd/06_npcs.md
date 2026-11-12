@@ -6,7 +6,7 @@ a história avança; as mudanças mais importantes estão anotadas.
 
 **Casas exploráveis, lojas, pousadas e locais de treino de cada cidade** estão em
 `07_cidades_e_servicos.md`; aqui ficam os NPCs de rua, as missões e as dicas.
-O monge chama-se **Irmão Silvano** (decidido pelo autor). Os demais nomes são **[PROPOSTA]**. Missões secundárias são curtas (3–8 min), nunca obrigatórias,
+Nomes principais já aprovados pelo autor (`docs/DECISOES_AUTOR.md`); NPCs menores são propostas desta sessão. Missões secundárias são curtas (3–8 min), nunca obrigatórias,
 e sempre contam um pedacinho do mundo.
 
 ---
@@ -123,7 +123,7 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | **Conselheira Camélia** | Estufa do Conselho | Fria com Celly. "Uma guardiã que não guarda é um vaso sem fundo." No epílogo, é a primeira a se curvar. |
 | **Guardiã Espinheira** | Portão das Pétalas | Antes do duelo: "Regra é regra." Depois: respeito seco. |
 | **Tio Narciso** | Ateliê de Pétalas | **Loja de equipamento (faixa 3)** — tudo em tamanho de fada, "ajusta ao sair". |
-| **Dona Margarida** | Doceria de Néctar | **Loja: Mel Feérico, Água de Cheiro.** Única que sempre tratou Celly bem. "Você comia o glacê e deixava o bolo. Agora come o bolo também, viu?" |
+| **Dona Margarida** | Doceria de Néctar | **Loja: Mel Feérico, Água de Cheiro.** Foi a ama de Celly e é a única que ainda a trata bem — sem dizer o nome dela, porque a lei proíbe. "Você comia o glacê e deixava o bolo. Agora come o bolo também, viu?" |
 | **Brotinhos** | Canteiro-escola | Fadas crianças que ainda não despertaram magia. **Missão: "Aula de coragem"** — Celly ensina (três escolhas de diálogo; a certa é admitir que tem medo). Recompensa: +1 de Confiança inicial permanente. |
 | **Fada-Carteira Íris-Azul** | Correio de libélulas | Entrega as cartas da Livinha "com taxa de vento". |
 
@@ -149,9 +149,9 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | NPC | Onde | O que diz / faz |
 |---|---|---|
 | **Caixeiro Aníbal** | Beira do charco | Última loja antes da fortaleza. "Não pergunte como eu cheguei aqui." |
-| **Cozinheiro Banha** | Cozinhas da fortaleza | Caligosuin que só quer cozinhar. Deixa o grupo passar em troca de uma receita (Broa de Milho). **Vende comida.** "Fogo preto não doura nada. Uma tristeza." |
-| **Leitões Fagulha** | Dormitório | Filhotes. Um pergunta se "a moça de asa" conta história. (Sem batalha se o grupo *Encorajar*.) |
-| **Capitão Toucim** | Corredor da biblioteca | Depois do 3º encontro: "Eu só queria um uniforme do meu tamanho." Indica o caminho. |
+| **Cozinheiro Banha** | Cozinhas da fortaleza | **Humano**, cozinheiro de Pratamar capturado e obrigado a cozinhar para a tropa. Esconde o grupo na despensa em troca de ajuda para fugir. **Vende comida.** "Fogo preto não doura nada. Uma tristeza. Me tirem daqui." |
+| **Recrutas de folga** | Dormitório | Dois soldados jogando dados e discutindo quem viu "uma coisa amarela" no corredor. Dá para passar escondido enquanto discutem (humor entre eles, como no prólogo). |
+| **Capitão Toucim** | Corredor da biblioteca | No 3º encontro, deserta: "Eu só queria um uniforme do meu tamanho. E um café." Larga a bandeira, aponta o caminho "sem querer" e some. |
 | **Prisioneira Alvina** | Cela | Maga de Luminaer capturada. **Missão: "Chave do carcereiro"**. Recompensa: magia *Chuva de Estrelas* antecipada. |
 
 ---
@@ -178,7 +178,7 @@ Todos os NPCs importantes reaparecem em uma linha cada:
   na luta contra Bafo-Brasa.
 - **Epílogo:** Dona Custódia e Pamonha num galinheiro novo; Seu Juca reabre a padaria; Dona
   Clotilde carimba o cartão de Ícaro; **Livinha** com uma tiara de verdade (presente de um certo
-  príncipe); **Capitão Toucim** com uma banca de café: "É cheiroso."
+  príncipe); **Capitão Toucim**, desertor, com uma banca de café de beira de estrada, jurando que nunca foi capitão: "É cheiroso."
 
 ---
 
