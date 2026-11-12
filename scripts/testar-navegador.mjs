@@ -31,6 +31,24 @@ const check = (cond, msg) => {
 };
 const wait = (ms) => page.waitForTimeout(ms);
 const state = () => page.evaluate(() => window.__TRISKELION__.scene.getScene('Mundo').debugState?.());
+const flagsNow = () => page.evaluate(() => JSON.parse(localStorage.getItem('triskelion.save.auto') ?? '{}').flags ?? {});
+const evalWorld = (fn, arg) => page.evaluate(([f, a]) => new Function('w', 'a', f)(window.__TRISKELION__.scene.getScene('Mundo'), a), [fn, arg]);
+const teleport = (x, y, facing = 'up') =>
+  evalWorld('w.player.sprite.setPosition(a.x, a.y); w.player.face(a.facing); w.player.body.reset(a.x, a.y);', { x, y, facing });
+const goMap = async (map, at) => {
+  await evalWorld('w.changeMap(a.map, a.at)', { map, at });
+  await wait(1200);
+};
+const box = () => page.evaluate(() => window.__TRISKELION__.scene.getScene('Dialogo').boxRect());
+const waitCutsceneEnd = async (max = 40) => {
+  for (let i = 0; i < max; i++) {
+    const st = await state();
+    if (!st.cutscene) return true;
+    await tapA();
+    await wait(300);
+  }
+  return !(await state()).cutscene;
+};
 const activeScenes = () => page.evaluate(() => window.__TRISKELION__.scene.getScenes(true).map((s) => s.scene.key));
 
 /** Coordenada lógica (640×360) → pixels da página. */
@@ -123,6 +141,16 @@ await wait(1500);
 let s = await state();
 check(s && s.map === 'teste', 'novo jogo abriu o mapa de teste');
 
+// Porta da casa trancada até falar com o aldeão (locked_if)
+s = await walkTo(136, 140, 6000);
+await wait(300);
+s = await state();
+check(s.map === 'teste' && s.cutscene, 'porta trancada mostra mensagem e não entra');
+await waitCutsceneEnd();
+await teleport(136, 191, 'down'); // volta ao ponto inicial
+await wait(150);
+s = await state();
+
 // Joystick
 const x0 = s.player.x;
 await joystick(1, 0);
@@ -157,7 +185,44 @@ await wait(900);
 s = await state();
 check(s.cutscene, 'A perto do NPC inicia diálogo');
 await page.screenshot({ path: `${OUT}/02-dialogo-npc.png` });
+{
+  const b = await box();
+  check(b.visible && b.x + b.w <= 640 - 108 - 22, `caixa de diálogo não fica embaixo dos botões A/B (termina em x=${b.x + b.w})`);
+  check(b.name === 'Aldeão', `nome do falante com acento: "${b.name}"`);
+}
 check(await advanceDialogue(), 'diálogo do NPC termina com toques');
+
+// Fonte com todos os acentos do PT-BR
+check(
+  await page.evaluate(() => document.fonts.check('20px VT323', 'ãõçéêáíóúàâôÍÇÉÚÃÕÀ')),
+  'fonte VT323 carregada para todos os acentos (ã õ ç é ê á í ó ú à â ô)',
+);
+
+// Casa: entra pela porta (agora destrancada), fala com a moradora, examina, sai e volta ao lado de fora
+s = await walkTo(136, 140, 6000);
+await wait(900);
+s = await state();
+check(s.map === 'teste_casa', `porta leva ao interior (${s.map})`);
+await teleport(72, 100, 'up'); // abaixo da moradora (4,4)
+await wait(100);
+await tapA();
+await wait(1500);
+{
+  const b = await box();
+  check(b.name === 'Dona Custódia', `moradora fala com nome acentuado ("${b.name}")`);
+  await page.screenshot({ path: `${OUT}/07-casa-moradora.png` });
+}
+check(await waitCutsceneEnd(), 'diálogo da moradora termina');
+await teleport(56, 63, 'up'); // abaixo do retrato (3,2)
+await tapA();
+await wait(400);
+check((await state()).cutscene, 'objeto examinável abre diálogo');
+await waitCutsceneEnd();
+s = await walkTo(104, 150, 5000);
+s = await walkTo(104, 158, 3000);
+await wait(900);
+s = await state();
+check(s.map === 'teste' && s.player.y > 144 && Math.abs(s.player.x - 136) < 12, `saída do interior volta para fora da porta (${s.map} ${s.player.x},${s.player.y})`);
 
 // Gatilho da cutscene de teste em x=288..304, y=208..272
 s = await walkTo(296, 238);
@@ -216,6 +281,76 @@ if (caught) {
   s = await state();
   check(!s.caught && Math.abs(s.player.x - cp.x) < 20, `volta ao checkpoint (${s.player.x},${s.player.y})`);
 }
+
+// Colheita: 3 objetos com contador
+for (const [i, x] of [[1, 232], [2, 264], [3, 296]]) {
+  await teleport(x, 223, 'up');
+  await wait(80);
+  await tapA();
+  await wait(300);
+  await waitCutsceneEnd();
+}
+await evalWorld('w.autosave(true)');
+check((await flagsNow())['teste.colheita_completa'] === true, 'contador de colheita marca a flag ao completar');
+
+// Atividade (minijogo/loja): abre cena registrada e grava o resultado
+await goMap('teste2', 'centro');
+await teleport(312, 112, 'up');
+await wait(100);
+await tapA();
+await wait(500);
+check((await activeScenes()).includes('AtividadeTeste'), 'objeto com activity abre a cena registrada');
+await page.screenshot({ path: `${OUT}/08-atividade.png` });
+await tapA();
+await wait(600);
+{
+  const auto = await page.evaluate(() => JSON.parse(localStorage.getItem('triskelion.save.auto') ?? '{}'));
+  check(auto.flags?.['atividade.teste.concluida'] === true && auto.state?.coins === 7 && auto.state?.attributes?.magia === 2,
+    `resultado da atividade vai para flags e save (moedas=${auto.state?.coins}, magia=${auto.state?.attributes?.magia})`);
+}
+
+// Túnel escuro com círculo de luz
+await goMap('teste_tunel', 'tunel_inicio');
+await waitCutsceneEnd();
+s = await state();
+check(s.dark === 48, `mapa escuro com luz de raio ${s.dark}`);
+await joystick(1, 0);
+await wait(500);
+await joystickRelease();
+await page.screenshot({ path: `${OUT}/09-tunel-escuro.png` });
+
+// Salvar manualmente pelo menu (espaço 1)
+await goMap('teste', 'inicio');
+await tap(640 - 30, 26);
+await wait(400);
+await tap(100, 108); // Salvar
+await wait(400);
+await tap(150, 122); // Espaço 1
+await wait(300);
+const slot1 = await page.evaluate(() => JSON.parse(localStorage.getItem('triskelion.save.1') ?? 'null'));
+check(slot1?.position?.map === 'teste', 'salvar pelo menu grava no espaço 1');
+await tap(640 - 30, 26); // MENU fecha espaços? (B/menu)
+await page.keyboard.press('Escape');
+await wait(200);
+await page.keyboard.press('Escape');
+await wait(400);
+
+// Retomada: anda um pouco e RECARREGA a página no meio da exploração
+await joystick(1, 0);
+await wait(400);
+await joystickRelease();
+await wait(200);
+const before = await state();
+await page.reload();
+await wait(1800);
+const titleTexts = await page.evaluate(() => window.__TRISKELION__.scene.getScene('Titulo').children.list.filter((o) => o.type === 'Text').map((o) => o.text));
+check(titleTexts.includes('Retomar de onde parou'), 'título oferece "Retomar de onde parou" após recarregar');
+await page.screenshot({ path: `${OUT}/10-titulo-retomar.png` });
+await tap(280, 214);
+await wait(1500);
+s = await state();
+check(s && s.map === before.map && Math.abs(s.player.x - before.player.x) < 4 && Math.abs(s.player.y - before.player.y) < 4,
+  `retomada volta à mesma posição (${before.player.x},${before.player.y} → ${s?.player.x},${s?.player.y})`);
 
 // Menu de pausa pelo botão MENU
 await joystickRelease();

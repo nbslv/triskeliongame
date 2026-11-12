@@ -1,0 +1,5 @@
+{
+  "id": "teste_bau",
+  "description": "TESTE: examinável com diálogo alternativo (alt_if).",
+  "steps": [{ "type": "say", "speaker": "narrador", "text": "[teste] Um baú vazio. (Colha os três pés lá fora e volte.)" }]
+}

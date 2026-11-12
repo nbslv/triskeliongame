@@ -1,0 +1,11 @@
+{
+  "id": "teste_tunel",
+  "description": "TESTE: gatilho ao carregar (activation=load) e passo light em mapa escuro.",
+  "steps": [
+    { "type": "light", "radius": 0, "ms": 1 },
+    { "type": "wait", "ms": 600 },
+    { "type": "say", "speaker": "narrador", "text": "[teste] Escuro total..." },
+    { "type": "light", "radius": 48, "ms": 1200 },
+    { "type": "say", "speaker": "tutorial", "text": "[teste] Um círculo de luz acompanha o jogador. Volte pela esquerda." }
+  ]
+}

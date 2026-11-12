@@ -75,6 +75,11 @@ export class DialogueScene extends Phaser.Scene {
     this.clearMenu();
   }
 
+  /** Retângulo atual da caixa (para testes). */
+  boxRect(): { x: number; y: number; w: number; h: number; visible: boolean; name: string } {
+    return { ...BOX, visible: !!this.root?.visible, name: this.nameText?.text ?? '' };
+  }
+
   /** Esconde a caixa daqui a pouco, a menos que outra fala chegue antes (evita piscar). */
   hideSoon(): void {
     if (!this.sys.isActive() || !this.root?.visible) return;

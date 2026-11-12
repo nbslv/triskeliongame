@@ -11,7 +11,7 @@
  "infinite": false,
  "compressionlevel": -1,
  "nextlayerid": 5,
- "nextobjectid": 6,
+ "nextobjectid": 9,
  "properties": [
   {
    "name": "nome",
@@ -699,7 +699,7 @@
     0,
     0,
     0,
-    0,
+    12,
     0,
     0,
     0,
@@ -847,7 +847,7 @@
     0,
     0,
     0,
-    3,
+    0,
     3,
     0,
     0,
@@ -871,7 +871,7 @@
     0,
     0,
     0,
-    3,
+    0,
     3,
     0,
     0,
@@ -1035,6 +1035,63 @@
        "value": "left"
       }
      ]
+    },
+    {
+     "id": 6,
+     "rotation": 0,
+     "visible": true,
+     "width": 0,
+     "height": 0,
+     "name": "altar_teste",
+     "type": "atividade",
+     "point": true,
+     "x": 312,
+     "y": 95,
+     "properties": [
+      {
+       "name": "activity",
+       "type": "string",
+       "value": "teste"
+      },
+      {
+       "name": "param_moedas",
+       "type": "int",
+       "value": 7
+      },
+      {
+       "name": "glow",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 7,
+     "rotation": 0,
+     "visible": true,
+     "width": 16,
+     "height": 32,
+     "name": "saida_tunel",
+     "type": "saida",
+     "x": 368,
+     "y": 176,
+     "properties": [
+      {
+       "name": "map",
+       "type": "string",
+       "value": "teste_tunel"
+      },
+      {
+       "name": "entry",
+       "type": "string",
+       "value": "tunel_inicio"
+      },
+      {
+       "name": "facing",
+       "type": "string",
+       "value": "right"
+      }
+     ]
     }
    ]
   },
@@ -1067,6 +1124,18 @@
      "point": true,
      "x": 280,
      "y": 127,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 8,
+     "name": "saida_tunel_volta",
+     "type": "",
+     "point": true,
+     "x": 344,
+     "y": 191,
      "width": 0,
      "height": 0,
      "rotation": 0,

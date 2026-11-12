@@ -12,8 +12,9 @@ src/
   core/                   serviços sem cena (singletons)
     events.ts             barramento de eventos tipado (bus.on / bus.emit)
     flags.ts              flags de história + avaliador de condições
-    save.ts               localStorage: espaços 1–3 + auto, versão de esquema e migrações
-    session.ts            estado da partida (checkpoint, posição, tempo) e salvar
+    save.ts               localStorage: espaços 1–3 + auto + retomada; atômico; migrações; exportar/importar
+    session.ts            estado da partida (posição, checkpoint, tempo, inventário/moedas/atributos)
+    resume.ts             save de retomada ao ocultar/fechar a aba
     settings.ts           opções do jogador (volumes, velocidade do texto, tela cheia)
     input.ts              teclado + joystick virtual + botões A/B/MENU (multitoque)
     audio.ts              música com crossfade e efeitos; provisórios por Web Audio
@@ -27,6 +28,9 @@ src/
     DialogueScene         caixa de texto e escolhas (sobreposta)
     PauseMenuScene        pausa: continuar, salvar, carregar, opções, título
     SlotsScene            escolher espaço de save/load
+    BackupScene           exportar/importar saves (HTML sobre o canvas)
+    TitleCardScene        cartão de título (passo `title`)
+    TestActivityScene     atividade de exemplo
     OptionsScene          volumes, velocidade do texto, tela cheia
     ControlsScene         desenha joystick/botões (sempre no topo; some sem tela de toque)
   systems/
@@ -36,6 +40,7 @@ src/
     dialogue/director.ts  liga o executor ao Mundo e à caixa de diálogo; sobrevive à troca de mapa
     world/Actor.ts        personagem (sprite + física + animação + emote)
     world/tiled.ts        leitura/validação do JSON do Tiled (sem Phaser)
+    activity/             registro de atividades (lojas/treinos/minijogos)
     stealth/Patrol.ts     patrulha e cone de visão
     stealth/vision.ts     geometria do cone (pura)
   ui/                     MenuList, painéis/textos, texturas provisórias
@@ -111,12 +116,47 @@ Enquanto um arquivo não existe, o motor gera um provisório (bonecos coloridos,
   (autenticação no servidor/CDN) fica com a frente de deploy.
 - Sem variável definida, a tela de senha é pulada (desenvolvimento).
 
-## Salvamento
+## Salvamento (crítico: nunca perder mais que ~1 min)
 
-`localStorage`, chaves `triskelion.save.{1,2,3,auto}`. Registro:
-`{ version, savedAt, playtimeMs, position{map,x,y,facing}, checkpoint{…}, flags{} }`.
-Ao mudar o formato: incremente `SAVE_VERSION` e adicione `MIGRATIONS[versão_antiga]` em `src/core/save.ts`
-(teste em `tests/save.test.ts`). Autosave: ao entrar em mapa, em checkpoint e no passo `autosave`.
+`localStorage`, chaves `triskelion.save.{1,2,3,auto,retomada}` (`src/core/save.ts`, versão 3). Registro:
+
+```ts
+{ version, savedAt, playtimeMs,
+  position{map,x,y,facing}, checkpoint{…}, returnPoint?{…},
+  flags{},
+  state{ difficulty, coins, inventory{id:qtd}, attributes{forca,magia,…} },
+  resumeDialogue? }   // roteiro a recomeçar se gravado no meio de uma cutscene
+```
+
+- **Gravação atômica**: escreve `<chave>.tmp`, confere, move a anterior para `<chave>.bak`, troca a principal.
+  Leitura: principal → `.tmp` → `.bak` (save corrompido cai para a última cópia válida e é restaurado).
+- **Quando grava**: menu de pausa (3 espaços manuais, a qualquer momento fora de cutscene); autosave ao
+  entrar em mapa, em checkpoint, no início e no fim de cutscenes, depois de atividades e a cada 60 s de
+  exploração; **retomada** em `visibilitychange`(hidden)/`pagehide` (`beforeunload` como reforço) —
+  `src/core/resume.ts`. No título, se a retomada for o save mais recente, aparece "Retomar de onde parou".
+- **Backup**: Título → "Backup do save" baixa/copia um JSON com todos os espaços e importa de arquivo ou
+  texto colado (validado antes de gravar).
+- **Dificuldade**: `state.difficulty` (`tranquila` | `aventura` | `desafio`). Versão inicial: sempre
+  `tranquila`, sem opção na tela.
+- Mudou o formato? Incremente `SAVE_VERSION` e adicione `MIGRATIONS[versão_antiga]` (teste em `tests/save.test.ts`).
+
+## Extensão: atividades (lojas, treinos, minijogos)
+
+Ponto de entrada genérico em `src/systems/activity/`:
+
+1. Crie a cena (ex.: `src/scenes/TreinoMagiaScene.ts`). Ela recebe `ActivityLaunch` em `create(data)`:
+   `{ id, params, state (moedas/inventário/atributos, só leitura), finish(resultado) }`.
+2. Registre em `src/main.ts` (lista de cenas) e em `src/systems/activity/index.ts`:
+   `registerActivity('treino_magia', { sceneKey: 'TreinoMagia' })`.
+3. Dispare por um objeto Tiled com a propriedade `activity: "treino_magia"` (+ `param_<nome>` → `params.<nome>`)
+   ou por um passo de roteiro `{ "type": "activity", "id": "treino_magia", "params": { ... } }`.
+4. Ao terminar, chame `data.finish({ completed, flags?, coins?, items?, attributes?, score? })`.
+   O motor aplica no estado (moedas/itens/atributos são **deltas**), marca `atividade.<id>.concluida`,
+   soma `atividade.<id>.vezes`, guarda recorde em `atividade.<id>.melhor`, fecha a cena, retoma o Mundo e faz autosave.
+
+Exemplo funcional: `src/scenes/TestActivityScene.ts` (id `teste`, objeto `altar_teste` em `teste2`).
+Estado e helpers: `session.state`, `session.addItem/addCoins/addAttribute` (`src/core/session.ts`).
+Ainda sem interface de inventário/loja.
 
 ## Depuração
 

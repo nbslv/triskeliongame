@@ -1,0 +1,13 @@
+{
+  "id": "teste_colher",
+  "description": "TESTE: objeto com contador (counter/counter_goal/counter_flag).",
+  "steps": [
+    { "type": "sfx", "id": "confirmar" },
+    { "type": "anim", "actor": "icaro", "anim": "colher" },
+    { "type": "if", "flag": "teste.colheita_completa", "then": [
+      { "type": "say", "speaker": "icaro", "text": "(Pronto, colhi os três! A flag teste.colheita_completa foi marcada.)" }
+    ], "else": [
+      { "type": "say", "speaker": "icaro", "text": "(Mais um pé colhido... ainda faltam alguns.)" }
+    ] }
+  ]
+}

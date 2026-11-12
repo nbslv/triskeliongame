@@ -103,6 +103,18 @@ function makeMap(w, h, props) {
   m.obj(47, 14, null);
   m.obj(47, 15, null);
 
+  // porta da casa → interior (trancada até falar com o aldeão)
+  m.zone('porta_casa', 'saida', 8, 8, 1, 1, [prop('map', 'teste_casa'), prop('entry', 'porta_entrada'), prop('facing', 'up'),
+    prop('locked_if', '!teste.falou_npc'), prop('locked_dialogue', 'teste_porta_trancada')]);
+  m.marker('porta_casa_fora', 8, 9);
+  // colheita: 3 pés com brilho e contador
+  for (const [i, x] of [[1, 14], [2, 16], [3, 18]]) {
+    m.obj(x, 12, T.arbusto);
+    m.entity({ name: `pe_teste_${i}`, type: 'examinar', point: true, x: x * 16 + 8, y: 12 * 16 + 15,
+      properties: [prop('dialogue', 'teste_colher'), prop('counter', 'teste.colheita'), prop('counter_goal', 3),
+        prop('counter_flag', 'teste.colheita_completa'), prop('glow', true)] });
+  }
+
   // marcadores
   m.marker('inicio', 8, 11);
   m.marker('entrada_leste', 45, 14);
@@ -151,6 +163,53 @@ function makeMap(w, h, props) {
   m.obj(11, 6, T.cerca);
   m.entity({ name: 'viajante', type: 'npc', point: true, x: 17 * 16 + 8, y: 7 * 16 + 15,
     properties: [prop('dialogue', 'teste_npc'), prop('facing', 'left')] });
+  // atividade de teste (minijogo/loja de exemplo)
+  m.obj(19, 5, T.flores);
+  m.entity({ name: 'altar_teste', type: 'atividade', point: true, x: 19 * 16 + 8, y: 5 * 16 + 15,
+    properties: [prop('activity', 'teste'), prop('param_moedas', 7), prop('glow', true)] });
+  // passagem para o túnel escuro
+  m.obj(23, 11, null);
+  m.obj(23, 12, null);
+  m.zone('saida_tunel', 'saida', 23, 11, 1, 2, [prop('map', 'teste_tunel'), prop('entry', 'tunel_inicio'), prop('facing', 'right')]);
+  m.marker('saida_tunel_volta', 21, 11);
   writeFileSync('content/maps/teste2.json', JSON.stringify(m.build(), null, 1) + '\n');
 }
-console.log('ok: content/maps/teste.json, content/maps/teste2.json');
+// ---------------- teste_casa (interior com dois cômodos) ----------------
+{
+  const m = makeMap(14, 10, [prop('nome', 'Casa de teste'), prop('music', 'teste_casa')]);
+  m.rect(0, 0, 13, 9, (x, y) => m.ground(x, y, T.madeira));
+  m.rect(0, 0, 13, 9, (x, y) => { if (x === 0 || x === 13 || y === 0 || y === 9 || y === 1) m.obj(x, y, T.parede); });
+  // parede interna com vão (dois cômodos)
+  m.rect(8, 2, 8, 8, (x, y) => { if (y !== 6) m.obj(x, y, T.parede); });
+  m.obj(6, 9, null); // porta
+  m.ground(6, 9, T.terra);
+  m.obj(3, 2, T.porta); // "retrato" na parede (placeholder)
+  m.obj(11, 3, T.barril); // baú
+  m.obj(2, 5, T.barril); // mesa
+  m.marker('porta_entrada', 6, 8);
+  m.marker('moradora_cozinha', 4, 6);
+  m.entity({ name: 'moradora', type: 'npc', point: true, x: 4 * 16 + 8, y: 4 * 16 + 15,
+    properties: [prop('dialogue', 'teste_moradora'), prop('facing', 'down')] });
+  m.entity({ name: 'retrato', type: 'examinar', x: 3 * 16, y: 2 * 16, width: 16, height: 16,
+    properties: [prop('dialogue', 'teste_retrato')] });
+  m.entity({ name: 'bau', type: 'examinar', x: 11 * 16, y: 3 * 16, width: 16, height: 16,
+    properties: [prop('dialogue', 'teste_bau'), prop('alt_dialogue', 'teste_bau_cheio'), prop('alt_if', 'teste.colheita_completa')] });
+  // saída: volta ao ponto de onde o jogador entrou (return), com mapa/entrada de reserva
+  m.zone('porta_saida', 'saida', 6, 9, 1, 1, [prop('return', true), prop('map', 'teste'), prop('entry', 'porta_casa_fora'), prop('facing', 'down')]);
+  writeFileSync('content/maps/teste_casa.json', JSON.stringify(m.build(), null, 1) + '\n');
+}
+
+// ---------------- teste_tunel (mapa escuro com círculo de luz) ----------------
+{
+  const m = makeMap(30, 8, [prop('nome', 'Túnel de teste'), prop('escuro', true), prop('luz_raio', 40)]);
+  m.rect(0, 0, 29, 7, (x, y) => m.ground(x, y, T.cinzas));
+  m.rect(0, 0, 29, 7, (x, y) => { if (y <= 1 || y >= 6 || x === 29) m.obj(x, y, T.muro); });
+  for (const x of [6, 13, 20]) m.obj(x, 2, T.muro);
+  m.obj(0, 3, null);
+  m.obj(0, 4, null);
+  m.marker('tunel_inicio', 2, 3);
+  m.zone('tunel_entrada', 'gatilho', 0, 0, 30, 8, [prop('dialogue', 'teste_tunel'), prop('activation', 'load')]);
+  m.zone('saida_tunel_oeste', 'saida', 0, 3, 1, 2, [prop('map', 'teste2'), prop('entry', 'saida_tunel_volta'), prop('facing', 'left')]);
+  writeFileSync('content/maps/teste_tunel.json', JSON.stringify(m.build(), null, 1) + '\n');
+}
+console.log('ok: content/maps/teste*.json');

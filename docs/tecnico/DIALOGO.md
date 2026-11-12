@@ -58,6 +58,39 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `checkpoint` | `at?` | Define o ponto de retorno da furtividade (padrão: posição atual do jogador). |
 | `autosave` | — | Grava no espaço automático. |
 | `call` | `id` | Executa outro roteiro e volta (útil para trechos repetidos). |
+| `anim` | `actor`, `anim` | Toca a animação `<sprite>:<anim>` se a arte tiver; `"normal"` volta ao parado. Sem animação, é ignorado. |
+| `title` | `text`, `subtitle?`, `ms?` (1500) | Cartão de título em tela cheia; A/toque continua. |
+| `activity` | `id`, `params?` | Abre uma atividade registrada (loja, treino, minijogo); o resultado vai para flags/save. |
+| `light` | `radius`, `ms?` (600) | Raio do círculo de luz em mapas escuros (0 = breu). |
+
+### Falantes especiais
+
+- `speaker: "narrador"` — caixa sem nome nem retrato, em tom acinzentado.
+- `speaker: "tutorial"` — caixa verde com o nome "Dica" (instruções de controle).
+- Texto inteiro entre parênteses (pensamento) aparece em cor mais suave.
+- Os nomes exibidos vêm de `content/characters.json` (com acentos: "Ícaro", "Dona Custódia").
+
+### Aliases aceitos (usados nos roteiros do prólogo)
+
+O motor converte antes de validar (`normalizeScript` em `schema.ts`):
+
+| Escrito | Vira |
+|---|---|
+| `goto.to` | `goto.label` |
+| `if` com `not: true` | `cond: "!flag"` |
+| `music.fade` / `id: "none"` | `music.fadeMs` / `id: null` (silêncio) |
+| `scene.spawn` | `scene.at` |
+| `spawn.dir`, `move.dir`, `scene.dir` | `facing` |
+| `camera.actor` | `camera.follow` |
+| `move.speed: "run"` / `"walk"` / `"slow"` | 130 / 60 / 35 px/s |
+| `emote: "exclamacao"`, `"interrogacao"`, `"reticencias"`, `"suor"`, `"coracao"`, `"nota"` | `!`, `?`, `...`, 💧, ♥, ♪ |
+
+### Cutscenes, autosave e retomada
+
+Roteiros disparados por gatilho/mapa/início (não conversas com NPC ou examináveis) são **cutscenes**:
+o motor grava autosave no começo e no fim. Se a página fechar no meio, o save de retomada guarda o
+estado de **antes** da cutscene e o id do roteiro, que recomeça do início ao carregar.
+Um gatilho com `dialogue: "a,b,c"` roda os três em sequência como uma cutscene só (ex.: 12→13→14 do prólogo).
 
 ## Dicas
 
