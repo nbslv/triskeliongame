@@ -1,0 +1,8 @@
+{
+  "id": "prologo_casa_colchao",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "O colchão de palha de Ícaro. Embaixo, três livros da biblioteca, enfiados de qualquer jeito."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(Esconderijo perfeito. O pai nunca olha aqui.)"},
+    {"type": "end"}
+  ]
+}

@@ -1,12 +1,6 @@
 {
   "id": "prologo_01_abertura",
   "steps": [
-    {"type": "fade", "to": "black", "ms": 0},
-    {"type": "music", "id": "tema_lenda", "fade": 800},
-    {"type": "say", "speaker": "narrador", "text": "Dizem que a luz de Luminaer nunca dorme."},
-    {"type": "say", "speaker": "narrador", "text": "Que, no alto de uma torre, um velho cajado vigia o reino desde que o grande Aurelius Solis fechou os olhos."},
-    {"type": "say", "speaker": "narrador", "text": "Na Vila Torrinha, ninguém pensa muito nisso."},
-    {"type": "say", "speaker": "narrador", "text": "Na Vila Torrinha, a gente pensa em café."},
     {"type": "music", "id": "tema_cafezal", "fade": 800},
     {"type": "sfx", "id": "passaros_tarde"},
     {"type": "fade", "to": "clear", "ms": 1500},
@@ -21,7 +15,7 @@
     {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Tá colhendo o quê, letra? Faz meia hora que esse pé de café tá te olhando, esperando."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Era só um parágrafo."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Era um capítulo, que eu contei as páginas virando. Vem cá antes que a Dona Zefa veja."},
-    {"type": "say", "speaker": "tutorial", "text": "Use o joystick (ou as setas) para andar. Vá até o Tonho."},
+    {"type": "say", "speaker": "tutorial", "text": "Vá até o Tonho."},
     {"type": "flag", "set": "prologo.abertura_vista"},
     {"type": "end"}
   ]

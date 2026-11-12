@@ -1,0 +1,8 @@
+{
+  "id": "prologo_viz_juca_desenho",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Um desenho de criança pregado na parede: um boneco de chapéu pontudo soltando raios. Embaixo: 'ICARO MAGO'."},
+    {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Foi a Nina do Tonho que fez. Você tem torcida, rapaz."},
+    {"type": "end"}
+  ]
+}

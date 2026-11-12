@@ -1,0 +1,7 @@
+{
+  "id": "prologo_00c_porta_sem_cafe",
+  "steps": [
+    {"type": "say", "speaker": "pai", "portrait": "pai_ranzinza", "text": "Ô! De barriga vazia ninguém sai desta casa. Senta aqui."},
+    {"type": "end"}
+  ]
+}

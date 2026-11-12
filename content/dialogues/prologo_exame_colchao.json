@@ -2,7 +2,7 @@
   "id": "prologo_exame_colchao",
   "steps": [
     {"type": "say", "speaker": "narrador", "text": "O colchão de palha de Ícaro. Embaixo, três livros da biblioteca. Estão empilhados com capricho."},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "(Eu não deixei assim. Eu deixo tudo jogado.)"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "(Eu não deixei assim. De manhã tava tudo enfiado de qualquer jeito.)"},
     {"type": "end"}
   ]
 }

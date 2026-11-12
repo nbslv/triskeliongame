@@ -11,6 +11,7 @@
     {"type": "say", "speaker": "zefa", "portrait": "zefa_brava", "text": "Vai dar corpo é pro seu desconto."},
     {"type": "sfx", "id": "moedas"},
     {"type": "say", "speaker": "narrador", "text": "Ícaro recebeu 12 cobres."},
+    {"type": "say", "speaker": "tutorial", "text": "Trabalho pesado fortalece a Força. Mais adiante, campos de treino e arenas terão treinos de força."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "E aí, quanto falta pra tal faculdade?"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Dois mil novecentos e setenta e seis."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_riso", "text": "Ih, tá quase."},

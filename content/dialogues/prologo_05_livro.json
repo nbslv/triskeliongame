@@ -7,6 +7,7 @@
     {"type": "say", "speaker": "narrador", "text": "Capítulo 3 — 'Alento', a primeira magia de cura. 'Requer calma, respiração firme e mãos quentes.'"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Calma, respiração firme, mãos quentes. Uma hora dessas eu consigo passar do brilhinho.)"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Taxa de matrícula da Faculdade de Magia: três mil cobres. Eu tenho doze. É um começo.)"},
+    {"type": "say", "speaker": "tutorial", "text": "Estudar fortalece a Magia. Mais adiante, bibliotecas e santuários terão treinos de magia."},
     {"type": "flag", "set": "prologo.leu_livro"},
     {"type": "end"}
   ]

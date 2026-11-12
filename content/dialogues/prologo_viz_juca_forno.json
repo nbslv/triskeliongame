@@ -1,0 +1,7 @@
+{
+  "id": "prologo_viz_juca_forno",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "O forno de barro da padaria. Quente o ano inteiro. Dizem que foi aceso pelo avô do seu Juca e nunca mais apagou."},
+    {"type": "end"}
+  ]
+}

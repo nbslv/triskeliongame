@@ -1,0 +1,9 @@
+{
+  "id": "prologo_casa_alcapao",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "No terreiro de secar café, meio escondido pelas sacas, o alçapão da adega velha."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(O túnel do rego seco. O pai me proibiu de descer aí quando eu tinha sete anos.)"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(Eu desço desde os sete anos e um dia.)"},
+    {"type": "end"}
+  ]
+}

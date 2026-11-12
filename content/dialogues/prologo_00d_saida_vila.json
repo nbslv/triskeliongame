@@ -1,0 +1,17 @@
+{
+  "id": "prologo_00d_saida_vila",
+  "steps": [
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Hora de subir pro cafezal. O Tonho já deve estar 'supervisionando'.)"},
+    {"type": "choice", "options": [{"text": "Ir para o cafezal", "goto": "ir"}, {"text": "Ficar mais um pouco na vila", "goto": "ficar"}]},
+    {"type": "label", "name": "ir"},
+    {"type": "fade", "to": "black", "ms": 800},
+    {"type": "music", "id": "none", "fade": 800},
+    {"type": "wait", "ms": 400},
+    {"type": "say", "speaker": "narrador", "text": "O dia passou como passam os dias de colheita: sol na nuca, cesto no ombro, um parágrafo escondido a cada fileira."},
+    {"type": "flag", "set": "prologo.saiu_da_vila"},
+    {"type": "scene", "map": "prologo_cafezal", "spawn": "marcador_cafezal_inicio"},
+    {"type": "end"},
+    {"type": "label", "name": "ficar"},
+    {"type": "end"}
+  ]
+}

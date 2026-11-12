@@ -1,7 +1,8 @@
 # 10 — Prólogo: roteiro cena a cena
 
 > **"A noite em que a Torrinha apagou"**
-> Duração-alvo: **10–15 min** (PENDENTE APROVAÇÃO DO AUTOR). Sem batalhas. Sem violência explícita.
+> Duração-alvo: **10–15 min** no caminho direto (decidido pelo autor); quem examinar todas as casas
+> da manhã chega a ~18 min. Sem batalhas. Sem violência explícita.
 > As falas completas estão em `content/dialogues/prologo_*.json`; aqui fica a direção de cada cena:
 > o que o jogador faz, o que sente, e o que cada cena planta para o resto do jogo.
 
@@ -9,18 +10,76 @@
 
 | # | Cena | Mapa | Jogabilidade | Duração | Emoção |
 |---|---|---|---|---|---|
-| 1 | Abertura e cafezal | `prologo_cafezal` | Tutorial de andar, interagir, correr | 3–4 min | Aconchego, humor |
+| 0 | Manhã na Torrinha | `prologo_casa_icaro`, `prologo_vila_manha` + 3 interiores | Tutorial de andar e examinar; casas exploráveis | 2–3 min (até 6 explorando) | Rotina, afeto ranzinza |
+| 1 | Cafezal ao entardecer | `prologo_cafezal` | Colheita (prévia de treino de força), correr | 2–3 min | Aconchego, humor |
 | 2 | A fumaça / estrada | `prologo_estrada` | Corrida curta | 1 min | Alarme |
-| 3 | Vila em chamas | `prologo_vila` | Furtividade (3 trechos) | 4–5 min | Tensão (com alívio cômico) |
-| 4 | O pai | `prologo_vila` (casa em ruínas) | Cutscene com escolhas | 3–4 min | Coração do prólogo |
+| 3 | Vila em chamas | `prologo_vila` | Furtividade (3 trechos) | 3–4 min | Tensão (com alívio cômico) |
+| 4 | O pai | `prologo_vila` (casa em ruínas) | Cutscene com escolhas | 3 min | Coração do prólogo |
 | 5 | O túnel | `prologo_tunel` | Caminhada no escuro | 1 min | Luto, primeiro passo |
 | 6 | Os sobreviventes | `prologo_bambuzal` | Cutscene | 2 min | Acolhimento, promessa |
 
 Nomes criados para o prólogo (todos PENDENTE APROVAÇÃO DO AUTOR): **Vila Torrinha** (a vila),
 **Anselmo** (o pai), **Helena** (a mãe), **Tonho** (colega de colheita), **Nina** (irmã do Tonho),
 **Dona Zefa** (capataz do cafezal), **Dona Custódia** e a galinha **Pamonha** (vizinhas),
+**Seu Juca** (padeiro), **Dona Ermelinda** (bibliotecária),
 **Capitão Toucim** (oficial Caligosuin atrapalhado), **Sargento Íris Candeia** (Guarda de Luminaer),
 **"Alento"** (a magia de cura de iniciante), **rego seco** (o túnel de irrigação abandonado).
+
+---
+
+## Cena 0 — Manhã na Torrinha (casas exploráveis)
+
+**Diálogos:** `prologo_00_abertura`, `prologo_00b_cafe_com_pai`, `prologo_00c_porta_sem_cafe`,
+`prologo_00d_saida_vila`; examináveis `prologo_casa_*`; vizinhos `prologo_viz_*`.
+
+**Por que esta cena existe (decisão do autor):** o jogador precisa **entrar nas casas** e
+conhecer a vida de Ícaro antes de perdê-la. A vila que queima na Cena 3 é a mesma por onde ele
+andou de manhã; a casa onde o pai está caído é a mesma onde tomaram café.
+
+**Abertura (tela preta).** Quatro frases de narração: a luz de Luminaer "nunca dorme", o cajado
+na torre, Aurelius Solis. E o corte de tom: *"Na Vila Torrinha, a gente pensa em café."*
+
+**A casa de Ícaro** (`prologo_casa_icaro`: uma peça só, com cozinha, dois catres e a porta dos
+fundos para o terreiro). Ícaro acorda com uma página colada na bochecha; o pai grita da cozinha.
+
+*Café com o pai (`prologo_00b_cafe_com_pai`, obrigatório para sair):* o conflito inteiro em um
+minuto — "parágrafo não enche saca", "três mil cobres e sobrenome comprido", **"mago é coisa de
+quem nasceu em casa de dois andares"**, "as coisas são como são". E o afeto que ele não diz:
+empurra o último pedaço de broa para o filho e fala que já comeu. Uma escolha (ficar quieto /
+"A mãe não achava isso") muda duas falas e deixa o pai sem resposta. Última linha: *"...Vai com
+cuidado."*
+
+| Objeto (A para examinar) | Diálogo | O que revela |
+|---|---|---|
+| Colchão de Ícaro | `prologo_casa_colchao` | Três livros "enfiados de qualquer jeito" — à noite estarão **empilhados com capricho** |
+| Retrato a carvão | `prologo_casa_retrato` | A mãe "ria até em retrato" |
+| **Caixinha de costura** (prateleira alta) | `prologo_casa_caixa_costura` | Era da mãe; o pai tira o pó todo domingo e não deixa encostar. **É onde está o colar** |
+| Cadeira de balanço | `prologo_casa_cadeira` | Ninguém senta; "ela não range" — o luto do pai |
+| Fogão e bule | `prologo_casa_fogao` | O pai não comeu a broa dele: guardou para o filho levar |
+| Pote "TELHADO" | `prologo_casa_pote` | Quarenta cobres e um botão; "a viga do meio reclama" — a pobreza e a viga que vai cair |
+| Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Anselmo" e "Helena" |
+| Alçapão do terreiro | `prologo_casa_alcapao` | O túnel do rego seco: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
+
+**A vila de manhã** (`prologo_vila_manha`: o mesmo desenho de `prologo_vila`, inteiro e com
+sol). Três portas abertas, todas opcionais:
+
+- **Casa da Dona Custódia** (`prologo_viz_custodia` + retrato, barril, crochê): dá os Ovos da
+  Pamonha; conta que viu o pai **parado em frente à biblioteca, sem entrar**; apresenta o barril
+  de melado "onde cabe uma pessoa" (ela estará dentro dele na Cena 3).
+- **Padaria do Seu Juca** (`prologo_viz_juca` + forno, receita, desenho): dá o Pão de Ontem;
+  fofoca do mundo — **a luz da torre da capital "piscou"** semana passada; o desenho da Nina,
+  "ICARO MAGO".
+- **Biblioteca** (`prologo_viz_biblioteca` + estante, fichário): Dona Ermelinda cobra o livro de
+  quatro meses e promete "esquecer" o Volume 2 no balcão. Na estante, a biografia de Aurelius
+  com **três espirais rabiscadas** na margem. No fundo do fichário, uma ficha antiga:
+  **"Helena"**.
+
+**Saída.** No portão da vila, `prologo_00d_saida_vila` pergunta se o jogador quer ir para o
+cafezal (aviso gentil de que a manhã acaba). Corte narrado: "O dia passou como passam os dias de
+colheita".
+
+**O que esta cena planta:** o pai antes da tragédia; a caixinha; a viga; o alçapão; o barril;
+a mãe na biblioteca; as três espirais; a luz que piscou. Tudo volta.
 
 ---
 
@@ -29,15 +88,11 @@ Nomes criados para o prólogo (todos PENDENTE APROVAÇÃO DO AUTOR): **Vila Torr
 **Diálogos:** `prologo_01_abertura`, `prologo_02_tonho_tutorial`, `prologo_03_pe_de_cafe`,
 `prologo_03b_pe_verde`, `prologo_04_zefa`, `prologo_05_livro`, `prologo_06_colheita_fim`.
 
-**Abertura (tela preta).** Quatro frases de narração: a luz de Luminaer "nunca dorme", o cajado na
-torre, Aurelius Solis. E o corte de tom: *"Na Vila Torrinha, a gente pensa em café."* Isso
-apresenta a lenda em 15 segundos e avisa o jogador que o jogo tem humor.
-
 **Imagem.** Luz dourada de fim de tarde, fileiras de pés de café em morro suave, frutos
 vermelhos. Ícaro está sentado num toco, lendo, com o cesto vazio do lado. Tonho grita o nome
 dele; Ícaro esconde o livro no cesto (animação `esconder_livro`).
 
-**Jogabilidade — tutorial em três passos, sem tela de texto longa:**
+**Jogabilidade — a colheita (prévia leve do "treino de força"):**
 1. **Andar:** ir até o Tonho (marcador `marcador_cafezal_tonho`).
 2. **Interagir (A):** colher **5 pés de café maduros** (os que brilham em vermelho). Pés verdes
    dão uma fala engraçada e não contam. O primeiro pé colhido dispara uma lembrança do pai
@@ -46,6 +101,9 @@ dele; Ícaro esconde o livro no cesto (animação `esconder_livro`).
 
 Ao colher o 5º pé, o motor marca `prologo.colheita_completa`. Falar com a Dona Zefa na balança
 com essa flag dispara `prologo_06_colheita_fim` (sem a flag, dispara `prologo_04_zefa`).
+Na pesagem, uma dica avisa que **trabalho pesado fortalece a Força** e que haverá campos de
+treino adiante; no livro escondido, que **estudar fortalece a Magia** (prévias, sem loja e sem
+números no prólogo).
 
 **Opcionais (recompensam curiosidade, plantam história):**
 - **O cesto de Ícaro** (`prologo_05_livro`): o livro da biblioteca, atrasado há quatro meses;
@@ -84,8 +142,8 @@ Tonho se separa para buscar a irmã (a casa dele é fora da vila). A despedida �
 **Diálogos:** `prologo_08_vila_entrada`, `prologo_09_visto`, `prologo_10_praca`,
 `prologo_11_custodia`, e os examináveis `prologo_exame_*`.
 
-**Imagem.** A vila que o jogador ainda não conhecia aparece já queimando — por isso a panorâmica
-nomeia os lugares pelo afeto ("a padaria, a venda, a rua do chafariz"). O fogo é **preto com
+**Imagem.** A mesma vila da manhã, queimando. A panorâmica nomeia os lugares que o jogador
+acabou de visitar ("a padaria, a venda, a rua do chafariz"). O fogo é **preto com
 borda roxa** e "não ilumina nada": a luz da cena vem do céu e de brasas comuns.
 
 **Primeiro Caligosuin.** Porco de pé, manto, presas enormes — e espirra na própria bandeira.
@@ -226,11 +284,34 @@ flag `prologo.concluido`, autosave.
 
 ---
 
+## Salvamento no prólogo
+
+O jogador pode **salvar a qualquer momento pelo menu** (fora de cutscene). Além disso, o roteiro
+prevê **autosave** nestes pontos, para ninguém perder mais que um minuto:
+
+| Momento | Onde |
+|---|---|
+| Depois do café com o pai | Cena 0 |
+| Ao sair da vila para o cafezal | Cena 0 → 1 |
+| Ao completar a colheita | Cena 1 |
+| Ao entrar na estrada e ao entrar na vila em chamas | Cenas 2 e 3 |
+| Em cada checkpoint da furtividade (entrada, praça, beco) | Cena 3 |
+| Na soleira da casa, **antes** da sequência do pai | Cena 4 (a sequência 12→13→14 não é interrompida) |
+| Ao entrar no túnel e ao chegar ao bambuzal | Cenas 5 e 6 |
+| No cartão de título | fim |
+
+Se o jogador fechar a página no meio da cena do pai, retoma do autosave da soleira.
+
+---
+
 ## Flags do prólogo
 
 | Flag | Quando é marcada | Marcada por |
 |---|---|---|
-| `prologo.abertura_vista` | fim da abertura | diálogo 01 |
+| `prologo.acordou`, `prologo.cafe_com_pai` | manhã em casa | diálogos 00, 00b |
+| `prologo.visitou_custodia`, `prologo.visitou_juca`, `prologo.visitou_biblioteca` | opcionais da manhã | diálogos `prologo_viz_*` |
+| `prologo.saiu_da_vila` | portão da vila | diálogo 00d |
+| `prologo.abertura_vista` | começo do cafezal | diálogo 01 |
 | `prologo.colheita_iniciada` | Tonho explica a tarefa | diálogo 02 |
 | `prologo.colheu_primeiro` | primeiro pé colhido | diálogo 03 |
 | `prologo.colheita_completa` | 5º pé colhido | **motor** (contador) |
@@ -245,7 +326,9 @@ flag `prologo.concluido`, autosave.
 | `prologo.tunel_iniciado`, `prologo.achou_brinquedo` | túnel | diálogos 15, 15b |
 | `prologo.concluido` | fim | diálogo 16 |
 
-Flags opcionais que o resto do jogo lê: `prologo.leu_livro` (Lucian comenta o livro atrasado),
+Flags opcionais que o resto do jogo lê: `prologo.visitou_biblioteca` (o cartão de empréstimo na
+Fortaleza Fuligem ganha uma fala a mais), `prologo.visitou_juca` (ele guarda "o sonho que
+sobrou" na capital), `prologo.leu_livro` (a bibliotecária da capital comenta o livro atrasado),
 `prologo.falou_custodia` (ela agradece na capital e dá um item), `prologo.achou_brinquedo`
 (fala extra na cena final da colina).
 

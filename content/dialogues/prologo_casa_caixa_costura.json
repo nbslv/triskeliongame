@@ -1,0 +1,10 @@
+{
+  "id": "prologo_casa_caixa_costura",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Na prateleira mais alta, uma caixinha de costura de madeira, com uma flor entalhada na tampa."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Era da mãe. O pai tira o pó dela todo domingo e não deixa ninguém encostar.)"},
+    {"type": "say", "speaker": "pai", "portrait": "pai_ranzinza", "text": "Tira a mão daí."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "(Ele nem virou a cabeça. Como ele sabe?)"},
+    {"type": "end"}
+  ]
+}
