@@ -104,15 +104,21 @@ const pos = async () => { const s = await state(); return { ...s.player, tx: Mat
 async function irParaTile(t, { correr = false, parar = () => false } = {}) {
   const cx = t.x * 16 + 8, cy = t.y * 16 + 12;
   let guarda = 0;
+  let travado = 0;
+  let ult = null;
   for (;;) {
     const p = await pos();
+    if (ult && Math.hypot(p.x - ult.x, p.y - ult.y) < 0.8) travado++; else travado = 0;
+    ult = { x: p.x, y: p.y };
     if (p.s.cutscene || p.s.caught || p.s.map !== currentMap) { if (process.env.DEPURAR) console.log('  [int]', p.s.cutscene, p.s.caught, p.s.map, currentMap); return 'interrompido'; }
     const dx = cx - p.x, dy = cy - p.y;
     if (Math.abs(dx) <= 2.5 && Math.abs(dy) <= 5) return 'ok';
     if (Math.abs(dx) > 40 || Math.abs(dy) > 40) { await wait(700); const q = await pos(); if (Math.abs(cx - q.x) > 40 || Math.abs(cy - q.y) > 40) { if (process.env.DEPURAR) console.log('  [salto]', cx, cy, q.x, q.y); return 'interrompido'; } continue; } // teleporte (porta/zona)
     if (parar(p)) return 'parou';
     if (guarda++ > 120) { if (process.env.DEPURAR) console.log('  [preso]', t, p.x, p.y); return 'preso'; }
-    const horiz = Math.abs(dx) > 2.5 && (Math.abs(dx) >= Math.abs(dy) || Math.abs(dy) <= 5);
+    let horiz = Math.abs(dx) > 2.5 && (Math.abs(dx) >= Math.abs(dy) || Math.abs(dy) <= 5);
+    if (travado > 0 && Math.abs(dx) > 2.5 && Math.abs(dy) > 1) horiz = travado % 2 === 0; // encostou em quina: alterna o eixo
+    else if (travado > 0 && Math.abs(dy) > 1 && Math.abs(dx) <= 2.5) horiz = false;
     const k = horiz ? SETAS[`${Math.sign(dx)},0`] : SETAS[`0,${Math.sign(dy)}`];
     if (correr) await page.keyboard.down('x');
     await press(k, Math.max(40, Math.min(260, (horiz ? Math.abs(dx) : Math.abs(dy)) * (correr ? 7 : 11))));
