@@ -73,7 +73,13 @@ export class TitleScene extends Phaser.Scene {
       items.unshift({ label: 'Retomar de onde parou', action: () => startFromSave(this, resume) });
       makeText(this, GAME_WIDTH / 2, 188, `${mapDisplayName(resume.position.map)} · ${formatDate(resume.savedAt)}`, 16, COLORS.textDim).setOrigin(0.5);
     }
-    this.menu = new MenuList(this, GAME_WIDTH / 2 - 80, resume ? 206 : 200, items, { size: 22, spacing: 27 });
+    // Painel translúcido atrás do menu, para o texto não sumir sobre o pôr do sol da arte.
+    const menuY = resume ? 206 : 200;
+    this.add
+      .graphics()
+      .fillStyle(0x0b0a12, 0.55)
+      .fillRoundedRect(GAME_WIDTH / 2 - 112, menuY - 8, 224, items.length * 27 + 12, 6);
+    this.menu = new MenuList(this, GAME_WIDTH / 2 - 80, menuY, items, { size: 22, spacing: 27 });
     if (resume) this.menu.index = 0;
     else if (hasSave) this.menu.index = 1;
     this.menu.update(0);

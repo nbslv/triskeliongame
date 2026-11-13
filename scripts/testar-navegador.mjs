@@ -132,6 +132,17 @@ if (SENHA && (await page.$('.senha-form'))) {
   await wait(1000);
 }
 check((await activeScenes()).includes('Titulo'), 'chegou ao título');
+{
+  const r = await page.evaluate(async () => {
+    const t = window.__TRISKELION__.scene.getScene('Titulo');
+    const keys = t.children.list.filter((o) => o.type === 'Image').map((o) => o.texture.key);
+    const man = await fetch('manifest.webmanifest').then((x) => x.json()).catch(() => null);
+    const icon = await fetch('icons/icone_192.png').then((x) => x.ok && x.headers.get('content-type')?.includes('png')).catch(() => false);
+    return { keys, orientation: man?.orientation, icons: man?.icons?.length ?? 0, icon };
+  });
+  check(r.keys.includes('titulo_fundo') && r.keys.includes('simbolo_triskelion'), `título usa a arte final (${r.keys.join(', ')})`);
+  check(r.orientation === 'landscape' && r.icons >= 2 && r.icon, 'manifest de PWA (paisagem) e ícones servidos');
+}
 await page.screenshot({ path: `${OUT}/01-titulo.png` });
 
 // Novo jogo (toque direto no item)
@@ -380,6 +391,27 @@ await goMap('teste', 'inicio');
   await wait(300);
   await page.screenshot({ path: `${OUT}/12-poses-emotes.png` });
   await evalWorld("w.cutDespawn('cali_1'); w.cutDespawn('toucim'); w.cutAnim('icaro', 'normal');");
+}
+
+// Músicas: carregadas sob demanda, com laço do manifesto (tema_lenda toca uma vez)
+{
+  const r = await page.evaluate(async () => {
+    const a = window.__TRISKELION_AUDIO__;
+    const waitSrc = async () => {
+      for (let i = 0; i < 50 && !a.current?.source; i++) await new Promise((res) => setTimeout(res, 100));
+      return a.current?.source;
+    };
+    a.playMusic('tema_casa', 50);
+    const casa = await waitSrc();
+    const casaInfo = casa ? { loop: casa.loop, loopEnd: Math.round(casa.loopEnd) } : null;
+    a.playMusic('tema_lenda', 50);
+    const lenda = await waitSrc();
+    const lendaLoop = lenda ? lenda.loop : null;
+    a.playMusic(null, 50);
+    return { casaInfo, lendaLoop };
+  });
+  check(r.casaInfo?.loop === true && r.casaInfo?.loopEnd === 48, `música em laço com loopEnd do manifesto (${JSON.stringify(r.casaInfo)})`);
+  check(r.lendaLoop === false, 'tema_lenda toca uma vez só (sem laço)');
 }
 
 // Salvar manualmente pelo menu (espaço 1)
