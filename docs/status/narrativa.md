@@ -68,17 +68,17 @@ Branch: `claude/triskelion-narrativa`, com o merge do branch de coordenação at
 - O GDD pede vários sistemas além de batalha (5 minijogos de treino, cozinhar, pescar,
   acampamento, caixas de correio). A ordem de implementação é decisão da coordenação.
 
-## 4. Pendências para o autor
+## 4. Respostas do autor nesta conversa (13/11/2026)
 
-Todas as 19 perguntas anteriores e a origem de Celly estão resolvidas. Restam três pontos
-pequenos, nenhum bloqueia o prólogo:
+- **Fala do pai sobre o colchão:** o autor achou pouco natural. Trocada por *"Sabia. Quase toda
+  noite você dormia em cima de um. Eu apagava a vela e te cobria."* em
+  `prologo_12_pai_confissao` (e na cópia de testes), `10` e `02`.
+- **Nomes dos NPCs e lugares menores:** aprovados (lugares da província, Escola de Cura de
+  Pratamar, Mestra Serena, NPCs de `06` e `07`).
+- **Treinos e minijogos, conversas de fogueira e acampamento:** aprovados como descritos em
+  `05` (seções 7 e 8) e `07`.
 
-1. **Uma fala na cena do pai.** Deixei *"Quem você acha que vira o colchão nesta casa?"* — é a
-   prova de que o pai sempre soube dos livros, dita com ternura. Está dentro da vila destruída;
-   se o autor considerar humor, troco por uma versão sem graça nenhuma.
-2. **Nomes menores que criei e ninguém aprovou:** os lugares da província (Morro do Clarão,
-   Ribeirão Dourado, Serra da Alvorada), a **Escola de Cura de Pratamar** e a Mestra Serena, a
-   **Casa da Rosa-Primeira** já aprovada com a tia-avó Anciã Dália, e os NPCs de `06` e `07`.
-3. **Tamanho do que o GDD promete:** treinos, cozinha, pesca, acampamento decorável e pós-jogo
-   somam muito trabalho de motor. Vale o autor dizer o que é essencial para a primeira versão
-   completa e o que pode ficar para depois.
+## 5. Pendências para o autor
+
+1. **Cozinha, pesca e pós-jogo (reconstruir Valesol):** não foram comentados. Seguem no GDD;
+   falta o autor dizer se entram na primeira versão completa ou ficam para depois.

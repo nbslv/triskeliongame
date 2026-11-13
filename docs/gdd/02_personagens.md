@@ -189,7 +189,7 @@ palha velho. No jogo aparece ferido, sob a viga — fuligem e cansaço, sem sang
 **Jeito de falar.** Curto, rude, com ditado de roça. Chama o filho de "menino". Na despedida,
 fala mais do que em dezoito anos.
 - "Mago é coisa de quem nasceu em casa de dois andares."
-- "Quem você acha que vira o colchão nesta casa?"
+- "Quase toda noite você dormia em cima de um. Eu apagava a vela e te cobria."
 - "Vai viver, Ícaro."
 
 **Em batalha.** Não luta. **Papel:** o coração do prólogo; a promessa que move o jogo.
