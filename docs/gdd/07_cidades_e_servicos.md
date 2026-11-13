@@ -36,7 +36,8 @@ Detalhe completo, com todos os textos já em JSON: `10_prologo_roteiro.md` (Cena
 | **Biblioteca** | Prévia de treino de magia | Dona Ermelinda; biografia de Aurelius com três espirais; a ficha "Aurora" |
 | **Cafezal** | Prévia de treino de força | A colheita do tutorial |
 
-Sem loja e sem números no prólogo (só prévias). No pós-jogo, cada casa reconstruída reabre.
+Sem loja e sem números no prólogo (só prévias). No pós-jogo (primordial), a vila é reconstruída
+em 6 etapas e cada casa reabre com moradores e falas novas — ver `03_fases.md`, seção 6.
 
 ---
 

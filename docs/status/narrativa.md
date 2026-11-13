@@ -78,7 +78,10 @@ Branch: `claude/triskelion-narrativa`, com o merge do branch de coordenação at
 - **Treinos e minijogos, conversas de fogueira e acampamento:** aprovados como descritos em
   `05` (seções 7 e 8) e `07`.
 
-- **Cozinha, pesca e pós-jogo (reconstruir Valesol):** entram na primeira versão completa.
+- **Cozinha e pesca:** entram, mas **opcionais e lúdicas**, para ver a interação dos
+  personagens; nada no jogo exige comida feita em casa ou peixe (`05` seção 8; `03`).
+- **Pós-jogo (reconstruir Valesol):** **primordial**. Detalhado em 6 etapas, 2–3 h, sem
+  batalhas, até a Festa da Colheita e a escola de magia de Valesol (`03` seção 6; `01`; `07`).
 
 ## 5. Pendências para o autor
 

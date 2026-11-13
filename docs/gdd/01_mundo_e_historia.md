@@ -175,7 +175,9 @@ volta a ser o príncipe **Silvério Augusto de Argêntia**.
 - Todos são reconhecidos como heróis. Celly é recebida em Brumaflor como heroína, e descobre-se
   que era da nobreza feérica. O monge volta para assumir o trono e enfrentar a desigualdade do
   seu reino. A faculdade abre as portas a quem não pode pagar.
-- **Pós-jogo:** a reconstrução de **Valesol**.
+- **Pós-jogo (primordial, decisão do autor):** a reconstrução de **Valesol**, a vila do sol,
+  em 6 etapas, até a Festa da Colheita e a escola de magia para filhos de peões (ver
+  `03_fases.md`, seção 6).
 - **Cena final:** Ícaro e Valéria, de mãos dadas, visitam os túmulos dos pais dele no topo da
   **Colina do Mar** — onde o pai viu a mãe pela primeira vez e onde os dois se declararam.
 
