@@ -33,7 +33,8 @@ Detalhe completo, com todos os textos já em JSON: `10_prologo_roteiro.md` (Cena
 | **Casa de Ícaro** | Casa principal | Uma peça só, terreiro nos fundos. Colchão com livros escondidos, retrato a carvão, **caixinha de costura da mãe**, cadeira de balanço em que ninguém senta, pote "TELHADO", enxada com dois nomes, alçapão do túnel. Morador: o pai |
 | **Casa da Dona Custódia** | Casa extra | Galinha Pamonha, retrato do finado Zé, barril de melado, crochê para galinha. Gancho: o pai parado em frente à biblioteca |
 | **Padaria do Seu Juca** | Casa extra / comércio | Forno que nunca apagou, receita borrada, desenho "ICARO MAGO". Gancho: a luz da torre piscou |
-| **Biblioteca** | Prévia de treino de magia | Dona Ermelinda; biografia de Aurelius com três espirais; a ficha "Aurora" |
+| **Biblioteca** | Prévia de treino de magia | Gratuita, mas livros de magia só para matriculados na Faculdade (ordem da capital). Dona Ermelinda empresta sem ficha; o Volume 2, encomendado para o filho do dono das terras; biografia de Aurelius com três espirais; a ficha "Aurora" |
+| **Casas trancadas** | Casas extras (só fachada) | Laudelina, Orlando, Quim e Quitéria, Lindalva, Rosário; Empório Prado (vitrine de livros caros) e o armazém de café dos Prado — lista em `11_prologo_marcadores.md` |
 | **Cafezal** | Prévia de treino de força | A colheita do tutorial |
 
 Sem loja e sem números no prólogo (só prévias). No pós-jogo (primordial), a vila é reconstruída

@@ -61,7 +61,9 @@ cuidado."*
 | Alçapão do terreiro | `prologo_casa_alcapao` | O túnel do rego seco: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
 
 **A vila de manhã** (`prologo_vila_manha`: o mesmo desenho de `prologo_vila`, inteiro e com
-sol). Três portas abertas, todas opcionais:
+sol). Três portas abertas, todas opcionais. As outras casas estão **trancadas**, cada uma com
+dono e um detalhe de uma linha (`prologo_trancada_*`, lista em `11_prologo_marcadores.md`), e os
+moradores na rua usam as falas padrão (`padrao_*`, ver `docs/status/narrativa.md`).
 
 - **Casa da Dona Custódia** (`prologo_viz_custodia` + retrato, barril, crochê): dá os Ovos da
   Pamonha; conta que viu o pai **parado em frente à biblioteca, sem entrar**; apresenta o barril
@@ -69,10 +71,26 @@ sol). Três portas abertas, todas opcionais:
 - **Padaria do Seu Juca** (`prologo_viz_juca` + forno, receita, desenho): dá o Pão de Ontem;
   fofoca do mundo — **a luz da torre da capital "piscou"** semana passada; o desenho da Nina,
   "ICARO MAGO".
-- **Biblioteca** (`prologo_viz_biblioteca` + estante, fichário): Dona Ermelinda cobra o livro de
-  quatro meses e promete "esquecer" o Volume 2 no balcão. Na estante, a biografia de Aurelius
-  com **três espirais rabiscadas** na margem. No fundo do fichário, uma ficha antiga:
-  **"Aurora"**.
+- **Biblioteca** (`prologo_viz_biblioteca` + estante, fichário). Reescrita depois do teste do
+  autor, para ficar claro e ligado ao tema da desigualdade:
+  - a biblioteca de Valesol é **gratuita**; mas, por **ordem da Faculdade da capital**, livros de
+    **magia** só podem ser emprestados a **alunos matriculados** — e a matrícula custa 3.000
+    cobres;
+  - Dona Ermelinda burla a regra por carinho: empresta a Ícaro **sem anotar na ficha** ("Eu não
+    empresto nada. Eu esqueço livros em cima do balcão.");
+  - o **Volume 2** chegou encomendado para o **Rodrigo**, filho do **Seu Otaviano Prado**, dono do
+    cafezal, que estuda na capital e só chega nas férias. Ela vai "esquecer" o livro no balcão ao
+    fechar, para Ícaro ler à noite e devolver antes que deem falta;
+  - Ícaro diz em palavras simples o que está acontecendo: *"Ler aqui é de graça. Mas ler magia é
+    só pra quem pode pagar a faculdade."* e *"O filho do dono do cafezal ganha o livro novo de
+    presente. Eu leio emprestado, escondido, à luz de vela. Mas eu leio."*;
+  - na estante, a biografia de Aurelius com **três espirais rabiscadas**; no fichário, a ficha de
+    Ícaro sem nenhum livro de magia e, no fundo, a ficha antiga de **"Aurora"**, de antes da ordem
+    da capital, só com livros de magia ("E naquele tempo ela podia.").
+  - Naquela noite a biblioteca queima com o Volume 2 dentro (fala de exame `prologo_exame_biblioteca`).
+- **Vitrine do Empório Prado** (`prologo_emporio_vitrine`, examinável na fachada; a loja está
+  fechada): livros de magia da capital a 450 e 600 cobres. Ícaro: *"Aqui o livro de magia está à
+  venda pra quem pode pagar. Na biblioteca, a capital proíbe. Pra gente, sobra o vidro."*
 
 **Saída.** No portão da vila, `prologo_00d_saida_vila` pergunta se o jogador quer ir para o
 cafezal (aviso gentil de que a manhã acaba). Corte narrado: "O dia passou como passam os dias de
@@ -106,7 +124,8 @@ treino adiante; no livro escondido, que **estudar fortalece a Magia** (prévias,
 números no prólogo).
 
 **Opcionais (recompensam curiosidade, plantam história):**
-- **O cesto de Ícaro** (`prologo_05_livro`): o livro da biblioteca, atrasado há quatro meses;
+- **O cesto de Ícaro** (`prologo_05_livro`): o livro emprestado sem ficha, com o carimbo
+  "RESERVADO. Somente para alunos matriculados";
   o capítulo de **"Alento"** — *"requer calma, respiração firme e mãos quentes"* — que é
   exatamente o que vai faltar na Cena 4; e a matrícula de 3.000 cobres contra os 12 de Ícaro.
 - **Dona Zefa** (`prologo_04_zefa`): o pai teimoso com dor nas costas; a mãe "com o nariz numa
@@ -319,7 +338,7 @@ Se o jogador fechar a página no meio da cena do pai, retoma do autosave da sole
 | Flag | Quando é marcada | Marcada por |
 |---|---|---|
 | `prologo.acordou`, `prologo.cafe_com_pai` | manhã em casa | diálogos 00, 00b |
-| `prologo.visitou_custodia`, `prologo.visitou_juca`, `prologo.visitou_biblioteca` | opcionais da manhã | diálogos `prologo_viz_*` |
+| `prologo.visitou_custodia`, `prologo.visitou_juca`, `prologo.visitou_biblioteca`, `prologo.volume2_combinado`, `prologo.viu_vitrine` | opcionais da manhã | diálogos `prologo_viz_*`, `prologo_emporio_vitrine` |
 | `prologo.saiu_da_vila` | portão da vila | diálogo 00d |
 | `prologo.abertura_vista` | começo do cafezal | diálogo 01 |
 | `prologo.colheita_iniciada` | Tonho explica a tarefa | diálogo 02 |
@@ -361,3 +380,9 @@ Tudo segue o contrato de `docs/COORDENACAO.md`. Onde o contrato não detalha cam
 | **`title`** (tipo novo, proposto) | `text`, `subtitle` — cartão de título no fim do prólogo. |
 
 Limite de texto: nenhuma fala passa de 130 caracteres.
+
+## Retratos: regra usada (revisão pós-teste)
+
+- Retrato só quando a fala tem emoção clara e o retrato bate com ela.
+- Narrador e pensamentos de exame sem emoção clara ficam **sem retrato** (só o texto).
+- Expressões disponíveis: ver `12_prologo_lista_assets.md`, seção 3.

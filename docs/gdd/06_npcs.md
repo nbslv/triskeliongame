@@ -52,7 +52,7 @@ Falas completas em `content/dialogues/prologo_*.json`.
 | NPC | Onde | O que diz / faz |
 |---|---|---|
 | **Diretor Eusébio Pergaminho** | Gabinete | "Sem matrícula, sem biblioteca." (A matrícula custa 3.000 cobres.) No Ato 3: a confissão. |
-| **Dona Clotilde, a bibliotecária** | Biblioteca | Deixa Ícaro ler escondido "porque o regulamento não proíbe olhar". Se `prologo.leu_livro`: "O senhor tem um livro de Valesol há quatro meses? Colega minha. Era brava." **Missão: "Devolução atrasada"** — recuperar 5 livros espalhados pelo mundo (o último, na Fortaleza Fuligem). Recompensa: magia *Flecha de Luz* antecipada e, no fim, o cartão de sócio. |
+| **Dona Clotilde, a bibliotecária** | Biblioteca | Na capital a regra é a mesma: magia só para matriculados. Ela deixa Ícaro "olhar" os livros, "porque o regulamento proíbe emprestar, não proíbe olhar". Se `prologo.visitou_biblioteca`: "Ermelinda de Valesol? Esquecia livros em cima do balcão a vida inteira. Colega minha." **Missão: "Devolução atrasada"** — recuperar 5 livros espalhados pelo mundo (o último, o Volume 2, na Fortaleza Fuligem). Recompensa: magia *Flecha de Luz* antecipada e, no fim, o cartão de sócio. |
 | **Otávio e Pérola** | Pátio | Alunos ricos. Começam esnobes ("colhedor de quê?"); depois do Cap. 1, sem graça; no Ato 3, lutam na muralha. |
 | **Zelador Fausto** | Escadaria da torre | Conheceu o cajado "antes de ele dar trabalho". Dica: "Ele brilha mais quando o senhor tá calmo. Igual planta." |
 | **Anciã Honorata** | Sala do Conselho | Conta a lenda da Pedra de Triskelion. |
