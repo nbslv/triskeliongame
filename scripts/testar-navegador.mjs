@@ -150,7 +150,12 @@ await page.evaluate(() => localStorage.removeItem('triskelion.save.auto'));
 await tap(300, 214);
 await wait(1500);
 let s = await state();
-check(s && s.map === 'teste', 'novo jogo abriu o mapa de teste');
+check(s && !!s.map, `novo jogo abriu o mapa inicial (${s?.map})`);
+// O jogo começa no prólogo; este teste usa os mapas de teste do motor.
+await waitCutsceneEnd(80);
+await goMap('teste', 'inicio');
+s = await state();
+check(s.map === 'teste', 'foi para o mapa de teste');
 
 // Porta da casa trancada até falar com o aldeão (locked_if)
 s = await walkTo(136, 140, 6000);
@@ -360,6 +365,42 @@ await goMap('teste_arte', 'inicio');
   await teleport(18 * 16 + 8, 7 * 16 + 15, 'up');
   await wait(300);
   await page.screenshot({ path: `${OUT}/11-tilesets-arte.png` });
+}
+
+// NPC sem diálogo (fala padrão por tipo/período) e portas de casas sem interior
+await goMap('teste', 'inicio');
+{
+  const dlgText = () => page.evaluate(() => { const d = window.__TRISKELION__.scene.getScene('Dialogo'); return { text: d.full, name: d.boxRect().name }; });
+  await teleport(3 * 16 + 8 + 14, 12 * 16 + 15, 'left');
+  await wait(100);
+  await tapA();
+  await wait(1200);
+  let t = await dlgText();
+  check(t.name === 'Galinha de Teste' && /tarde/.test(t.text), `NPC sem dialogue usa padrao_<tipo> com período (${t.name}: ${t.text})`);
+  await waitCutsceneEnd();
+  await teleport(11 * 16 + 8, 8 * 16 + 15, 'up');
+  await wait(100);
+  await tapA();
+  await wait(1200);
+  t = await dlgText();
+  check(t.text === 'A casa de Seu Teste está trancada.', `porta trancada com {dono} (${t.text})`);
+  await waitCutsceneEnd();
+  await teleport(4 * 16 + 8, 8 * 16 + 15, 'up');
+  await wait(100);
+  await tapA();
+  await wait(1000);
+  t = await dlgText();
+  check(/texto vindo do mapa/.test(t.text), 'porta trancada com trancada_texto do mapa');
+  await waitCutsceneEnd();
+  await goMap('teste2', 'entrada_oeste');
+  await teleport(4 * 16 + 8, 5 * 16 + 14, 'up');
+  await wait(100);
+  await tapA();
+  await wait(1200);
+  t = await dlgText();
+  check(/Boa noite/.test(t.text), `variante por período (noite): ${t.text}`);
+  await waitCutsceneEnd();
+  await goMap('teste', 'inicio');
 }
 
 // Arte: poses (anim), sprites especiais e emotes por ícone

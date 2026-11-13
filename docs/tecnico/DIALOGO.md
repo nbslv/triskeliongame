@@ -63,6 +63,20 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `activity` | `id`, `params?` | Abre uma atividade registrada (loja, treino, minijogo); o resultado vai para flags/save. |
 | `light` | `radius`, `ms?` (600) | Raio do círculo de luz em mapas escuros (0 = breu). |
 
+### Variáveis no texto
+
+`{chave}` no `text` de `say` (e nas opções de `choice`) é trocado por: variáveis do contexto — `{nome}` (nome
+do NPC com quem se fala), `{dono}` (porta trancada) — ou pelo valor de uma flag (`{periodo}`, `{prologo.tentativas}`).
+Chave desconhecida fica como está. `speaker: "self"` = o NPC com quem se fala.
+
+### Segurança das cutscenes
+
+- Nenhum passo espera por áudio: `sfx` e `music` nunca bloqueiam (mesmo com o áudio do navegador travado).
+- Passos com duração (`wait`, `fade`, `shake`, `camera`, `emote`, `move`, `light`, troca de mapa) têm limite de
+  tempo: se algo travar (cena reiniciada, aba oculta), o roteiro segue e um aviso aparece no console.
+- Se um roteiro termina com a tela escura (`fade` black sem `clear`) e nenhuma outra cutscene começa, o motor
+  clareia a tela sozinho (e avisa no console) — o jogador nunca fica explorando no escuro.
+
 ### Falantes especiais
 
 - `speaker: "narrador"` — caixa sem nome nem retrato, em tom acinzentado.

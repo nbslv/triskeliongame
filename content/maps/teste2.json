@@ -11,7 +11,7 @@
  "infinite": false,
  "compressionlevel": -1,
  "nextlayerid": 5,
- "nextobjectid": 9,
+ "nextobjectid": 10,
  "properties": [
   {
    "name": "nome",
@@ -22,6 +22,11 @@
    "name": "music",
    "type": "string",
    "value": "teste_clareira"
+  },
+  {
+   "name": "periodo",
+   "type": "string",
+   "value": "noite"
   }
  ],
  "tilesets": [
@@ -957,7 +962,26 @@
    "visible": true,
    "objects": [
     {
-     "id": 3,
+     "id": 1,
+     "rotation": 0,
+     "visible": true,
+     "width": 0,
+     "height": 0,
+     "name": "galinha_noite",
+     "type": "npc",
+     "point": true,
+     "x": 72,
+     "y": 79,
+     "properties": [
+      {
+       "name": "tipo",
+       "type": "string",
+       "value": "teste"
+      }
+     ]
+    },
+    {
+     "id": 4,
      "rotation": 0,
      "visible": true,
      "width": 16,
@@ -985,7 +1009,7 @@
      ]
     },
     {
-     "id": 4,
+     "id": 5,
      "rotation": 0,
      "visible": true,
      "width": 16,
@@ -1013,7 +1037,7 @@
      ]
     },
     {
-     "id": 5,
+     "id": 6,
      "rotation": 0,
      "visible": true,
      "width": 0,
@@ -1037,7 +1061,7 @@
      ]
     },
     {
-     "id": 6,
+     "id": 7,
      "rotation": 0,
      "visible": true,
      "width": 0,
@@ -1066,7 +1090,7 @@
      ]
     },
     {
-     "id": 7,
+     "id": 8,
      "rotation": 0,
      "visible": true,
      "width": 16,
@@ -1106,7 +1130,7 @@
    "visible": true,
    "objects": [
     {
-     "id": 1,
+     "id": 2,
      "name": "entrada_oeste",
      "type": "",
      "point": true,
@@ -1118,7 +1142,7 @@
      "visible": true
     },
     {
-     "id": 2,
+     "id": 3,
      "name": "centro",
      "type": "",
      "point": true,
@@ -1130,7 +1154,7 @@
      "visible": true
     },
     {
-     "id": 8,
+     "id": 9,
      "name": "saida_tunel_volta",
      "type": "",
      "point": true,
