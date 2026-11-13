@@ -396,16 +396,16 @@ async function furtividade() {
       ultimoPos = { x: p.x, y: p.y };
       if (alvos.some(([x, y]) => x === p.tx && y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
       const v = await vivo();
-      const estados = sim.simular(v.ps, 12, Math.max(2, Math.ceil(porPasso / 0.0625)));
       const xs = [p.tx, ...alvos.map((a) => a[0])], ys = [p.ty, ...alvos.map((a) => a[1])];
       const caixa = [Math.min(...xs) - 4, Math.min(...ys) - 4, Math.max(...xs) + 4, Math.max(...ys) + 4];
+      const pt = Math.max(2, Math.ceil(porPasso / 0.0625));
       const t0 = Date.now();
-      let plano = sim.resolver(estados, [p.tx, p.ty], alvos, 5, 0.1, caixa) ?? sim.resolver(estados, [p.tx, p.ty], alvos, 0, 0, caixa);
-      if (process.env.DEPURAR && passos % 20 === 0) log(`  plano ${Date.now() - t0} ms, ${plano ? plano.length : 'nenhum'} passos`);
-      if (!plano) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
-      const prox = plano[0];
-      if (!prox) break;
-      if (prox[0] === p.tx && prox[1] === p.ty) { esperas++; await esperarJogo(120); continue; }
+      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 6, am: 0.12, caixa }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 0, am: 0, caixa });
+      if (process.env.DEPURAR && passos % 20 === 0) log(`  plano ${Date.now() - t0} ms: ${JSON.stringify(acao)}`);
+      if (!acao) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
+      if (acao.chegou) break;
+      if (acao.ficar) { esperas++; await esperarJogo(60); continue; }
+      const prox = acao.mover;
       const ta = await agora();
       await irParaTile({ x: prox[0], y: prox[1] }, { correr: true });
       porPasso = 0.7 * porPasso + 0.3 * Math.max(0.125, ((await agora()) - ta) / 1000);

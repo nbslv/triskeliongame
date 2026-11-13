@@ -93,5 +93,60 @@ export function criarSimulador({ W, H, bloq, escondido }) {
     }
     return null;
   }
-  return { simular, visto, resolver, PASSO_S: PASSO * DT };
+  /**
+   * Busca "fina" em ticks de 62,5 ms: andar um tile leva `passoTicks` ticks e o destino (e a origem) precisam estar fora
+   * de qualquer cone em TODOS os ticks do trajeto; ficar parado leva 1 tick. Retorna a primeira ação: {mover:[x,y]} | {ficar:true} | null.
+   */
+  function planejar(vivos, de, alvos, { passoTicks = 3, horizonte = 12, rm = 0, am = 0, caixa = null } = {}) {
+    const est = simular(vivos, horizonte, 1);
+    const N = est.length;
+    const alvoSet = new Set(alvos.map(([x, y]) => `${x},${y}`));
+    if (alvoSet.has(`${de[0]},${de[1]}`)) return { chegou: true };
+    const memo = new Map();
+    const seguro = (t, x, y) => {
+      const k = `${t}:${x},${y}`;
+      let r = memo.get(k);
+      if (r === undefined) { r = !visto(est[t], x, y, rm, am); memo.set(k, r); }
+      return r;
+    };
+    const camadas = Array.from({ length: N + passoTicks + 1 }, () => new Map());
+    camadas[0].set(`${de[0]},${de[1]}`, null);
+    for (let t = 0; t < N - 1; t++) {
+      for (const [k] of camadas[t]) {
+        const [x, y] = k.split(',').map(Number);
+        // ficar
+        if (seguro(t + 1, x, y)) { const nk = k; if (!camadas[t + 1].has(nk)) camadas[t + 1].set(nk, { de: k, t, mover: null }); }
+        // mover
+        if (t + passoTicks < N) {
+          for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            const nx = x + dx, ny = y + dy;
+            if (nx < 0 || ny < 0 || nx >= W || ny >= H || bloq[ny * W + nx]) continue;
+            if (caixa && (nx < caixa[0] || nx > caixa[2] || ny < caixa[1] || ny > caixa[3])) continue;
+            let ok = true;
+            for (let j = 1; j <= passoTicks && ok; j++) ok = seguro(t + j, nx, ny) && (j > passoTicks / 2 || seguro(t + j, x, y));
+            const nk = `${nx},${ny}`;
+            if (ok && !camadas[t + passoTicks].has(nk)) camadas[t + passoTicks].set(nk, { de: k, t, mover: [nx, ny] });
+          }
+        }
+      }
+      for (const [k] of camadas[t + 1]) {
+        if (alvoSet.has(k)) {
+          // reconstrói até a primeira ação
+          let cur = k, tt = t + 1, ultima = null;
+          for (;;) {
+            const reg = camadas[tt].get(cur);
+            if (!reg) break;
+            ultima = reg;
+            if (reg.t === 0 && reg.de === `${de[0]},${de[1]}`) break;
+            cur = reg.de; tt = reg.t;
+          }
+          if (!ultima) return null;
+          return ultima.mover ? { mover: ultima.mover } : { ficar: true };
+        }
+      }
+      for (const [k] of camadas[t + passoTicks]) if (alvoSet.has(k) && t + passoTicks < N) { /* alcançado no futuro; tratado quando chegar a vez */ }
+    }
+    return null;
+  }
+  return { simular, visto, resolver, planejar, PASSO_S: PASSO * DT };
 }
