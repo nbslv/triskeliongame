@@ -1,0 +1,22 @@
+{
+  "id": "padrao_crianca",
+  "description": "Falas padrão de criança (sem saudação por período).",
+  "steps": [
+    {"type": "flag", "add": "padrao.crianca.vez"},
+    {"type": "if", "cond": "padrao.crianca.vez > 4", "then": [{"type": "flag", "set": "padrao.crianca.vez", "value": 1}]},
+    {"type": "if", "cond": "padrao.crianca.vez == 2", "goto": "v2"},
+    {"type": "if", "cond": "padrao.crianca.vez == 3", "goto": "v3"},
+    {"type": "if", "cond": "padrao.crianca.vez == 4", "goto": "v4"},
+    {"type": "say", "speaker": "crianca", "text": "Ícaro! Faz aquela luzinha com a mão? Só uma! Juro que não conto!"},
+    {"type": "end"},
+    {"type": "label", "name": "v2"},
+    {"type": "say", "speaker": "crianca", "text": "Eu vou ser mago também. Ou padeiro. Ou galinha. Ainda não decidi."},
+    {"type": "end"},
+    {"type": "label", "name": "v3"},
+    {"type": "say", "speaker": "crianca", "text": "Tá vendo aquela nuvem? É um porco. Não, peraí. É um dragão comendo um porco."},
+    {"type": "end"},
+    {"type": "label", "name": "v4"},
+    {"type": "say", "speaker": "crianca", "text": "Pega-pega! Você tá com ele! ...Ei, não vale andar devagar!"},
+    {"type": "end"}
+  ]
+}

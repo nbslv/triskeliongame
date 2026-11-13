@@ -1,0 +1,22 @@
+{
+  "id": "padrao_caligosuin",
+  "description": "Opcional, só para a vila em chamas: resmungos de patrulha que Ícaro ouve escondido (ambiente). Caligosuins não conversam com o jogador.",
+  "steps": [
+    {"type": "flag", "add": "padrao.caligosuin.vez"},
+    {"type": "if", "cond": "padrao.caligosuin.vez > 4", "then": [{"type": "flag", "set": "padrao.caligosuin.vez", "value": 1}]},
+    {"type": "if", "cond": "padrao.caligosuin.vez == 2", "goto": "v2"},
+    {"type": "if", "cond": "padrao.caligosuin.vez == 3", "goto": "v3"},
+    {"type": "if", "cond": "padrao.caligosuin.vez == 4", "goto": "v4"},
+    {"type": "say", "speaker": "cali_soldado", "text": "Oinc. Que cheiro bom de café. Será que o capitão divide?"},
+    {"type": "end"},
+    {"type": "label", "name": "v2"},
+    {"type": "say", "speaker": "cali_soldado", "text": "Ronda, ronda, ronda... Ninguém nunca me manda ficar sentado."},
+    {"type": "end"},
+    {"type": "label", "name": "v3"},
+    {"type": "say", "speaker": "cali_soldado", "text": "Se eu achar um livro, ganho folga. Se eu achar dois, ganho folga e jantar."},
+    {"type": "end"},
+    {"type": "label", "name": "v4"},
+    {"type": "say", "speaker": "cali_soldado", "text": "Será que fogo preto queima sopa? ...Melhor não testar no meu turno."},
+    {"type": "end"}
+  ]
+}
