@@ -15,6 +15,7 @@ import { bus } from '../core/events';
 import { evaluateCondition, flags } from '../core/flags';
 import { input } from '../core/input';
 import { session } from '../core/session';
+import { currentPeriod, setPeriod } from '../core/period';
 import { SPRITE_ALIASES, characterName, characterSprite, gameConfig, maps, setRuntimeName } from '../content';
 import { director, resolveScript } from '../systems/dialogue/director';
 import { runActivity } from '../systems/activity/registry';
@@ -142,9 +143,11 @@ export class WorldScene extends Phaser.Scene {
     }
     this.mapId = data.map;
     this.mapData = raw as TiledMap;
-    // Período do dia do mapa (manha/tarde/noite): vira a flag `periodo` (falas padrão e condições usam).
+    // Período do dia (contrato da narrativa): a propriedade de mapa `periodo` (manha/tarde/noite) deixa
+    // exatamente uma das flags periodo.manha / periodo.tarde / periodo.noite ligada. Sem a propriedade,
+    // o período anterior continua (interiores herdam o de fora).
     const periodo = str(props(this.mapData).periodo ?? props(this.mapData).period);
-    if (periodo) flags.set('periodo', periodo);
+    if (periodo) setPeriod(periodo);
     this.buildTilemap();
     this.collectAnimatedTiles();
     this.buildObjects();
@@ -579,12 +582,12 @@ export class WorldScene extends Phaser.Scene {
       // Todo NPC é interagível: sem `dialogue`, usa a fala padrão do tipo (content/dialogues/padrao_<tipo>.json).
       const dlg =
         this.dialogueFor(best.p) ??
-        defaultNpcDialogueId(str(best.p.tipo ?? best.p.kind), best.actor.textureKey, str(flags.get('periodo')), (id) => !!resolveScript(id));
+        defaultNpcDialogueId(str(best.p.tipo ?? best.p.kind), best.actor.textureKey, currentPeriod(), (id) => !!resolveScript(id));
       this.player.walk(0, 0);
       best.actor.faceToward(this.player.x, this.player.y);
       this.player.faceToward(best.actor.x, best.actor.y);
       if (dlg) {
-        void director.run(dlg, { self: best.actor.id, vars: { nome: characterName(best.actor.id) } });
+        void director.run(dlg, { self: best.actor.id, vars: { nome: characterName(best.actor.id), periodo: currentPeriod() ?? '' } });
       } else {
         void best.actor.emote('...', 700); // sem fala escrita ainda
       }

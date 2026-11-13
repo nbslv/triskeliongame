@@ -135,6 +135,46 @@ Nenhuma bloqueante. Observações para as outras frentes:
   a narrativa pode reescrever. Arquivos `padrao_<tipo>.json` do prólogo (aldeao, galinha, soldado...) ficam com a narrativa.
 - Teste de navegador geral: agora vai do prólogo para os mapas de teste (o jogo começa no prólogo); 50 verificações OK.
 
+## Ciclo 7 — aviso de tela escura e contrato das falas padrão
+
+### Qual roteiro termina escuro
+
+O aviso `[cutscene] roteiro terminou com a tela escura; clareando` vem de **`prologo_16_sobreviventes`**: ele faz
+`fade black` → narração → `title` → `wait` → `end`, sem `fade clear` nem troca de cena. **Não é bug do motor**:
+o roteiro deixa o jogador explorando o bambuzal no escuro. A rede de segurança clareia a tela.
+**Para a narrativa decidir**, uma das duas no fim do roteiro:
+- `{"type": "fade", "to": "clear", "ms": 800}` antes do `end` (o jogador continua no bambuzal), ou
+- `{"type": "scene", "scene": "Titulo"}` (volta ao título depois do "Fim do Prólogo").
+
+Os outros roteiros que terminam escuros são intencionais e corretos, porque o próximo mapa clareia com o seu gatilho `load`:
+- `prologo_00d` → `prologo_01_abertura`;
+- `prologo_06` → `prologo_07_estrada`;
+- `prologo_14` → `prologo_15_tunel_inicio`.
+
+### Falas padrão — contrato da narrativa (docs/status/narrativa.md §5), implementado
+
+- **Período**: propriedade de mapa `periodo` = `manha` | `tarde` | `noite`. Ao entrar no mapa, o motor deixa **exatamente
+  uma** das flags `periodo.manha`/`periodo.tarde`/`periodo.noite` ligada. Mapa sem `periodo` herda o anterior
+  (interiores herdam o de fora). Valor inválido é erro no `npm test` e aviso no jogo.
+- **Rodízio** (`padrao.<tipo>.vez`): fica dentro dos roteiros da narrativa, e o motor não interfere.
+- **Ligação NPC → fala**: `dialogue: "padrao_<tipo>"` (como a narrativa pede) **ou** só `tipo: "<tipo>"`, e o motor procura
+  `padrao_<tipo>_<periodo>` → `padrao_<tipo>` → `padrao_pessoa…`. NPC sem nada mostra só "...".
+
+### O que os mapas devem usar (sessão de mapas)
+
+| Mapa | `periodo` |
+|---|---|
+| `prologo_casa_icaro`, `prologo_vila_manha` | `manha` |
+| `prologo_cafezal`, `prologo_estrada` | `tarde` |
+| `prologo_vila`, `prologo_tunel`, `prologo_bambuzal` | `noite` |
+| `prologo_casa_custodia`, `prologo_padaria`, `prologo_biblioteca` | sem `periodo` (herdam `manha`) ou `manha` |
+
+- Moradores e figurantes: `npc` com `dialogue: "padrao_aldeao"` (ou `aldea`, `crianca`, `idoso`, `galinha`, `soldado`,
+  `sobrevivente`); no bambuzal só `soldado` e `sobrevivente`. `caligosuin` só como resmungo de ambiente.
+  Opcional: `nome` (nome na caixa; senão vem de characters.json pelo `speaker` do roteiro).
+- Portas de casas sem interior: objeto `porta_trancada` sobre a porta com `dialogue: "prologo_trancada_<dono>"` (os
+  roteiros da narrativa), ou `dono: "Fulano"` para o texto genérico `padrao_porta_trancada`, ou `trancada_texto`.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai

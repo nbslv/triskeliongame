@@ -111,8 +111,9 @@ português também: `dialogo`, `rota`, `velocidade`, `visao`, `angulo`, `espera`
 - `tipo` = propriedade `tipo` do NPC (ex.: `galinha`, `aldeao`, `crianca`, `soldado`); sem ela, o nome do sprite
   sem número no fim (`aldeao_2` → `aldeao`).
 - `nome` (opcional) = nome exibido na caixa de diálogo (ex.: "Seu Bento"); nas falas, `{nome}` e `speaker: "self"`.
-- **Período do dia**: propriedade de mapa `periodo` (`manha`, `tarde`, `noite`). Vira a flag `periodo` ao entrar no
-  mapa (use em `if`/`cond`, ex.: `periodo == noite`, ou `{periodo}` no texto) e escolhe a variante da fala padrão.
+- **Período do dia**: propriedade de mapa `periodo` (`manha`, `tarde`, `noite`). Ao entrar no mapa, deixa exatamente uma
+  das flags `periodo.manha` / `periodo.tarde` / `periodo.noite` ligada (use em `if`/`cond`, ex.: `cond: "periodo.noite"`).
+  Mapa sem `periodo` herda o anterior. Também escolhe a variante `padrao_<tipo>_<periodo>` e preenche `{periodo}`.
 
 ## Portas de casas sem interior
 

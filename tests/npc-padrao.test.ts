@@ -27,3 +27,20 @@ describe('porta trancada', () => {
     expect(objectKind(obj({ properties: [{ name: 'trancada_texto', value: 'x' }] }))).toBe('locked');
   });
 });
+
+import { flags } from '../src/core/flags';
+import { currentPeriod, setPeriod } from '../src/core/period';
+
+describe('período do dia (flags periodo.*)', () => {
+  it('mantém exatamente uma flag ligada', () => {
+    flags.reset();
+    setPeriod('manha');
+    expect(currentPeriod()).toBe('manha');
+    setPeriod('noite');
+    expect(flags.isSet('periodo.noite')).toBe(true);
+    expect(flags.has('periodo.manha')).toBe(false);
+    expect(flags.has('periodo.tarde')).toBe(false);
+    setPeriod('madrugada'); // inválido: ignora
+    expect(currentPeriod()).toBe('noite');
+  });
+});

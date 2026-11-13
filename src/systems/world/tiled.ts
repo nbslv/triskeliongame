@@ -194,6 +194,11 @@ export function validateMap(id: string, map: TiledMap, knownMaps: ReadonlySet<st
       }
     }
   }
+  const mp = props(map);
+  const per = mp.periodo ?? mp.period;
+  if (per !== undefined && !['manha', 'tarde', 'noite'].includes(String(per))) {
+    errs.push(`${id}: propriedade de mapa periodo="${String(per)}" inválida (manha, tarde ou noite)`);
+  }
   const markerNames = new Set<string>();
   const routeNames = new Set<string>();
   const objs = allObjects(map);
