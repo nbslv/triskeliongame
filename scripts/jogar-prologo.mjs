@@ -399,13 +399,14 @@ async function furtividade() {
   for (const nome of metas) {
     const alvos = zonaTiles(nome);
     let sem = 0;
-    for (let passos = 0; passos < 900; passos++) {
+    let esperas = 0;
+    for (let passos = 0; passos < 3000; passos++) {
       const s = await state();
       if (s.map !== id) return 'saiu-do-mapa';
       if (s.cutscene) { await avancar(); continue; }
       if (s.caught) { capturas++; await wait(1500); await avancar(10); continue; }
       const p = await pos();
-      if (alvos.some((a) => a.x === p.tx && a.y === p.ty)) break;
+      if (alvos.some((a) => a.x === p.tx && a.y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
       const path = bfs(id, { x: p.tx, y: p.ty }, alvos);
       if (!path || !path.length) { sem++; if (sem > 5) return `sem caminho até ${nome}`; await wait(200); continue; }
       const prox = path[0];
@@ -414,6 +415,7 @@ async function furtividade() {
         // seguro: anda; se já estou em perigo, avançar (ou recuar para o esconderijo) é melhor que ficar parado
         await irParaTile(prox, { correr: true });
       } else {
+        esperas++; if (esperas % 100 === 0) log(`  esperando em (${p.tx},${p.ty}) rumo a ${nome}: ${esperas} esperas`);
         await wait(60); // espera a patrulha passar (não anda)
       }
     }
