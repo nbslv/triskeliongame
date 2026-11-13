@@ -12,7 +12,7 @@ function vila(noite) {
   const id = noite ? 'prologo_vila' : 'prologo_vila_manha';
   const m = new Mapa(id, W, H, noite ? [E, I, F] : [E], {
     nome: noite ? 'Valesol em chamas' : 'Valesol',
-    music: noite ? 'tema_vila_em_chamas' : 'tema_vila',
+    music: noite ? 'tema_vila_em_chamas' : 'tema_casa',
   });
   const r = rng(noite ? 77 : 77); // mesma semente: mesma planta
   const N = (a, b) => (noite ? b : a); // escolhe o tile de dia ou de noite
