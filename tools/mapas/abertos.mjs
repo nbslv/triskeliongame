@@ -12,7 +12,7 @@ const sorteio = (r, nomes) => () => nomes[Math.floor(r() * nomes.length)];
 // ------------------------------------------------------------------ cafezal
 export function cafezal() {
   const E = E_TARDE;
-  const m = new Mapa('prologo_cafezal', 50, 30, [E, PAN], { nome: 'Cafezal de Valesol', music: 'tema_cafezal' });
+  const m = new Mapa('prologo_cafezal', 50, 30, [E, PAN], { nome: 'Cafezal de Valesol', music: 'tema_cafezal', periodo: 'tarde' });
   const r = rng(101);
   m.encher('chao', 0, 0, 50, 30, E, sorteio(r, ['grama_1', 'grama_1', 'grama_2', 'grama_3', 'grama_flores_1']));
 
@@ -111,7 +111,7 @@ export function cafezal() {
 // ------------------------------------------------------------------ estrada
 export function estrada() {
   const E = E_TARDE;
-  const m = new Mapa('prologo_estrada', 60, 14, [E, PAN], { nome: 'Estrada de Valesol', music: 'tema_tensao' });
+  const m = new Mapa('prologo_estrada', 60, 14, [E, PAN], { nome: 'Estrada de Valesol', music: 'tema_tensao', periodo: 'tarde' });
   const r = rng(202);
   m.encher('chao', 0, 0, 60, 14, E, sorteio(r, ['grama_1', 'grama_1', 'grama_2', 'grama_3', 'grama_flores_2']));
   for (const x of [0, 20, 40]) m.bloco('chao', x, 0, PAN, 'pan_ceu_tarde');
@@ -149,7 +149,7 @@ export function estrada() {
 
 // ------------------------------------------------------------------ túnel
 export function tunel() {
-  const m = new Mapa('prologo_tunel', 40, 12, [TUN], { nome: 'O rego seco', music: 'tema_tunel', escuro: true, luz_raio: 56 });
+  const m = new Mapa('prologo_tunel', 40, 12, [TUN], { nome: 'O rego seco', music: 'tema_tunel', periodo: 'noite', escuro: true, luz_raio: 56 });
   const r = rng(303);
   const W = 40;
   const H = 12;
@@ -203,7 +203,7 @@ export function tunel() {
 // ------------------------------------------------------------------ bambuzal
 export function bambuzal() {
   const E = E_NOITE;
-  const m = new Mapa('prologo_bambuzal', 40, 24, [E, PAN], { nome: 'Bambuzal', music: 'tema_noite_esperanca' });
+  const m = new Mapa('prologo_bambuzal', 40, 24, [E, PAN], { nome: 'Bambuzal', music: 'tema_noite_esperanca', periodo: 'noite' });
   const r = rng(404);
   m.encher('chao', 0, 0, 40, 24, E, sorteio(r, ['folhas_1', 'folhas_1', 'folhas_2', 'grama_1']));
   // mirante: a capital ao longe
@@ -246,16 +246,16 @@ export function bambuzal() {
   m.marcador('marcador_bambuzal_nina_frente', 8, 16);
   m.marcador('marcador_bambuzal_vista_capital', 20, 7);
   // personagens (ids estáveis do roteiro)
-  m.npc('soldado_1', 11, 12, { facing: 'down' });
+  m.npc('soldado_1', 11, 12, { facing: 'down', dialogue: 'padrao_soldado' });
   m.npc('sargento', 17, 11, { facing: 'left' });
   m.npc('custodia', 15, 18, { facing: 'right' });
   m.npc('tonho', 22, 18, { facing: 'left' });
   m.npc('nina', 23, 18, { facing: 'left' });
-  m.npc('sobrevivente_1', 19, 14, { facing: 'right' });
-  m.npc('sobrevivente_2', 24, 13, { facing: 'left' });
-  m.npc('figurante_1', 26, 16, { facing: 'left' });
-  m.npc('figurante_2', 17, 15, { facing: 'right' });
-  m.npc('figurante_3', 29, 14, { facing: 'down' });
+  m.npc('sobrevivente_1', 19, 14, { facing: 'right', dialogue: 'padrao_sobrevivente' });
+  m.npc('sobrevivente_2', 24, 13, { facing: 'left', dialogue: 'padrao_sobrevivente' });
+  m.npc('figurante_1', 26, 16, { facing: 'left', dialogue: 'padrao_sobrevivente', sprite: 'sobrevivente_1' });
+  m.npc('figurante_2', 17, 15, { facing: 'right', dialogue: 'padrao_sobrevivente', sprite: 'sobrevivente_2' });
+  m.npc('figurante_3', 29, 14, { facing: 'down', dialogue: 'padrao_sobrevivente', sprite: 'sobrevivente_1' });
   m.zona('gatilho_bambuzal', 'gatilho', 4, 14, 1, 1, { dialogue: 'prologo_16_sobreviventes', activation: 'load' });
   return m;
 }
