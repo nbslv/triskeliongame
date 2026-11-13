@@ -64,11 +64,11 @@ const SETAS = { '1,0': 'ArrowRight', '-1,0': 'ArrowLeft', '0,1': 'ArrowDown', '0
 const tapA = () => page.keyboard.press('Enter');
 
 async function avancar(max = 120) {
-  for (let i = 0; i < max; i++) {
+  // avança falas até o jogo ficar "calmo" (sem roteiro por ~1,2 s): cenas longas têm pausas entre os passos
+  let calmo = 0;
+  for (let i = 0; i < max * 4; i++) {
     const s = await state().catch(() => null);
-    if (s && !s.cutscene) return true;
-    await page.mouse.click(422, 200);
-    await page.keyboard.press('Enter');
+    if (s && !s.cutscene) { if (++calmo >= 5) return true; } else { calmo = 0; await page.mouse.click(422, 200); await page.keyboard.press('Enter'); }
     await wait(200);
   }
   return false;
@@ -329,6 +329,13 @@ async function furtividade() {
     for (let y = Math.floor(o.y / 16); y < Math.ceil((o.y + o.height) / 16); y++) for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) r.push({ x, y });
     return r;
   };
+  if (SEM_FURT) {
+    const z = obj(id, 'gatilho_casa');
+    const alvos = [];
+    for (let x = Math.floor(z.x / 16); x < Math.ceil((z.x + z.width) / 16); x++) alvos.push({ x, y: Math.floor(z.y / 16) });
+    for (let k = 0; k < 4; k++) { const r = await andarPara(id, alvos, { correr: true }); if (r === 'interrompido') { const q = await state(); if (q.cutscene) { await avancar(); } } if ((await state()).cutscene || (await state()).map !== id) break; }
+    return 'direto (sem cones)';
+  }
   const rota = [
     'esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca',
     'esconderijo_carroca_praca', 'esconderijo_sacas_praca', 'checkpoint_beco',
