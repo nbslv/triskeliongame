@@ -246,16 +246,16 @@ export function bambuzal() {
   m.marcador('marcador_bambuzal_nina_frente', 8, 16);
   m.marcador('marcador_bambuzal_vista_capital', 20, 7);
   // personagens (ids estáveis do roteiro)
-  m.npc('soldado_1', 11, 12, { facing: 'down', dialogue: 'padrao_soldado' });
+  m.npc('soldado_1', 11, 12, { facing: 'down', tipo: 'soldado' });
   m.npc('sargento', 17, 11, { facing: 'left' });
   m.npc('custodia', 15, 18, { facing: 'right' });
   m.npc('tonho', 22, 18, { facing: 'left' });
   m.npc('nina', 23, 18, { facing: 'left' });
-  m.npc('sobrevivente_1', 19, 14, { facing: 'right', dialogue: 'padrao_sobrevivente' });
-  m.npc('sobrevivente_2', 24, 13, { facing: 'left', dialogue: 'padrao_sobrevivente' });
-  m.npc('figurante_1', 26, 16, { facing: 'left', dialogue: 'padrao_sobrevivente', sprite: 'sobrevivente_1' });
-  m.npc('figurante_2', 17, 15, { facing: 'right', dialogue: 'padrao_sobrevivente', sprite: 'sobrevivente_2' });
-  m.npc('figurante_3', 29, 14, { facing: 'down', dialogue: 'padrao_sobrevivente', sprite: 'sobrevivente_1' });
+  m.npc('sobrevivente_1', 19, 14, { facing: 'right', tipo: 'sobrevivente' });
+  m.npc('sobrevivente_2', 24, 13, { facing: 'left', tipo: 'sobrevivente' });
+  m.npc('figurante_1', 26, 16, { facing: 'left', tipo: 'sobrevivente', sprite: 'sobrevivente_1' });
+  m.npc('figurante_2', 17, 15, { facing: 'right', tipo: 'sobrevivente', sprite: 'sobrevivente_2' });
+  m.npc('figurante_3', 29, 14, { facing: 'down', tipo: 'sobrevivente', sprite: 'sobrevivente_1' });
   m.zona('gatilho_bambuzal', 'gatilho', 4, 14, 1, 1, { dialogue: 'prologo_16_sobreviventes', activation: 'load' });
   return m;
 }

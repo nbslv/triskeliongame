@@ -299,6 +299,7 @@ check((await state()).map === 'prologo_cafezal', 'foi para o cafezal');
 currentMap = 'prologo_cafezal';
 await avancar();
 await shot('05-cafezal');
+check((await flag('prologo.abertura_vista')) === true, 'cafezal: flag abertura_vista (cena de abertura rodou)');
 await interagir('prologo_cafezal', 'tonho'); await avancar();
 for (let i = 1; i <= 5; i++) {
   const r = await interagir('prologo_cafezal', `pe_cafe_maduro_${i}`);

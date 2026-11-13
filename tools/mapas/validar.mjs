@@ -166,7 +166,7 @@ export function validar() {
     const W = M.m.width;
     const ok = (x, y) => vis.some((v) => x >= 0 && y >= 0 && x < W && y < M.m.height && v[y * W + x]);
     for (const x of M.objs) {
-      if (!['saida', 'gatilho', 'checkpoint', 'examinar', 'npc', 'esconderijo'].includes(x.t)) continue;
+      if (!['saida', 'gatilho', 'checkpoint', 'examinar', 'npc', 'esconderijo', 'porta_trancada'].includes(x.t)) continue;
       if (x.t === 'gatilho' && x.p.activation === 'load') continue;
       // portas/gatilhos/checkpoints: pisar; npc/examinar: ficar ao lado (folga 1)
       const folga = x.t === 'npc' || x.t === 'examinar' ? 1 : 0;

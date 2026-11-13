@@ -283,16 +283,17 @@ function vila(noite) {
     m.marcador('marcador_vila_manha_portao', 65, 11);
     m.zona('gatilho_portao_vila', 'gatilho', 64, 10, 2, 3, { dialogue: 'prologo_00d_saida_vila', once: false });
     // figurantes (sem fala obrigatória)
-    // moradores e galinhas com a fala padrão por tipo (rodízio e saudação por período do dia)
-    for (const [n, x, y, f, tipo, spr] of [['morador_1', 46, 9, 'down', 'aldeao', 'aldeao'], ['morador_2', 38, 15, 'left', 'aldea', 'aldea'], ['morador_3', 28, 13, 'right', 'idoso', 'aldeao_2'], ['morador_4', 17, 36, 'up', 'aldeao', 'aldeao_2']]) m.npc(n, x, y, { facing: f, sprite: spr, dialogue: `padrao_${tipo}` });
-    for (const [n, x, y] of [['galinha_1', 52, 15], ['galinha_2', 38, 14], ['galinha_3', 30, 34]]) m.npc(n, x, y, { facing: 'down', sprite: 'galinha', dialogue: 'padrao_galinha' });
-    // casas sem interior: examinar na frente da porta (repetível) + vitrine do Empório Prado
-    for (const [n, x, y, w, d] of [
-      ['trancada_laudelina', 28, 8, 1, 'prologo_trancada_laudelina'], ['trancada_orlando', 43, 8, 1, 'prologo_trancada_orlando'],
-      ['trancada_quim_quiteria', 51, 8, 1, 'prologo_trancada_quim_quiteria'], ['trancada_emporio', 59, 8, 1, 'prologo_trancada_emporio'],
-      ['emporio_vitrine', 58, 8, 1, 'prologo_emporio_vitrine'], ['trancada_lindalva', 49, 19, 1, 'prologo_trancada_lindalva'],
-      ['trancada_armazem', 58, 21, 2, 'prologo_trancada_armazem'], ['trancada_rosario', 40, 32, 1, 'prologo_trancada_rosario'],
-    ]) m.examinar(n, x, y, { dialogue: d, once: false }, w, 1);
+    // moradores e galinhas: `tipo` escolhe a fala padrão (padrao_<tipo>[_<periodo>]), sem `dialogue` próprio
+    for (const [n, x, y, f, tipo, spr] of [['morador_1', 46, 9, 'down', 'aldeao', 'aldeao'], ['morador_2', 38, 15, 'left', 'aldea', 'aldea'], ['morador_3', 28, 13, 'right', 'idoso', 'aldeao_2'], ['morador_4', 17, 36, 'up', 'aldeao', 'aldeao_2']]) m.npc(n, x, y, { facing: f, sprite: spr, tipo });
+    for (const [n, x, y] of [['galinha_1', 52, 15], ['galinha_2', 38, 14], ['galinha_3', 30, 34]]) m.npc(n, x, y, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
+    // casas sem interior: `porta_trancada` sobre a porta (toque/A), textos da narrativa; vitrine do Empório como examinar
+    for (const [n, x, y, w, h, d, dono] of [
+      ['trancada_laudelina', 28, 7, 1, 2, 'prologo_trancada_laudelina', 'Dona Laudelina'], ['trancada_orlando', 43, 7, 1, 2, 'prologo_trancada_orlando', 'Seu Orlando'],
+      ['trancada_quim_quiteria', 51, 7, 1, 2, 'prologo_trancada_quim_quiteria', 'Seu Quim e Dona Quitéria'], ['trancada_emporio', 59, 7, 1, 2, 'prologo_trancada_emporio', 'Empório Prado'],
+      ['trancada_lindalva', 49, 18, 1, 2, 'prologo_trancada_lindalva', 'Dona Lindalva'], ['trancada_armazem', 58, 20, 2, 2, 'prologo_trancada_armazem', 'Seu Otaviano Prado'],
+      ['trancada_rosario', 40, 31, 1, 2, 'prologo_trancada_rosario', 'Dona Rosário'],
+    ]) m.zona(n, 'porta_trancada', x, y, w, h, { dialogue: d, dono });
+    m.examinar('emporio_vitrine', 58, 8, { dialogue: 'prologo_emporio_vitrine', once: false }, 1, 1);
     m.marcador('marcador_vila_manha_inicio', 10, 36);
   } else {
     // ---------------------------------------------------------------- noite: gatilhos, examináveis, furtividade
