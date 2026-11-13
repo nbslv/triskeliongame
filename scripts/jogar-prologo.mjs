@@ -6,6 +6,7 @@
 import { createRequire } from 'node:module';
 import { mkdirSync, readFileSync } from 'node:fs';
 
+import { criarSimulador } from '../tools/mapas/simulador.mjs';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const URL = process.argv[2] ?? 'http://localhost:4173/';
@@ -51,9 +52,10 @@ function mapa(id) {
     if (p.name === 'hide' && p.value) hide.add(ts.firstgid + t.id);
   })));
   const bloq = new Uint8Array(m.width * m.height);
-  m.layers.filter((l) => l.type === 'tilelayer').forEach((l) => l.data.forEach((g, i) => { if (col.has(g)) bloq[i] = 1; }));
+  const ocultos = new Uint8Array(m.width * m.height);
+  m.layers.filter((l) => l.type === 'tilelayer').forEach((l) => l.data.forEach((g, i) => { if (col.has(g)) bloq[i] = 1; if (hide.has(g)) ocultos[i] = 1; }));
   const objs = m.layers.filter((l) => l.type === 'objectgroup').flatMap((l) => l.objects.map((o) => ({ ...o, camada: l.name, p: Object.fromEntries((o.properties ?? []).map((q) => [q.name, q.value])) })));
-  const r = { m, bloq, objs, W: m.width, H: m.height };
+  const r = { m, bloq, ocultos, objs, W: m.width, H: m.height };
   cacheMapa.set(id, r);
   return r;
 }
@@ -211,6 +213,12 @@ await page.keyboard.press('Enter');
 await wait(1500);
 const wallStart = Date.now();
 
+const START = process.env.START ?? '';
+if (START === 'vila') {
+  await avancar();
+  await world("w.changeMap('prologo_vila', 'marcador_vila_entrada')");
+  await wait(2500);
+} else {
 // ---- Cena 0: casa de Ícaro
 currentMap = 'prologo_casa_icaro';
 check((await state()).map === 'prologo_casa_icaro', 'começa na casa de Ícaro');
@@ -302,6 +310,7 @@ await entrarNaZona('prologo_estrada', 'saida_estrada_vila');
 await wait(1500);
 check((await state()).map === 'prologo_vila', 'estrada → vila em chamas');
 
+}
 // ---- Cena 3: vila em chamas (furtividade)
 currentMap = 'prologo_vila';
 await avancar();
@@ -343,81 +352,56 @@ process.exit(falhas ? 1 : 0);
 
 // ---------------------------------------------------------------- furtividade (3 trechos)
 async function furtividade() {
-  // Robô "reativo": a cada tile confere as regras REAIS do motor (cone, alcance, linha de visão, esconderijos)
-  // sobre as posições atuais e as previstas dos inimigos, com margem; só dá o passo se estiver seguro.
-  // Não usa tempo fixo: depende só do estado lido do jogo, então vale para qualquer velocidade de máquina.
+  // Robô de furtividade com horizonte deslizante: a cada passo lê o ESTADO REAL das patrulhas (posição, direção,
+  // alvo, pausas e relógio do jogo), simula as regras do motor (tools/mapas/simulador.mjs), procura um caminho
+  // sem ser visto até o próximo esconderijo e dá só o primeiro passo. Esperas medidas no relógio do jogo,
+  // não em milissegundos reais: por isso funciona igual em máquinas rápidas e lentas.
   currentMap = 'prologo_vila';
   const id = 'prologo_vila';
   const M = mapa(id);
+  const zonaTiles = (nome) => { const o = obj(id, nome); const r = []; for (let y = Math.floor(o.y / 16); y < Math.ceil((o.y + o.height) / 16); y++) for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) r.push([x, y]); return r; };
   if (SEM_FURT) {
-    const z = obj(id, 'gatilho_casa');
-    const alvos = [];
-    for (let x = Math.floor(z.x / 16); x < Math.ceil((z.x + z.width) / 16); x++) alvos.push({ x, y: Math.floor(z.y / 16) });
+    const alvos = zonaTiles('gatilho_casa').map(([x, y]) => ({ x, y })).filter((t) => t.y === zonaTiles('gatilho_casa')[0][1]);
     for (let k = 0; k < 4; k++) { const r = await andarPara(id, alvos, { correr: true }); if (r === 'interrompido') { const q = await state(); if (q.cutscene) { await avancar(); } } if ((await state()).cutscene || (await state()).map !== id) break; }
     return 'direto (sem cones)';
   }
   const hideRects = M.objs.filter((o) => o.type === 'esconderijo');
-  const tileEscondido = (tx, ty) => hideRects.some((o) => tx >= Math.floor(o.x / 16) && tx < Math.ceil((o.x + o.width) / 16) && ty >= Math.floor(o.y / 16) && ty < Math.ceil((o.y + o.height) / 16));
-  const cfg = Object.fromEntries(M.objs.filter((o) => o.type === 'inimigo').map((o) => [o.name, { range: o.p.vision ?? 80, ang: o.p.angle ?? 70, speed: o.p.speed ?? 40 }]));
-  const DIRA = { right: 0, down: Math.PI / 2, left: Math.PI, up: -Math.PI / 2 };
-  const bloqPx = (x, y) => x < 0 || y < 0 || x >= M.W * 16 || y >= M.H * 16 || M.bloq[Math.floor(y / 16) * M.W + Math.floor(x / 16)] === 1;
-  const ve = (e, px, py, margem) => {
-    const c = cfg[e.id];
-    const ex = e.x, ey = e.y - 6;
-    const dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy);
-    if (d > c.range + margem) return false;
-    if (d < 1) return true;
-    const a = Math.atan2(dy, dx);
-    let df = (a - DIRA[e.facing]) % (Math.PI * 2);
-    if (df > Math.PI) df -= Math.PI * 2; if (df < -Math.PI) df += Math.PI * 2;
-    if (Math.abs(df) > (c.ang * Math.PI) / 360 + (margem ? 0.22 : 0)) return false;
-    for (let s = 4; s < d; s += 4) if (bloqPx(ex + Math.cos(a) * s, ey + Math.sin(a) * s)) return false;
-    return true;
-  };
-  const DV = { right: [1, 0], left: [-1, 0], down: [0, 1], up: [0, -1] };
-  /** Perigo no tile (tx,ty) com os inimigos agora e daqui a ~0,35 s (andando na direção em que olham). */
-  const perigo = (s, tx, ty, margem = 14) => {
-    if (tileEscondido(tx, ty)) return false;
-    const px = tx * 16 + 8, py = ty * 16 + 14;
-    for (const e of s.enemies) {
-      for (const t of [0, 0.35]) {
-        const v = DV[e.facing];
-        const ee = { ...e, x: e.x + v[0] * cfg[e.id].speed * t, y: e.y + v[1] * cfg[e.id].speed * t };
-        if (Math.hypot(px - ee.x, py - ee.y) < 20) return true;
-        if (ve(ee, px, py - 8, margem) || ve(ee, px, py - 2, margem)) return true;
-      }
-    }
-    return false;
-  };
-  const zonaTiles = (nome) => { const o = obj(id, nome); const r = []; for (let y = Math.floor(o.y / 16); y < Math.ceil((o.y + o.height) / 16); y++) for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) r.push({ x, y }); return r; };
+  const escondido = (tx, ty) => M.ocultos[ty * M.W + tx] === 1 || hideRects.some((o) => tx >= Math.floor(o.x / 16) && tx < Math.ceil((o.x + o.width) / 16) && ty >= Math.floor(o.y / 16) && ty < Math.ceil((o.y + o.height) / 16));
+  const sim = criarSimulador({ W: M.W, H: M.H, bloq: M.bloq, escondido });
+  const vivo = () => world(`const now = w.time.now; return { now, ps: w.patrols.map((p) => ({ x: p.actor.x, y: p.actor.y, facing: p.actor.facing, target: p.target, dir: p.dirSign,
+      waitLeft: Math.max(0, (p.waitUntil - now) / 1000), turnLeft: Math.max(0, (p.nextTurn - now) / 1000),
+      rota: p.cfg.route.map((r) => ({ x: r.x, y: r.y })), mode: p.cfg.mode, speed: p.cfg.speed, wait: p.cfg.waitMs / 1000,
+      range: p.cfg.range, ang: p.cfg.angleDeg, turn: p.cfg.turnMs / 1000 })) };`);
+  const agora = () => world('return w.time.now');
+  const esperarJogo = async (ms) => { const t0 = await agora(); for (let i = 0; i < 400; i++) { if ((await agora()) - t0 >= ms) return; await wait(10); } };
   let capturas = 0;
+  let ultimoPos = null;
   const metas = [
-    ['esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca'],
-    ['esconderijo_carroca_praca', 'esconderijo_sacas_praca', 'checkpoint_beco'],
-    ['esconderijo_barril_custodia', 'esconderijo_sacas_c1', 'esconderijo_carroca_c', 'esconderijo_sacas_c2', 'gatilho_casa'],
-  ].flat();
+    'esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca',
+    'esconderijo_carroca_praca', 'esconderijo_sacas_praca', 'checkpoint_beco',
+    'esconderijo_barril_custodia', 'esconderijo_sacas_c1', 'esconderijo_carroca_c', 'esconderijo_sacas_c2', 'gatilho_casa',
+  ];
   for (const nome of metas) {
     const alvos = zonaTiles(nome);
     let sem = 0;
     let esperas = 0;
-    for (let passos = 0; passos < 3000; passos++) {
+    for (let passos = 0; passos < 6000; passos++) {
       const s = await state();
       if (s.map !== id) return 'saiu-do-mapa';
       if (s.cutscene) { await avancar(); continue; }
-      if (s.caught) { capturas++; await wait(1500); await avancar(10); continue; }
+      if (s.caught) { await wait(1500); await avancar(10); continue; }
       const p = await pos();
-      if (alvos.some((a) => a.x === p.tx && a.y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
-      const path = bfs(id, { x: p.tx, y: p.ty }, alvos);
-      if (!path || !path.length) { sem++; if (sem > 5) return `sem caminho até ${nome}`; await wait(200); continue; }
-      const prox = path[0];
-      const seguro = !perigo(s, prox.x, prox.y);
-      if (seguro || perigo(s, p.tx, p.ty, 0)) {
-        // seguro: anda; se já estou em perigo, avançar (ou recuar para o esconderijo) é melhor que ficar parado
-        await irParaTile(prox, { correr: true });
-      } else {
-        esperas++; if (esperas % 100 === 0) log(`  esperando em (${p.tx},${p.ty}) rumo a ${nome}: ${esperas} esperas`);
-        await wait(60); // espera a patrulha passar (não anda)
-      }
+      if (ultimoPos && Math.hypot(p.x - ultimoPos.x, p.y - ultimoPos.y) > 80) { capturas++; log(`  furtividade: fui visto (${capturas}) — voltei ao checkpoint`); }
+      ultimoPos = { x: p.x, y: p.y };
+      if (alvos.some(([x, y]) => x === p.tx && y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
+      const v = await vivo();
+      const estados = sim.simular(v.ps, 14);
+      let plano = sim.resolver(estados, [p.tx, p.ty], alvos, 5, 0.1) ?? sim.resolver(estados, [p.tx, p.ty], alvos, 0, 0);
+      if (!plano) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
+      const prox = plano[0];
+      if (!prox) break;
+      if (prox[0] === p.tx && prox[1] === p.ty) { esperas++; await esperarJogo(120); continue; }
+      await irParaTile({ x: prox[0], y: prox[1] }, { correr: true });
     }
   }
   return `${capturas} captura(s)`;
