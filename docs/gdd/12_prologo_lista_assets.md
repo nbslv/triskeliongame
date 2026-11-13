@@ -58,6 +58,17 @@ Paletas dos personagens principais: ver `02_personagens.md`.
 
 Total: 29 retratos.
 
+**Pedidos pós-teste (ainda não existem; os testes exigem a arte antes do uso, então os roteiros
+estão sem retrato nessas falas até a entrega):**
+
+| Id | Para quê | Falas que vão usar |
+|---|---|---|
+| `icaro_triste` | Tristeza contida, sem lágrima (olhar baixo, boca reta) | "(A biblioteca...)", "Tonho. Você achou a Nina.", lembrança do brinquedo no túnel, exame da biblioteca queimada |
+| `custodia_triste` | Olhos úmidos, sem susto | "Ah, filho.", "Eu não consegui voltar, Ícaro. Me perdoa." |
+| `tonho_triste` | Sem sorriso, chapéu mais baixo | "Ícaro." e "...Seu pai?" no bambuzal |
+
+Hoje os retratos `*_neutro` sorriem e os `*_medo` arregalam os olhos; nenhum serve para tristeza.
+
 ## 4. Tilesets
 
 | Tileset | Conteúdo |
@@ -80,6 +91,10 @@ Total: 29 retratos.
   **Rapadura Amassada**, **Ovos da Pamonha**, **Pão de Ontem**, moeda de cobre.
 - **Vila de manhã (pedido pós-teste):** tile de **vitrine com livros de capa de couro** para o
   Empório Prado; **cadeado grande** no portão do armazém; bilhete na porta da parteira (opcional).
+- **Pose `segurar_galinha` do Ícaro** (sentado, com a Pamonha no colo) e **emote de coração**
+  (`emote_coracao.png`): pedidos pós-teste para a cena do bambuzal. Até existirem, a galinha anda
+  até o lado de Ícaro e fica ali; quando chegarem, o roteiro passa a usar
+  `anim icaro segurar_galinha` + `emote coracao`.
 - Emotes (balão 16×16 sobre a cabeça): `exclamacao`, `interrogacao`, `reticencias`, `suor`.
 - Cartão de título **TRISKELION** com o símbolo das três espirais bem discreto ao fundo.
 

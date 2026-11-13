@@ -23,7 +23,7 @@ Nomes do prólogo (Valesol, Tadeo e Aurora decididos pelo autor; os demais são 
 **Dona Zefa** (capataz do cafezal), **Dona Custódia** e a galinha **Pamonha** (vizinhas),
 **Seu Juca** (padeiro), **Dona Ermelinda** (bibliotecária),
 **Capitão Toucim** (oficial Caligosuin atrapalhado), **Sargento Íris Candeia** (Guarda de Luminaer),
-**"Alento"** (a magia de cura de iniciante), **rego seco** (o túnel de irrigação abandonado).
+**"Alento"** (a magia de cura de iniciante), **Canal do Arrebol** (o túnel de irrigação abandonado; o nome vem da luz de fim de tarde que entra pela saída, no bambuzal).
 
 ---
 
@@ -58,7 +58,7 @@ cuidado."*
 | Fogão e bule | `prologo_casa_fogao` | O pai não comeu a broa dele: guardou para o filho levar |
 | Pote "TELHADO" | `prologo_casa_pote` | Quarenta cobres e um botão; "a viga do meio reclama" — a pobreza e a viga que vai cair |
 | Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Tadeo" e "Aurora" |
-| Alçapão do terreiro | `prologo_casa_alcapao` | O túnel do rego seco: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
+| Alçapão do terreiro | `prologo_casa_alcapao` | O Canal do Arrebol: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
 
 **A vila de manhã** (`prologo_vila_manha`: o mesmo desenho de `prologo_vila`, inteiro e com
 sol). Três portas abertas, todas opcionais. As outras casas estão **trancadas**, cada uma com
@@ -244,9 +244,14 @@ respirar"*. O pai o consola: *"ninguém acende lampião no meio da ventania"*.
 **Batida 4 — Eles estão vindo.** Câmera na rua de cima: Toucim e dois soldados descendo com
 tochas pretas. O pai **empurra** Ícaro e manda ir para a capital.
 
-**Batida 5 — A viga (`prologo_14_promessa`).** Ícaro tenta erguer a madeira (tremor de tela,
-som de madeira). Não sai. O pai indica a fuga: **a adega do terreiro, o túnel do rego seco**,
-onde Ícaro brincava escondido.
+**Batida 5 — A viga (`prologo_14_promessa`).** Precisa ficar **muito claro** que a viga não se
+move, e por isso Ícaro não pode curar nem carregar o pai. Ícaro força a viga três vezes (pose
+`erguer_viga`, tremor de tela crescente, `madeira_rangendo` a cada vez); a narração diz "A viga
+em brasa não se mexe nem um dedo"; Ícaro: *"Não sai... não sai!"*. O pai explica, sem rodeio:
+as pernas estão **presas e quebradas** ("mesmo que ela saísse, eu não ia andar"); carregado,
+**não passa pelo túnel**, que é apertado, de passar agachado; "nem força, nem cura — não tem
+jeito de me tirar daqui; mas tem jeito de tirar você". Só então indica a fuga: **a adega do
+terreiro, o Canal do Arrebol**, onde Ícaro brincava escondido.
 
 **Batida 6 — Perdão e promessa.** O pedido de desculpas; as duas promessas — **sobreviver e
 procurar o comandante Lucian Alvorada**; e **viver, não só sobreviver**. Uma escolha de duas
@@ -273,7 +278,7 @@ volta para o pai.** Fade para preto.
 
 ---
 
-## Cena 5 — O túnel do rego seco
+## Cena 5 — O Canal do Arrebol
 
 **Diálogos:** `prologo_15_tunel_inicio`, `prologo_15b_tunel_brinquedo` (opcional).
 
