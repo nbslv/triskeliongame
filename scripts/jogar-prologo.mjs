@@ -201,16 +201,29 @@ async function entrarNaZona(id, nome) {
 }
 
 // ---------------------------------------------------------------- início
+const cenasAtivas = () => page.evaluate(() => window.__TRISKELION__?.scene.getScenes(true).map((c) => c.scene.key) ?? []).catch(() => []);
+async function esperarCena(nome, ms = 120000) {
+  const t = Date.now();
+  while (Date.now() - t < ms) { if ((await cenasAtivas()).includes(nome)) return true; await wait(200); }
+  return false;
+}
+async function passarSenha() {
+  if (SENHA && (await page.$('.senha-form'))) { await page.fill('.senha-form input', SENHA); await page.click('.senha-form button'); }
+}
 await page.goto(URL);
-await wait(1500);
-if (SENHA && (await page.$('.senha-form'))) { await page.fill('.senha-form input', SENHA); await page.click('.senha-form button'); await wait(1000); }
+await wait(1000);
+await passarSenha();
 await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.startsWith('triskelion.save')) localStorage.removeItem(k); });
 await page.reload();
-await wait(1500);
-if (SENHA && (await page.$('.senha-form'))) { await page.fill('.senha-form input', SENHA); await page.click('.senha-form button'); await wait(1000); }
-// "Novo jogo": primeiro item do título
+await wait(1000);
+await passarSenha();
+// "Novo jogo": primeiro item do título (espera o título de verdade, sem tempo fixo: vale para máquinas lentas)
+await esperarCena('Titulo');
+await wait(800);
 await page.keyboard.press('Enter');
-await wait(1500);
+await esperarCena('Mundo');
+for (let i = 0; i < 300; i++) { const s0 = await state().catch(() => null); if (s0?.map === 'prologo_casa_icaro') break; await wait(200); }
+await wait(800);
 const wallStart = Date.now();
 
 const START = process.env.START ?? '';
