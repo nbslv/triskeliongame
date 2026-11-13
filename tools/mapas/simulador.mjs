@@ -43,13 +43,13 @@ export function criarSimulador({ W, H, bloq, escondido }) {
     }
   }
   /** `vivos`: [{x,y,facing,target,dir,waitLeft,turnLeft,rota:[{x,y}],mode,speed,wait(s),range,ang,turn(s)}] → estados por passo do jogador. */
-  function simular(vivos, horizonte = 40) {
+  function simular(vivos, horizonte = 40, passoTicks = PASSO) {
     const es = vivos.map((v) => ({ ...v, waitUntil: v.waitLeft ?? 0, nextTurn: v.turnLeft ?? 0 }));
     const estados = [];
     for (let k = 0; k * DT < horizonte; k++) {
       const t = k * DT;
       for (const e of es) passo(e, t);
-      if (k % PASSO === 0) estados.push(es.map((e) => ({ x: e.x, y: e.y, facing: e.facing, range: e.range, ang: e.ang })));
+      if (k % passoTicks === 0) estados.push(es.map((e) => ({ x: e.x, y: e.y, facing: e.facing, range: e.range, ang: e.ang })));
     }
     return estados;
   }

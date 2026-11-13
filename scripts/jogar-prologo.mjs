@@ -376,6 +376,7 @@ async function furtividade() {
   const esperarJogo = async (ms) => { const t0 = await agora(); for (let i = 0; i < 400; i++) { if ((await agora()) - t0 >= ms) return; await wait(10); } };
   let capturas = 0;
   let ultimoPos = null;
+  let porPasso = 0.2; // s de jogo por tile andando (medido; começa conservador)
   const metas = [
     'esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca',
     'esconderijo_carroca_praca', 'esconderijo_sacas_praca', 'checkpoint_beco',
@@ -395,7 +396,7 @@ async function furtividade() {
       ultimoPos = { x: p.x, y: p.y };
       if (alvos.some(([x, y]) => x === p.tx && y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
       const v = await vivo();
-      const estados = sim.simular(v.ps, 12);
+      const estados = sim.simular(v.ps, 12, Math.max(2, Math.ceil(porPasso / 0.0625)));
       const xs = [p.tx, ...alvos.map((a) => a[0])], ys = [p.ty, ...alvos.map((a) => a[1])];
       const caixa = [Math.min(...xs) - 4, Math.min(...ys) - 4, Math.max(...xs) + 4, Math.max(...ys) + 4];
       const t0 = Date.now();
@@ -405,7 +406,9 @@ async function furtividade() {
       const prox = plano[0];
       if (!prox) break;
       if (prox[0] === p.tx && prox[1] === p.ty) { esperas++; await esperarJogo(120); continue; }
+      const ta = await agora();
       await irParaTile({ x: prox[0], y: prox[1] }, { correr: true });
+      porPasso = 0.7 * porPasso + 0.3 * Math.max(0.125, ((await agora()) - ta) / 1000);
     }
   }
   return `${capturas} captura(s)`;
