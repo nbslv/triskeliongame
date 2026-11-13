@@ -99,6 +99,8 @@ export class WorldScene extends Phaser.Scene {
   private hidden = false;
   private ready = false;
   private pendingDialogue: string | undefined;
+  /** Há gatilhos "load" esperando a cutscene atual terminar. */
+  private loadPending = false;
 
   constructor() {
     super(SCENES.mundo);
@@ -121,6 +123,7 @@ export class WorldScene extends Phaser.Scene {
     this.collisionLayers = [];
     this.tileLayers = [];
     this.transitioning = false;
+    this.loadPending = false;
     this.caught = false;
     this.hidden = false;
     this.ready = false;
@@ -200,16 +203,26 @@ export class WorldScene extends Phaser.Scene {
       bus.emit('map:ready', { map: this.mapId });
       if (data.respawn) bus.emit('stealth:respawn', { map: this.mapId });
       if (this.pendingDialogue) {
+        // Retomada no meio de uma cutscene: recomeça ela; gatilhos "load" ficam para depois.
         const id = this.pendingDialogue;
         this.pendingDialogue = undefined;
+        this.loadPending = true;
         void director.run(id);
-      } else if (!director.active) {
-        // Gatilhos "ao carregar" (activation = load)
-        for (const z of this.triggers) {
-          if (this.activation(z) === 'load' && this.fireTrigger(z)) break;
-        }
+      } else if (director.active) {
+        // Mapa aberto por um passo `scene` de cutscene: os gatilhos "load" disparam quando ela terminar.
+        this.loadPending = true;
+      } else {
+        this.fireLoadTriggers();
       }
     });
+  }
+
+  /** Gatilhos "ao carregar" (activation = load). Retorna true se algum começou. */
+  private fireLoadTriggers(): boolean {
+    for (const z of this.triggers) {
+      if (this.activation(z) === 'load' && this.fireTrigger(z)) return true;
+    }
+    return false;
   }
 
   // ---------------------------------------------------------------- construção
@@ -646,7 +659,9 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private fireTrigger(z: Zone): boolean {
-    const once = z.p.once ?? z.p.unica ?? true;
+    // Gatilhos "load" disparam uma vez (por flag), a menos que tenham condição própria (requires/unless).
+    const guarded = str(z.p.requires ?? z.p.requer) || str(z.p.unless ?? z.p.exceto);
+    const once = this.activation(z) === 'load' && !guarded ? true : (z.p.once ?? z.p.unica ?? true);
     if (once !== false && flags.isSet(this.triggerFlag(z))) return false;
     if (!this.conditionsMet(z.p)) return false;
     const dlg = this.dialogueFor(z.p);
@@ -799,6 +814,19 @@ export class WorldScene extends Phaser.Scene {
     session.position = this.currentPosition();
     this.exploreMs = 0;
     this.cameras.main.startFollow(this.player.sprite, true, 0.15, 0.15);
+    // No próximo quadro (o diretor ainda está fechando o roteiro anterior):
+    this.time.delayedCall(0, () => {
+      if (director.active || !this.sys.isActive()) return;
+      if (this.loadPending) {
+        this.loadPending = false;
+        if (this.fireLoadTriggers()) return;
+      }
+      // Proteção: nenhum roteiro pode deixar o jogador explorando com a tela escura.
+      if (director.fadeState.alpha > 0 || this.fadeRect.fillAlpha > 0) {
+        console.warn('[cutscene] roteiro terminou com a tela escura; clareando');
+        void this.cutFade('clear', 500);
+      }
+    });
   }
 
   // ---------------------------------------------------------------- cutscene API
