@@ -3,6 +3,7 @@ import '@fontsource/vt323/latin-ext.css';
 import Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from './config/constants';
 import { audio } from './core/audio';
+import { director } from './systems/dialogue/director';
 import { BackupScene } from './scenes/BackupScene';
 import { BootScene } from './scenes/BootScene';
 import { ControlsScene } from './scenes/ControlsScene';
@@ -60,3 +61,4 @@ const game = new Phaser.Game({
 // Acesso para depuração e testes automatizados (Playwright).
 (window as unknown as { __TRISKELION__: Phaser.Game }).__TRISKELION__ = game;
 (window as unknown as { __TRISKELION_AUDIO__: typeof audio }).__TRISKELION_AUDIO__ = audio;
+(window as unknown as { __TRISKELION_DIRECTOR__: typeof director }).__TRISKELION_DIRECTOR__ = director;

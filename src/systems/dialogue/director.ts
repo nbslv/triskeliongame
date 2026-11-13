@@ -18,6 +18,21 @@ import type { DialogueScene } from '../../scenes/DialogueScene';
  * e a cena de Diálogo (caixa de texto, escolhas). Sobrevive à troca de mapa:
  * o passo `scene` com `map` reinicia o Mundo e o roteiro continua no mapa novo.
  */
+/**
+ * Proteção: passos com duração nunca esperam para sempre (ex.: cena reiniciada no meio de um tween,
+ * jogo pausado por aba oculta). Resolve no que vier primeiro; avisa no console se o limite estourar.
+ */
+function guard<T>(p: Promise<T>, ms: number, label: string, fallback: T): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const limit = new Promise<T>((resolve) => {
+    timer = setTimeout(() => {
+      console.warn(`[cutscene] passo "${label}" passou do limite de ${ms} ms; seguindo`);
+      resolve(fallback);
+    }, ms);
+  });
+  return Promise.race([p, limit]).finally(() => clearTimeout(timer));
+}
+
 export class CutsceneDirector implements DialogueHost {
   private game!: Phaser.Game;
   private runner: DialogueRunner | null = null;
@@ -112,7 +127,7 @@ export class CutsceneDirector implements DialogueHost {
 
   async move(step: import('./types').MoveStep): Promise<void> {
     this.dialog.hideSoon();
-    await this.world.cutMove(this.actorId(step.actor), step.to, step.speed, step.facing);
+    await guard(this.world.cutMove(this.actorId(step.actor), step.to, step.speed, step.facing), 30000, 'move', undefined);
   }
 
   face(step: import('./types').FaceStep): void {
@@ -120,12 +135,13 @@ export class CutsceneDirector implements DialogueHost {
   }
 
   emote(step: import('./types').EmoteStep): Promise<void> {
-    return this.world.cutEmote(this.actorId(step.actor), step.emote, step.ms ?? 900);
+    const ms = step.ms ?? 900;
+    return guard(this.world.cutEmote(this.actorId(step.actor), step.emote, ms), ms + 3000, 'emote', undefined);
   }
 
   wait(ms: number): Promise<void> {
     this.dialog.hideSoon();
-    return new Promise((r) => this.world.time.delayedCall(ms, r));
+    return guard(new Promise<void>((r) => this.world.time.delayedCall(ms, () => r())), ms + 3000, 'wait', undefined);
   }
 
   sfx(id: string, volume?: number): void {
@@ -139,16 +155,18 @@ export class CutsceneDirector implements DialogueHost {
   shake(step: import('./types').ShakeStep): Promise<void> {
     const cam = this.world.cameras.main;
     cam.shake(step.ms, step.intensity ?? 0.01);
-    return new Promise((r) => this.world.time.delayedCall(step.ms, r));
+    return guard(new Promise<void>((r) => this.world.time.delayedCall(step.ms, () => r())), step.ms + 3000, 'shake', undefined);
   }
 
   fade(step: import('./types').FadeStep): Promise<void> {
-    return this.world.cutFade(step.to, step.ms ?? 600);
+    const ms = step.ms ?? 600;
+    return guard(this.world.cutFade(step.to, ms), ms + 3000, 'fade', undefined);
   }
 
   camera(step: import('./types').CameraStep): Promise<void> {
     this.dialog.hideSoon();
-    return this.world.cutCamera(step.to, step.follow ? this.actorId(step.follow) : undefined, step.zoom, step.ms ?? 800);
+    const ms = step.ms ?? 800;
+    return guard(this.world.cutCamera(step.to, step.follow ? this.actorId(step.follow) : undefined, step.zoom, ms), ms + 3000, 'camera', undefined);
   }
 
   spawn(step: import('./types').SpawnStep): void {
@@ -168,7 +186,7 @@ export class CutsceneDirector implements DialogueHost {
     this.dialog.hideNow();
     const ready = new Promise<void>((r) => bus.once('map:ready', () => r()));
     this.world.changeMap(step.map!, step.at, step.facing);
-    await ready;
+    await guard(ready, 15000, 'scene', undefined);
     return 'continue';
   }
 
@@ -198,7 +216,7 @@ export class CutsceneDirector implements DialogueHost {
   }
 
   light(radius: number, ms: number): Promise<void> {
-    return this.world.setLight(radius, ms);
+    return guard(this.world.setLight(radius, ms), ms + 3000, 'light', undefined);
   }
 
   loadScript(id: string): DialogueScript | undefined {
