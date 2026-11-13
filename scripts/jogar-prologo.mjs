@@ -385,6 +385,7 @@ async function furtividade() {
       waitLeft: Math.max(0, (p.waitUntil - now) / 1000), turnLeft: Math.max(0, (p.nextTurn - now) / 1000),
       rota: p.cfg.route.map((r) => ({ x: r.x, y: r.y })), mode: p.cfg.mode, speed: p.cfg.speed, wait: p.cfg.waitMs / 1000,
       range: p.cfg.range, ang: p.cfg.angleDeg, turn: p.cfg.turnMs / 1000 })) };`);
+  const pausa = (on) => world(on ? 'w.scene.pause()' : 'w.scene.resume()');
   const agora = () => world('return w.time.now');
   const esperarJogo = async (ms) => { const t0 = await agora(); for (let i = 0; i < 400; i++) { if ((await agora()) - t0 >= ms) return; await wait(10); } };
   let capturas = 0;
@@ -401,31 +402,34 @@ async function furtividade() {
     let sem = 0;
     let esperas = 0;
     for (let passos = 0; passos < 6000; passos++) {
+      await pausa(true).catch(() => {}); // congela o jogo para ler o estado e planejar sem latência (vale em qualquer máquina)
       const s = await state();
-      if (s.map !== id) return 'saiu-do-mapa';
-      if (s.cutscene) { await avancar(); continue; }
-      if (s.caught) { await wait(1500); await avancar(10); continue; }
+      if (s.map !== id) { await pausa(false).catch(() => {}); return 'saiu-do-mapa'; }
+      if (s.cutscene) { await pausa(false); await avancar(); continue; }
+      if (s.caught) { await pausa(false); await wait(1500); await avancar(10); continue; }
       const p = await pos();
       if (ultimoPos && Math.hypot(p.x - ultimoPos.x, p.y - ultimoPos.y) > 80) { capturas++; log(`  furtividade: fui visto (${capturas}) — voltei ao checkpoint`); }
       ultimoPos = { x: p.x, y: p.y };
-      if (alvos.some(([x, y]) => x === p.tx && y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
+      if (alvos.some(([x, y]) => x === p.tx && y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); await pausa(false); break; }
       const v = await vivo();
       const xs = [p.tx, ...alvos.map((a) => a[0])], ys = [p.ty, ...alvos.map((a) => a[1])];
       const caixa = [Math.min(...xs) - 4, Math.min(...ys) - 4, Math.max(...xs) + 4, Math.max(...ys) + 4];
       const pt = Math.max(2, Math.ceil(porPasso / 0.0625));
       const t0 = Date.now();
-      const atraso = Math.min(8, Math.round(latencia / 0.0625));
-      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 12, am: 0.2, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 6, am: 0.12, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 0, am: 0, caixa, atraso });
+      const atraso = 0; // jogo pausado durante a leitura: sem latência
+      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 10, am: 0.15, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 6, am: 0.12, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 0, am: 0, caixa, atraso });
       latencia = 0.7 * latencia + 0.3 * Math.max(0, ((await agora()) - v.now) / 1000);
       if (process.env.DEPURAR && passos % 20 === 0) log(`  plano ${Date.now() - t0} ms: ${JSON.stringify(acao)}`);
-      if (!acao) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
-      if (acao.chegou) break;
-      if (acao.ficar) { esperas++; await esperarJogo(60); continue; }
+      if (!acao) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await pausa(false); await esperarJogo(125); continue; }
+      if (acao.chegou) { await pausa(false); break; }
+      if (acao.ficar) { esperas++; await pausa(false); await esperarJogo(60); continue; }
+      await pausa(false);
       const prox = acao.mover;
       const ta = await agora();
       await irParaTile({ x: prox[0], y: prox[1] }, { correr: true });
       porPasso = 0.7 * porPasso + 0.3 * Math.max(0.125, ((await agora()) - ta) / 1000);
     }
   }
+  await pausa(false).catch(() => {});
   return `${capturas} captura(s)`;
 }
