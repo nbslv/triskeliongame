@@ -17,6 +17,8 @@ mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 });
 const page = await ctx.newPage();
+const CPU = Number(process.env.CPU ?? 1);
+if (CPU > 1) { const c = await ctx.newCDPSession(page); await c.send('Emulation.setCPUThrottlingRate', { rate: CPU }); console.log(`CPU ${CPU}x mais lenta (CDP)`); }
 const erros = [];
 page.on('pageerror', (e) => erros.push(e.message));
 page.on('console', (m) => {
@@ -341,14 +343,12 @@ process.exit(falhas ? 1 : 0);
 
 // ---------------------------------------------------------------- furtividade (3 trechos)
 async function furtividade() {
+  // Robô "reativo": a cada tile confere as regras REAIS do motor (cone, alcance, linha de visão, esconderijos)
+  // sobre as posições atuais e as previstas dos inimigos, com margem; só dá o passo se estiver seguro.
+  // Não usa tempo fixo: depende só do estado lido do jogo, então vale para qualquer velocidade de máquina.
   currentMap = 'prologo_vila';
   const id = 'prologo_vila';
-  const hides = mapa(id).objs.filter((o) => o.type === 'esconderijo');
-  const tilesHide = (o) => {
-    const r = [];
-    for (let y = Math.floor(o.y / 16); y < Math.ceil((o.y + o.height) / 16); y++) for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) r.push({ x, y });
-    return r;
-  };
+  const M = mapa(id);
   if (SEM_FURT) {
     const z = obj(id, 'gatilho_casa');
     const alvos = [];
@@ -356,50 +356,66 @@ async function furtividade() {
     for (let k = 0; k < 4; k++) { const r = await andarPara(id, alvos, { correr: true }); if (r === 'interrompido') { const q = await state(); if (q.cutscene) { await avancar(); } } if ((await state()).cutscene || (await state()).map !== id) break; }
     return 'direto (sem cones)';
   }
-  const rota = [
-    'esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca',
-    'esconderijo_carroca_praca', 'esconderijo_sacas_praca', 'checkpoint_beco',
-    'esconderijo_barril_custodia', 'esconderijo_sacas_c1', 'esconderijo_carroca_c', 'esconderijo_sacas_c2', 'esconderijo_barril_c', 'gatilho_casa',
-  ];
+  const hideRects = M.objs.filter((o) => o.type === 'esconderijo');
+  const tileEscondido = (tx, ty) => hideRects.some((o) => tx >= Math.floor(o.x / 16) && tx < Math.ceil((o.x + o.width) / 16) && ty >= Math.floor(o.y / 16) && ty < Math.ceil((o.y + o.height) / 16));
+  const cfg = Object.fromEntries(M.objs.filter((o) => o.type === 'inimigo').map((o) => [o.name, { range: o.p.vision ?? 80, ang: o.p.angle ?? 70, speed: o.p.speed ?? 40 }]));
+  const DIRA = { right: 0, down: Math.PI / 2, left: Math.PI, up: -Math.PI / 2 };
+  const bloqPx = (x, y) => x < 0 || y < 0 || x >= M.W * 16 || y >= M.H * 16 || M.bloq[Math.floor(y / 16) * M.W + Math.floor(x / 16)] === 1;
+  const ve = (e, px, py, margem) => {
+    const c = cfg[e.id];
+    const ex = e.x, ey = e.y - 6;
+    const dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy);
+    if (d > c.range + margem) return false;
+    if (d < 1) return true;
+    const a = Math.atan2(dy, dx);
+    let df = (a - DIRA[e.facing]) % (Math.PI * 2);
+    if (df > Math.PI) df -= Math.PI * 2; if (df < -Math.PI) df += Math.PI * 2;
+    if (Math.abs(df) > (c.ang * Math.PI) / 360 + (margem ? 0.22 : 0)) return false;
+    for (let s = 4; s < d; s += 4) if (bloqPx(ex + Math.cos(a) * s, ey + Math.sin(a) * s)) return false;
+    return true;
+  };
+  const DV = { right: [1, 0], left: [-1, 0], down: [0, 1], up: [0, -1] };
+  /** Perigo no tile (tx,ty) com os inimigos agora e daqui a ~0,35 s (andando na direção em que olham). */
+  const perigo = (s, tx, ty, margem = 14) => {
+    if (tileEscondido(tx, ty)) return false;
+    const px = tx * 16 + 8, py = ty * 16 + 14;
+    for (const e of s.enemies) {
+      for (const t of [0, 0.35]) {
+        const v = DV[e.facing];
+        const ee = { ...e, x: e.x + v[0] * cfg[e.id].speed * t, y: e.y + v[1] * cfg[e.id].speed * t };
+        if (Math.hypot(px - ee.x, py - ee.y) < 20) return true;
+        if (ve(ee, px, py - 8, margem) || ve(ee, px, py - 2, margem)) return true;
+      }
+    }
+    return false;
+  };
+  const zonaTiles = (nome) => { const o = obj(id, nome); const r = []; for (let y = Math.floor(o.y / 16); y < Math.ceil((o.y + o.height) / 16); y++) for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) r.push({ x, y }); return r; };
   let capturas = 0;
-  const veMais = (s, x, y, margem) => s.enemies.some((e) => {
-    const dx = x - e.x, dy = y - e.y - 0;
-    const d = Math.hypot(dx, dy);
-    const range = { cali_a1: 64, cali_b1: 56, cali_b2: 56, toucim_posto: 64, cali_c1: 64, cali_c2: 64 }[e.id] ?? 64;
-    if (d > range + margem) return false;
-    const ang = Math.atan2(dy, dx);
-    const fa = { right: 0, down: Math.PI / 2, left: Math.PI, up: -Math.PI / 2 }[e.facing];
-    let diff = Math.abs(((ang - fa + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
-    diff = Math.PI - diff;
-    return d < 24 + margem / 2 || diff < (30 * Math.PI) / 180 + 0.5;
-  });
-  for (const nome of rota) {
-    const o = obj(id, nome);
-    const alvos = nome.startsWith('esconderijo') || o.type === 'esconderijo' ? tilesHide(o) : [tileDe({ ...o, point: false })];
-    if (o.type === 'gatilho') { alvos.length = 0; for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) alvos.push({ x, y: Math.floor(o.y / 16) }); }
-    if (o.type === 'checkpoint') { alvos.length = 0; for (let x = Math.floor(o.x / 16); x < Math.ceil((o.x + o.width) / 16); x++) alvos.push({ x, y: Math.floor(o.y / 16) }); }
-    for (let tent = 0; tent < 25; tent++) {
+  const metas = [
+    ['esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca'],
+    ['esconderijo_carroca_praca', 'esconderijo_sacas_praca', 'checkpoint_beco'],
+    ['esconderijo_barril_custodia', 'esconderijo_sacas_c1', 'esconderijo_carroca_c', 'esconderijo_sacas_c2', 'gatilho_casa'],
+  ].flat();
+  for (const nome of metas) {
+    const alvos = zonaTiles(nome);
+    let sem = 0;
+    for (let passos = 0; passos < 900; passos++) {
+      const s = await state();
+      if (s.map !== id) return 'saiu-do-mapa';
+      if (s.cutscene) { await avancar(); continue; }
+      if (s.caught) { capturas++; await wait(1500); await avancar(10); continue; }
       const p = await pos();
-      if (p.s.map !== id) return 'saiu-do-mapa';
-      if (p.s.cutscene) { await avancar(); continue; }
+      if (alvos.some((a) => a.x === p.tx && a.y === p.ty)) break;
       const path = bfs(id, { x: p.tx, y: p.ty }, alvos);
-      if (!path) return `sem caminho até ${nome}`;
-      if (!path.length) break;
-      // espera uma janela segura: nenhum ponto do trecho perto de um cone
-      let pronto = false;
-      for (let w = 0; w < 120 && !pronto; w++) {
-        const s = await state();
-        if (s.hidden === false && s.caught) break;
-        const perigo = path.slice(0, 9).some((t) => veMais(s, t.x * 16 + 8, t.y * 16 + 8, 34)) && !SEM_FURT;
-        if (!perigo) pronto = true; else await wait(120);
+      if (!path || !path.length) { sem++; if (sem > 5) return `sem caminho até ${nome}`; await wait(200); continue; }
+      const prox = path[0];
+      const seguro = !perigo(s, prox.x, prox.y);
+      if (seguro || perigo(s, p.tx, p.ty, 0)) {
+        // seguro: anda; se já estou em perigo, avançar (ou recuar para o esconderijo) é melhor que ficar parado
+        await irParaTile(prox, { correr: true });
+      } else {
+        await wait(60); // espera a patrulha passar (não anda)
       }
-      for (const t of path) {
-        const r = await irParaTile(t, { correr: true });
-        if (r === 'interrompido') break;
-        if (r !== 'ok') break;
-      }
-      const q = await pos();
-      if (q.s.caught || q.s.cutscene) { capturas++; await wait(1200); await avancar(10); }
     }
   }
   return `${capturas} captura(s)`;
