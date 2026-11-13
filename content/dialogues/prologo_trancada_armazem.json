@@ -1,0 +1,8 @@
+{
+  "id": "prologo_trancada_armazem",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "O armazém de café do Seu Otaviano Prado, dono das terras, está trancado. Cadeado novo, maior que a mão de Ícaro."},
+    {"type": "say", "speaker": "icaro", "text": "(O café que a gente colhe dorme aí dentro. A gente não tem a chave.)"},
+    {"type": "end"}
+  ]
+}

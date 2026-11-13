@@ -1,0 +1,7 @@
+{
+  "id": "prologo_trancada_lindalva",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "A casa da Dona Lindalva, a parteira, está trancada. Um bilhete na porta: 'Fui ajudar um bebê a nascer. Volto quando ele nascer.'"},
+    {"type": "end"}
+  ]
+}

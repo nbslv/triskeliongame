@@ -32,7 +32,7 @@
     {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "Ícaro."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "Tonho. Você achou a Nina."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "Achei. Tava debaixo da cama, brava porque eu demorei."},
-    {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "...Seu pai?"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_medo", "text": "...Seu pai?"},
     {"type": "wait", "ms": 700},
     {"type": "say", "speaker": "narrador", "text": "Ícaro balançou a cabeça. Tonho, pela primeira vez na vida, não teve piada nenhuma. Só sentou do lado."},
     {"type": "say", "speaker": "nina", "portrait": "nina_neutro", "text": "Toma. É rapadura. Amassou no bolso, mas ainda é doce."},

@@ -1,0 +1,7 @@
+{
+  "id": "prologo_trancada_emporio",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "O Empório Prado está fechado. Na porta, uma plaquinha: 'Abrimos às nove. Fiado, não.'"},
+    {"type": "end"}
+  ]
+}

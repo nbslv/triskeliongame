@@ -1,7 +1,7 @@
 {
   "id": "prologo_03b_pe_verde",
   "steps": [
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Ainda verde. Se eu colher isso, a Dona Zefa me faz torrar junto.)"},
+    {"type": "say", "speaker": "icaro", "text": "(Ainda verde. Se eu colher isso, a Dona Zefa me faz torrar junto.)"},
     {"type": "end"}
   ]
 }
