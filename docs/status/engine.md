@@ -155,7 +155,9 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
 
 - **Período**: propriedade de mapa `periodo` = `manha` | `tarde` | `noite`. Ao entrar no mapa, o motor deixa **exatamente
   uma** das flags `periodo.manha`/`periodo.tarde`/`periodo.noite` ligada. Mapa sem `periodo` herda o anterior
-  (interiores herdam o de fora). Valor inválido é erro no `npm test` e aviso no jogo.
+  (interiores herdam o de fora). Valor inválido é erro no `npm test` e aviso no jogo. A flag com valor
+  `periodo` (`periodo == noite`) é mantida em sincronia, então os dois formatos funcionam.
+  `tests/padrao-narrativa.test.ts` roda os `padrao_*.json` reais: saudação certa por período e rodízio sem repetir.
 - **Rodízio** (`padrao.<tipo>.vez`): fica dentro dos roteiros da narrativa, e o motor não interfere.
 - **Ligação NPC → fala**: `dialogue: "padrao_<tipo>"` (como a narrativa pede) **ou** só `tipo: "<tipo>"`, e o motor procura
   `padrao_<tipo>_<periodo>` → `padrao_<tipo>` → `padrao_pessoa…`. NPC sem nada mostra só "...".

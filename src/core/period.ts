@@ -13,6 +13,8 @@ export function setPeriod(p: string): void {
     console.warn(`[mundo] periodo "${p}" inválido (use manha, tarde ou noite)`);
     return;
   }
+  // Dois formatos em sincronia: flag com valor (`periodo == noite`) e flags booleanas (`periodo.noite`).
+  flags.set('periodo', v);
   for (const q of PERIODS) {
     if (q === v) flags.set(`periodo.${q}`, true);
     else if (flags.has(`periodo.${q}`)) flags.clear(`periodo.${q}`);
