@@ -11,7 +11,7 @@
  "infinite": false,
  "compressionlevel": -1,
  "nextlayerid": 5,
- "nextobjectid": 21,
+ "nextobjectid": 24,
  "properties": [
   {
    "name": "nome",
@@ -22,6 +22,11 @@
    "name": "music",
    "type": "string",
    "value": "teste_vila"
+  },
+  {
+   "name": "periodo",
+   "type": "string",
+   "value": "tarde"
   }
  ],
  "tilesets": [
@@ -3224,7 +3229,72 @@
      ]
     },
     {
-     "id": 13,
+     "id": 6,
+     "rotation": 0,
+     "visible": true,
+     "width": 0,
+     "height": 0,
+     "name": "galinha_teste",
+     "type": "npc",
+     "point": true,
+     "x": 56,
+     "y": 207,
+     "properties": [
+      {
+       "name": "tipo",
+       "type": "string",
+       "value": "teste"
+      },
+      {
+       "name": "nome",
+       "type": "string",
+       "value": "Galinha de Teste"
+      },
+      {
+       "name": "facing",
+       "type": "string",
+       "value": "right"
+      }
+     ]
+    },
+    {
+     "id": 7,
+     "rotation": 0,
+     "visible": true,
+     "width": 16,
+     "height": 16,
+     "name": "porta_dono",
+     "type": "porta_trancada",
+     "x": 176,
+     "y": 112,
+     "properties": [
+      {
+       "name": "dono",
+       "type": "string",
+       "value": "Seu Teste"
+      }
+     ]
+    },
+    {
+     "id": 8,
+     "rotation": 0,
+     "visible": true,
+     "width": 16,
+     "height": 16,
+     "name": "porta_texto",
+     "type": "porta_trancada",
+     "x": 64,
+     "y": 112,
+     "properties": [
+      {
+       "name": "trancada_texto",
+       "type": "string",
+       "value": "[teste] Porta com texto vindo do mapa."
+      }
+     ]
+    },
+    {
+     "id": 16,
      "rotation": 0,
      "visible": true,
      "width": 0,
@@ -3253,7 +3323,7 @@
      ]
     },
     {
-     "id": 14,
+     "id": 17,
      "rotation": 0,
      "visible": true,
      "width": 16,
@@ -3276,7 +3346,7 @@
      ]
     },
     {
-     "id": 15,
+     "id": 18,
      "rotation": 0,
      "visible": true,
      "width": 16,
@@ -3288,7 +3358,7 @@
      "properties": []
     },
     {
-     "id": 16,
+     "id": 19,
      "rotation": 0,
      "visible": true,
      "width": 32,
@@ -3300,7 +3370,7 @@
      "properties": []
     },
     {
-     "id": 17,
+     "id": 20,
      "rotation": 0,
      "visible": true,
      "width": 32,
@@ -3328,7 +3398,7 @@
      ]
     },
     {
-     "id": 18,
+     "id": 21,
      "rotation": 0,
      "visible": true,
      "width": 0,
@@ -3357,7 +3427,7 @@
      ]
     },
     {
-     "id": 19,
+     "id": 22,
      "rotation": 0,
      "visible": true,
      "width": 0,
@@ -3401,7 +3471,7 @@
      ]
     },
     {
-     "id": 20,
+     "id": 23,
      "rotation": 0,
      "visible": true,
      "width": 0,
@@ -3459,7 +3529,7 @@
      "visible": true
     },
     {
-     "id": 6,
+     "id": 9,
      "name": "inicio",
      "type": "",
      "point": true,
@@ -3471,7 +3541,7 @@
      "visible": true
     },
     {
-     "id": 7,
+     "id": 10,
      "name": "entrada_leste",
      "type": "",
      "point": true,
@@ -3483,7 +3553,7 @@
      "visible": true
     },
     {
-     "id": 8,
+     "id": 11,
      "name": "ponto_a",
      "type": "",
      "point": true,
@@ -3495,7 +3565,7 @@
      "visible": true
     },
     {
-     "id": 9,
+     "id": 12,
      "name": "ponto_b",
      "type": "",
      "point": true,
@@ -3507,7 +3577,7 @@
      "visible": true
     },
     {
-     "id": 10,
+     "id": 13,
      "name": "camera_foco",
      "type": "",
      "point": true,
@@ -3519,7 +3589,7 @@
      "visible": true
     },
     {
-     "id": 11,
+     "id": 14,
      "name": "spawn_visitante",
      "type": "",
      "point": true,
@@ -3531,7 +3601,7 @@
      "visible": true
     },
     {
-     "id": 12,
+     "id": 15,
      "name": "checkpoint_cutscene",
      "type": "",
      "point": true,

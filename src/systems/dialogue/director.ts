@@ -38,6 +38,8 @@ export class CutsceneDirector implements DialogueHost {
   private runner: DialogueRunner | null = null;
   /** Ator "self" (NPC com quem se falou). */
   private selfActor: string | undefined;
+  /** Variáveis para `{chave}` nos textos (ex.: {nome}, {dono}, {periodo}). */
+  private vars: Record<string, string> = {};
   /** Cor/opacidade da tela preta/branca, mantida entre mapas. */
   fadeState = { color: 0x000000, alpha: 0 };
 
@@ -63,7 +65,7 @@ export class CutsceneDirector implements DialogueHost {
    * Cutscenes (tudo que não é conversa com NPC) gravam autosave no início e no fim; se a página
    * fechar no meio, o save de retomada volta ao início dela.
    */
-  async run(idOrScript: string | DialogueScript, opts: { self?: string } = {}): Promise<void> {
+  async run(idOrScript: string | DialogueScript, opts: { self?: string; vars?: Record<string, string> } = {}): Promise<void> {
     if (this.runner) {
       console.warn('[cutscene] já existe roteiro em execução; ignorando', idOrScript);
       return;
@@ -77,6 +79,7 @@ export class CutsceneDirector implements DialogueHost {
     session.beginCutscene(isCutscene && typeof idOrScript === 'string' ? idOrScript : undefined);
     if (isCutscene) this.world?.autosave(true);
     this.selfActor = opts.self;
+    this.vars = { ...(opts.vars ?? {}) };
     const runner = new DialogueRunner(script, this, flags);
     this.runner = runner;
     input.clearPresses();
@@ -117,12 +120,26 @@ export class CutsceneDirector implements DialogueHost {
 
   // ------------- DialogueHost -------------
 
+  /** Troca `{chave}` por variáveis do roteiro ({nome}, {dono}...) ou por flags ({periodo}). */
+  interpolate(text: string): string {
+    return text.replace(/\{([\w.]+)\}/g, (all, key: string) => {
+      if (key in this.vars) return this.vars[key]!;
+      const v = flags.get(key);
+      return v === undefined ? all : String(v);
+    });
+  }
+
   say(step: SayStep): Promise<void> {
-    return this.dialog.showSay(step);
+    const speaker = step.speaker && (step.speaker === 'self' || step.speaker === 'este') ? this.selfActor : step.speaker;
+    return this.dialog.showSay({ ...step, speaker, text: this.interpolate(step.text) });
   }
 
   choice(prompt: string | undefined, options: string[], speaker?: string): Promise<number> {
-    return this.dialog.showChoice(prompt, options, speaker);
+    return this.dialog.showChoice(
+      prompt === undefined ? undefined : this.interpolate(prompt),
+      options.map((o) => this.interpolate(o)),
+      speaker === 'self' || speaker === 'este' ? this.selfActor : speaker,
+    );
   }
 
   async move(step: import('./types').MoveStep): Promise<void> {

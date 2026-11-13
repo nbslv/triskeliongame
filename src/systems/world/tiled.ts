@@ -62,7 +62,7 @@ export interface TiledMap {
   properties?: TiledProperty[];
 }
 
-export type EntityKind = 'npc' | 'enemy' | 'hide' | 'trigger' | 'exit' | 'checkpoint' | 'route' | 'marker' | 'inspect' | 'unknown';
+export type EntityKind = 'npc' | 'enemy' | 'hide' | 'trigger' | 'exit' | 'checkpoint' | 'route' | 'marker' | 'inspect' | 'locked' | 'unknown';
 
 const KIND_ALIASES: Record<string, EntityKind> = {
   npc: 'npc',
@@ -89,6 +89,9 @@ const KIND_ALIASES: Record<string, EntityKind> = {
   activity: 'inspect',
   porta: 'exit',
   door: 'exit',
+  porta_trancada: 'locked',
+  locked_door: 'locked',
+  trancada: 'locked',
 };
 
 export function props(o: { properties?: TiledProperty[] } | undefined): Record<string, PropValue> {
@@ -105,6 +108,7 @@ export function objectKind(o: TiledObject, layerName = ''): EntityKind {
   if (layerName.toLowerCase() === 'markers' || layerName.toLowerCase() === 'marcadores') return 'marker';
   if (o.polyline || o.polygon) return 'route';
   if (o.properties?.some((p) => p.name === 'activity' || p.name === 'atividade')) return 'inspect';
+  if (o.properties?.some((p) => p.name === 'trancada_texto' || p.name === 'locked_text')) return 'locked';
   return 'unknown';
 }
 
@@ -226,4 +230,20 @@ export function validateMap(id: string, map: TiledMap, knownMaps: ReadonlySet<st
     }
   }
   return errs;
+}
+
+/**
+ * Fala padrão de um NPC sem `dialogue`: procura, nesta ordem,
+ * padrao_<tipo>_<periodo>, padrao_<tipo>, padrao_pessoa_<periodo>, padrao_pessoa.
+ * `tipo` vem da propriedade `tipo` do NPC ou do nome do sprite (sem números no fim).
+ */
+export function defaultNpcDialogueId(
+  tipo: string | undefined,
+  sprite: string | undefined,
+  periodo: string | undefined,
+  exists: (id: string) => boolean,
+): string | undefined {
+  const t = (tipo || (sprite ?? '').replace(/_poses$/, '').replace(/_\d+$/, '') || 'pessoa').toLowerCase();
+  const cands = [periodo && `padrao_${t}_${periodo}`, `padrao_${t}`, periodo && `padrao_pessoa_${periodo}`, 'padrao_pessoa'];
+  return cands.find((c): c is string => !!c && exists(c));
 }
