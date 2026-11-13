@@ -264,6 +264,7 @@ class Sheet:
         s.itens = []      # dict(nome, x, y, w, h, c, desc, col, hide, acima, secao)
         s.secao = ''
         s.secoes = []
+        s.anims = []      # (nomes dos quadros, duração em ms)
 
     def section(s, titulo, nota=''):
         if s.x:
@@ -285,6 +286,10 @@ class Sheet:
         s.x += w
         s.rowh = max(s.rowh, h)
         return it
+
+    def animar(s, nomes, ms=160):
+        """Animação de tile no formato do Tiled: o bloco `nomes[0]` é o que vai no mapa."""
+        s.anims.append((list(nomes), ms))
 
     def idx(s, nome, dx=0, dy=0):
         for it in s.itens:
@@ -318,6 +323,12 @@ class Sheet:
                         props.append({'name': 'hide', 'type': 'bool', 'value': True})
                     if props:
                         tiles[tid] = {'id': tid, 'properties': props}
+        for nomes, ms in s.anims:
+            its = [next(i for i in s.itens if i['nome'] == n) for n in nomes]
+            for j in range(its[0]['h']):
+                for i in range(its[0]['w']):
+                    ids = [(it['y'] + j) * s.cols + it['x'] + i for it in its]
+                    tiles.setdefault(ids[0], {'id': ids[0]})['animation'] = [{'tileid': t, 'duration': ms} for t in ids]
         return {
             'name': s.nome, 'image': f'../../assets/tilesets/{s.nome}.png',
             'imagewidth': im.size[0], 'imageheight': im.size[1],
