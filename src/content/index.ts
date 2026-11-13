@@ -108,8 +108,16 @@ const characters = new Map<string, CharacterInfo>();
   }
 }
 
+/** Nomes definidos pelo mapa (propriedade `nome` de um NPC) — valem só em jogo. */
+const runtimeNames = new Map<string, string>();
+export function setRuntimeName(id: string, name: string): void {
+  runtimeNames.set(id, name);
+}
+
 export function characterName(id: string | undefined): string {
   if (!id) return '';
+  const rt = runtimeNames.get(id);
+  if (rt) return rt;
   const c = characters.get(id);
   if (c) return c.name;
   if (id === 'narrador' || id === 'narrator') return '';

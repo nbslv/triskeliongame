@@ -84,7 +84,7 @@ Todas aceitam `requires` / `unless` (condição de flags, ver DIALOGO.md): o obj
 | `inimigo` | ponto **ou** polilinha/polígono | **nome** = id; `route?` (nome de polilinha/polígono), `sprite?` (padrão `caligosuin`), `speed?` (40 px/s), `vision?` (80 px), `angle?` (70°), `wait?` (700 ms em cada ponto), `mode?` (`loop`/`pingpong`), `turn?` (ms; sem rota, gira 90° a cada N ms), `facing?` | Patrulha a rota (polígono = volta em laço; polilinha = vai e volta). Desenha o cone de visão no chão, cortado por paredes. Se vir o jogador (ou encostar nele), tela escurece e o jogador volta ao último checkpoint. |
 | `rota` | polilinha/polígono | **nome** | Caminho referenciado por `route` de um inimigo. Movimento é por eixos (primeiro o maior), então rotas retas ficam melhores. |
 | `esconderijo` | retângulo | — | Área de esconderijo (alternativa a tiles com `hide`). |
-| `gatilho` | retângulo | `dialogue` (aceita lista `"a,b,c"` = roteiros encadeados), `alt_dialogue?`/`alt_if?`, `activation?` (`touch` padrão / `interact` / `load`), `once?` (padrão `true`), `flag?` | Roda o roteiro ao entrar na área, ao apertar A (`interact`) ou assim que o mapa carrega (`load`, ex.: `gatilho_inicio`). Com `once`, grava a flag `gatilho.<mapa>.<nome>` (ou a de `flag`) e não dispara mais. Para "repetível só sem flag X": `once: false` + `unless: X`. |
+| `gatilho` | retângulo | `dialogue` (aceita lista `"a,b,c"` = roteiros encadeados), `alt_dialogue?`/`alt_if?`, `activation?` (`touch` padrão / `interact` / `load`), `once?` (padrão `true`), `flag?` | Roda o roteiro ao entrar na área, ao apertar A (`interact`) ou assim que o mapa carrega (`load`, ex.: `gatilho_inicio`). Com `once`, grava a flag `gatilho.<mapa>.<nome>` (ou a de `flag`) e não dispara mais. Para "repetível só sem flag X": `once: false` + `unless: X`. Gatilhos `load` disparam **uma vez** (flag) a menos que tenham `requires`/`unless`; se o mapa foi aberto por um passo `scene` de outra cutscene, disparam quando ela terminar. |
 | `saida` (ou `porta`) | retângulo | `map` (id do mapa), `entry?` (marcador no destino), `facing?`, `return?`, `locked_if?`, `locked_dialogue?` | Ao entrar: fade e troca de mapa. Ver **Interiores** abaixo. |
 | `checkpoint` | retângulo | `autosave?` (padrão `true`) | Ao entrar: vira o ponto de retorno da furtividade (e faz autosave). Entrar num mapa também cria checkpoint. |
 
@@ -102,6 +102,27 @@ português também: `dialogo`, `rota`, `velocidade`, `visao`, `angulo`, `espera`
 
 - Ponto de um ator = **pés** do personagem.
 - Tile `[x, y]` dos roteiros = centro do tile `(x*16+8, y*16+15)`.
+
+## NPCs sem fala própria e período do dia
+
+- **Todo NPC é interagível.** Sem `dialogue`, o motor usa a fala padrão do tipo, procurando nesta ordem:
+  `padrao_<tipo>_<periodo>`, `padrao_<tipo>`, `padrao_pessoa_<periodo>`, `padrao_pessoa`
+  (arquivos em `content/dialogues/`, escritos pela narrativa). Sem nenhum deles, o NPC só mostra um balão "...".
+- `tipo` = propriedade `tipo` do NPC (ex.: `galinha`, `aldeao`, `crianca`, `soldado`); sem ela, o nome do sprite
+  sem número no fim (`aldeao_2` → `aldeao`).
+- `nome` (opcional) = nome exibido na caixa de diálogo (ex.: "Seu Bento"); nas falas, `{nome}` e `speaker: "self"`.
+- **Período do dia**: propriedade de mapa `periodo` (`manha`, `tarde`, `noite`). Vira a flag `periodo` ao entrar no
+  mapa (use em `if`/`cond`, ex.: `periodo == noite`, ou `{periodo}` no texto) e escolhe a variante da fala padrão.
+
+## Portas de casas sem interior
+
+Objeto retangular (sobre a porta) com classe **`porta_trancada`** (ou qualquer objeto com `trancada_texto`).
+Ao encostar ou apertar A:
+1. `trancada_texto` → mostra esse texto (vindo do mapa), sem nome de falante;
+2. senão `dialogue` → roda esse roteiro;
+3. senão o roteiro genérico `padrao_porta_trancada` ("A casa de {dono} está trancada."), com
+   `{dono}` = propriedade `dono` (ex.: `dono: "Dona Zefa"`).
+`requires`/`unless` funcionam como nos outros objetos (ex.: a porta abre depois de um evento: troque por `saida`).
 
 ## Interiores de casas (padrão)
 

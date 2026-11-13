@@ -1,0 +1,5 @@
+{
+  "id": "padrao_teste_noite",
+  "description": "TESTE do motor: variante noturna da fala padrão (mapa com periodo = noite).",
+  "steps": [{ "type": "say", "speaker": "self", "text": "[teste] Boa noite! (variante padrao_teste_noite)" }]
+}

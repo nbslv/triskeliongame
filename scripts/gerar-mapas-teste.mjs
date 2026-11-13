@@ -75,7 +75,7 @@ function makeMap(w, h, props) {
 
 // ---------------- teste ----------------
 {
-  const m = makeMap(48, 30, [prop('nome', 'Mapa de teste'), prop('music', 'teste_vila')]);
+  const m = makeMap(48, 30, [prop('nome', 'Mapa de teste'), prop('music', 'teste_vila'), prop('periodo', 'tarde')]);
   // bordas
   m.rect(0, 0, 47, 29, (x, y) => { if (x === 0 || y === 0 || x === 47 || y === 29) m.obj(x, y, T.muro); });
   // caminhos
@@ -115,6 +115,13 @@ function makeMap(w, h, props) {
         prop('counter_flag', 'teste.colheita_completa'), prop('glow', true)] });
   }
 
+  // NPC sem `dialogue`: usa a fala padrão do tipo (padrao_teste[_periodo].json)
+  m.entity({ name: 'galinha_teste', type: 'npc', point: true, x: 3 * 16 + 8, y: 12 * 16 + 15,
+    properties: [prop('tipo', 'teste'), prop('nome', 'Galinha de Teste'), prop('facing', 'right')] });
+  // portas de casas sem interior
+  m.zone('porta_dono', 'porta_trancada', 11, 7, 1, 1, [prop('dono', 'Seu Teste')]);
+  m.zone('porta_texto', 'porta_trancada', 4, 7, 1, 1, [prop('trancada_texto', '[teste] Porta com texto vindo do mapa.')]);
+
   // marcadores
   m.marker('inicio', 8, 11);
   m.marker('entrada_leste', 45, 14);
@@ -148,7 +155,8 @@ function makeMap(w, h, props) {
 
 // ---------------- teste2 ----------------
 {
-  const m = makeMap(24, 16, [prop('nome', 'Clareira de teste'), prop('music', 'teste_clareira')]);
+  const m = makeMap(24, 16, [prop('nome', 'Clareira de teste'), prop('music', 'teste_clareira'), prop('periodo', 'noite')]);
+  m.entity({ name: 'galinha_noite', type: 'npc', point: true, x: 4 * 16 + 8, y: 4 * 16 + 15, properties: [prop('tipo', 'teste')] });
   m.rect(0, 0, 23, 15, (x, y) => { if (x === 0 || y === 0 || x === 23 || y === 15) m.obj(x, y, T.muro); });
   m.rect(1, 7, 12, 8, (x, y) => m.ground(x, y, T.terra));
   m.rect(14, 4, 20, 10, (x, y) => m.ground(x, y, T.madeira));

@@ -114,6 +114,27 @@ Nenhuma bloqueante. Observações para as outras frentes:
 - Testes: `tests/audio.test.ts` (manifesto, vozes, SFX existentes). Teste de navegador: 45 verificações OK
   (inclui arte do título, manifest/ícones servidos, laço das músicas). Capturas 09 e 10.
 
+## Ciclo 6 — bug crítico do cafezal (iframe) + NPCs e portas genéricos
+
+- **Causa raiz**: `prologo_00d_saida_vila` troca para o cafezal com o passo `scene` e termina com a tela em `fade black`.
+  Como o mapa abria *durante* uma cutscene, o gatilho `gatilho_abertura` (`activation: load`) era ignorado e
+  nunca disparava; a tela ficava preta sem cutscene. O `prologo_01` só aparecia depois de uma retomada/recarga
+  (no iframe do claude.ai, ao ocultar/voltar), e se a página ocultava de novo no meio dele, a retomada o recomeçava.
+- **Correções**: gatilhos `load` disparam quando a cutscene que abriu o mapa termina (e depois de uma retomada);
+  disparam uma vez por flag (salvo `requires`/`unless`); roteiro que termina com a tela escura sem outra cutscene
+  em seguida clareia sozinho; limite de tempo em todos os passos com duração; `sfx`/`music` nunca bloqueiam.
+  Sobre "retomada em loop": a retomada só recomeça uma cutscene quando o jogador sai da página no meio dela
+  (decisão da coordenação: "volte ao início dela"); não há reentrada automática — a flag do gatilho já vai no save.
+- **Teste de regressão** `scripts/testar-iframe.mjs`: jogo dentro de iframe, só toque, `AudioContext` travado,
+  troca de visibilidade no meio da cutscene; do início → café com o pai → vila → portão → cafezal (abertura
+  dispara e termina, tela clara) → Tonho → colheita completa. 16 verificações OK (sem e com senha).
+- **NPCs genéricos**: todo NPC é interagível; sem `dialogue` usa `padrao_<tipo>[_<periodo>]` → `padrao_pessoa…`;
+  propriedade de mapa `periodo` vira a flag `periodo`; `nome` do NPC aparece na caixa; `{chave}` nos textos.
+- **Portas sem interior**: classe `porta_trancada` / `trancada_texto` / `padrao_porta_trancada` com `{dono}`.
+  Criei `content/dialogues/padrao_porta_trancada.json` com o texto do pedido ("A casa de {dono} está trancada.");
+  a narrativa pode reescrever. Arquivos `padrao_<tipo>.json` do prólogo (aldeao, galinha, soldado...) ficam com a narrativa.
+- Teste de navegador geral: agora vai do prólogo para os mapas de teste (o jogo começa no prólogo); 50 verificações OK.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai

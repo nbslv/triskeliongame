@@ -15,7 +15,7 @@ import { bus } from '../core/events';
 import { evaluateCondition, flags } from '../core/flags';
 import { input } from '../core/input';
 import { session } from '../core/session';
-import { SPRITE_ALIASES, characterSprite, gameConfig, maps } from '../content';
+import { SPRITE_ALIASES, characterName, characterSprite, gameConfig, maps, setRuntimeName } from '../content';
 import { director, resolveScript } from '../systems/dialogue/director';
 import { runActivity } from '../systems/activity/registry';
 import type { Target } from '../systems/dialogue/types';
@@ -27,6 +27,7 @@ import {
   props,
   routePoints,
   tileAnimations,
+  defaultNpcDialogueId,
   animFrameAt,
   type TileAnimation,
   type PropValue,
@@ -86,6 +87,8 @@ export class WorldScene extends Phaser.Scene {
   private hides: Rect[] = [];
   private checkpoints: Zone[] = [];
   private inspects: Zone[] = [];
+  /** Portas de casas sem interior (mostram "trancada"). */
+  private lockedDoors: Zone[] = [];
   private glows = new Map<Zone, Phaser.GameObjects.GameObject>();
   private lastSafe = { x: 0, y: 0 };
   private exploreMs = 0;
@@ -115,6 +118,7 @@ export class WorldScene extends Phaser.Scene {
     this.hides = [];
     this.checkpoints = [];
     this.inspects = [];
+    this.lockedDoors = [];
     this.glows = new Map();
     this.dark = null;
     this.animTiles = [];
@@ -138,6 +142,9 @@ export class WorldScene extends Phaser.Scene {
     }
     this.mapId = data.map;
     this.mapData = raw as TiledMap;
+    // Período do dia do mapa (manha/tarde/noite): vira a flag `periodo` (falas padrão e condições usam).
+    const periodo = str(props(this.mapData).periodo ?? props(this.mapData).period);
+    if (periodo) flags.set('periodo', periodo);
     this.buildTilemap();
     this.collectAnimatedTiles();
     this.buildObjects();
@@ -313,6 +320,8 @@ export class WorldScene extends Phaser.Scene {
           const a = new Actor(this, obj.name, sprite, c.x, c.y, (str(p.facing ?? p.direcao) as Direction) ?? 'down');
           a.body.setImmovable(true);
           a.body.pushable = false;
+          const nome = str(p.nome ?? p.name);
+          if (nome) setRuntimeName(obj.name, nome);
           this.actors.set(obj.name, a);
           this.npcs.push({ actor: a, p });
           break;
@@ -332,6 +341,11 @@ export class WorldScene extends Phaser.Scene {
         case 'checkpoint':
           this.checkpoints.push({ obj, rect, p, inside: false });
           break;
+        case 'locked': {
+          const r = rect.w && rect.h ? rect : { x: obj.x - 8, y: obj.y - 12, w: 16, h: 16 };
+          this.lockedDoors.push({ obj, rect: r, p, inside: false });
+          break;
+        }
         case 'inspect': {
           // Pontos viram uma área de 1 tile em volta.
           const r = rect.w && rect.h ? rect : { x: obj.x - 8, y: obj.y - 12, w: 16, h: 16 };
@@ -562,14 +576,19 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     if (best) {
-      const dlg = this.dialogueFor(best.p);
+      // Todo NPC é interagível: sem `dialogue`, usa a fala padrão do tipo (content/dialogues/padrao_<tipo>.json).
+      const dlg =
+        this.dialogueFor(best.p) ??
+        defaultNpcDialogueId(str(best.p.tipo ?? best.p.kind), best.actor.textureKey, str(flags.get('periodo')), (id) => !!resolveScript(id));
+      this.player.walk(0, 0);
+      best.actor.faceToward(this.player.x, this.player.y);
+      this.player.faceToward(best.actor.x, best.actor.y);
       if (dlg) {
-        this.player.walk(0, 0);
-        best.actor.faceToward(this.player.x, this.player.y);
-        this.player.faceToward(best.actor.x, best.actor.y);
-        void director.run(dlg, { self: best.actor.id });
-        return true;
+        void director.run(dlg, { self: best.actor.id, vars: { nome: characterName(best.actor.id) } });
+      } else {
+        void best.actor.emote('...', 700); // sem fala escrita ainda
       }
+      return true;
     }
     // Examináveis / atividades / gatilhos de interação — o mais próximo do ponto à frente
     // Área um pouco maior que o objeto: não exige alinhamento ao pixel.
@@ -577,6 +596,9 @@ export class WorldScene extends Phaser.Scene {
     const here = (z: Zone) => contains(grown(z.rect), px, py) || contains(z.rect, this.player.x, this.player.y - 3);
     for (const z of this.inspects) {
       if (here(z) && this.useInspect(z)) return true;
+    }
+    for (const z of this.lockedDoors) {
+      if (here(z) && this.showLockedDoor(z)) return true;
     }
     for (const z of this.triggers) {
       if (this.activation(z) !== 'interact') continue;
@@ -598,6 +620,29 @@ export class WorldScene extends Phaser.Scene {
     const alt = str(p.alt_dialogue ?? p.dialogo_alt);
     if (alt && altIf && evaluateCondition(altIf, flags)) return alt;
     return str(p.dialogue ?? p.dialogo);
+  }
+
+  /**
+   * Porta de casa sem interior: `trancada_texto` (texto do mapa), ou `dialogue`, ou o roteiro
+   * `padrao_porta_trancada` com {dono} = propriedade `dono`.
+   */
+  private showLockedDoor(z: Zone): boolean {
+    if (!this.conditionsMet(z.p)) return false;
+    const texto = str(z.p.trancada_texto ?? z.p.locked_text);
+    const dono = str(z.p.dono ?? z.p.owner) ?? '';
+    const self = z.obj.name || 'porta';
+    this.player.walk(0, 0);
+    if (texto) {
+      void director.run({ id: `porta:${self}`, steps: [{ type: 'say', speaker: 'narrador', text: texto }] }, { self, vars: { dono } });
+      return true;
+    }
+    const dlg = this.dialogueFor(z.p) ?? (resolveScript('padrao_porta_trancada') ? 'padrao_porta_trancada' : undefined);
+    if (!dlg) {
+      console.warn(`[mundo] porta trancada "${self}" sem trancada_texto e sem padrao_porta_trancada.json`);
+      return false;
+    }
+    void director.run(dlg, { self, vars: { dono } });
+    return true;
   }
 
   private usedFlag(z: Zone): string {
@@ -693,6 +738,12 @@ export class WorldScene extends Phaser.Scene {
       const entered = inside && !z.inside;
       z.inside = inside;
       if (entered && this.fireTrigger(z)) return true;
+    }
+    for (const z of this.lockedDoors) {
+      const inside = contains(z.rect, x, y);
+      const entered = inside && !z.inside;
+      z.inside = inside;
+      if (entered && this.showLockedDoor(z)) return true;
     }
     for (const z of this.exits) {
       const inside = contains(z.rect, x, y);
@@ -810,7 +861,7 @@ export class WorldScene extends Phaser.Scene {
     // Não dispara de novo gatilhos em que o jogador já está.
     const x = this.player.x;
     const y = this.player.y - 3;
-    for (const z of [...this.triggers, ...this.exits, ...this.checkpoints]) z.inside = contains(z.rect, x, y);
+    for (const z of [...this.triggers, ...this.exits, ...this.checkpoints, ...this.lockedDoors]) z.inside = contains(z.rect, x, y);
     session.position = this.currentPosition();
     this.exploreMs = 0;
     this.cameras.main.startFollow(this.player.sprite, true, 0.15, 0.15);

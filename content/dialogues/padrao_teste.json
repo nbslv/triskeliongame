@@ -1,0 +1,5 @@
+{
+  "id": "padrao_teste",
+  "description": "TESTE do motor: fala padrão de NPC sem `dialogue` (tipo teste). {nome} = nome do NPC.",
+  "steps": [{ "type": "say", "speaker": "self", "text": "[teste] Fala padrão do tipo \"teste\" ({nome}), período: {periodo}." }]
+}

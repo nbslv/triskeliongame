@@ -1,0 +1,5 @@
+{
+  "id": "padrao_porta_trancada",
+  "description": "Fala genérica de porta de casa sem interior. {dono} vem da propriedade `dono` do objeto no mapa. A sessão de narrativa pode reescrever este texto.",
+  "steps": [{ "type": "say", "speaker": "narrador", "text": "A casa de {dono} está trancada." }]
+}
