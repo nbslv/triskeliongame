@@ -111,7 +111,7 @@ async function irParaTile(t, { correr = false, parar = () => false } = {}) {
     if (Math.abs(dx) <= 2.5 && Math.abs(dy) <= 5) return 'ok';
     if (Math.abs(dx) > 40 || Math.abs(dy) > 40) { await wait(700); const q = await pos(); if (Math.abs(cx - q.x) > 40 || Math.abs(cy - q.y) > 40) { if (process.env.DEPURAR) console.log('  [salto]', cx, cy, q.x, q.y); return 'interrompido'; } continue; } // teleporte (porta/zona)
     if (parar(p)) return 'parou';
-    if (guarda++ > 120) return 'preso';
+    if (guarda++ > 120) { if (process.env.DEPURAR) console.log('  [preso]', t, p.x, p.y); return 'preso'; }
     const horiz = Math.abs(dx) > 2.5 && (Math.abs(dx) >= Math.abs(dy) || Math.abs(dy) <= 5);
     const k = horiz ? SETAS[`${Math.sign(dx)},0`] : SETAS[`0,${Math.sign(dy)}`];
     if (correr) await page.keyboard.down('x');
