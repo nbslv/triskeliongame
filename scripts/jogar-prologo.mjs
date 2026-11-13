@@ -389,6 +389,7 @@ async function furtividade() {
   const esperarJogo = async (ms) => { const t0 = await agora(); for (let i = 0; i < 400; i++) { if ((await agora()) - t0 >= ms) return; await wait(10); } };
   let capturas = 0;
   let ultimoPos = null;
+  let latencia = 0.08; // s de jogo entre ler o estado e agir (medido)
   let porPasso = 0.2; // s de jogo por tile andando (medido; começa conservador)
   const metas = [
     'esconderijo_carroca_1', 'esconderijo_sacas_1', 'esconderijo_barril_1', 'esconderijo_praca',
@@ -413,7 +414,9 @@ async function furtividade() {
       const caixa = [Math.min(...xs) - 4, Math.min(...ys) - 4, Math.max(...xs) + 4, Math.max(...ys) + 4];
       const pt = Math.max(2, Math.ceil(porPasso / 0.0625));
       const t0 = Date.now();
-      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 6, am: 0.12, caixa }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 0, am: 0, caixa });
+      const atraso = Math.min(8, Math.round(latencia / 0.0625));
+      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 6, am: 0.12, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 0, am: 0, caixa, atraso });
+      latencia = 0.7 * latencia + 0.3 * Math.max(0, ((await agora()) - v.now) / 1000);
       if (process.env.DEPURAR && passos % 20 === 0) log(`  plano ${Date.now() - t0} ms: ${JSON.stringify(acao)}`);
       if (!acao) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
       if (acao.chegou) break;

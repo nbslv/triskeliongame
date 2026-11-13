@@ -97,7 +97,7 @@ export function criarSimulador({ W, H, bloq, escondido }) {
    * Busca "fina" em ticks de 62,5 ms: andar um tile leva `passoTicks` ticks e o destino (e a origem) precisam estar fora
    * de qualquer cone em TODOS os ticks do trajeto; ficar parado leva 1 tick. Retorna a primeira ação: {mover:[x,y]} | {ficar:true} | null.
    */
-  function planejar(vivos, de, alvos, { passoTicks = 3, horizonte = 12, rm = 0, am = 0, caixa = null } = {}) {
+  function planejar(vivos, de, alvos, { passoTicks = 3, horizonte = 12, rm = 0, am = 0, caixa = null, atraso = 0 } = {}) {
     const est = simular(vivos, horizonte, 1);
     const N = est.length;
     const alvoSet = new Set(alvos.map(([x, y]) => `${x},${y}`));
@@ -110,8 +110,10 @@ export function criarSimulador({ W, H, bloq, escondido }) {
       return r;
     };
     const camadas = Array.from({ length: N + passoTicks + 1 }, () => new Map());
-    camadas[0].set(`${de[0]},${de[1]}`, null);
-    for (let t = 0; t < N - 1; t++) {
+    // `atraso`: ticks entre ler o estado do jogo e a ação realmente começar (latência do robô); o jogador fica parado nesse intervalo
+    for (let t = 0; t < atraso; t++) camadas[t].set(`${de[0]},${de[1]}`, t === 0 ? null : { de: `${de[0]},${de[1]}`, t: t - 1, mover: null });
+    camadas[atraso].set(`${de[0]},${de[1]}`, atraso === 0 ? null : { de: `${de[0]},${de[1]}`, t: atraso - 1, mover: null });
+    for (let t = atraso; t < N - 1; t++) {
       for (const [k] of camadas[t]) {
         const [x, y] = k.split(',').map(Number);
         // ficar
@@ -137,7 +139,7 @@ export function criarSimulador({ W, H, bloq, escondido }) {
             const reg = camadas[tt].get(cur);
             if (!reg) break;
             ultima = reg;
-            if (reg.t === 0 && reg.de === `${de[0]},${de[1]}`) break;
+            if (reg.t === atraso && reg.de === `${de[0]},${de[1]}`) break;
             cur = reg.de; tt = reg.t;
           }
           if (!ultima) return null;
