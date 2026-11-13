@@ -82,7 +82,7 @@ def cinza_caindo(q):
 
 def fogo():
     s = Sheet('tiles_fogo', 12)
-    nota = ('O motor ainda não anima tiles: use o quadro 1 como imagem parada (ou alterne quadros entre tiles vizinhos para dar variedade). '
+    nota = ('Tiles ANIMADOS (formato do Tiled, já no JSON do tileset): ponha no mapa sempre o **quadro 1**; os quadros 2 e 3 também podem ser usados parados para variar. '
             'Os mesmos quadros existem como spritesheets em `assets/sprites/fx_*.png` (ver docs/status/arte.md). '
             'Estas cores não escurecem: o fogo "acende" a cena da noite. Tudo passável, exceto onde indicado; '
             'para bloquear o caminho com fogo, use a versão alta na camada de objetos.')
@@ -105,6 +105,8 @@ def fogo():
         s.add(f'fumaca_preta_{q + 1}', fumaca(q), f'Coluna de fumaça preta (1×2), quadro {q + 1}.', acima=True)
     for q in range(3):
         s.add(f'cinzas_caindo_{q + 1}', cinza_caindo(q), f'Cinzas caindo, quadro {q + 1}: espalhe pela camada `acima`.', acima=True)
+    for base in ('fogo', 'fogo_alto', 'fogo_negro', 'fogo_negro_alto', 'fumaca_preta', 'cinzas_caindo'):
+        s.animar([f'{base}_{q}' for q in (1, 2, 3)], 160 if 'fumaca' not in base and 'cinzas' not in base else 220)
     return s
 
 
@@ -240,7 +242,7 @@ def tunel():
     s.add('escada_saida', escada_tunel(), 'Escada de mão subindo (entrada pelo alçapão / saída para o bambuzal).')
     s.add('poca', poca(), 'Poça d\'água (camada `chao2`).')
     for q in range(3):
-        s.add(f'goteira_{q + 1}', gota(q), f'Goteira, quadro {q + 1} (use um só, parado, ou os três em tiles vizinhos).')
+        s.add(f'goteira_{q + 1}', gota(q), f'Goteira, quadro {q + 1} (o quadro 1 é animado).')
     s.add('pedras_soltas', pedras(), 'Pedras soltas.', col=True)
     s.add('cavalinho_sabugo', cavalinho(), 'Cavalinho de sabugo de milho (`exame_brinquedo`, na reentrância).')
     s.add('rocha_topo', rocha_topo(), 'Rocha maciça vista de cima (3×3: cantos e lados; centro = breu).', col=True)
@@ -253,6 +255,7 @@ def tunel():
     s.add('raiz_pendente', raiz('pend'), 'Raízes pendendo do teto (camada `acima`).', acima=True)
     s.add('teia_no', teia('no'), 'Teia no canto de cima à esquerda (camada `acima`).', acima=True)
     s.add('teia_ne', teia('ne'), 'Teia no canto de cima à direita (camada `acima`).', acima=True)
+    s.animar(['goteira_1', 'goteira_2', 'goteira_3', 'goteira_3'], 260)
     return s
 
 

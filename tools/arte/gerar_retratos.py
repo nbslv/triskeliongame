@@ -320,9 +320,18 @@ def retrato_cali(capitao=False, bravo=False):
         c.rect(27, 50, 10, 3, '#3a1525').rect(28, 50, 8, 1, P['t'])
     else:
         c.rect(28, 50, 8, 1, P['s'])
-    # fumacinha negra do focinho
-    for (x, y, r, k) in [(38, 34, 3, 'n'), (42, 28, 3.5, 'n'), (46, 21, 3, 'n'), (44, 25, 2, 'r'), (48, 17, 2, 'r'), (40, 31, 1.5, 'rl')]:
-        c.ell(x + 9, y - 6, r, r, P[k])
+    # chama negra com borda roxa saindo do focinho (maior quando bravo)
+    cham = [(39, 44, 2.2), (44, 42, 2.8), (49, 38, 2.8), (53, 33, 2.2), (56, 28, 1.5)]
+    if bravo:
+        cham = [(39, 44, 2.6), (45, 42, 3.6), (51, 37, 3.8), (55, 30, 3), (57, 23, 2), (25, 44, 2.4), (19, 42, 3), (13, 38, 2.6), (9, 33, 1.8)]
+    f = C(64, 64)
+    for (x, y, rr) in cham:
+        f.ell(x, y, rr + 1.4, rr + 1.4, P['r'])
+    for (x, y, rr) in cham:
+        f.ell(x, y, rr, rr, P['n'])
+    for (x, y, rr) in cham[2:5]:
+        f.px(x + rr, y - rr, P['rl']).px(x - 1, y - 1, '#2d1f3d')
+    c.blit(f)
     for y in range(64):
         for x in range(64):
             if x < 2 or y < 2 or x > 61 or y > 61:

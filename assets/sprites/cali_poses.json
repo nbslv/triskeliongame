@@ -38,6 +38,18 @@
    ],
    "frameRate": 6,
    "repeat": -1
+  },
+  "olhar_em_volta": {
+   "frames": [
+    9,
+    9,
+    0,
+    10,
+    10,
+    0
+   ],
+   "frameRate": 3,
+   "repeat": -1
   }
  }
 }
