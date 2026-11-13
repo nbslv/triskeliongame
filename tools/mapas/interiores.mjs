@@ -35,8 +35,10 @@ function sala(m, x0, y0, w, h, { soleiraX, semente = 7, piso = ['tabua_1', 'tabu
 /** Peça "sólida" (bloco de índices) numa camada de objetos. */
 const peca = (m, x, y, nome, camada = 'objetos') => m.bloco(camada, x, y, I, nome);
 
-function porta({ m, y0, h, soleiraX, aqui, vila, entrada, voltar, trancada }) {
-  const p = { map: vila, entry: voltar, facing: 'down', return: true };
+function porta({ m, y0, h, soleiraX, aqui, vila, entrada, voltar, trancada, semRetorno }) {
+  // `return` volta ao ponto de onde entrou; na casa de Ícaro as idas ao terreiro também gravam esse ponto,
+  // então lá a porta da frente usa sempre o marcador fixo na vila.
+  const p = { map: vila, entry: voltar, facing: 'down', ...(semRetorno ? {} : { return: true }) };
   if (trancada) {
     p.locked_if = '!prologo.cafe_com_pai';
     p.locked_dialogue = 'prologo_00c_porta_sem_cafe';
@@ -114,7 +116,7 @@ export function casaIcaro() {
   m.marcador('marcador_casa_pai_mesa', 6, iy(4));
   m.marcador('marcador_casa_porta_frente', 4, iy(9));
   m.marcador('marcador_casa_porta_fundos', 5, iy(3));
-  porta({ m, y0: Y, h: 10, soleiraX: 4, aqui: 'porta_frente', vila: 'prologo_vila_manha', entrada: 'marcador_casa_entrada', voltar: 'marcador_vila_manha_porta_icaro', trancada: true });
+  porta({ m, y0: Y, h: 10, soleiraX: 4, aqui: 'porta_frente', vila: 'prologo_vila_manha', entrada: 'marcador_casa_entrada', voltar: 'marcador_vila_manha_porta_icaro', trancada: true, semRetorno: true });
 
   // ---- NPC e examináveis
   m.npc('pai', 6, iy(4), { dialogue: 'prologo_00b_cafe_com_pai', facing: 'down' });

@@ -106,9 +106,10 @@ async function irParaTile(t, { correr = false, parar = () => false } = {}) {
   let guarda = 0;
   for (;;) {
     const p = await pos();
-    if (p.s.cutscene || p.s.caught || p.s.map !== currentMap) return 'interrompido';
+    if (p.s.cutscene || p.s.caught || p.s.map !== currentMap) { if (process.env.DEPURAR) console.log('  [int]', p.s.cutscene, p.s.caught, p.s.map, currentMap); return 'interrompido'; }
     const dx = cx - p.x, dy = cy - p.y;
     if (Math.abs(dx) <= 2.5 && Math.abs(dy) <= 5) return 'ok';
+    if (Math.abs(dx) > 40 || Math.abs(dy) > 40) { await wait(700); const q = await pos(); if (Math.abs(cx - q.x) > 40 || Math.abs(cy - q.y) > 40) { if (process.env.DEPURAR) console.log('  [salto]', cx, cy, q.x, q.y); return 'interrompido'; } continue; } // teleporte (porta/zona)
     if (parar(p)) return 'parou';
     if (guarda++ > 120) return 'preso';
     const horiz = Math.abs(dx) > 2.5 && (Math.abs(dx) >= Math.abs(dy) || Math.abs(dy) <= 5);
@@ -128,6 +129,7 @@ async function andarPara(id, alvos, opts = {}) {
     if (p.s.map !== id) return 'mapa';
     const path = bfs(id, { x: p.tx, y: p.ty }, alvos, npcs);
     if (!path) return 'sem-caminho';
+    if (process.env.DEPURAR) console.log('  [path]', id, p.tx, p.ty, '->', JSON.stringify(alvos.slice(0,3)), JSON.stringify(path.slice(0,6)), path.length);
     if (!path.length) return 'ok';
     for (const t of path) {
       const r = await irParaTile(t, opts);
@@ -217,12 +219,14 @@ await interagir('prologo_casa_icaro', 'exame_casa_alcapao').catch(() => {});
   check(s.player.y < 8 * 16, `porta dos fundos leva ao terreiro (${r})`);
   await shot('02-terreiro');
   await interagir('prologo_casa_icaro', 'exame_casa_alcapao'); await avancar();
-  await entrarNaZona('prologo_casa_icaro', 'saida_terreiro_para_casa');
+  log('terreiro: ' + JSON.stringify((await state()).player) + ' ' + await entrarNaZona('prologo_casa_icaro', 'saida_terreiro_para_casa'));
   await wait(900);
+  log('após terreiro: ' + JSON.stringify((await state()).player));
 }
 // sai pela porta da frente
-await entrarNaZona('prologo_casa_icaro', 'saida_porta_frente');
+log('porta frente: ' + await entrarNaZona('prologo_casa_icaro', 'saida_porta_frente'));
 await wait(1200);
+log('estado: ' + JSON.stringify(await state()));
 check((await state()).map === 'prologo_vila_manha', 'saiu para a vila de manhã');
 await shot('03-vila-manha');
 
