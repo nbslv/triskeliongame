@@ -59,7 +59,7 @@ export function criarSimulador({ W, H, bloq, escondido }) {
     return estado.some((e) => Math.hypot(px - e.x, py - e.y) < 12 + rm || ve(e, px, py - 8, rm, am) || ve(e, px, py - 2, rm, am));
   }
   /** Busca em tempo × tiles. Retorna a lista de tiles por passo (inclui "ficar parado") até tocar um alvo, ou null. */
-  function resolver(estados, de, alvos, rm = 0, am = 0) {
+  function resolver(estados, de, alvos, rm = 0, am = 0, caixa = null) {
     const alvoSet = new Set(alvos.map(([x, y]) => `${x},${y}`));
     if (alvoSet.has(`${de[0]},${de[1]}`)) return [];
     let atual = new Map([[`${de[0]},${de[1]}`, null]]);
@@ -73,6 +73,7 @@ export function criarSimulador({ W, H, bloq, escondido }) {
         for (const [dx, dy] of [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]]) {
           const nx = x + dx, ny = y + dy;
           if (nx < 0 || ny < 0 || nx >= W || ny >= H || bloq[ny * W + nx]) continue;
+          if (caixa && (nx < caixa[0] || nx > caixa[2] || ny < caixa[1] || ny > caixa[3])) continue;
           const nk = `${nx},${ny}`;
           if (prox.has(nk) || vistoM(i + 1, nx, ny)) continue;
           prox.set(nk, k);

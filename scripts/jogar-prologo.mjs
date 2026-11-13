@@ -395,8 +395,12 @@ async function furtividade() {
       ultimoPos = { x: p.x, y: p.y };
       if (alvos.some(([x, y]) => x === p.tx && y === p.ty)) { log(`  furtividade: ${nome} ok (${capturas} capturas, ${passos} passos)`); break; }
       const v = await vivo();
-      const estados = sim.simular(v.ps, 14);
-      let plano = sim.resolver(estados, [p.tx, p.ty], alvos, 5, 0.1) ?? sim.resolver(estados, [p.tx, p.ty], alvos, 0, 0);
+      const estados = sim.simular(v.ps, 12);
+      const xs = [p.tx, ...alvos.map((a) => a[0])], ys = [p.ty, ...alvos.map((a) => a[1])];
+      const caixa = [Math.min(...xs) - 4, Math.min(...ys) - 4, Math.max(...xs) + 4, Math.max(...ys) + 4];
+      const t0 = Date.now();
+      let plano = sim.resolver(estados, [p.tx, p.ty], alvos, 5, 0.1, caixa) ?? sim.resolver(estados, [p.tx, p.ty], alvos, 0, 0, caixa);
+      if (process.env.DEPURAR && passos % 20 === 0) log(`  plano ${Date.now() - t0} ms, ${plano ? plano.length : 'nenhum'} passos`);
       if (!plano) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
       const prox = plano[0];
       if (!prox) break;
