@@ -3,7 +3,7 @@ import { COLORS, GAME_HEIGHT, GAME_WIDTH, SCENES } from '../config/constants';
 import { audio } from '../core/audio';
 import { BUTTON_LAYOUT, input } from '../core/input';
 import { settings } from '../core/settings';
-import { characterName } from '../content';
+import { characterName, speakerVoice } from '../content';
 import type { SayStep } from '../systems/dialogue/types';
 import { MenuList } from '../ui/MenuList';
 import { ensurePortrait } from '../ui/placeholders';
@@ -42,6 +42,7 @@ export class DialogueScene extends Phaser.Scene {
   private cps = 45;
   private acc = 0;
   private resolveSay: (() => void) | null = null;
+  private voice = 'texto';
   private autoTimer: Phaser.Time.TimerEvent | null = null;
   private hideTimer: Phaser.Time.TimerEvent | null = null;
   private menu: MenuList | null = null;
@@ -140,6 +141,7 @@ export class DialogueScene extends Phaser.Scene {
     this.shown = 0;
     this.acc = 0;
     this.cps = step.speed ?? settings.textSpeed;
+    this.voice = speakerVoice(step.speaker);
     this.typing = true;
     this.body.setText('');
     this.arrow.setVisible(false);
@@ -249,7 +251,7 @@ export class DialogueScene extends Phaser.Scene {
         this.shown = Math.min(this.full.length, this.shown + n);
         this.body.setText(this.full.slice(0, this.shown));
         if (Math.floor(before / 3) !== Math.floor(this.shown / 3) && this.full[this.shown - 1] !== ' ') {
-          audio.sfx('texto', 0.25);
+          audio.sfx(this.voice, this.voice === 'texto' ? 0.25 : 0.5);
         }
         if (this.shown >= this.full.length) {
           this.typing = false;

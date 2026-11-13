@@ -122,6 +122,10 @@ const SFX_SHAPES: Record<string, [number, number, number, OscillatorType]> = {
   cancelar: [440, 260, 0.1, 'square'],
   cursor: [880, 880, 0.03, 'square'],
   texto: [520, 520, 0.015, 'square'],
+  fala_media: [520, 480, 0.03, 'square'],
+  fala_grave: [260, 240, 0.04, 'square'],
+  fala_aguda: [880, 820, 0.025, 'square'],
+  fala_ronco: [140, 110, 0.05, 'sawtooth'],
   alerta: [300, 900, 0.25, 'sawtooth'],
   passo: [140, 90, 0.04, 'triangle'],
 };

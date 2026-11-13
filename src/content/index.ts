@@ -76,6 +76,8 @@ interface CharacterInfo {
   name: string;
   sprite?: string;
   color?: string;
+  /** Bip de fala (assets/audio/sfx/fala_<voz>.ogg): grave, media, aguda, ronco... */
+  voice?: string;
 }
 
 const characters = new Map<string, CharacterInfo>();
@@ -88,6 +90,7 @@ const characters = new Map<string, CharacterInfo>();
       name: name ?? id,
       sprite: (c.sprite ?? c.spritesheet) as string | undefined,
       color: (c.color ?? c.cor) as string | undefined,
+      voice: (c.voice ?? c.voz) as string | undefined,
     });
   };
   // Aceita { "personagens": [...] }, [...] ou { "<id>": {...} }.
@@ -112,6 +115,20 @@ export function characterName(id: string | undefined): string {
   if (id === 'narrador' || id === 'narrator') return '';
   if (id === 'tutorial') return 'Dica';
   return id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ');
+}
+
+/**
+ * Efeito sonoro do bip de digitação para um falante: `voz` em characters.json, senão
+ * pai/toucim → grave, nina → aguda, Caligosuins → ronco, demais → média; narrador/tutorial → "texto".
+ */
+export function speakerVoice(id: string | undefined): string {
+  if (!id || id === 'narrador' || id === 'narrator' || id === 'tutorial') return 'texto';
+  const v = characters.get(id)?.voice;
+  if (v) return v.startsWith('fala_') || v === 'texto' ? v : `fala_${v}`;
+  if (/^cali_|^caligosuin|^toucim/.test(id)) return 'fala_ronco';
+  if (id === 'pai') return 'fala_grave';
+  if (id === 'nina') return 'fala_aguda';
+  return 'fala_media';
 }
 
 /** Sprites equivalentes (a arte desenhou `cali_soldado`; `caligosuin` é a chave padrão dos inimigos). */
