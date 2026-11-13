@@ -24,6 +24,8 @@ export const ENTRADAS = {
   prologo_bambuzal: ['marcador_bambuzal_entrada'],
 };
 
+/** Movimentos que atravessam sólidos de propósito (ex.: o pai empurra Ícaro). Formato mapa:roteiro:ator. */
+const ISENTOS = new Set([]);
 const props = (o) => Object.fromEntries((o.properties ?? []).map((p) => [p.name, p.value]));
 const tipo = (o, camada) => ((o.type || o.class || '') || (camada === 'markers' ? 'marcador' : '')).toLowerCase();
 
@@ -67,6 +69,18 @@ function rectTiles(o, folga = 0) {
 }
 
 const alvoId = (t) => (typeof t === 'string' ? t : null);
+
+/** Primeiro tile sólido ao longo do segmento (amostra a cada 3 px; ignora os últimos 5 px: o destino pode ser um móvel). */
+function primeiroSolido(M, a, b) {
+  const d = Math.hypot(b.x - a.x, b.y - a.y);
+  for (let t = 0; t <= Math.max(0, d - 5); t += 3) {
+    const x = a.x + ((b.x - a.x) * t) / (d || 1), y = a.y + ((b.y - a.y) * t) / (d || 1) - 2;
+    const tx = Math.floor(x / 16), ty = Math.floor(y / 16);
+    if (tx < 0 || ty < 0 || tx >= M.m.width || ty >= M.m.height) return { tx, ty };
+    if (M.bloq[ty * M.m.width + tx]) return { tx, ty };
+  }
+  return null;
+}
 
 /** Percorre os passos (inclusive aninhados) chamando f(passo). Segue `call`. */
 function percorrer(steps, f, vistos = new Set()) {
@@ -131,8 +145,42 @@ export function validar() {
             const n = alvoId(t);
             if (n && !mapa.marcadores.has(n) && !atores.has(n)) erros.push(`${M.id} → ${d}: ${quem} "${n}" não existe em ${mapa.id}`);
           };
+          // posições conhecidas para checar os `move` em linha reta (o motor anda em linha reta, sem desviar de nada)
+          const px = (t) => (Array.isArray(t) ? { x: t[0] * 16 + 8, y: t[1] * 16 + 15 } : mapa.marcadores.has(t) ? { x: mapa.marcadores.get(t).tx * 16 + 8, y: mapa.marcadores.get(t).ty * 16 + 15 } : null);
+          const posicoes = new Map();
+          for (const y of mapa.objs) if ((y.t === 'npc' || y.t === 'inimigo') && y.o.name) posicoes.set(y.o.name, { x: y.o.x, y: y.o.y });
+          {
+            const ent = ENTRADAS[mapa.id]?.[0];
+            const mk = ent && mapa.marcadores.get(ent);
+            const centro = x.t === 'npc' ? { x: x.o.x, y: x.o.y + 16 } : x.o.width ? { x: x.o.x + x.o.width / 2, y: x.o.y + x.o.height - 1 } : { x: x.o.x, y: x.o.y };
+            posicoes.set('icaro', x.t === 'gatilho' && x.p.activation === 'load' && mk ? { x: mk.tx * 16 + 8, y: mk.ty * 16 + 15 } : centro);
+            // diálogo de NPC/examinável: Ícaro está em algum tile livre ao lado; a primeira etapa vale se existir ao menos um lado livre
+            if (x.t === 'npc' || x.t === 'examinar') {
+              const r = rectTiles(x.o, 0);
+              const lados = [];
+              for (let ty = r.y0 - 1; ty <= r.y1 + 1; ty++) for (let tx = r.x0 - 1; tx <= r.x1 + 1; tx++) {
+                const dentro = tx >= r.x0 && tx <= r.x1 && ty >= r.y0 && ty <= r.y1;
+                if (dentro || (tx !== r.x0 - 1 && tx !== r.x1 + 1 && ty !== r.y0 - 1 && ty !== r.y1 + 1)) continue;
+                if (tx < 0 || ty < 0 || tx >= mapa.m.width || ty >= mapa.m.height || mapa.bloq[ty * mapa.m.width + tx]) continue;
+                lados.push({ x: tx * 16 + 8, y: ty * 16 + 15 });
+              }
+              if (lados.length) posicoes.set('icaro', { lados });
+            }
+          }
           percorrer(DIALOGOS.get(d).steps, (s) => {
-            if (s.type === 'spawn') { alvo(s.at, 'marcador'); atores.add(s.actor); return; }
+            if (s.type === 'spawn') { alvo(s.at, 'marcador'); atores.add(s.actor); const q = px(s.at); if (q) posicoes.set(s.actor, q); return; }
+            if (s.type === 'move' && s.actor) {
+              let de = posicoes.get(s.actor);
+              const para = px(s.to);
+              if (de && de.lados && para) de = de.lados.find((l) => !primeiroSolido(mapa, l, para)) ?? de.lados[0]; // melhor lado
+              if (de && de.lados) de = null;
+              if (de && para) {
+                const hit = primeiroSolido(mapa, de, para);
+                if (hit && !(ISENTOS.has(`${mapa.id}:${d}:${s.actor}`))) erros.push(`${mapa.id} → ${d}: ${s.actor} atravessa tile sólido (${hit.tx},${hit.ty}) andando em linha reta até "${s.to}"; acrescente um marcador intermediário ou mude a posição`);
+              }
+              if (para) posicoes.set(s.actor, para);
+            }
+            if (s.type === 'scene' && s.map) { posicoes.clear(); }
             if (['move', 'face', 'emote', 'anim', 'despawn'].includes(s.type) && s.actor && !atores.has(s.actor) && !['caixa_costura', 'barril_custodia'].includes(s.actor)) erros.push(`${M.id} → ${d}: ator "${s.actor}" não existe em ${mapa.id}`);
             if (s.type === 'move') alvo(s.to, 'marcador');
             if (s.type === 'camera') alvo(s.to, 'marcador');

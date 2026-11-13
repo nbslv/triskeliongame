@@ -91,8 +91,8 @@ export function cafezal() {
   // marcadores
   m.marcador('marcador_cafezal_inicio', 6, 21);
   m.marcador('marcador_cafezal_tonho', 12, 20);
-  m.marcador('marcador_cafezal_balanca', 43, 17);
-  m.marcador('marcador_cafezal_balanca_tonho', 43, 18);
+  m.marcador('marcador_cafezal_balanca', 46, 19);
+  m.marcador('marcador_cafezal_balanca_tonho', 47, 20);
   m.marcador('marcador_cafezal_zefa', 46, 17);
   m.marcador('marcador_cafezal_vista_vila', 25, 7);
 
@@ -119,7 +119,7 @@ export function estrada() {
   // cercas dos dois lados e porteira do pasto
   m.encher('objetos', 0, 6, 60, 1, E, 'cerca_h');
   m.encher('objetos', 0, 11, 60, 1, E, 'cerca_h');
-  m.bloco('objetos', 40, 6, E, 'porteira');
+  m.bloco('objetos', 40, 6, E, 'porteira_aberta'); // metade aberta (x=41): Tonho passa por ela
   // pasto: árvores, arbustos e capim
   for (const x of [4, 12, 19, 33, 47, 55]) m.bloco('objetos', x, 3, E, 'arvore_1');
   for (const x of [9, 26, 38, 51]) m.put('objetos', x, 5, E, 'arbusto');
@@ -137,10 +137,10 @@ export function estrada() {
   m.marcador('marcador_estrada_encontro', 28, 8);
   m.marcador('marcador_estrada_fugitivos_a', 6, 8);
   m.marcador('marcador_estrada_fugitivos_b', 4, 9);
-  m.marcador('marcador_estrada_saida_pasto', 40, 4);
+  m.marcador('marcador_estrada_saida_pasto', 41, 4);
   m.marcador('marcador_estrada_fim', 2, 8);
   // personagens e gatilhos
-  m.npc('tonho', 40, 8, { facing: 'right' });
+  m.npc('tonho', 41, 8, { facing: 'right' });
   m.zona('gatilho_estrada_inicio', 'gatilho', 57, 8, 1, 2, { dialogue: 'prologo_07_estrada', activation: 'load' });
   m.zona('gatilho_estrada_fugitivos', 'gatilho', 34, 7, 1, 4, { dialogue: 'prologo_07b_estrada_fugitivos' });
   m.zona('saida_estrada_vila', 'saida', 0, 7, 2, 4, { map: 'prologo_vila', entry: 'marcador_vila_entrada', facing: 'left' });
@@ -228,9 +228,9 @@ export function bambuzal() {
   m.mancha('chao2', 17, 11, 9, 8, E, 'borda_terra');
   m.bloco('objetos', 18, 16, E, 'banco');
   m.bloco('objetos', 23, 11, E, 'banco');
-  for (const [x, y] of [[17, 13], [25, 15], [26, 12], [16, 17], [27, 17], [14, 12]]) m.put('objetos', x, y, E, 'trouxa');
+  for (const [x, y] of [[25, 15], [26, 12], [27, 17], [30, 13]]) m.put('objetos', x, y, E, 'trouxa');
   for (const [x, y] of [[15, 15], [24, 17], [20, 11]]) m.put('chao2', x, y, E, 'cobertor');
-  m.bloco('objetos', 13, 17, E, 'carroca_sacas');
+  m.bloco('objetos', 31, 17, E, 'carroca_sacas');
   // marcadores
   m.marcador('marcador_bambuzal_entrada', 4, 14);
   m.marcador('marcador_bambuzal_saida', 8, 14);
