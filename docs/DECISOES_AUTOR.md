@@ -57,3 +57,10 @@ fonte da verdade e vale por cima das propostas do GDD.
   nobre cujo dever hereditário é guardar o Nymphalion. Foi banida pela pena do *Despetalar*, que
   riscou seu nome e seu clã, e se apresenta só como "Celly". O grupo só descobre a nobreza dela
   no fim, quando o Conselho devolve o nome. Remover a marca "PENDENTE APROVAÇÃO" do GDD.
+- **Fala do pai sobre o colchão** (13/11): o autor achou pouco natural. A nova fala é: "Sabia.
+  Quase toda noite você dormia em cima de um. Eu apagava a vela e te cobria."
+- **Nomes menores aprovados**: lugares da província (Morro do Clarão, Ribeirão Dourado, Serra da
+  Alvorada), Escola de Cura de Pratamar, Mestra Serena e os NPCs de 06 e 07.
+- **Escopo da primeira versão completa**: entram os treinos com minijogos, as conversas de
+  fogueira e o acampamento. Cozinha, pesca e o pós-jogo (reconstrução de Valesol) ainda
+  aguardam a resposta do autor. Proposta da coordenação: deixá-los para a segunda versão.
