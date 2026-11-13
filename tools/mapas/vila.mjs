@@ -304,21 +304,21 @@ function vila(noite) {
     const cali = (nome, rota, p = {}, x, y) => m.inimigo(nome, x, y, { route: rota, sprite: 'caligosuin', ...p });
     // Trecho A: 1 Caligosuin na Rua da Venda (vai e volta)
     m.rota('patrulha_a1', [[47, 11], [59, 11]]);
-    cali('cali_a1', 'patrulha_a1', { speed: 30, vision: 64, angle: 60, wait: 2000 }, 47, 11);
+    cali('cali_a1', 'patrulha_a1', { speed: 34, vision: 88, angle: 76, wait: 2200 }, 47, 11);
     // Trecho B: 2 em volta do chafariz, sentidos opostos
     m.rota('patrulha_b1', [[32, 16], [41, 16], [41, 23], [32, 23]]);
     m.rota('patrulha_b2', [[41, 23], [41, 16], [32, 16], [32, 23]]);
-    cali('cali_b1', 'patrulha_b1', { speed: 30, vision: 56, angle: 60, wait: 1200, mode: 'loop' }, 32, 16);
-    cali('cali_b2', 'patrulha_b2', { speed: 30, vision: 56, angle: 60, wait: 1200, mode: 'loop' }, 41, 23);
+    cali('cali_b1', 'patrulha_b1', { speed: 30, vision: 72, angle: 70, wait: 1200, mode: 'loop' }, 32, 16);
+    cali('cali_b2', 'patrulha_b2', { speed: 30, vision: 72, angle: 70, wait: 1200, mode: 'loop' }, 41, 23);
     // Toucim parado: o cone gira 90° a cada 4 s
     m.entidade({ name: 'toucim_posto', type: 'inimigo', point: true, ...m.centroPx(31, 21), properties: [
-      { name: 'sprite', type: 'string', value: 'caligosuin' }, { name: 'turn', type: 'int', value: 4000 }, { name: 'vision', type: 'int', value: 64 }, { name: 'angle', type: 'int', value: 60 }, { name: 'facing', type: 'string', value: 'right' } ] });
+      { name: 'sprite', type: 'string', value: 'caligosuin' }, { name: 'turn', type: 'int', value: 4000 }, { name: 'vision', type: 'int', value: 88 }, { name: 'angle', type: 'int', value: 80 }, { name: 'facing', type: 'string', value: 'right' } ] });
     m.marcador('posto_toucim', 31, 21);
     // Trecho C: 2 patrulhas cruzadas na Rua do Terreiro
     m.rota('patrulha_c1', [[34, 28], [34, 37], [24, 37]]);
     m.rota('patrulha_c2', [[8, 37], [19, 37], [29, 37]]);
-    cali('cali_c1', 'patrulha_c1', { speed: 30, vision: 64, angle: 60, wait: 1500 }, 34, 28);
-    cali('cali_c2', 'patrulha_c2', { speed: 30, vision: 64, angle: 60, wait: 1500 }, 8, 37);
+    cali('cali_c1', 'patrulha_c1', { speed: 34, vision: 88, angle: 76, wait: 1800 }, 34, 28);
+    cali('cali_c2', 'patrulha_c2', { speed: 34, vision: 88, angle: 76, wait: 1800 }, 8, 37);
   }
   return m;
 }
