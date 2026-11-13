@@ -100,6 +100,20 @@ Nenhuma bloqueante. Observações para as outras frentes:
   `tiles_fogo.json` (tabela em MAPAS.md). Alternativa `fx_fogo*` como ator decorativo também funciona
   (`spawn` com `sprite: "fx_fogo"` + `anim: "queimar"`).
 
+## Ciclo 5 (áudio e arte final)
+
+- **Música**: carregada sob demanda via Web Audio (o boot não baixa ~5 MB de trilha), respeitando o
+  `assets/audio/music/manifest.json`: `loop`, `loopStart`, `loopEnd`; `tema_lenda` e `tema_mae` tocam uma vez.
+  Crossfade mantido; sem arquivo, melodia provisória.
+- **Bips de fala por falante** (`fala_grave`/`fala_aguda`/`fala_ronco`/`fala_media`; narrador/tutorial = `texto`),
+  sobrescrevível por `voz` em characters.json. SFX de interface usam os arquivos da arte com os mesmos ids.
+- **Título** com `titulo_fundo` + `simbolo_triskelion` (painel translúcido atrás do menu para contraste);
+  **cartão de título** com `cartao_titulo_fundo`.
+- **Favicon, apple-touch-icon e manifest de PWA** (`display: fullscreen`, `orientation: landscape`) gerados no build
+  a partir de `assets/icons/`.
+- Testes: `tests/audio.test.ts` (manifesto, vozes, SFX existentes). Teste de navegador: 45 verificações OK
+  (inclui arte do título, manifest/ícones servidos, laço das músicas). Capturas 09 e 10.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai

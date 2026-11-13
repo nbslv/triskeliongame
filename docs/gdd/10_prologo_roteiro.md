@@ -210,8 +210,9 @@ Na mão, uma **caixinha de costura** de madeira. Nenhum ferimento é mostrado; o
 
 **Batida 2 — A confissão.** A mãe não morreu de febre: estudantes ricos, magia proibida numa
 praça da capital, três atingidos, dois mortos. *"A Aurora foi uma delas."* O pai sabia dos
-livros o tempo todo (*"quem você acha que vira o colchão nesta casa?"* — o riso no meio do
-choro é a assinatura do jogo). E a revelação: Ícaro é "fora da curva" como a mãe; a repressão
+livros o tempo todo: *"Quase toda noite você dormia em cima de um. Eu apagava a vela e te
+cobria."* (Eco da manhã, quando Ícaro acorda com uma página colada no rosto, e do colchão
+arrumado que o jogador pode examinar logo antes.) E a revelação: Ícaro é "fora da curva" como a mãe; a repressão
 era medo.
 
 **Batida 3 — A cura que não vem (`prologo_13_cura`).** Ícaro tenta "Alento". O jogador participa:

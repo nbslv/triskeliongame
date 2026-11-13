@@ -379,7 +379,7 @@ Receita de sala: linha 0 = `moldura` de cima; linhas 1–2 = `parede_fundo`; dep
 
 ### Fogo comum (alaranjado)
 
-O motor ainda não anima tiles: use o quadro 1 como imagem parada (ou alterne quadros entre tiles vizinhos para dar variedade). Os mesmos quadros existem como spritesheets em `assets/sprites/fx_*.png` (ver docs/status/arte.md). Estas cores não escurecem: o fogo "acende" a cena da noite. Tudo passável, exceto onde indicado; para bloquear o caminho com fogo, use a versão alta na camada de objetos.
+Tiles ANIMADOS (formato do Tiled, já no JSON do tileset): ponha no mapa sempre o **quadro 1**; os quadros 2 e 3 também podem ser usados parados para variar. Os mesmos quadros existem como spritesheets em `assets/sprites/fx_*.png` (ver docs/status/arte.md). Estas cores não escurecem: o fogo "acende" a cena da noite. Tudo passável, exceto onde indicado; para bloquear o caminho com fogo, use a versão alta na camada de objetos.
 
 | Nome | Índices | Tam. | Sólido | Uso |
 |---|---|---|---|---|
@@ -435,9 +435,9 @@ O mapa do túnel usa `escuro: true`; o motor desenha a máscara com o círculo d
 | `pedra_3` | **2** | 1×1 | — | Chão de pedra úmida. |
 | `escada_saida` | **3** | 1×1 | — | Escada de mão subindo (entrada pelo alçapão / saída para o bambuzal). |
 | `poca` | **4** | 1×1 | — | Poça d'água (camada `chao2`). |
-| `goteira_1` | **5** | 1×1 | — | Goteira, quadro 1 (use um só, parado, ou os três em tiles vizinhos). |
-| `goteira_2` | **6** | 1×1 | — | Goteira, quadro 2 (use um só, parado, ou os três em tiles vizinhos). |
-| `goteira_3` | **7** | 1×1 | — | Goteira, quadro 3 (use um só, parado, ou os três em tiles vizinhos). |
+| `goteira_1` | **5** | 1×1 | — | Goteira, quadro 1 (o quadro 1 é animado). |
+| `goteira_2` | **6** | 1×1 | — | Goteira, quadro 2 (o quadro 1 é animado). |
+| `goteira_3` | **7** | 1×1 | — | Goteira, quadro 3 (o quadro 1 é animado). |
 | `pedras_soltas` | **8** | 1×1 | sim | Pedras soltas. |
 | `cavalinho_sabugo` | **9** | 1×1 | — | Cavalinho de sabugo de milho (`exame_brinquedo`, na reentrância). |
 | `rocha_topo` | 12 13 14<br>24 25 26<br>36 37 38 | 3×3 | sim | Rocha maciça vista de cima (3×3: cantos e lados; centro = breu). |

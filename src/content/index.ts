@@ -76,6 +76,8 @@ interface CharacterInfo {
   name: string;
   sprite?: string;
   color?: string;
+  /** Bip de fala (assets/audio/sfx/fala_<voz>.ogg): grave, media, aguda, ronco... */
+  voice?: string;
 }
 
 const characters = new Map<string, CharacterInfo>();
@@ -88,6 +90,7 @@ const characters = new Map<string, CharacterInfo>();
       name: name ?? id,
       sprite: (c.sprite ?? c.spritesheet) as string | undefined,
       color: (c.color ?? c.cor) as string | undefined,
+      voice: (c.voice ?? c.voz) as string | undefined,
     });
   };
   // Aceita { "personagens": [...] }, [...] ou { "<id>": {...} }.
@@ -114,6 +117,20 @@ export function characterName(id: string | undefined): string {
   return id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ');
 }
 
+/**
+ * Efeito sonoro do bip de digitação para um falante: `voz` em characters.json, senão
+ * pai/toucim → grave, nina → aguda, Caligosuins → ronco, demais → média; narrador/tutorial → "texto".
+ */
+export function speakerVoice(id: string | undefined): string {
+  if (!id || id === 'narrador' || id === 'narrator' || id === 'tutorial') return 'texto';
+  const v = characters.get(id)?.voice;
+  if (v) return v.startsWith('fala_') || v === 'texto' ? v : `fala_${v}`;
+  if (/^cali_|^caligosuin|^toucim/.test(id)) return 'fala_ronco';
+  if (id === 'pai') return 'fala_grave';
+  if (id === 'nina') return 'fala_aguda';
+  return 'fala_media';
+}
+
 /** Sprites equivalentes (a arte desenhou `cali_soldado`; `caligosuin` é a chave padrão dos inimigos). */
 export const SPRITE_ALIASES: Record<string, string[]> = {
   caligosuin: ['cali_soldado'],
@@ -135,7 +152,8 @@ const portraitUrls = import.meta.glob('/assets/portraits/**/*.png', { eager: tru
 const tilesetUrls = import.meta.glob('/assets/tilesets/**/*.png', { eager: true, query: '?url', import: 'default' });
 const spriteUrls = import.meta.glob('/assets/sprites/**/*.png', { eager: true, query: '?url', import: 'default' });
 const spriteMeta = import.meta.glob('/assets/sprites/**/*.json', { eager: true, import: 'default' });
-const musicUrls = import.meta.glob('/assets/audio/music/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
+const musicFileUrls = import.meta.glob('/assets/audio/music/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
+const musicManifestModules = import.meta.glob('/assets/audio/music/manifest.json', { eager: true, import: 'default' });
 const sfxUrls = import.meta.glob('/assets/audio/sfx/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
 
 export interface AssetEntry {
@@ -183,6 +201,34 @@ export const assetManifest = {
       anims: meta.anims,
     };
   }),
-  music: toAudioEntries(musicUrls, 'music:'),
+  music: toAudioEntries(musicFileUrls, 'music:'),
   sfx: toAudioEntries(sfxUrls, 'sfx:'),
 };
+
+/** Metadados das músicas (assets/audio/music/manifest.json, da sessão de áudio). */
+export interface MusicMeta {
+  /** false = toca uma vez só (ex.: tema_lenda, tema_mae). Padrão true. */
+  loop: boolean;
+  /** Trecho em laço, em segundos (padrão: o arquivo inteiro). */
+  loopStart?: number;
+  loopEnd?: number;
+}
+
+export const musicMeta = new Map<string, MusicMeta>();
+{
+  const raw = Object.values(musicManifestModules)[0] as unknown;
+  const list = Array.isArray(raw) ? raw : raw && typeof raw === 'object' ? Object.entries(raw).map(([id, v]) => ({ id, ...(v as object) })) : [];
+  for (const e of list as Record<string, unknown>[]) {
+    if (typeof e.id !== 'string') continue;
+    musicMeta.set(e.id, {
+      loop: e.loop !== false,
+      loopStart: typeof e.loopStart === 'number' ? e.loopStart : undefined,
+      loopEnd: typeof e.loopEnd === 'number' ? e.loopEnd : undefined,
+    });
+  }
+}
+
+/** URLs de uma música (ogg/mp3...) para carregar sob demanda. */
+export function musicUrls(id: string): string[] {
+  return assetManifest.music.find((m) => m.key === `music:${id}`)?.urls ?? [];
+}

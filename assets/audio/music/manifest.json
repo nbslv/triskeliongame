@@ -1,0 +1,112 @@
+[
+ {
+  "id": "tema_cafezal",
+  "arquivo": "tema_cafezal.ogg",
+  "mp3": "tema_cafezal.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 40.0,
+  "duracao": 40.0,
+  "bpm": 96
+ },
+ {
+  "id": "tema_casa",
+  "arquivo": "tema_casa.ogg",
+  "mp3": "tema_casa.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 48.0,
+  "duracao": 48.0,
+  "bpm": 80
+ },
+ {
+  "id": "tema_lenda",
+  "arquivo": "tema_lenda.ogg",
+  "mp3": "tema_lenda.mp3",
+  "loop": false,
+  "loopStart": 0.0,
+  "loopEnd": 22.5,
+  "duracao": 22.5,
+  "bpm": 60
+ },
+ {
+  "id": "tema_mae",
+  "arquivo": "tema_mae.ogg",
+  "mp3": "tema_mae.mp3",
+  "loop": false,
+  "loopStart": 0.0,
+  "loopEnd": 6.2,
+  "duracao": 6.2,
+  "bpm": 120
+ },
+ {
+  "id": "tema_noite_esperanca",
+  "arquivo": "tema_noite_esperanca.ogg",
+  "mp3": "tema_noite_esperanca.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 54.8571,
+  "duracao": 54.8571,
+  "bpm": 70
+ },
+ {
+  "id": "tema_pai",
+  "arquivo": "tema_pai.ogg",
+  "mp3": "tema_pai.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 64.0,
+  "duracao": 64.0,
+  "bpm": 60
+ },
+ {
+  "id": "tema_tensao",
+  "arquivo": "tema_tensao.ogg",
+  "mp3": "tema_tensao.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 32.0,
+  "duracao": 32.0,
+  "bpm": 120
+ },
+ {
+  "id": "tema_triskelion",
+  "arquivo": "tema_triskelion.ogg",
+  "mp3": "tema_triskelion.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 53.3333,
+  "duracao": 53.3333,
+  "bpm": 72
+ },
+ {
+  "id": "tema_tunel",
+  "arquivo": "tema_tunel.ogg",
+  "mp3": "tema_tunel.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 36.0,
+  "duracao": 36.0,
+  "bpm": 0
+ },
+ {
+  "id": "tema_vila_em_chamas",
+  "arquivo": "tema_vila_em_chamas.ogg",
+  "mp3": "tema_vila_em_chamas.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 36.9231,
+  "duracao": 36.9231,
+  "bpm": 104
+ },
+ {
+  "id": "titulo",
+  "arquivo": "titulo.ogg",
+  "mp3": "titulo.mp3",
+  "loop": true,
+  "loopStart": 0.0,
+  "loopEnd": 53.3333,
+  "duracao": 53.3333,
+  "bpm": 72
+ }
+]

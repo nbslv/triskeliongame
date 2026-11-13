@@ -57,3 +57,15 @@ fonte da verdade e vale por cima das propostas do GDD.
   nobre cujo dever hereditário é guardar o Nymphalion. Foi banida pela pena do *Despetalar*, que
   riscou seu nome e seu clã, e se apresenta só como "Celly". O grupo só descobre a nobreza dela
   no fim, quando o Conselho devolve o nome. Remover a marca "PENDENTE APROVAÇÃO" do GDD.
+- **Fala do pai sobre o colchão** (13/11): o autor achou pouco natural. A nova fala é: "Sabia.
+  Quase toda noite você dormia em cima de um. Eu apagava a vela e te cobria."
+- **Nomes menores aprovados**: lugares da província (Morro do Clarão, Ribeirão Dourado, Serra da
+  Alvorada), Escola de Cura de Pratamar, Mestra Serena e os NPCs de 06 e 07.
+- **Escopo da primeira versão completa** (13/11):
+  - Entram os treinos com minijogos, as conversas de fogueira e o acampamento.
+  - **Cozinhar e pescar entram**, mas como atividades opcionais e lúdicas, para mostrar a
+    interação entre os personagens. Nada no jogo exige comida ou peixe, e o bônus mecânico é
+    pequeno.
+  - **O pós-jogo de reconstrução de Valesol é PRIMORDIAL**, não um extra. São 2–3 h, sem
+    batalhas obrigatórias, em 6 etapas, terminando na Festa da Colheita com a escola de magia
+    para os filhos de peões (ver `docs/gdd/03_fases.md`, seção 6).

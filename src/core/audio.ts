@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { bus } from './events';
 import { settings } from './settings';
+import { musicMeta, musicUrls } from '../content';
 
 /**
  * Áudio: música com crossfade e efeitos sonoros.
@@ -19,8 +20,12 @@ interface Track {
   fadeTo: number;
   fadeStart: number;
   fadeMs: number;
-  sound?: Phaser.Sound.BaseSound & { volume: number };
+  /** Arquivo de música: fonte Web Audio (com loopStart/loopEnd) e ganho próprio. */
+  source?: AudioBufferSourceNode;
+  gain?: GainNode;
   synth?: ProceduralMusic;
+  /** Faixa sem laço terminou. */
+  ended?: boolean;
 }
 
 const SCALES = [
@@ -117,6 +122,10 @@ const SFX_SHAPES: Record<string, [number, number, number, OscillatorType]> = {
   cancelar: [440, 260, 0.1, 'square'],
   cursor: [880, 880, 0.03, 'square'],
   texto: [520, 520, 0.015, 'square'],
+  fala_media: [520, 480, 0.03, 'square'],
+  fala_grave: [260, 240, 0.04, 'square'],
+  fala_aguda: [880, 820, 0.025, 'square'],
+  fala_ronco: [140, 110, 0.05, 'sawtooth'],
   alerta: [300, 900, 0.25, 'sawtooth'],
   passo: [140, 90, 0.04, 'triangle'],
 };
@@ -156,7 +165,7 @@ export class AudioService {
   }
 
   private applyTrackVolume(t: Track): void {
-    if (t.sound) t.sound.volume = t.volume * t.fade * settings.musicVolume;
+    if (t.gain) t.gain.gain.value = t.volume * t.fade;
     if (t.synth) t.synth.gain.gain.value = t.volume * t.fade;
   }
 
@@ -164,9 +173,42 @@ export class AudioService {
     return this.current?.id ?? null;
   }
 
-  /** Toca uma faixa (crossfade com a atual). `null` para parar. */
+  private buffers = new Map<string, Promise<AudioBuffer | null>>();
+
+  /** Carrega e decodifica uma música sob demanda (ogg se o navegador tocar, senão mp3). */
+  private loadMusic(id: string): Promise<AudioBuffer | null> {
+    const cached = this.buffers.get(id);
+    if (cached) return cached;
+    const ctx = this.ctx;
+    const urls = musicUrls(id);
+    if (!ctx || urls.length === 0) return Promise.resolve(null);
+    const probe = document.createElement('audio');
+    const canOgg = probe.canPlayType('audio/ogg; codecs="vorbis"') !== '';
+    const url = urls.find((u) => (canOgg ? /\.ogg/.test(u) : /\.(mp3|m4a)/.test(u))) ?? urls[0]!;
+    const p = fetch(url)
+      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then((data) => new Promise<AudioBuffer>((res, rej) => ctx.decodeAudioData(data, res, rej)))
+      .catch((e) => {
+        console.warn(`[áudio] não foi possível carregar a música "${id}":`, e);
+        this.buffers.delete(id);
+        return null;
+      });
+    this.buffers.set(id, p);
+    return p;
+  }
+
+  /** Pré-carrega músicas (ex.: a do próximo mapa) sem tocar. */
+  preloadMusic(...ids: string[]): void {
+    for (const id of ids) void this.loadMusic(id);
+  }
+
+  /**
+   * Toca uma faixa (crossfade com a atual). `null` para parar.
+   * Arquivos de assets/audio/music respeitam o manifesto: `loop` (false = uma vez só) e `loopStart`/`loopEnd`.
+   * Sem arquivo, toca uma melodia provisória gerada por código.
+   */
   playMusic(id: string | null, fadeMs = 800, volume = 1): void {
-    if (id && this.current?.id === id) {
+    if (id && this.current?.id === id && !this.current.ended) {
       this.current.volume = volume;
       return;
     }
@@ -179,17 +221,43 @@ export class AudioService {
     }
     if (!id) return;
     const track: Track = { id, volume, fade: 0, fadeFrom: 0, fadeTo: 1, fadeStart: now, fadeMs: Math.max(1, fadeMs) };
-    const key = `music:${id}`;
-    if (this.game.cache.audio.exists(key)) {
-      const s = this.game.sound.add(key, { loop: true, volume: 0 }) as Track['sound'];
-      s?.play();
-      track.sound = s;
-    } else if (this.ctx && this.musicBus) {
-      track.synth = new ProceduralMusic(this.ctx, this.musicBus, id);
-      track.synth.start();
-    }
     this.current = track;
-    this.applyTrackVolume(track);
+    const ctx = this.ctx;
+    if (!ctx || !this.musicBus) return;
+    if (musicUrls(id).length > 0) {
+      void this.loadMusic(id).then((buf) => {
+        if (this.current !== track) return; // trocou de música enquanto carregava
+        if (!buf) {
+          track.synth = new ProceduralMusic(ctx, this.musicBus!, id);
+          track.synth.start();
+          return;
+        }
+        const meta = musicMeta.get(id) ?? { loop: true };
+        const gain = ctx.createGain();
+        gain.connect(this.musicBus!);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.loop = meta.loop;
+        if (meta.loop && meta.loopEnd !== undefined && meta.loopEnd > (meta.loopStart ?? 0)) {
+          src.loopStart = meta.loopStart ?? 0;
+          src.loopEnd = Math.min(meta.loopEnd, buf.duration);
+        }
+        src.connect(gain);
+        src.onended = () => {
+          track.ended = true;
+        };
+        track.source = src;
+        track.gain = gain;
+        // O fade começa quando o som realmente começa.
+        Object.assign(track, { fade: 0, fadeFrom: 0, fadeTo: 1, fadeStart: performance.now() });
+        this.applyTrackVolume(track);
+        src.start();
+      });
+    } else {
+      track.synth = new ProceduralMusic(ctx, this.musicBus, id);
+      track.synth.start();
+      this.applyTrackVolume(track);
+    }
   }
 
   sfx(id: string, volume = 1): void {
@@ -229,8 +297,13 @@ export class AudioService {
     if (this.current && this.current.fade !== this.current.fadeTo) step(this.current);
     this.fadingOut = this.fadingOut.filter((t) => {
       if (!step(t)) return true;
-      t.sound?.stop();
-      t.sound?.destroy();
+      try {
+        t.source?.stop();
+      } catch {
+        /* já parou */
+      }
+      t.source?.disconnect();
+      t.gain?.disconnect();
       t.synth?.stop();
       return false;
     });

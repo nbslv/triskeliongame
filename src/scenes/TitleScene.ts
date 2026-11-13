@@ -25,28 +25,36 @@ export class TitleScene extends Phaser.Scene {
     input.clearPresses();
     this.cameras.main.fadeIn(300);
 
-    // Fundo provisório: céu estrelado e um triskelion desenhado.
-    const g = this.add.graphics();
-    g.fillGradientStyle(0x0b0a12, 0x0b0a12, 0x2a1f3d, 0x2a1f3d, 1).fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    for (let i = 0; i < 80; i++) {
-      g.fillStyle(0xf4ecd8, Math.random() * 0.8 + 0.2).fillRect(Math.random() * GAME_WIDTH, Math.random() * GAME_HEIGHT * 0.7, 1, 1);
-    }
-    const tri = this.add.graphics({ x: GAME_WIDTH / 2, y: 92 });
-    tri.lineStyle(3, COLORS.accentNum, 1);
-    for (let k = 0; k < 3; k++) {
-      const a0 = (k * Math.PI * 2) / 3;
-      tri.beginPath();
-      for (let t = 0; t <= 1.0001; t += 0.05) {
-        const r = 4 + 20 * t;
-        const a = a0 + t * Math.PI * 1.6;
-        const px = Math.cos(a) * r;
-        const py = Math.sin(a) * r;
-        if (t === 0) tri.moveTo(px, py);
-        else tri.lineTo(px, py);
+    if (this.textures.exists('titulo_fundo')) {
+      // Arte final: fundo 640×360; texto e menu ficam sobre a parte escura.
+      this.add.image(0, 0, 'titulo_fundo').setOrigin(0);
+    } else {
+      // Fundo provisório: céu estrelado.
+      const g = this.add.graphics();
+      g.fillGradientStyle(0x0b0a12, 0x0b0a12, 0x2a1f3d, 0x2a1f3d, 1).fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+      for (let i = 0; i < 80; i++) {
+        g.fillStyle(0xf4ecd8, Math.random() * 0.8 + 0.2).fillRect(Math.random() * GAME_WIDTH, Math.random() * GAME_HEIGHT * 0.7, 1, 1);
       }
-      tri.strokePath();
     }
-    this.tweens.add({ targets: tri, angle: 360, duration: 24000, repeat: -1 });
+    if (this.textures.exists('simbolo_triskelion')) {
+      const sym = this.add.image(GAME_WIDTH / 2, 88, 'simbolo_triskelion');
+      this.tweens.add({ targets: sym, angle: 360, duration: 30000, repeat: -1 });
+    } else {
+      const tri = this.add.graphics({ x: GAME_WIDTH / 2, y: 92 });
+      tri.lineStyle(3, COLORS.accentNum, 1);
+      for (let k = 0; k < 3; k++) {
+        const a0 = (k * Math.PI * 2) / 3;
+        tri.beginPath();
+        for (let t = 0; t <= 1.0001; t += 0.05) {
+          const r = 4 + 20 * t;
+          const a = a0 + t * Math.PI * 1.6;
+          if (t === 0) tri.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+          else tri.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+        }
+        tri.strokePath();
+      }
+      this.tweens.add({ targets: tri, angle: 360, duration: 24000, repeat: -1 });
+    }
 
     makeText(this, GAME_WIDTH / 2, 148, 'TRISKELION', 56, COLORS.accent).setOrigin(0.5);
     makeText(this, GAME_WIDTH - 8, GAME_HEIGHT - 6, `v${__GAME_VERSION__}`, 14, COLORS.textDim).setOrigin(1, 1);
@@ -65,7 +73,13 @@ export class TitleScene extends Phaser.Scene {
       items.unshift({ label: 'Retomar de onde parou', action: () => startFromSave(this, resume) });
       makeText(this, GAME_WIDTH / 2, 188, `${mapDisplayName(resume.position.map)} · ${formatDate(resume.savedAt)}`, 16, COLORS.textDim).setOrigin(0.5);
     }
-    this.menu = new MenuList(this, GAME_WIDTH / 2 - 80, resume ? 206 : 200, items, { size: 22, spacing: 27 });
+    // Painel translúcido atrás do menu, para o texto não sumir sobre o pôr do sol da arte.
+    const menuY = resume ? 206 : 200;
+    this.add
+      .graphics()
+      .fillStyle(0x0b0a12, 0.55)
+      .fillRoundedRect(GAME_WIDTH / 2 - 112, menuY - 8, 224, items.length * 27 + 12, 6);
+    this.menu = new MenuList(this, GAME_WIDTH / 2 - 80, menuY, items, { size: 22, spacing: 27 });
     if (resume) this.menu.index = 0;
     else if (hasSave) this.menu.index = 1;
     this.menu.update(0);

@@ -1,6 +1,62 @@
 /// <reference types="vitest" />
 import { createHash } from 'node:crypto';
-import { defineConfig, loadEnv } from 'vite';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
+
+/**
+ * Ícones e manifest de PWA ("adicionar à tela inicial" no celular, em paisagem).
+ * Os ícones vêm de assets/icons/ (arte) e são servidos/copiados em `icons/` com nomes fixos,
+ * porque o manifest precisa de caminhos estáveis.
+ */
+function pwa(): Plugin {
+  const iconsDir = join(process.cwd(), 'assets', 'icons');
+  const icons = () => (existsSync(iconsDir) ? readdirSync(iconsDir).filter((f) => f.endsWith('.png')) : []);
+  const manifest = () =>
+    JSON.stringify(
+      {
+        name: 'Triskelion',
+        short_name: 'Triskelion',
+        lang: 'pt-BR',
+        start_url: './',
+        scope: './',
+        display: 'fullscreen',
+        orientation: 'landscape',
+        background_color: '#0b0a12',
+        theme_color: '#0b0a12',
+        icons: icons()
+          .map((f) => ({ f, size: Number(/_(\d+)\.png$/.exec(f)?.[1] ?? 0) }))
+          .filter(({ size }) => size >= 64)
+          .map(({ f, size }) => ({ src: `icons/${f}`, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any' })),
+      },
+      null,
+      1,
+    );
+  return {
+    name: 'triskelion-pwa',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url ?? '').split('?')[0]!;
+        if (url.endsWith('/manifest.webmanifest')) {
+          res.setHeader('Content-Type', 'application/manifest+json');
+          res.end(manifest());
+          return;
+        }
+        const m = /\/icons\/([\w.-]+\.png)$/.exec(url);
+        if (m && existsSync(join(iconsDir, m[1]!))) {
+          res.setHeader('Content-Type', 'image/png');
+          res.end(readFileSync(join(iconsDir, m[1]!)));
+          return;
+        }
+        next();
+      });
+    },
+    generateBundle() {
+      for (const f of icons()) this.emitFile({ type: 'asset', fileName: `icons/${f}`, source: readFileSync(join(iconsDir, f)) });
+      this.emitFile({ type: 'asset', fileName: 'manifest.webmanifest', source: manifest() });
+    },
+  };
+}
 
 /**
  * Senha de entrada (proteção LEVE):
@@ -17,6 +73,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: './',
+    plugins: [pwa()],
     define: {
       __GAME_PASSWORD_HASH__: JSON.stringify(hash),
       __GAME_VERSION__: JSON.stringify(process.env.npm_package_version ?? 'dev'),

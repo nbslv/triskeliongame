@@ -68,12 +68,15 @@ cenas de história e chefe (20 min) · uma conversa de fogueira (5 min).
 | Missões secundárias (2–3 por região, ~30 no total) | 4–5 h |
 | Treinos de força e magia em todas as cidades | 1 h 30 – 2 h |
 | Casas extras, examináveis, fofocas | 1 h – 1 h 30 |
-| Cozinhar, pescar, colher, decorar o acampamento | 2–3 h |
+| Cozinhar, pescar, colher, decorar o acampamento (lúdico, nada obrigatório) | 2–3 h |
 | Conversas de fogueira e cartas da Livinha | 1 h |
 | Caderno do Ícaro completo (bestiário, receitas, carimbos) | 1–2 h |
-| Pós-jogo: reconstruir a vila de Valesol (seção 6) | 1–2 h |
 
 Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
+
+**Fora da tabela de extras: a reconstrução de Valesol (seção 6), 2–3 h.** Decisão do autor:
+o pós-jogo é **primordial** — é o fecho emocional do jogo, não um extra. Os créditos convidam
+o jogador a voltar, e o jogo é pensado para que todo mundo jogue essa parte.
 
 ## 3. Capítulos
 
@@ -242,7 +245,9 @@ Quem joga só a história, no AUTO e sem explorar, termina perto de **8–9 h**.
      O lar dela, antes vazio e com a porta lacrada, enche de visitas.
   4. **Forja-Alta:** jantar na casa dos Lâmina de Ferro. A Livinha cobra a promessa de mindinho.
   5. **Colina do Mar:** Ícaro e Valéria, de mãos dadas, visitam os túmulos dos pais dele.
-- **Depois dos créditos:** o save volta ao mundo aberto, com o pós-jogo liberado.
+- **Depois dos créditos:** uma cena curta em Valesol (Dona Zefa sozinha no cafezal queimado,
+  plantando uma muda) e o convite: **"Valesol espera por você."** O save volta ao mundo aberto
+  com a reconstrução liberada e marcada no mapa.
 
 ## 4. Quem entra no grupo, e onde
 
@@ -275,13 +280,36 @@ Princípios:
 - Não é preciso "farmar": seguir a história e enfrentar os inimigos do caminho basta para o
   nível esperado. Quem explorar tudo chega 2–3 níveis acima.
 
-## 6. Pós-jogo: reconstruir Valesol
+## 6. Pós-jogo: reconstruir Valesol (primordial)
 
-Depois dos créditos, a vila de **Valesol** vira um projeto aconchegante e sem pressa:
-- Dona Zefa, Tonho, Nina, Dona Custódia, Seu Juca e Dona Ermelinda voltam um a um, conforme o
-  jogador entrega materiais (madeira de Bravaferro, telhas de Áurea, mudas de Brumaflor).
-- Cada casa reconstruída reabre como interior explorável, com falas novas.
-- A casa de Ícaro ganha, enfim, um **telhado novo** (o pote "TELHADO" do prólogo) — e, se o
-  jogador quiser, um segundo andar. ("Mago é coisa de quem nasceu em casa de dois andares.")
-- O cafezal volta a produzir: colheita como atividade livre, com o *Café Valesol* de prêmio.
-- A biblioteca reabre com os livros recuperados na missão "Devolução atrasada".
+**Decisão do autor:** a reconstrução da vila do sol é parte **primordial** do jogo. É o lugar
+onde a promessa ao pai — *viver, e não só sobreviver* — vira algo que o jogador constrói com as
+próprias mãos. Duração: **2–3 h**. Tom: só aconchego. Sem batalhas obrigatórias.
+
+### Como funciona
+- Valesol vira o **lar do jogador**. Ícaro mora lá; o grupo visita (cada amigo aparece em uma
+  etapa e fica para morar ou passar temporadas).
+- A vila é reconstruída em **6 etapas**. Cada etapa pede materiais e ajuda, e devolve uma parte
+  da vila, um morador e uma cena.
+- **Materiais** vêm de lugares que o jogador já conhece (madeira de Bravaferro, telhas de
+  Áurea, pedra de Pratamar, mudas de Brumaflor), de baús e de pequenas tarefas na própria vila.
+  São obtidos com tarefas simples, nunca com farm de batalha. **Não exigem cozinhar nem pescar.**
+- As tarefas da obra reaproveitam os minijogos de treino (Carregar, Ritmo, Sequência), com outra
+  roupagem: carregar telhas, martelar no compasso, plantar na ordem certa.
+- Cada etapa termina com uma **festa pequena** na praça (uma cena de 1–2 min) e um autosave.
+
+### As 6 etapas
+| # | O que volta | Quem volta | Cena / o que revela |
+|---|---|---|---|
+| 1 | **O cafezal** (limpar as cinzas, replantar) | Dona Zefa, Tonho e Nina | Zefa: "Café leva três anos pra dar. A gente tem tempo." Valéria ajuda a carregar mudas e reclama de tudo |
+| 2 | **A praça e o chafariz** | Dona Custódia (e a Pamonha) | O chafariz volta a correr. Custódia traz um retrato do Tadeo jovem, rindo: "Ele ria, sabia? Antes." |
+| 3 | **A padaria** | Seu Juca | O forno é aceso de novo, desta vez com uma faísca de Lumnia de Ícaro. "Agora não apaga nunca mais." |
+| 4 | **A biblioteca** | Dona Ermelinda; os livros da missão "Devolução atrasada" e os recuperados da Fortaleza | A ficha "Aurora" volta para o fichário, ao lado da de Ícaro. Ermelinda carimba um cartão novo. Silvano doa livros de cura de Pratamar |
+| 5 | **A casa de Ícaro** | — | O pote "TELHADO" do prólogo finalmente paga o telhado. O jogador escolhe: manter uma peça só ou **construir um segundo andar** ("Mago é coisa de quem nasceu em casa de dois andares." — "Ou de quem construiu um."). A caixinha de costura volta para a prateleira alta |
+| 6 | **A Festa da Colheita** | Todos: o grupo, Lucian, a família de Valéria, Livinha, fadas, até o Capitão Toucim com a banca de café | A vila inteira de pé. Ícaro abre a **escola de magia de Valesol** na biblioteca, para filhos de peões. Celly ensina runas aos brotinhos humanos; Silvano ensina cura; Valéria ensina a segurar uma espada "sem pedir desculpa". Cena final de verdade: o primeiro café Valesol da nova colheita, servido a todos |
+
+### Depois das 6 etapas
+- Valesol fica viva: moradores com rotina, o cafezal produzindo (colheita livre), a escola com
+  alunos que comentam o que aprenderam.
+- Visitas dos amigos em dias aleatórios, com conversas de fogueira novas na praça.
+- O jogador pode continuar decorando a casa e a vila com os itens de decoração do jogo todo.

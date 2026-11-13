@@ -26,8 +26,13 @@ export class TitleCardScene extends Phaser.Scene {
     this.closing = false;
     input.clearPresses();
     const bg = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x0b0a12, 1).setOrigin(0).setAlpha(0);
+    const objs: Phaser.GameObjects.GameObject[] = [bg];
+    if (this.textures.exists('cartao_titulo_fundo')) objs.push(this.add.image(0, 0, 'cartao_titulo_fundo').setOrigin(0).setAlpha(0));
+    if (this.textures.exists('simbolo_triskelion')) {
+      objs.push(this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 72, 'simbolo_triskelion').setAlpha(0));
+    }
     const t = makeText(this, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 14, data.text, 56, COLORS.accent).setOrigin(0.5).setAlpha(0);
-    const objs: Phaser.GameObjects.GameObject[] = [bg, t];
+    objs.push(t);
     if (data.subtitle) {
       objs.push(makeText(this, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 30, data.subtitle, 24, COLORS.text).setOrigin(0.5).setAlpha(0));
     }

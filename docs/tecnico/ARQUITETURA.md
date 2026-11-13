@@ -98,8 +98,10 @@ Basta colocar os arquivos; o build encontra sozinho:
 | `assets/images/emote_<nome>.png` | `emote_<nome>` | Ícone 16×16 do balão de `emote` (`exclamacao`, `interrogacao`, `reticencias`, `suor`, `coracao`, `nota`...); sem ícone, usa texto. |
 | `assets/tilesets/<nome>.png` | `tileset:<nome>` | Tileset com o mesmo nome do Tiled. |
 | `assets/images/<id>.png` | `<id>` | Imagens avulsas. |
-| `assets/audio/music/<id>.ogg|mp3` | `music:<id>` | Música (`music` nos roteiros, `music` no mapa). Pode ter .ogg e .mp3 juntos. |
-| `assets/audio/sfx/<id>.ogg|mp3` | `sfx:<id>` | Efeitos. Ids usados pelo motor: `confirmar`, `cancelar`, `cursor`, `texto`, `alerta`. |
+| `assets/audio/music/<id>.ogg|mp3` + `manifest.json` | — | Música (`music` nos roteiros e no mapa). **Carregada sob demanda** (não pesa no boot): ogg se o navegador tocar, senão mp3. O manifesto define `loop` (false = toca uma vez, ex.: `tema_lenda`, `tema_mae`) e `loopStart`/`loopEnd` (s). Crossfade entre faixas. |
+| `assets/audio/sfx/<id>.ogg|mp3` | `sfx:<id>` | Efeitos. Ids usados pelo motor: `confirmar`, `cancelar`, `cursor`, `alerta`, e o bip de digitação por falante: `fala_grave` (pai), `fala_aguda` (Nina), `fala_ronco` (Caligosuins/Toucim), `fala_media` (demais), `texto` (narrador/tutorial). O campo `voz` em characters.json sobrescreve. |
+| `assets/images/titulo_fundo.png`, `cartao_titulo_fundo.png`, `simbolo_triskelion.png` | — | Fundo do título, fundo do cartão de título (passo `title`) e símbolo. |
+| `assets/icons/*.png` | — | Favicon e ícones; o build gera `icons/` e `manifest.webmanifest` (PWA em paisagem, "adicionar à tela inicial"). |
 
 Enquanto um arquivo não existe, o motor gera um provisório (bonecos coloridos, bipes, melodia).
 
