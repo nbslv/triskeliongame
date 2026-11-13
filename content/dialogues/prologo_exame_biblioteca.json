@@ -2,7 +2,7 @@
   "id": "prologo_exame_biblioteca",
   "steps": [
     {"type": "say", "speaker": "narrador", "text": "A biblioteca de Valesol. A placa da porta ainda está lá. As estantes, não."},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "(Metade do que eu sei saiu daquela porta. E o Volume 2 estava lá dentro, me esperando no balcão.)"},
+    {"type": "say", "speaker": "icaro", "text": "(Metade do que eu sei saiu daquela porta. E o Volume 2 estava lá dentro, me esperando no balcão.)"},
     {"type": "end"}
   ]
 }

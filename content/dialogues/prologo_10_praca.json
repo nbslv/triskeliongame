@@ -16,7 +16,7 @@
     {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "(A barreira de Luminaer... caiu? Isso não é um saque. É uma guerra.)"},
     {"type": "camera", "to": "marcador_vila_biblioteca", "ms": 1000},
     {"type": "wait", "ms": 800},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "(A biblioteca...)"},
+    {"type": "say", "speaker": "icaro", "text": "(A biblioteca...)"},
     {"type": "camera", "actor": "icaro", "ms": 600},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "(Depois. Primeiro o pai. A Rua do Terreiro é logo depois do chafariz.)"},
     {"type": "anim", "actor": "icaro", "anim": "normal"},

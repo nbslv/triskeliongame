@@ -10,7 +10,7 @@
     {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "Meu pai. A senhora viu meu pai?"},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Vi. Ele já tava na rua, já tava saindo comigo. Aí parou, bateu a mão na testa e voltou pra dentro."},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Disse que tinha esquecido uma coisa. Eu chamei, eu gritei 'Tadeo, volta!'. Aí o telhado..."},
-    {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Eu não consegui voltar, Ícaro. Me perdoa."},
+    {"type": "say", "speaker": "custodia", "text": "Eu não consegui voltar, Ícaro. Me perdoa."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "A senhora fez certo. Escuta: quando a patrulha virar a esquina, vai pelo beco da padaria e sobe pro bambuzal."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "Tem soldado da capital lá recolhendo gente."},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "E você?"},
