@@ -135,7 +135,8 @@ const portraitUrls = import.meta.glob('/assets/portraits/**/*.png', { eager: tru
 const tilesetUrls = import.meta.glob('/assets/tilesets/**/*.png', { eager: true, query: '?url', import: 'default' });
 const spriteUrls = import.meta.glob('/assets/sprites/**/*.png', { eager: true, query: '?url', import: 'default' });
 const spriteMeta = import.meta.glob('/assets/sprites/**/*.json', { eager: true, import: 'default' });
-const musicUrls = import.meta.glob('/assets/audio/music/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
+const musicFileUrls = import.meta.glob('/assets/audio/music/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
+const musicManifestModules = import.meta.glob('/assets/audio/music/manifest.json', { eager: true, import: 'default' });
 const sfxUrls = import.meta.glob('/assets/audio/sfx/**/*.{ogg,mp3,m4a,wav}', { eager: true, query: '?url', import: 'default' });
 
 export interface AssetEntry {
@@ -183,6 +184,34 @@ export const assetManifest = {
       anims: meta.anims,
     };
   }),
-  music: toAudioEntries(musicUrls, 'music:'),
+  music: toAudioEntries(musicFileUrls, 'music:'),
   sfx: toAudioEntries(sfxUrls, 'sfx:'),
 };
+
+/** Metadados das músicas (assets/audio/music/manifest.json, da sessão de áudio). */
+export interface MusicMeta {
+  /** false = toca uma vez só (ex.: tema_lenda, tema_mae). Padrão true. */
+  loop: boolean;
+  /** Trecho em laço, em segundos (padrão: o arquivo inteiro). */
+  loopStart?: number;
+  loopEnd?: number;
+}
+
+export const musicMeta = new Map<string, MusicMeta>();
+{
+  const raw = Object.values(musicManifestModules)[0] as unknown;
+  const list = Array.isArray(raw) ? raw : raw && typeof raw === 'object' ? Object.entries(raw).map(([id, v]) => ({ id, ...(v as object) })) : [];
+  for (const e of list as Record<string, unknown>[]) {
+    if (typeof e.id !== 'string') continue;
+    musicMeta.set(e.id, {
+      loop: e.loop !== false,
+      loopStart: typeof e.loopStart === 'number' ? e.loopStart : undefined,
+      loopEnd: typeof e.loopEnd === 'number' ? e.loopEnd : undefined,
+    });
+  }
+}
+
+/** URLs de uma música (ogg/mp3...) para carregar sob demanda. */
+export function musicUrls(id: string): string[] {
+  return assetManifest.music.find((m) => m.key === `music:${id}`)?.urls ?? [];
+}

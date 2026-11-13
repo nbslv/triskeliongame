@@ -31,7 +31,7 @@ export class PreloadScene extends Phaser.Scene {
     m.portraits.forEach((a) => this.load.image(a.key, a.url));
     m.tilesets.forEach((a) => this.load.image(a.key, a.url));
     m.sprites.forEach((a) => this.load.spritesheet(a.key, a.url, { frameWidth: a.frameWidth, frameHeight: a.frameHeight }));
-    m.music.forEach((a) => this.load.audio(a.key, a.urls));
+    // Músicas NÃO entram aqui: são grandes e carregam sob demanda (src/core/audio.ts).
     m.sfx.forEach((a) => this.load.audio(a.key, a.urls));
   }
 
