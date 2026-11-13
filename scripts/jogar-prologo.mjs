@@ -284,7 +284,7 @@ check((await state()).map === 'prologo_vila', 'estrada → vila em chamas');
 currentMap = 'prologo_vila';
 await avancar();
 await shot('07-vila-entrada');
-if (SEM_FURT) await world('w.patrols.forEach((p) => { p.cfg.range = 0; })');
+if (SEM_FURT) await world('w.patrols.forEach((p) => { p.cfg.range = 0; }); w.onSpotted = () => {};');
 const resVila = await furtividade();
 log(`furtividade: ${resVila}`);
 await shot('08-vila-casa');
