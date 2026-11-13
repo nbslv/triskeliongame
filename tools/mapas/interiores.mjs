@@ -49,7 +49,7 @@ function porta({ m, y0, h, soleiraX, aqui, vila, entrada, voltar, trancada, semR
 
 // ------------------------------------------------------------------ casa de Ícaro
 export function casaIcaro() {
-  const m = new Mapa('prologo_casa_icaro', 14, 18, [I, E], { nome: 'Casa de Ícaro', music: 'tema_casa' });
+  const m = new Mapa('prologo_casa_icaro', 14, 18, [I, E], { nome: 'Casa de Ícaro', music: 'tema_casa', periodo: 'manha' });
   const Y = 8; // interior começa na linha 8; terreiro acima (linhas 0–7)
   sala(m, 0, Y, 14, 10, { soleiraX: 4, semente: 11 });
   const iy = (y) => Y + y;
@@ -133,7 +133,7 @@ export function casaIcaro() {
 
 // ------------------------------------------------------------------ casa da Custódia
 export function casaCustodia() {
-  const m = new Mapa('prologo_casa_custodia', 10, 8, [I], { nome: 'Casa da Dona Custódia', music: 'tema_casa' });
+  const m = new Mapa('prologo_casa_custodia', 10, 8, [I], { nome: 'Casa da Dona Custódia', music: 'tema_casa', periodo: 'manha' });
   sala(m, 0, 0, 10, 8, { soleiraX: 3, semente: 21 });
   m.put('objetos', 2, 1, I, 'janela_luz');
   m.put('objetos', 4, 1, I, 'retrato_fita');
@@ -158,7 +158,7 @@ export function casaCustodia() {
 
 // ------------------------------------------------------------------ padaria
 export function padaria() {
-  const m = new Mapa('prologo_padaria', 12, 8, [I], { nome: 'Padaria do Seu Juca', music: 'tema_casa' });
+  const m = new Mapa('prologo_padaria', 12, 8, [I], { nome: 'Padaria do Seu Juca', music: 'tema_casa', periodo: 'manha' });
   sala(m, 0, 0, 12, 8, { soleiraX: 5, semente: 31 });
   m.put('objetos', 2, 1, I, 'janela_luz');
   m.bloco('objetos', 3, 1, I, 'prateleira_paes');
@@ -182,7 +182,7 @@ export function padaria() {
 
 // ------------------------------------------------------------------ biblioteca
 export function biblioteca() {
-  const m = new Mapa('prologo_biblioteca', 12, 10, [I], { nome: 'Biblioteca de Valesol', music: 'tema_casa' });
+  const m = new Mapa('prologo_biblioteca', 12, 10, [I], { nome: 'Biblioteca de Valesol', music: 'tema_casa', periodo: 'manha' });
   sala(m, 0, 0, 12, 10, { soleiraX: 5, semente: 41 });
   m.bloco('objetos', 1, 1, I, 'estante');
   m.bloco('objetos', 3, 1, I, 'estante');

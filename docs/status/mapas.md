@@ -20,7 +20,11 @@ Branch: `claude/triskelion-mapas`. O Prólogo está **jogável do começo ao fim
 - **Robô de playtest** `scripts/jogar-prologo.mjs` (Chromium 844×390, teclado/clique): joga de “Novo jogo” até “prólogo concluído”
   (manhã nas 4 casas, café com o pai, porta trancada antes do café, colheita de 5 pés, Zefa, estrada, vila, pai, túnel, bambuzal).
   Última execução: **todas as verificações ✔, 0 erros de console**. Capturas em `docs/mapas/capturas/`.
-  Use `SEM_FURTIVIDADE=1` (o robô não sabe se esconder; nessa opção ele desliga a detecção e vai direto). Sem a opção ele tenta hop a hop, mas é lento.
+  **Joga a furtividade de verdade** (0 capturas): a cada passo congela o jogo (`scene.pause`), lê o estado real das patrulhas, planeja com
+  `tools/mapas/simulador.mjs` (busca em tempo × tiles a cada 62 ms, com margem) e dá um passo. `SEM_FURTIVIDADE=1` desliga a detecção (só para depurar).
+  `CPU=4` emula CPU lenta (CDP); `START=vila` começa direto na vila em chamas.
+  Medido: o movimento das patrulhas **não depende da taxa de quadros** (mesma velocidade por segundo de relógio a 60, 30 e 15 fps); as falhas em máquina
+  lenta eram do robô (latência entre ler e agir), não do jogo. Nada foi alterado em `src/`.
 
 ## Tempo medido
 
@@ -46,8 +50,15 @@ Branch: `claude/triskelion-mapas`. O Prólogo está **jogável do começo ao fim
 - **Motor**: `anim` de poses (`agachar`, `ajoelhar`…) depende da arte; sem ela, ignoradas.
 - **Furtividade**: ficou *tranquila* (cone legível, 17–23 % da área vista a cada instante, solução em poucos segundos). Para deixar mais tenso
   basta ajustar `speed/vision/angle/wait` em `tools/mapas/vila.mjs` e conferir com `npm run mapas:furtividade`.
-- O robô de playtest não joga a furtividade de verdade (a verificação de solução é feita pelo simulador).
 - Música: os mapas citam ids (`tema_casa`, `tema_cafezal`, `tema_tensao`, `tema_vila`, `tema_vila_em_chamas`, `tema_tunel`, `tema_noite_esperanca`);
   se algum não existir em `assets/audio/music/` o motor usa o provisório. A vila de manhã usa `tema_casa` (não há `tema_vila`).
 - Fogo animado: os mapas só colocam tiles de `tiles_fogo`; as animações vêm do JSON do tileset (embutimos o JSON da arte no momento de gerar:
   rode `npm run mapas:gerar` de novo quando a arte atualizar `docs/arte/tilesets/tiles_fogo.json`).
+
+## Conteúdo novo da narrativa (merge e9c21b0/cef5cd8)
+
+- `prologo_vila_manha`: 7 `porta_trancada` (Laudelina, Orlando, Quim e Quitéria, Empório Prado, Lindalva, armazém, Rosário; `dono` + roteiros `prologo_trancada_*`)
+  sobre as portas reais, a vitrine do Empório (`emporio_vitrine`, `examinar`) e nada disso na vila em chamas.
+- NPCs com `tipo` (sem `dialogue`): `morador_1..4` (aldeao/aldea/idoso), `galinha_1..3`, `soldado_1`, `sobrevivente_1/2` e `figurante_1..3` no bambuzal.
+- Propriedade de mapa `periodo`: casa/casas/vila_manha = manha; cafezal/estrada = tarde; vila/túnel/bambuzal = noite.
+- O robô confere `prologo.abertura_vista` ao chegar ao cafezal.
