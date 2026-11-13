@@ -334,11 +334,21 @@ fortalece a Força") e o livro escondido ("estudar fortalece a Magia").
 O jogo é **majoritariamente cozy**: entre uma masmorra e outra, sempre há uma cidade com coisas
 tranquilas para fazer. Tudo aqui é opcional, curto e sem punição.
 
+**Cozinhar e pescar (decisão do autor): opcionais e lúdicos.** Existem para o jogador ver os
+personagens interagindo, não para o progresso. Regras:
+- Nenhuma missão principal, chefe, treino ou etapa da reconstrução de Valesol **exige** comida
+  feita em casa ou peixe. Tudo o que eles dão também se compra em loja.
+- O valor está nas cenas: cada receita e cada pescaria tem falas curtas dos heróis presentes
+  (quem cozinha comenta, quem pesca reclama, quem assiste palpita). Na primeira vez de cada
+  combinação de herói + atividade há uma mini-cena de 20–30 s.
+- O bônus mecânico é pequeno e só de conforto (a receita favorita de um herói dá +10% de PV
+  máximo para ele na próxima batalha).
+
 | Atividade | Onde | Como funciona | O que dá |
 |---|---|---|---|
 | **Colheita** | Cafezal (Ato 3), hortas, pomares, canteiros feéricos | Andar e apertar A nos pés maduros (como no prólogo) | Ingredientes; cobres ao entregar |
-| **Cozinhar** | Fogueira do acampamento, cozinhas de pousada | Escolher receita + ingredientes; minijogo de Ritmo curto (mexer a panela) | Comidas melhores que as de loja; a receita favorita de cada herói dá um bônus só para ele |
-| **Pescar** | Rios, o Lago Parado, o cais de Pratamar | Esperar a boia afundar e tocar A; segurar no peixe grande | Peixes (ingrediente/venda); raridades para missões |
+| **Cozinhar** | Fogueira do acampamento, cozinhas de pousada | Escolher receita + ingredientes; minijogo de Ritmo curto (mexer a panela), que pode ser pulado | Falas do grupo; comida igual à de loja; a receita favorita de cada herói dá um bônus pequeno só para ele |
+| **Pescar** | Rios, o Lago Parado, o cais de Pratamar | Esperar a boia afundar e tocar A; segurar no peixe grande. Sem perder isca, sem falhar feio | Falas do grupo; peixes para cozinhar ou vender; uma missão secundária de pesca (opcional) |
 | **Ajudar moradores** | Todas as cidades | Recados, entregas, consertos — as missões secundárias de `06_npcs.md` | Cobres, receitas, decoração, amizade |
 | **Casas exploráveis** | Todas as cidades | Entrar, examinar objetos, conversar | História dos personagens; ganchos de missão |
 | **Acampamento do grupo** | Mapa-múndi (botão "Acampar") e pontos de fogueira | Ver abaixo | Descanso, conversas, decoração |
