@@ -1,0 +1,7 @@
+{
+  "id": "prologo_trancada_laudelina",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "A casa da Dona Laudelina, a costureira, está trancada. Pela janela, um vestido de noiva pela metade espera num manequim."},
+    {"type": "end"}
+  ]
+}

@@ -3,7 +3,7 @@
   "steps": [
     {"type": "say", "speaker": "narrador", "text": "'Vida e Obra de Aurelius Solis'. Na capa, um velho de barba comprida segurando um cajado."},
     {"type": "say", "speaker": "narrador", "text": "Alguém, há muito tempo, rabiscou a lápis três espirais na margem da primeira página."},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Li esse quatro vezes. Nunca entendi o rabisco.)"},
+    {"type": "say", "speaker": "icaro", "text": "(Li esse quatro vezes. Nunca entendi o rabisco.)"},
     {"type": "end"}
   ]
 }

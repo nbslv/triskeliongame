@@ -83,6 +83,25 @@ Branch: `claude/triskelion-narrativa`, com o merge do branch de coordenação at
 - **Pós-jogo (reconstruir Valesol):** **primordial**. Detalhado em 6 etapas, 2–3 h, sem
   batalhas, até a Festa da Colheita e a escola de magia de Valesol (`03` seção 6; `01`; `07`).
 
-## 5. Pendências para o autor
+- **Ajustes pós-teste do prólogo (coordenação, 13/11):** retratos revisados em todo o prólogo;
+  biblioteca reescrita (magia só para matriculados, empréstimo sem ficha, Volume 2 do filho do
+  dono das terras); casas trancadas com dono; vitrine do Empório Prado; falas padrão de NPC.
+
+## 5. Contrato das falas padrão de NPC (para o motor)
+
+Arquivos: `content/dialogues/padrao_<tipo>.json`, tipos `aldeao`, `aldea`, `crianca`, `idoso`,
+`galinha`, `soldado`, `sobrevivente`, `caligosuin`. O mapa liga um `npc` ao roteiro pelo
+`dialogue`, como qualquer outro.
+
+| O quê | Como |
+|---|---|
+| **Período do dia** | O motor mantém **exatamente uma** das flags `periodo.manha`, `periodo.tarde`, `periodo.noite` ligada (as outras apagadas) conforme o mapa/momento. No prólogo: `prologo_casa_icaro` e `prologo_vila_manha` = manhã; `prologo_cafezal` e `prologo_estrada` = tarde; `prologo_vila`, `prologo_tunel`, `prologo_bambuzal` = noite. Sugestão: propriedade de mapa `periodo` (`manha`/`tarde`/`noite`) que o motor aplica ao entrar. |
+| **Saudação** | `aldeao`, `aldea` e `idoso` começam com "Bom dia" / "Boa tarde" / "Boa noite" via `if cond: "periodo.<x>"`. Sem nenhuma flag de período, usam uma saudação neutra ("Ô, Ícaro!"). Os outros tipos não saúdam. |
+| **Variações** | Rodízio, sem aleatoriedade: cada conversa soma 1 em `padrao.<tipo>.vez` e volta a 1 depois da última. Todos os NPCs do mesmo tipo compartilham o contador. Testado com o `DialogueRunner`. |
+| **Nomes exibidos** | Cadastrados em `content/characters.json`: Aldeão, Aldeã, Criança, Vovô, Galinha, Guarda, Sobrevivente (o Caligosuin já existia). |
+| **Escopo** | As falas são de **Valesol, antes do ataque** (mencionam o pai, o café, a mãe). Depois do prólogo, cada região ganha os seus como `padrao_<tipo>_<regiao>.json`. No bambuzal, use só `soldado` e `sobrevivente`. `caligosuin` é opcional: resmungo de ambiente na vila em chamas, nunca conversa. |
+
+## 6. Pendências para o autor
+
 
 Nenhuma no momento.

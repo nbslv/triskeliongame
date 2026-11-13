@@ -12,7 +12,7 @@
     {"type": "say", "speaker": "tonho", "portrait": "tonho_medo", "text": "Ícaro... vem comigo. Entrar na vila é loucura."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "Meu pai mal anda com aquelas costas, Tonho. Ele não sai de lá sozinho."},
     {"type": "say", "speaker": "tonho", "portrait": "tonho_neutro", "text": "...Então vai rápido e volta inteiro. Você me deve um terço de dezoito quilos."},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Te vejo no bambuzal."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "Te vejo no bambuzal."},
     {"type": "move", "actor": "tonho", "to": "marcador_estrada_saida_pasto", "speed": "run"},
     {"type": "despawn", "actor": "tonho"},
     {"type": "move", "actor": "sobrevivente_1", "to": "marcador_estrada_inicio", "speed": "run"},

@@ -1,0 +1,29 @@
+{
+  "id": "padrao_galinha",
+  "description": "Galinhas: falas fofas e engraçadas, em rodízio.",
+  "steps": [
+    {"type": "flag", "add": "padrao.galinha.vez"},
+    {"type": "if", "cond": "padrao.galinha.vez > 5", "then": [{"type": "flag", "set": "padrao.galinha.vez", "value": 1}]},
+    {"type": "if", "cond": "padrao.galinha.vez == 2", "goto": "v2"},
+    {"type": "if", "cond": "padrao.galinha.vez == 3", "goto": "v3"},
+    {"type": "if", "cond": "padrao.galinha.vez == 4", "goto": "v4"},
+    {"type": "if", "cond": "padrao.galinha.vez == 5", "goto": "v5"},
+    {"type": "say", "speaker": "galinha", "text": "Có?"},
+    {"type": "end"},
+    {"type": "label", "name": "v2"},
+    {"type": "say", "speaker": "galinha", "text": "Có. Có. ...Có?!"},
+    {"type": "end"},
+    {"type": "label", "name": "v3"},
+    {"type": "say", "speaker": "galinha", "text": "Cocoricó!"},
+    {"type": "say", "speaker": "icaro", "text": "(Essa aí acha que é galo.)"},
+    {"type": "end"},
+    {"type": "label", "name": "v4"},
+    {"type": "say", "speaker": "galinha", "text": "Có..."},
+    {"type": "say", "speaker": "narrador", "text": "A galinha encara Ícaro com a seriedade de quem guarda um segredo importante."},
+    {"type": "end"},
+    {"type": "label", "name": "v5"},
+    {"type": "say", "speaker": "galinha", "text": "Pó-pó-pó-pó!"},
+    {"type": "say", "speaker": "narrador", "text": "Ela sai correndo sem motivo nenhum. Galinha é assim."},
+    {"type": "end"}
+  ]
+}

@@ -149,6 +149,37 @@ checkpoints, patrulhas, examináveis).
 
 Regras completas de furtividade: `10_prologo_roteiro.md`, Cena 3.
 
+## Casas trancadas e vitrine (`prologo_vila_manha`)
+
+Cada casa sem interior ganha um objeto `examinar` de 1 tile **na frente da porta**, com o
+`dialogue` abaixo (`once: false`). Posições aproximadas (tile x, y) pela captura do mapa atual;
+a sessão de mapas ajusta à porta real.
+
+| Casa (no mapa) | Porta aprox. | Objeto | `dialogue` | Texto |
+|---|---|---|---|---|
+| 1ª da fileira de cima (telhado vermelho, à esquerda da biblioteca) | (28, 7) | `trancada_laudelina` | `prologo_trancada_laudelina` | A casa da Dona Laudelina, a costureira, está trancada. Pela janela, um vestido de noiva pela metade espera num manequim. |
+| 3ª da fileira de cima (telhado de palha) | (43, 7) | `trancada_orlando` | `prologo_trancada_orlando` | A casa do Seu Orlando, o tropeiro, está trancada. Ele desceu com as mulas para levar café à capital. |
+| 4ª da fileira de cima (telhado vermelho) | (51, 7) | `trancada_quim_quiteria` | `prologo_trancada_quim_quiteria` | A casa do Seu Quim e da Dona Quitéria está trancada. Lá dentro, os dois discutem de quem é a vez de abrir a porta. |
+| 5ª da fileira de cima (palha, com placa na parede) — **Empório Prado** | (59, 7) | `trancada_emporio` | `prologo_trancada_emporio` | O Empório Prado está fechado. Na porta, uma plaquinha: 'Abrimos às nove. Fiado, não.' |
+| Janela do Empório Prado (1 tile ao lado da porta) | (58, 7) | `emporio_vitrine` | `prologo_emporio_vitrine` | Vitrine com livros de magia a 450 e 600 cobres (diálogo com reflexão de Ícaro). Pede um tile de vitrine com livros (ver `12`). |
+| Casa do meio, à direita da praça (telhado vermelho) | (49, 18) | `trancada_lindalva` | `prologo_trancada_lindalva` | A casa da Dona Lindalva, a parteira, está trancada. Um bilhete na porta: 'Fui ajudar um bebê a nascer. Volto quando ele nascer.' |
+| Celeiro grande à direita (palha e madeira) — **armazém do Seu Otaviano Prado** | (59, 20) | `trancada_armazem` | `prologo_trancada_armazem` | O armazém de café do Seu Otaviano Prado, dono das terras, está trancado... + pensamento de Ícaro. Pede um cadeado grande no portão. |
+| Casa de palha ao lado da padaria | (40, 31) | `trancada_rosario` | `prologo_trancada_rosario` | A casa da Dona Rosário, a lavadeira, está trancada. No varal do lado, lençóis brancos de meia vila. Nenhum é dela. |
+
+Na vila **em chamas** (`prologo_vila`) estes objetos não existem (`requires`/`unless` ou mapa
+separado): à noite não se examina porta, só se foge.
+
+## Falas padrão dos moradores
+
+| Objeto no mapa | `dialogue` | Observação |
+|---|---|---|
+| `morador_1` … `morador_4` (`prologo_vila_manha`) | `padrao_aldeao` ou `padrao_aldea` (alternar), `padrao_idoso` em um deles | Requer o motor marcando `periodo.manha` neste mapa |
+| Galinhas da vila e do quintal da Custódia, se forem objetos `npc` | `padrao_galinha` | |
+| Crianças, se a vila ganhar alguma | `padrao_crianca` | |
+| Guardas no bambuzal (exceto Dário e a sargento) | `padrao_soldado` | Só depois de `prologo_16_sobreviventes` |
+| Figurantes no bambuzal | `padrao_sobrevivente` | Idem |
+| Caligosuins da vila em chamas | `padrao_caligosuin` (opcional) | Resmungo de ambiente ao passar perto; não é conversa |
+
 ## Atores (ids estáveis)
 
 | Id | Quem | Mapas |

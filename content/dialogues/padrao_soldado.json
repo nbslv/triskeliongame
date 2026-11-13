@@ -1,0 +1,22 @@
+{
+  "id": "padrao_soldado",
+  "description": "Guarda de Luminaer (bambuzal, capital). Sem saudação por período: estão em serviço.",
+  "steps": [
+    {"type": "flag", "add": "padrao.soldado.vez"},
+    {"type": "if", "cond": "padrao.soldado.vez > 4", "then": [{"type": "flag", "set": "padrao.soldado.vez", "value": 1}]},
+    {"type": "if", "cond": "padrao.soldado.vez == 2", "goto": "v2"},
+    {"type": "if", "cond": "padrao.soldado.vez == 3", "goto": "v3"},
+    {"type": "if", "cond": "padrao.soldado.vez == 4", "goto": "v4"},
+    {"type": "say", "speaker": "soldado", "text": "Fique perto do grupo, garoto. E nada de tocha acesa."},
+    {"type": "end"},
+    {"type": "label", "name": "v2"},
+    {"type": "say", "speaker": "soldado", "text": "Faz dois dias que eu não durmo. Se eu roncar em pé, me cutuca."},
+    {"type": "end"},
+    {"type": "label", "name": "v3"},
+    {"type": "say", "speaker": "soldado", "text": "O comandante Alvorada não deixa ninguém pra trás. É por isso que a gente tá aqui."},
+    {"type": "end"},
+    {"type": "label", "name": "v4"},
+    {"type": "say", "speaker": "soldado", "text": "Se ouvir bufo no mato, não corre. Abaixa e fica quieto. Eles enxergam mal no escuro."},
+    {"type": "end"}
+  ]
+}

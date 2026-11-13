@@ -5,7 +5,7 @@
     {"type": "emote", "actor": "icaro", "emote": "interrogacao"},
     {"type": "say", "speaker": "custodia", "text": "Psiu. Ícaro. Aqui, no barril."},
     {"type": "anim", "actor": "barril_custodia", "anim": "abrir"},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "Dona Custódia! A senhora tá machucada?"},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "Dona Custódia! A senhora tá machucada?"},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Não. Só com medo. Eu e a Pamonha. Fala baixo, filho."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "Meu pai. A senhora viu meu pai?"},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Vi. Ele já tava na rua, já tava saindo comigo. Aí parou, bateu a mão na testa e voltou pra dentro."},

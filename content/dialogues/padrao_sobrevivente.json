@@ -1,0 +1,22 @@
+{
+  "id": "padrao_sobrevivente",
+  "description": "Sobreviventes de Valesol no bambuzal (noite). Tom sóbrio, sem humor.",
+  "steps": [
+    {"type": "flag", "add": "padrao.sobrevivente.vez"},
+    {"type": "if", "cond": "padrao.sobrevivente.vez > 4", "then": [{"type": "flag", "set": "padrao.sobrevivente.vez", "value": 1}]},
+    {"type": "if", "cond": "padrao.sobrevivente.vez == 2", "goto": "v2"},
+    {"type": "if", "cond": "padrao.sobrevivente.vez == 3", "goto": "v3"},
+    {"type": "if", "cond": "padrao.sobrevivente.vez == 4", "goto": "v4"},
+    {"type": "say", "speaker": "sobrevivente", "text": "Peguei só o retrato da minha mãe. O resto ficou."},
+    {"type": "end"},
+    {"type": "label", "name": "v2"},
+    {"type": "say", "speaker": "sobrevivente", "text": "Alguém viu um menino de chapéu azul? ...Não? Tudo bem. Ele deve ter ido com o outro grupo."},
+    {"type": "end"},
+    {"type": "label", "name": "v3"},
+    {"type": "say", "speaker": "sobrevivente", "text": "Meu filho tá dormindo, finalmente. Fala baixinho, por favor."},
+    {"type": "end"},
+    {"type": "label", "name": "v4"},
+    {"type": "say", "speaker": "sobrevivente", "text": "A gente reconstrói. Não sei como, mas reconstrói."},
+    {"type": "end"}
+  ]
+}

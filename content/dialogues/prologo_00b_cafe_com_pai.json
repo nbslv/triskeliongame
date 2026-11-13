@@ -15,7 +15,7 @@
     {"type": "say", "speaker": "pai", "portrait": "pai_neutro", "text": "Mago é coisa de quem nasceu em casa de dois andares, menino. A gente é peão de cafezal. As coisas são como são."},
     {"type": "choice", "options": [{"text": "Ficar quieto", "goto": "q"}, {"text": "\"A mãe não achava isso.\"", "goto": "m"}]},
     {"type": "label", "name": "m"},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "A mãe não achava isso."},
+    {"type": "say", "speaker": "icaro", "portrait": "icaro_determinado", "text": "A mãe não achava isso."},
     {"type": "emote", "actor": "pai", "emote": "reticencias"},
     {"type": "wait", "ms": 900},
     {"type": "say", "speaker": "pai", "portrait": "pai_neutro", "text": "...Sua mãe achava muita coisa."},

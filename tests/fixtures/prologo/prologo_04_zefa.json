@@ -5,7 +5,7 @@
     {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Ah, apareceu o estudioso. Achei que tinha criado raiz lá no fundo."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "Boa tarde, Dona Zefa."},
     {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Seu pai passou aqui cedo, torto daquelas costas, e ainda quis carregar saca. Homem teimoso."},
-    {"type": "say", "speaker": "zefa", "portrait": "zefa_brava", "text": "Aí eu olho pro filho, com um livro escondido no cesto, e penso: puxou a quem, hein?"},
+    {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Aí eu olho pro filho, com um livro escondido no cesto, e penso: puxou a quem, hein?"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "A senhora viu o livro?"},
     {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Menino, eu enxergo broca em grão de café a dez passos. Sua mãe também vivia com o nariz numa página."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "A senhora conheceu bem a minha mãe?"},

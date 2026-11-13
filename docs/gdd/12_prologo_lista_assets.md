@@ -78,6 +78,8 @@ Total: 29 retratos.
   cabeça dela e a galinha), livro de Ícaro, cesto cheio/vazio.
 - Ícones de item (16×16): **Colar da Mãe** (cordão + pedrinha opaca cinza-rosada),
   **Rapadura Amassada**, **Ovos da Pamonha**, **Pão de Ontem**, moeda de cobre.
+- **Vila de manhã (pedido pós-teste):** tile de **vitrine com livros de capa de couro** para o
+  Empório Prado; **cadeado grande** no portão do armazém; bilhete na porta da parteira (opcional).
 - Emotes (balão 16×16 sobre a cabeça): `exclamacao`, `interrogacao`, `reticencias`, `suor`.
 - Cartão de título **TRISKELION** com o símbolo das três espirais bem discreto ao fundo.
 

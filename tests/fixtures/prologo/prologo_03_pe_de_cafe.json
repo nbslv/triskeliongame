@@ -4,7 +4,7 @@
     {"type": "sfx", "id": "colher_cafe"},
     {"type": "anim", "actor": "icaro", "anim": "colher"},
     {"type": "if", "flag": "prologo.colheu_primeiro", "goto": "fim"},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Maduro no ponto. O pai diz que café bom a gente conhece pelo peso na mão.)"},
+    {"type": "say", "speaker": "icaro", "text": "(Maduro no ponto. O pai diz que café bom a gente conhece pelo peso na mão.)"},
     {"type": "flag", "set": "prologo.colheu_primeiro"},
     {"type": "label", "name": "fim"},
     {"type": "end"}

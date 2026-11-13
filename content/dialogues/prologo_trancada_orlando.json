@@ -1,0 +1,7 @@
+{
+  "id": "prologo_trancada_orlando",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "A casa do Seu Orlando, o tropeiro, está trancada. Ele desceu com as mulas para levar café à capital."},
+    {"type": "end"}
+  ]
+}

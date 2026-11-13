@@ -1,0 +1,7 @@
+{
+  "id": "prologo_trancada_quim_quiteria",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "A casa do Seu Quim e da Dona Quitéria está trancada. Lá dentro, os dois discutem de quem é a vez de abrir a porta."},
+    {"type": "end"}
+  ]
+}

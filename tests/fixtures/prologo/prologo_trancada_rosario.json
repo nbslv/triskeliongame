@@ -1,0 +1,7 @@
+{
+  "id": "prologo_trancada_rosario",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "A casa da Dona Rosário, a lavadeira, está trancada. No varal do lado, lençóis brancos de meia vila. Nenhum é dela."},
+    {"type": "end"}
+  ]
+}
