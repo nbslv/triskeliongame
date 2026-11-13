@@ -30,7 +30,11 @@ const log = (m) => console.log(`[${((Date.now() - t0) / 1000).toFixed(0)}s] ${m}
 
 const state = () => page.evaluate(() => window.__TRISKELION__.scene.getScene('Mundo').debugState());
 const world = (fn, arg) => page.evaluate(([f, a]) => new Function('w', 'a', f)(window.__TRISKELION__.scene.getScene('Mundo'), a), [fn, arg]);
-const flag = (n) => page.evaluate((k) => JSON.parse(localStorage.getItem('triskelion.save.auto') ?? '{}').flags?.[k] ?? null, n);
+const flag = (n) => page.evaluate((k) => {
+  window.dispatchEvent(new Event('pagehide'));
+  const g = (c) => JSON.parse(localStorage.getItem(c) ?? 'null')?.flags?.[k];
+  return g('triskelion.save.retomada') ?? g('triskelion.save.auto') ?? null;
+}, n);
 const shot = (nome) => page.screenshot({ path: `${OUT}/${nome}.png` });
 
 // ---------------------------------------------------------------- mapas (para o BFS)
@@ -63,8 +67,9 @@ async function avancar(max = 120) {
   for (let i = 0; i < max; i++) {
     const s = await state().catch(() => null);
     if (s && !s.cutscene) return true;
+    await page.mouse.click(422, 200);
     await page.keyboard.press('Enter');
-    await wait(220);
+    await wait(200);
   }
   return false;
 }
