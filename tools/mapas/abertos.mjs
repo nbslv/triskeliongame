@@ -149,7 +149,7 @@ export function estrada() {
 
 // ------------------------------------------------------------------ túnel
 export function tunel() {
-  const m = new Mapa('prologo_tunel', 40, 12, [TUN], { nome: 'O rego seco', music: 'tema_tunel', periodo: 'noite', escuro: true, luz_raio: 56 });
+  const m = new Mapa('prologo_tunel', 40, 12, [TUN], { nome: 'Canal do Arrebol', music: 'tema_tunel', periodo: 'noite', escuro: true, luz_raio: 56 });
   const r = rng(303);
   const W = 40;
   const H = 12;
