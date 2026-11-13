@@ -78,7 +78,8 @@ Branch: `claude/triskelion-narrativa`, com o merge do branch de coordenação at
 - **Treinos e minijogos, conversas de fogueira e acampamento:** aprovados como descritos em
   `05` (seções 7 e 8) e `07`.
 
+- **Cozinha, pesca e pós-jogo (reconstruir Valesol):** entram na primeira versão completa.
+
 ## 5. Pendências para o autor
 
-1. **Cozinha, pesca e pós-jogo (reconstruir Valesol):** não foram comentados. Seguem no GDD;
-   falta o autor dizer se entram na primeira versão completa ou ficam para depois.
+Nenhuma no momento.
