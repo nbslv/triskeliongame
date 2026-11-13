@@ -89,12 +89,12 @@ function vila(noite) {
     const PM = m.ind(E, 'parede_madeira');
     for (let i = 0; i < 7; i++) {
       const c = i === 0 ? 0 : i === 6 ? 2 : 1;
-      for (let j = 0; j < 3; j++) m.put('objetos', 56 + i, 14 + j, E, T[j][c]);
-      m.put('objetos', 56 + i, 17, E, PM[0][c]);
-      m.put('objetos', 56 + i, 18, E, PM[1][c]);
+      for (let j = 0; j < 3; j++) m.put('objetos', 56 + i, 16 + j, E, T[j][c]);
+      m.put('objetos', 56 + i, 19, E, PM[0][c]);
+      m.put('objetos', 56 + i, 20, E, PM[1][c]);
     }
-    m.bloco('objetos', 58, 17, E, 'portao_barracao');
-    if (noite) m.bloco('objetos2', 58, 15, F, 'fogo_alto_2');
+    m.bloco('objetos', 58, 19, E, 'portao_barracao');
+    if (noite) m.bloco('objetos2', 58, 17, F, 'fogo_alto_2');
   }
 
   // ---------------------------------------------------------------- casa de Ícaro (14×10 + terreiro 14×8)
@@ -206,8 +206,8 @@ function vila(noite) {
   hideRect('esconderijo_carroca_1', 'carroca', 60, 13, 3, 1);
   m.blocoAlto(55, 13, E, 'sacas', 1);
   hideRect('esconderijo_sacas_1', 'sacas', 55, 13, 2, 1);
-  m.blocoAlto(50, 13, E, 'barril_grande', 1);
-  hideRect('esconderijo_barril_1', 'barril', 50, 13, 1, 1);
+  m.blocoAlto(53, 13, E, 'barril_grande', 1);
+  hideRect('esconderijo_barril_1', 'barril', 53, 13, 1, 1);
   for (const x of [44, 45]) m.put('objetos', x, 9, E, 'arbusto');
   // Trecho B (praça): carroça de feno, sacas e barris na beira da praça
   m.blocoAlto(40, 21, E, 'carroca_feno', 1);

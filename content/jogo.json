@@ -1,6 +1,6 @@
 {
-  "startMap": "teste",
-  "startMarker": "inicio",
+  "startMap": "prologo_casa_icaro",
+  "startMarker": "marcador_casa_cama",
   "playerId": "icaro",
   "playerSprite": "icaro"
 }
