@@ -415,7 +415,7 @@ async function furtividade() {
       const pt = Math.max(2, Math.ceil(porPasso / 0.0625));
       const t0 = Date.now();
       const atraso = Math.min(8, Math.round(latencia / 0.0625));
-      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 6, am: 0.12, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 12, rm: 0, am: 0, caixa, atraso });
+      const acao = sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 12, am: 0.2, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 6, am: 0.12, caixa, atraso }) ?? sim.planejar(v.ps, [p.tx, p.ty], alvos, { passoTicks: pt, horizonte: 14, rm: 0, am: 0, caixa, atraso });
       latencia = 0.7 * latencia + 0.3 * Math.max(0, ((await agora()) - v.now) / 1000);
       if (process.env.DEPURAR && passos % 20 === 0) log(`  plano ${Date.now() - t0} ms: ${JSON.stringify(acao)}`);
       if (!acao) { if (++sem % 50 === 1) log(`  sem plano seguro em (${p.tx},${p.ty}) rumo a ${nome}`); await esperarJogo(125); continue; }
