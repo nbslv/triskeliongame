@@ -277,6 +277,9 @@ function vila(noite) {
     porta('padaria', padariaP, 'prologo_padaria', 'marcador_padaria_entrada', 'marcador_vila_manha_porta_padaria');
     porta('custodia', custodiaP, 'prologo_casa_custodia', 'marcador_custodia_entrada', 'marcador_vila_manha_porta_custodia');
     porta('icaro', { portaX: HX + 4, portaY: HY + 10 }, 'prologo_casa_icaro', 'marcador_casa_entrada', 'marcador_vila_manha_porta_icaro');
+    // a calçada de frente das casas da Rua do Terreiro é cercada: só se pisa na porta de propósito
+    for (let x = 6; x <= 19; x++) if (x !== 10) m.put('objetos', x, 35, E, 'cerca_h');
+    for (let x = 22; x <= 26; x++) if (x !== 24) m.put('objetos', x, 35, E, 'cerca_h');
     m.marcador('marcador_vila_manha_portao', 65, 11);
     m.zona('gatilho_portao_vila', 'gatilho', 64, 10, 2, 3, { dialogue: 'prologo_00d_saida_vila', once: false });
     // figurantes (sem fala obrigatória)

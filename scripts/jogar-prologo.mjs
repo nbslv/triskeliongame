@@ -173,7 +173,21 @@ async function entrarNaZona(id, nome) {
   const r = { x0: Math.floor(o.x / 16), y0: Math.floor(o.y / 16), x1: Math.ceil((o.x + o.width) / 16) - 1, y1: Math.ceil((o.y + o.height) / 16) - 1 };
   const alvos = [];
   for (let y = r.y0; y <= r.y1; y++) for (let x = r.x0; x <= r.x1; x++) alvos.push({ x, y });
-  return andarPara(id, alvos);
+  const antes = await pos();
+  let res = await andarPara(id, alvos);
+  // saídas (portas): espera a troca de mapa/posição terminar, tentando de novo uma vez se não aconteceu
+  if (o.type === 'saida') {
+    const destino = o.p.map ?? antes.s.map;
+    for (let tentativa = 0; tentativa < 2; tentativa++) {
+      for (let i = 0; i < 40; i++) {
+        const q = await pos().catch(() => null);
+        if (q && (q.s.map !== antes.s.map || Math.hypot(q.x - antes.x, q.y - antes.y) > 40)) { await wait(700); currentMap = destino; return res; }
+        await wait(150);
+      }
+      res = await andarPara(id, alvos);
+    }
+  }
+  return res;
 }
 
 // ---------------------------------------------------------------- início
