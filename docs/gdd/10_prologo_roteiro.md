@@ -309,7 +309,8 @@ A câmera mostra a capital ao longe: clarões nos portões e **uma luzinha na to
 que tá segurando aquele portão"* — segura o colar: *"Eu fiz uma promessa."*
 
 Fecho narrado em três frases, cartão de título **TRISKELION — Fim do Prólogo**,
-flag `prologo.concluido`, autosave.
+flag `prologo.concluido`, autosave, a narração "A história de Ícaro continua..." e volta à
+tela de título (`scene: "Titulo"`), com o save pronto para o Ato 1.
 
 ---
 

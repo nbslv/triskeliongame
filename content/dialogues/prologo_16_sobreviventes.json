@@ -62,8 +62,11 @@
     {"type": "say", "speaker": "narrador", "text": "Mas um menino do cafezal atravessou o escuro com uma promessa no bolso e uma pedrinha morna no peito."},
     {"type": "say", "speaker": "narrador", "text": "E a luz de Luminaer, que nunca dorme, reparou."},
     {"type": "title", "text": "TRISKELION", "subtitle": "Fim do Prólogo"},
-    {"type": "wait", "ms": 3000},
+    {"type": "wait", "ms": 1000},
     {"type": "flag", "set": "prologo.concluido"},
+    {"type": "autosave"},
+    {"type": "say", "speaker": "narrador", "text": "A história de Ícaro continua..."},
+    {"type": "scene", "scene": "Titulo"},
     {"type": "end"}
   ]
 }
