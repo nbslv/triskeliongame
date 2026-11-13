@@ -132,14 +132,32 @@ def cali(d='down', f=0, capitao=False, pose=None, sopro=0):
     c.outline(OUT)
     # fogo negro pelo focinho
     if sopro and d != 'up':
-        sx, sy = (7, hy + 7) if d == 'down' else (0, hy + 7)
-        pts = {1: [(0, 0, 'n'), (1, -1, 'r')], 2: [(0, -1, 'n'), (1, -1, 'n'), (0, -2, 'r'), (2, -2, 'rl'), (-1, -1, 'r')],
-               3: [(0, -2, 'n'), (1, -3, 'n'), (-1, -3, 'r'), (2, -4, 'r'), (0, -4, 'rl'), (1, -1, 'n')]}[sopro]
+        sx, sy = (9, hy + 7) if d == 'down' else (0, hy + 7)
+        pts = {1: [(0, 0, 'n'), (1, 0, 'n'), (1, -1, 'r'), (2, 0, 'r')],
+               2: [(0, 0, 'n'), (1, 0, 'n'), (1, -1, 'n'), (2, -1, 'n'), (2, 0, 'r'), (0, -1, 'r'), (2, -2, 'r'), (3, -1, 'r'), (3, -3, 'rl')],
+               3: [(1, 0, 'n'), (1, -1, 'n'), (2, -1, 'n'), (2, -2, 'n'), (3, -2, 'n'), (2, -3, 'n'), (0, 0, 'r'), (1, -2, 'r'), (3, -1, 'r'), (4, -2, 'r'),
+                   (3, -3, 'r'), (2, -4, 'r'), (4, -4, 'rl'), (3, -5, 'rl')]}[sopro]
         for dx, dy, k in pts:
-            c.px(sx + (dx if d == 'down' else -dx + 1), sy + dy + 2 * (d == 'down'), P[k])
+            c.px(sx + (dx if d == 'down' else -dx + 1), sy + (dy // 2 + 2 if d == 'down' else dy), P[k])
     if pose == 'espirrar' and d == 'down':
         for (x, y, k) in [(5, hy + 11, 'n'), (7, hy + 12, 'r'), (9, hy + 11, 'n'), (10, hy + 13, 'rl'), (4, hy + 13, 'r'), (7, hy + 14, 'n'), (8, hy + 10, 'n')]:
             c.px(x, y, P[k])
+    return c
+
+
+def bufo(q):
+    """Lufada de chama negra com borda roxa que sai do focinho (16×16, 4 quadros): ponha na frente do focinho."""
+    c = C(16, 16)
+    P = CG
+    formas = [[(8, 13, 1.6)], [(8, 12, 2.4), (9, 9, 1.6)], [(8, 11, 3), (10, 7, 2.3), (8, 4, 1.5)], [(9, 9, 2.4), (11, 5, 2), (9, 2, 1.2)]][q]
+    for (x, y, r) in formas:
+        c.ell(x, y, r + 1, r + 1, P['r'])
+    for (x, y, r) in formas:
+        c.ell(x, y, r, r, P['n'])
+    for (x, y, r) in formas[-1:]:
+        c.px(x + r, y - r, P['rl'])
+    if q == 3:
+        c.map(lambda v, x, y: (v[0], v[1], v[2], 190))
     return c
 
 
@@ -148,7 +166,7 @@ def folha_cali(capitao=False):
     sh = C(64, H * 4)
     for r, d in enumerate(('down', 'left', 'right', 'up')):
         for f in range(4):
-            sh.blit(cali(d, f, capitao, sopro=(2 if f == 0 and not capitao else 0)), f * 16, r * H)
+            sh.blit(cali(d, f, capitao, sopro=(2 if f == 0 else 1 if f == 2 else 0)), f * 16, r * H)
     return sh
 
 
@@ -224,8 +242,9 @@ def poses():
     cb = dict(pele='morena', cabelo='#5a3a2a', camisa='#b8a67c', xale='#b8644a', vestido='#b8644a', calca='#b8644a')
     out['sobrevivente_poses'] = (tira([b(FICHAS['sobrevivente_1'] | dict(xale='#b8644a'), 'agachar'), b(FICHAS['sobrevivente_2'] | dict(xale='#5b7fa6'), 'agachar')]), 16, 24,
                                  'sobrevivente_1', {'sentado_cobertor': A([0]), 'sentado_cobertor_2': A([1])})
-    q = [cali('down', 0, sopro=k) for k in (0, 1, 2, 3)] + [cali('down', 0, pose='espirrar'), cali('down', 0, pose='alerta')] + [cali('left', 0, sopro=k) for k in (1, 2, 3)]
-    out['cali_poses'] = (tira(q), 16, 24, 'cali_soldado', {'bufar': A([0, 1, 2, 3], 6), 'espirrar': A([0, 4, 4, 0], 6, 0), 'alerta': A([5]), 'bufar_lado': A([6, 7, 8], 6)})
+    q = [cali('down', 0, sopro=k) for k in (0, 1, 2, 3)] + [cali('down', 0, pose='espirrar'), cali('down', 0, pose='alerta')] + [cali('left', 0, sopro=k) for k in (1, 2, 3)] + [cali('left', 0), cali('right', 0)]
+    out['cali_poses'] = (tira(q), 16, 24, 'cali_soldado', {'bufar': A([0, 1, 2, 3], 6), 'espirrar': A([0, 4, 4, 0], 6, 0), 'alerta': A([5]), 'bufar_lado': A([6, 7, 8], 6),
+                                                        'olhar_em_volta': A([9, 9, 0, 10, 10, 0], 3)})
     q = [cali('down', 0, True), cali('down', 0, True, 'apontar'), cali('down', 0, True, 'bronca'), cali('down', 1, True, 'bronca')]
     out['toucim_poses'] = (tira(q, 16, 32), 16, 32, 'toucim', {'apontar': A([1]), 'bronca': A([2, 3], 6)})
     # objetos animados
@@ -242,6 +261,7 @@ def poses():
     bc.rect(11, 2, 4, 3, '#f6f0e0').px(13, 1, '#d8413a').px(15, 3, '#e8884a').px(13, 3, '#3b2a35')                                    # e a galinha
     bc.outline(OUT2)
     out['barril_custodia'] = (tira([bf, ba, bc], 16, 32), 16, 32, 'barril_custodia', {'fechado': A([0]), 'abrir': A([0, 1, 2], 4, 0), 'aberto': A([2])})
+    out['fx_bufo'] = (tira([bufo(k) for k in range(4)], 16, 16), 16, 16, 'fx_bufo', {'bufar': A([0, 1, 2, 3], 8, 0), 'respirar': A([0, 1, 0], 4)})
     # efeitos (tiles_fogo animados)
     T_ = tiles_outros
     out['fx_fogo'] = (tira([T_.chama(k, False, True) for k in range(3)], 16, 32), 16, 32, 'fx_fogo', {'queimar': A([0, 1, 2], 8)})

@@ -1,0 +1,26 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 16,
+ "alvo": "fx_bufo",
+ "anims": {
+  "bufar": {
+   "frames": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "frameRate": 8,
+   "repeat": 0
+  },
+  "respirar": {
+   "frames": [
+    0,
+    1,
+    0
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}
