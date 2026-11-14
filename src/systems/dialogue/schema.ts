@@ -253,6 +253,13 @@ export function normalizeScript(json: unknown): unknown {
           break;
         case 'move':
           rename('dir', 'facing');
+          // Não bloqueante: `async: true` ou `esperar: false` = `wait: false`.
+          if (s.async === true || s.esperar === false) s.wait = false;
+          if ('async' in s) delete s.async;
+          if ('esperar' in s) {
+            if (s.esperar === true && s.wait === undefined) s.wait = true;
+            delete s.esperar;
+          }
           if (typeof s.speed === 'string' && MOVE_SPEEDS[s.speed] !== undefined) s.speed = MOVE_SPEEDS[s.speed];
           break;
         case 'camera':

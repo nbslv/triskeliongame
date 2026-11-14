@@ -22,6 +22,7 @@ import { runActivity } from '../systems/activity/registry';
 import type { Target } from '../systems/dialogue/types';
 import { Patrol } from '../systems/stealth/Patrol';
 import { Actor } from '../systems/world/Actor';
+import { findPath, simplifyPath } from '../systems/world/path';
 import {
   allObjects,
   objectCenter,
@@ -891,12 +892,60 @@ export class WorldScene extends Phaser.Scene {
     return a;
   }
 
+  /**
+   * `move` dos roteiros: busca de caminho A* na grade de colisão (contorna árvores/paredes);
+   * sem caminho possível, anda em linha reta (como antes).
+   */
   async cutMove(id: string, to: Target, speed?: number, facing?: Direction): Promise<void> {
     const a = this.actorOrWarn(id);
     const p = this.resolveTarget(to);
     if (!a || !p) return;
-    await a.moveTo(p.x, p.y, speed ?? NPC_SPEED);
+    const v = speed ?? NPC_SPEED;
+    for (const w of this.planPath(a.x, a.y, p.x, p.y)) {
+      if (!a.sprite.active) return;
+      await a.moveTo(w.x, w.y, v);
+    }
     if (facing) a.face(facing);
+  }
+
+  /** Pontos de passagem (pés) de (x0,y0) até (x1,y1) contornando tiles sólidos. */
+  planPath(x0: number, y0: number, x1: number, y1: number): { x: number; y: number }[] {
+    const T = TILE_SIZE;
+    const tw = this.tilemap.width;
+    const th = this.tilemap.height;
+    const cell = (x: number, y: number) => ({ x: Math.floor(x / T), y: Math.floor((y - 1) / T) });
+    const from = cell(x0, y0);
+    const to = cell(x1, y1);
+    const solid = (tx: number, ty: number) => (tx === from.x && ty === from.y ? false : this.isSolid(tx * T + T / 2, ty * T + T / 2));
+    // Caminho reto livre? Então não precisa de A*.
+    const steps = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 4);
+    let straightFree = true;
+    for (let i = 1; i <= steps && straightFree; i++) {
+      const t = i / steps;
+      if (this.isSolid(x0 + (x1 - x0) * t, y0 - 3 + (y1 - y0) * t)) straightFree = false;
+    }
+    if (straightFree) return [{ x: x1, y: y1 }];
+    const path = findPath(from, to, tw, th, solid);
+    if (!path) return [{ x: x1, y: y1 }];
+    const pts = simplifyPath(path)
+      .slice(1)
+      .map((c) => ({ x: c.x * T + T / 2, y: c.y * T + T - 1 }));
+    pts[pts.length - 1] = { x: x1, y: y1 };
+    // Primeiro passo: alinha ao centro do tile de partida antes de virar (evita raspar quinas).
+    if (pts.length > 1) pts.unshift({ x: from.x * T + T / 2, y: from.y * T + T - 1 });
+    return pts;
+  }
+
+  /**
+   * Fala de um ator presente: ele vira para o Ícaro e o Ícaro vira para ele, a menos que o roteiro já
+   * tenha usado `face` neles, que estejam em pose (`anim`) ou andando.
+   */
+  faceForTalk(speakerId: string, manual: ReadonlySet<string>): void {
+    const sp = this.actors.get(speakerId);
+    const pl = this.player;
+    if (!sp || !pl || sp === pl || !sp.sprite.active) return;
+    if (!manual.has(sp.id) && !sp.posing && !sp.isMoving) sp.faceToward(pl.x, pl.y);
+    if (!manual.has(pl.id) && !pl.posing && !pl.isMoving) pl.faceToward(sp.x, sp.y);
   }
 
   cutFace(id: string, dir?: Direction, toward?: string): void {
