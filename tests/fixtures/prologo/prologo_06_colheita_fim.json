@@ -2,6 +2,8 @@
   "id": "prologo_06_colheita_fim",
   "steps": [
     {"type": "move", "actor": "icaro", "to": "marcador_cafezal_balanca"},
+    {"type": "face", "actor": "zefa", "to": "icaro"},
+    {"type": "face", "actor": "icaro", "to": "zefa"},
     {"type": "sfx", "id": "cesto_balanca"},
     {"type": "say", "speaker": "zefa", "portrait": "zefa_neutro", "text": "Deixa eu ver... Dezoito quilos. Limpo, maduro, sem folha. Café Valesol se colhe é assim."},
     {"type": "move", "actor": "tonho", "to": "marcador_cafezal_balanca_tonho"},
