@@ -226,12 +226,19 @@ def poses():
          b(I, 'erguer'), b(I, 'erguer2'),                     # 11-12
          b(I, 'encolhido'),                                   # 13
          b(I, 'colar'), b(I, 'colar2'),                       # 14-15
-         b(I, 'segurar')]                                     # 16
+         b(I, 'segurar'),                                     # 16
+         b(I, 'galinha'), b(I, 'galinha2'),                   # 17-18 segurar_galinha (frente)
+         b(I, 'galinha', 'left'), b(I, 'galinha2', 'left'),   # 19-20 esquerda
+         b(I, 'galinha', 'right'), b(I, 'galinha2', 'right'), # 21-22 direita
+         b(I, 'galinha', 'up'), b(I, 'galinha2', 'up'),       # 23-24 costas
+         b(I, 'galinha_sentado'), b(I, 'galinha_sentado2')]   # 25-26 sentado
     A = lambda fr, rate=4, rep=-1: dict(frames=fr, frameRate=rate, repeat=rep)
     out['icaro_poses'] = (tira(q), 16, 24, 'icaro', {
         'acordar': A([0, 0, 1], 2, 0), 'esconder_livro': A([2]), 'colher': A([3, 4, 3], 5, 0), 'agachar': A([5]), 'ajoelhar': A([6]),
         'conjurar': A([7, 8], 4), 'conjurar_brilho': A([9, 10], 5), 'erguer_viga': A([11, 12], 3), 'encolhido': A([13]),
-        'colar_brilho': A([14, 15], 5), 'segurar_colar': A([16])})
+        'colar_brilho': A([14, 15], 5), 'segurar_colar': A([16]),
+        'segurar_galinha': A([17, 18], 2), 'segurar_galinha_esquerda': A([19, 20], 2), 'segurar_galinha_direita': A([21, 22], 2),
+        'segurar_galinha_costas': A([23, 24], 2), 'segurar_galinha_sentado': A([25, 26], 2)})
     q = [b(P, 'sentado'), b(P, 'beber')]
     out['pai_poses'] = (tira(q), 16, 24, 'pai', {'sentado': A([0]), 'beber_cafe': A([0, 1, 1, 0], 2, 0)})
     q = [deitar(b(P, 'sentado_fechado')), deitar(b(P, 'sentado')), deitar(b(P, 'caixa')), deitar(b(P, 'empurrar')), deitar(b(P, 'entregar'))]
@@ -313,6 +320,9 @@ def icones():
         e.rect(x, 6, 2, 2, '#6b5560')
     r['emote_reticencias'] = e
     e = balao(); e.px(8, 3, '#6fb0c8').rect(7, 4, 2, 2, '#6fb0c8').rect(6, 6, 4, 3, '#6fb0c8').rect(7, 9, 2, 1, '#6fb0c8').px(7, 6, '#d6eef6'); r['emote_suor'] = e
+    e = balao()
+    e.art(4, 3, ['.xx.xx..', 'xoxxxxx.', 'xxxxxxx.', '.xxxxx..', '..xxx...', '...x....'], {'x': '#e2564a', 'o': '#fbe3ec'})
+    r['emote_coracao'] = e
     return r
 
 

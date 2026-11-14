@@ -87,6 +87,46 @@
    ],
    "frameRate": 4,
    "repeat": -1
+  },
+  "segurar_galinha": {
+   "frames": [
+    17,
+    18
+   ],
+   "frameRate": 2,
+   "repeat": -1
+  },
+  "segurar_galinha_esquerda": {
+   "frames": [
+    19,
+    20
+   ],
+   "frameRate": 2,
+   "repeat": -1
+  },
+  "segurar_galinha_direita": {
+   "frames": [
+    21,
+    22
+   ],
+   "frameRate": 2,
+   "repeat": -1
+  },
+  "segurar_galinha_costas": {
+   "frames": [
+    23,
+    24
+   ],
+   "frameRate": 2,
+   "repeat": -1
+  },
+  "segurar_galinha_sentado": {
+   "frames": [
+    25,
+    26
+   ],
+   "frameRate": 2,
+   "repeat": -1
   }
  }
 }

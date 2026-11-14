@@ -26,6 +26,7 @@ EXPR = {
     'riso': ('alta', 'fechado', 'riso', ('corado',)),
     'brava': ('brava', 'normal', 'aberta_brava', ()),
     'suave': ('reta', 'fechado', 'sorriso', ()),
+    'triste': ('triste', 'baixo', 'triste', ()),
 }
 
 FUNDOS = {'icaro': '#f6dfa8', 'pai': '#d9c9b0', 'tonho': '#cfe0a8', 'zefa': '#f0c8a0', 'custodia': '#ddd0f0', 'nina': '#fbe9a0', 'juca': '#f6e3c8',
@@ -136,6 +137,14 @@ def retrato(nome, s, expr, fundo=None):
         elif olho == 'meio':
             c.ell(ex, ey + 1, 2.5, 2.5, OLHO)
             c.rect(ex - 3, ey - 2, 7, 2, pele).rect(ex - 3, ey - 1, 7, 1, OLHO)
+        elif olho == 'baixo':          # olhar para baixo, pálpebra pesada
+            c.ell(ex, ey + 2, 2.5, 2.5, OLHO)
+            c.rect(ex - 3, ey - 1, 7, 2, pele)
+            for t in range(-3, 4):
+                c.px(ex + t, ey + 1 - (1 if abs(t) < 3 else 0) + (1 if lado * t > 1 else 0), OLHO)
+            c.px(ex - 1, ey + 3, '#8a7a85')
+            if g('olhos_umidos'):
+                c.px(ex - 2, ey + 5, '#d6eef6').px(ex - 1, ey + 5, '#8fcbe0').px(ex + 1, ey + 5, '#d6eef6')
         elif olho == 'fechado':
             for t in range(-3, 4):
                 c.px(ex + t, ey + (1 if abs(t) > 1 else 0) + (1 if abs(t) > 2 else 0) - 1, OLHO)
@@ -149,7 +158,7 @@ def retrato(nome, s, expr, fundo=None):
         for t in range(-3, 4):
             dy = 0
             if sob == 'triste':
-                dy = int(round(-t * lado * 0.4))
+                dy = int(round(-t * lado * (0.7 if expr == 'triste' else 0.4)))
             if sob == 'brava':
                 dy = int(round(t * lado * 0.45)) + 1
             c.px(ex + t, by_ + dy, sc)
@@ -170,6 +179,9 @@ def retrato(nome, s, expr, fundo=None):
     elif boca == 'tremida':
         for t in range(-4, 5):
             c.px(32 + t, my + (t % 2), bc)
+    elif boca == 'triste':
+        c.rect(29, my, 6, 1, bc).px(28, my + 1, bc).px(35, my + 1, bc).px(27, my + 2, bc).px(36, my + 2, bc)
+        c.rect(30, my + 2, 4, 1, pele_e)
     elif boca == 'firme':
         c.rect(28, my, 8, 1, bc).px(27, my + 1, bc).px(36, my + 1, bc)
     elif boca == 'torta':
@@ -200,6 +212,7 @@ def retrato(nome, s, expr, fundo=None):
 
     # cabelo da frente / chapéu
     def frente(k):
+        nonlocal cy
         ch = g('chapeu')
         topo = cy - 19
         if est != 'careca' and ch not in ('lenco', 'touca', 'elmo'):
@@ -219,6 +232,8 @@ def retrato(nome, s, expr, fundo=None):
             k.rect(13, cy - 8, 4, 10, cab).rect(47, cy - 8, 4, 10, cab)
         if ch == 'palha':
             tor = 3 if g('torto') else 0
+            if g('chapeu_baixo'):
+                cy += 4
             k.ell(32, cy - 12, 15, 9, '#e3c66a')
             for x in range(4, 60):
                 yy = cy - 10 + (x - 32) * tor // 28
@@ -228,6 +243,8 @@ def retrato(nome, s, expr, fundo=None):
                     k.px(x, yy + 3, '#b8944e')
             k.rect(18, cy - 13, 28, 3, '#a85236')
             k.ell(27, cy - 17, 6, 2, '#f2dc8c')
+            if g('chapeu_baixo'):
+                cy -= 4
         elif ch == 'lenco':
             b = g('cor_chapeu', '#c8372d')
             k.ell(32, cy - 7, 19, 13, b)
@@ -374,12 +391,12 @@ def retrato_mae():
 
 
 LISTA = [
-    ('icaro', 'icaro', ['neutro', 'sorriso', 'surpreso', 'medo', 'choro', 'determinado']),
+    ('icaro', 'icaro', ['neutro', 'sorriso', 'surpreso', 'medo', 'choro', 'determinado', 'triste']),
     ('pai', 'pai', ['neutro', 'ranzinza', 'ferido', 'sorriso_fraco']),
     ('juca', 'juca', ['neutro']), ('ermelinda', 'ermelinda', ['neutro']),
-    ('tonho', 'tonho', ['neutro', 'riso', 'medo']),
+    ('tonho', 'tonho', ['neutro', 'riso', 'medo', 'triste']),
     ('zefa', 'zefa', ['neutro', 'brava']),
-    ('custodia', 'custodia', ['neutro', 'medo']),
+    ('custodia', 'custodia', ['neutro', 'medo', 'triste']),
     ('nina', 'nina', ['neutro']),
     ('aldeao', 'sobrevivente_1', ['medo']), ('aldea', 'sobrevivente_2', ['medo']),
     ('soldado', 'soldado_1', ['neutro']),
@@ -397,7 +414,11 @@ def todos():
             s['sobr_grossa'] = True
         for e in exprs:
             ee = 'sorriso' if (nome, e) == ('nina', 'neutro') else e
-            r[f'{nome}_{e}'] = retrato(nome, s, ee)
+            s2 = dict(s)
+            if e == 'triste':
+                s2['olhos_umidos'] = nome == 'custodia'
+                s2['chapeu_baixo'] = nome == 'tonho'
+            r[f'{nome}_{e}'] = retrato(nome, s2, ee)
     r['mae_silhueta'] = retrato_mae()
     r['cali_soldado'] = retrato_cali()
     r['toucim_neutro'] = retrato_cali(True)

@@ -50,6 +50,15 @@ python3 tools/audio/sfx.py [id...]      # assets/audio/sfx (OGG)
 - Teste de navegador (`scripts/testar-navegador.mjs`, Chromium 844×390 com toque): todas as verificações OK com os
   assets novos; `npm test`: 241 testes OK. Capturas em `docs/arte/capturas/` (`mock_*.png`, `sprites.png`, `retratos.png`, `jogo/`).
 
+## Pedidos pós-teste do autor (feitos)
+
+- Retratos de tristeza leve, sem lágrimas: `icaro_triste`, `custodia_triste` (olhos úmidos), `tonho_triste`
+  (chapéu mais baixo). Agora são 32 retratos.
+- `icaro_poses`: `segurar_galinha` (de pé, de frente, 2 quadros de respiração) e variações
+  `segurar_galinha_esquerda`, `_direita`, `_costas` e `_sentado`. A coordenação pediu de pé e o GDD (seção de
+  assets) fala em sentado: há as duas, a narrativa escolhe.
+- `assets/images/emote_coracao.png` (16×16).
+
 ## Pedidos ao motor (não editei `src/`)
 
 1. **Poses (`anim`)**: o motor toca `<sprite>:<anim>` se a animação existir, mas não a cria. Proposta: no Preload,
