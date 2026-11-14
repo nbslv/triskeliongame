@@ -3,7 +3,7 @@
   "steps": [
     {"type": "say", "speaker": "narrador", "text": "Um cavalinho de sabugo de milho, esquecido num canto. Tem um 'I' torto riscado a canivete."},
     {"type": "say", "speaker": "icaro", "text": "(Eu jurava que tinha perdido isso no rio. O pai procurou comigo a tarde inteira.)"},
-    {"type": "say", "speaker": "icaro", "portrait": "icaro_choro", "text": "(A tarde inteira. Reclamando. Sem parar de procurar.)"},
+    {"type": "say", "speaker": "icaro", "text": "(A tarde inteira. Reclamando. Sem parar de procurar.)"},
     {"type": "flag", "set": "prologo.achou_brinquedo"},
     {"type": "end"}
   ]

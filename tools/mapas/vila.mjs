@@ -203,12 +203,13 @@ function vila(noite) {
   const esc = []; // {nome,tipo,x,y,w,h}
   const hideRect = (nome, tipo, x, y, w = 1, h = 1) => { esc.push({ nome, tipo, x, y, w, h }); m.zona(nome, 'esconderijo', x, y, w, h, { tipo }); };
   // Trecho A (Rua da Venda): carroça, sacas, barril, arbustos no canto
-  m.blocoAlto(60, 13, E, N('carroca', 'carroca_queimada'), 1);
-  hideRect('esconderijo_carroca_1', 'carroca', 60, 13, 3, 1);
-  m.blocoAlto(55, 13, E, 'sacas', 1);
-  hideRect('esconderijo_sacas_1', 'sacas', 55, 13, 2, 1);
-  m.blocoAlto(53, 13, E, 'barril_grande', 1);
-  hideRect('esconderijo_barril_1', 'barril', 53, 13, 1, 1);
+  // o esconderijo é ATRÁS do objeto, do lado oposto ao da rua onde o Caligosuin patrulha (linha 15, ao sul)
+  m.blocoAlto(58, 13, E, N('carroca', 'carroca_queimada'), 1);
+  hideRect('esconderijo_carroca_1', 'carroca', 58, 15, 5, 1);
+  m.blocoAlto(54, 13, E, 'sacas', 1);
+  hideRect('esconderijo_sacas_1', 'sacas', 54, 15, 2, 1);
+  m.blocoAlto(52, 13, E, 'barril_grande', 1);
+  hideRect('esconderijo_barril_1', 'barril', 52, 15, 1, 1);
   for (const x of [44, 45]) m.put('objetos', x, 9, E, 'arbusto');
   // Trecho B (praça): carroça de feno, sacas e barris na beira da praça
   m.blocoAlto(40, 21, E, 'carroca_feno', 1);
@@ -219,16 +220,17 @@ function vila(noite) {
   hideRect('esconderijo_barril_praca', 'barril', 31, 14, 1, 1);
   hideRect('esconderijo_praca', 'mureta', 44, 14, 1, 3);
   // Trecho C (Rua do Terreiro): sacas de café e carroça ao sul da rua; barril da Custódia ao norte
+  // lado sul da rua: o esconderijo fica atrás (linha 41, ao sul); o barril da Custódia, ao norte da rua, tem o esconderijo ao norte (linha 32)
   m.blocoAlto(31, 39, E, 'sacas', 1);
-  hideRect('esconderijo_sacas_c1', 'sacas', 31, 39, 2, 1);
+  hideRect('esconderijo_sacas_c1', 'sacas', 31, 41, 2, 1);
   m.blocoAlto(23, 39, E, N('carroca_sacas', 'carroca_queimada'), 1);
-  hideRect('esconderijo_carroca_c', 'carroca', 23, 39, 3, 1);
+  hideRect('esconderijo_carroca_c', 'carroca', 23, 41, 3, 1);
   m.blocoAlto(15, 39, E, 'sacas', 1);
-  hideRect('esconderijo_sacas_c2', 'sacas', 15, 39, 2, 1);
+  hideRect('esconderijo_sacas_c2', 'sacas', 15, 41, 2, 1);
   m.blocoAlto(9, 39, E, 'barril_grande', 1);
-  hideRect('esconderijo_barril_c', 'barril', 9, 39, 1, 1);
+  hideRect('esconderijo_barril_c', 'barril', 9, 41, 1, 1);
   m.blocoAlto(27, 33, E, 'barril_grande', 1);
-  hideRect('esconderijo_barril_custodia', 'barril', 27, 33, 1, 1);
+  hideRect('esconderijo_barril_custodia', 'barril', 27, 32, 1, 1);
   for (const [x, y] of [[20, 34], [21, 34], [20, 33], [21, 33]]) m.put('objetos', x, y, E, 'arbusto');
   // decoração: caixotes, cestos, lenha, galinhas, varal
   for (const [x, y, t] of [[52, 9, 'barril'], [47, 9, 'caixote'], [58, 9, 'cesto_cheio'], [37, 24, 'barril'], [42, 23, 'caixote'], [50, 9, 'lenha'], [44, 19, 'arbusto'], [36, 29, 'caixote'], [37, 31, 'cesto']]) m.put('objetos', x, y, E, t);
@@ -251,7 +253,7 @@ function vila(noite) {
     marcador_vila_panoramica: [36, 18],
     marcador_vila_cali_intro_a: [50, 11],
     marcador_vila_cali_intro_b: [58, 11],
-    marcador_vila_esconderijo_1: [61, 13],
+    marcador_vila_esconderijo_1: [61, 15],
     marcador_vila_esconderijo_praca: [44, 15],
     marcador_vila_praca_centro: [36, 22],
     marcador_vila_biblioteca: [36, 8],
@@ -285,7 +287,7 @@ function vila(noite) {
     // figurantes (sem fala obrigatória)
     // moradores e galinhas: `tipo` escolhe a fala padrão (padrao_<tipo>[_<periodo>]), sem `dialogue` próprio
     for (const [n, x, y, f, tipo, spr] of [['morador_1', 46, 9, 'down', 'aldeao', 'aldeao'], ['morador_2', 38, 15, 'left', 'aldea', 'aldea'], ['morador_3', 28, 13, 'right', 'idoso', 'aldeao_2'], ['morador_4', 17, 36, 'up', 'aldeao', 'aldeao_2']]) m.npc(n, x, y, { facing: f, sprite: spr, tipo });
-    for (const [n, x, y] of [['galinha_1', 52, 15], ['galinha_2', 38, 14], ['galinha_3', 30, 34]]) m.npc(n, x, y, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
+    for (const [n, x, y] of [['galinha_1', 55, 18], ['galinha_2', 38, 14], ['galinha_3', 30, 34]]) m.npc(n, x, y, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
     // casas sem interior: `porta_trancada` sobre a porta (toque/A), textos da narrativa; vitrine do Empório como examinar
     for (const [n, x, y, w, h, d, dono] of [
       ['trancada_laudelina', 28, 7, 1, 2, 'prologo_trancada_laudelina', 'Dona Laudelina'], ['trancada_orlando', 43, 7, 1, 2, 'prologo_trancada_orlando', 'Seu Orlando'],
@@ -300,7 +302,7 @@ function vila(noite) {
     m.zona('gatilho_vila_entrada', 'gatilho', 64, 10, 1, 3, { dialogue: 'prologo_08_vila_entrada', activation: 'load' });
     m.zona('gatilho_vila_praca', 'gatilho', 44, 10, 2, 4, { dialogue: 'prologo_10_praca' });
     m.zona('gatilho_casa', 'gatilho', HX + 1, HY + 5, 10, 1, { dialogue: 'prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa' });
-    m.zona('checkpoint_entrada', 'checkpoint', 60, 13, 3, 1, {});
+    m.zona('checkpoint_entrada', 'checkpoint', 59, 15, 4, 1, {});
     m.zona('checkpoint_praca', 'checkpoint', 44, 14, 1, 3, {});
     m.zona('checkpoint_beco', 'checkpoint', 33, 27, 3, 1, {});
     m.zona('checkpoint_casa', 'checkpoint', HX + 1, HY + 8, 9, 1, {});
@@ -308,7 +310,7 @@ function vila(noite) {
     m.examinar('exame_biblioteca', 35, 8, { dialogue: 'prologo_exame_biblioteca' }, 3, 1);
     m.examinar('exame_padaria', 29, 32, { dialogue: 'prologo_exame_padaria' }, 3, 1);
     m.examinar('exame_chafariz', 34, 17, { dialogue: 'prologo_exame_chafariz' }, 5, 5);
-    m.examinar('exame_saca_cafe', 31, 38, { dialogue: 'prologo_exame_saca_cafe' }, 2, 2);
+    m.examinar('exame_saca_cafe', 31, 39, { dialogue: 'prologo_exame_saca_cafe' }, 2, 2);
     m.examinar('exame_retrato', HX + 7, HY + 8, { dialogue: 'prologo_exame_retrato' });
     m.examinar('exame_colchao', HX + 10, HY + 6, { dialogue: 'prologo_exame_colchao' }, 2, 2);
     m.examinar('barril_custodia', 27, 33, { dialogue: 'prologo_11_custodia' }, 1, 2);

@@ -112,7 +112,7 @@ export function casaIcaro() {
 
   // ---- marcadores
   m.marcador('marcador_casa_cama', 9, iy(6));
-  m.marcador('marcador_casa_mesa', 5, iy(7));
+  m.marcador('marcador_casa_mesa', 3, iy(6)); // ponta oeste da mesa: caminho livre a partir do lado do pai
   m.marcador('marcador_casa_pai_mesa', 6, iy(4));
   m.marcador('marcador_casa_porta_frente', 4, iy(9));
   m.marcador('marcador_casa_porta_fundos', 5, iy(3));
