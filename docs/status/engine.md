@@ -82,7 +82,7 @@ Nenhuma bloqueante. Observações para as outras frentes:
 - **Tilesets da arte** conferidos: todos os `docs/arte/tilesets/tiles_*.json` têm imagem correspondente em
   `assets/tilesets/` e propriedades válidas (teste automático). Mapa `content/maps/teste_arte.json`
   (`tiles_exterior_noite` + `tiles_fogo` com animações) carrega sem avisos; fogo anima; `collides` (fogo, cerca)
-  e `hide` (arbusto) funcionam — verificado no Chromium (`docs/tecnico/capturas/07-tilesets-arte.png`).
+  e `hide` (arbusto) funcionam — verificado no Chromium (`docs/tecnico/capturas/11-tilesets-arte.png`).
 
 ## Ciclo 4 (pedidos da arte em docs/status/arte.md)
 
@@ -95,7 +95,7 @@ Nenhuma bloqueante. Observações para as outras frentes:
 - **Emotes por ícone** (`assets/images/emote_<nome>.png`), com texto de reserva.
 - **Teste** `tests/arte.test.ts`: todos os retratos (64×64), poses e emotes usados nos 48+ roteiros do prólogo
   existem nos assets — nenhum faltando. Teste de navegador: +4 verificações (poses criadas e tocadas,
-  `cali_N`/`toucim`, ícones). Captura `docs/tecnico/capturas/08-poses-emotes.png`.
+  `cali_N`/`toucim`, ícones). Captura `docs/tecnico/capturas/12-poses-emotes.png`.
 - O pedido 4 da arte (tiles animados) foi atendido no ciclo 3; falta a arte preencher `animation` em
   `tiles_fogo.json` (tabela em MAPAS.md). Alternativa `fx_fogo*` como ator decorativo também funciona
   (`spawn` com `sprite: "fx_fogo"` + `anim: "queimar"`).
