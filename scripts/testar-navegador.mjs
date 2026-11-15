@@ -403,6 +403,39 @@ await goMap('teste', 'inicio');
   await goMap('teste', 'inicio');
 }
 
+// move com busca de caminho (contorna a casa) e virada automática para quem fala
+await goMap('teste', 'inicio');
+{
+  const r = await page.evaluate(async () => {
+    const w = window.__TRISKELION__.scene.getScene('Mundo');
+    // casa ocupa tiles x 3..12, y 3..7; vai de cima-esquerda (2,2) a baixo-direita (13,9) — a reta cruza a casa
+    w.cutSpawn('andarilho', [1, 2], 'aldeao', 'down');
+    let hitSolid = 0;
+    const timer = setInterval(() => {
+      const a = w.actors.get('andarilho');
+      if (a && w.isSolid(a.x, a.y - 3)) hitSolid++;
+    }, 50);
+    await w.cutMove('andarilho', [13, 9], 120);
+    clearInterval(timer);
+    const a = w.actors.get('andarilho');
+    const arrived = Math.abs(a.x - (13 * 16 + 8)) < 2 && Math.abs(a.y - (9 * 16 + 15)) < 2;
+    // virada na fala: jogador acima do falante, olhando para cima (de costas para ele)
+    w.player.sprite.setPosition(13 * 16 + 8, 9 * 16 + 15 - 32);
+    w.player.face('up');
+    const d = window.__TRISKELION_DIRECTOR__;
+    const done = d.run({ id: 'virar', steps: [{ type: 'say', speaker: 'andarilho', text: '[teste] Ei, aqui!' }] });
+    await new Promise((res) => setTimeout(res, 300));
+    const facing = { npc: a.facing, player: w.player.facing };
+    window.__TRISKELION__.scene.getScene('Dialogo').advance();
+    window.__TRISKELION__.scene.getScene('Dialogo').advance();
+    await done;
+    w.cutDespawn('andarilho');
+    return { hitSolid, arrived, facing };
+  });
+  check(r.arrived && r.hitSolid === 0, `move contorna obstáculos (chegou=${r.arrived}, tocou sólido ${r.hitSolid}x)`);
+  check(r.facing.player === 'down' && r.facing.npc === 'up', `falante e Ícaro se viram um para o outro (${JSON.stringify(r.facing)})`);
+}
+
 // Arte: poses (anim), sprites especiais e emotes por ícone
 await goMap('teste', 'inicio');
 {

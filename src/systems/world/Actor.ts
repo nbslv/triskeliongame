@@ -47,6 +47,10 @@ export class Actor {
     this.syncDepth();
   }
 
+  get isMoving(): boolean {
+    return this.moving;
+  }
+
   get x(): number {
     return this.sprite.x;
   }

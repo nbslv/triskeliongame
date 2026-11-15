@@ -38,6 +38,8 @@ export class CutsceneDirector implements DialogueHost {
   private runner: DialogueRunner | null = null;
   /** Ator "self" (NPC com quem se falou). */
   private selfActor: string | undefined;
+  /** Atores que o roteiro virou com `face` (a virada automática na fala respeita isso). */
+  private manualFace = new Set<string>();
   /** Variáveis para `{chave}` nos textos (ex.: {nome}, {dono}, {periodo}). */
   private vars: Record<string, string> = {};
   /** Cor/opacidade da tela preta/branca, mantida entre mapas. */
@@ -80,6 +82,7 @@ export class CutsceneDirector implements DialogueHost {
     if (isCutscene) this.world?.autosave(true);
     this.selfActor = opts.self;
     this.vars = { ...(opts.vars ?? {}) };
+    this.manualFace = new Set();
     const runner = new DialogueRunner(script, this, flags);
     this.runner = runner;
     input.clearPresses();
@@ -131,6 +134,7 @@ export class CutsceneDirector implements DialogueHost {
 
   say(step: SayStep): Promise<void> {
     const speaker = step.speaker && (step.speaker === 'self' || step.speaker === 'este') ? this.selfActor : step.speaker;
+    if (speaker && speaker !== 'narrador' && speaker !== 'tutorial') this.world?.faceForTalk(speaker, this.manualFace);
     return this.dialog.showSay({ ...step, speaker, text: this.interpolate(step.text) });
   }
 
@@ -144,10 +148,11 @@ export class CutsceneDirector implements DialogueHost {
 
   async move(step: import('./types').MoveStep): Promise<void> {
     this.dialog.hideSoon();
-    await guard(this.world.cutMove(this.actorId(step.actor), step.to, step.speed, step.facing), 30000, 'move', undefined);
+    await guard(this.world.cutMove(this.actorId(step.actor), step.to, step.speed, step.facing), 60000, 'move', undefined);
   }
 
   face(step: import('./types').FaceStep): void {
+    this.manualFace.add(this.actorId(step.actor) === 'player' || this.actorId(step.actor) === 'jogador' ? this.world.player.id : this.actorId(step.actor));
     this.world.cutFace(this.actorId(step.actor), step.dir, step.to ? this.actorId(step.to) : undefined);
   }
 
