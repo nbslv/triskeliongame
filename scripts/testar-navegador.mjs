@@ -481,7 +481,7 @@ await goMap('teste', 'inicio');
     const done = d.run({
       id: 'zoom',
       steps: [
-        { type: 'show', image: 'item_colar_mae' },
+        { type: 'show', image: 'zoom_colar_mae' },
         { type: 'say', speaker: 'narrador', text: '[teste] Entre carretéis de linha, um colar...' },
         { type: 'hide' },
         { type: 'say', speaker: 'narrador', text: '[teste] Sumiu.' },
@@ -497,7 +497,7 @@ await goMap('teste', 'inicio');
     return { shown, boxNow };
   });
   const sh = r.shown;
-  check(!!sh && sh.id === 'item_colar_mae' && !sh.placeholder && Number.isInteger(sh.scale) && sh.scale >= 2, `show amplia em escala inteira (${JSON.stringify(sh)})`);
+  check(!!sh && sh.id === 'zoom_colar_mae' && !sh.placeholder && Number.isInteger(sh.scale) && sh.scale >= 2, `show amplia em escala inteira (${JSON.stringify(sh)})`);
   check(!!sh && r.boxNow.visible && sh.y + sh.h <= r.boxNow.y - 24, 'imagem fica acima da caixa e a fala corre por cima (não bloqueia)');
   await page.screenshot({ path: `${OUT}/13-objeto-ampliado.png` });
   const r2 = await page.evaluate(async () => {
