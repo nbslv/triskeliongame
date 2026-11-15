@@ -57,7 +57,7 @@ cuidado."*
 | Cadeira de balanço | `prologo_casa_cadeira` | Ninguém senta; "ela não range" — o luto do pai |
 | Fogão e bule | `prologo_casa_fogao` | O pai não comeu a broa dele: guardou para o filho levar |
 | Pote "TELHADO" | `prologo_casa_pote` | Quarenta cobres e um botão; "a viga do meio reclama" — a pobreza e a viga que vai cair |
-| Enxada do pai | `prologo_casa_ferramentas` | Dois nomes riscados no cabo: "Tadeo" e "Aurora" |
+| Enxada do pai | `prologo_casa_ferramentas` | Iniciais "T" e "A" riscadas num coração no cabo, a única parte que o pai nunca lixa |
 | Alçapão do terreiro | `prologo_casa_alcapao` | O Canal do Arrebol: proibido desde os sete anos, usado "desde os sete e um dia" — **a rota de fuga** |
 
 **A vila de manhã** (`prologo_vila_manha`: o mesmo desenho de `prologo_vila`, inteiro e com
