@@ -93,6 +93,41 @@ queimada).
 - Emotes (balão 16×16 sobre a cabeça): `exclamacao`, `interrogacao`, `reticencias`, `suor`.
 - Cartão de título **TRISKELION** com o símbolo das três espirais bem discreto ao fundo.
 
+## 5b. Pedido do autor: objetos ampliados e retratos com/sem galinha
+
+### Objetos ampliados na tela (ideia do autor)
+Quando Ícaro pega, examina ou recebe um objeto importante, a imagem do objeto aparece **ampliada
+no centro da tela**, sobre um fundo escurecido, enquanto as falas sobre ele correm. Pede arte
+nova (desenho grande, ~96×96, mesmo estilo dos ícones) e um passo novo no motor (contrato
+proposto em `10_prologo_roteiro.md`, "Objetos ampliados").
+
+| Imagem (`assets/images/zoom_<id>.png`) | Onde aparece | Diálogo |
+|---|---|---|
+| `zoom_broa` — meia broa embrulhada num pano, sobre a chapa | fogão, de manhã | `prologo_casa_fogao` |
+| `zoom_caixa_costura` — caixinha de madeira com flor entalhada | prateleira, de manhã; e aberta na despedida | `prologo_casa_caixa_costura`, `prologo_14_promessa` |
+| `zoom_caixa_aberta` — carretéis, dedal amassado e o colar | despedida do pai | `prologo_14_promessa` |
+| `zoom_colar_mae` — cordão gasto e pedrinha opaca cinza-rosada | despedida; brilho no túnel; fala final | `prologo_14_promessa`, `prologo_15_tunel_inicio`, `prologo_16_sobreviventes` |
+| `zoom_colar_brilho` — o mesmo colar com luz cor de fim de tarde | túnel | `prologo_15_tunel_inicio` |
+| `zoom_livro_reservado` — o livro com o carimbo vermelho "RESERVADO" | cesto, no cafezal | `prologo_05_livro` |
+| `zoom_retrato` — retrato a carvão: homem sério, mulher rindo, bebê berrando | casa de manhã | `prologo_casa_retrato` |
+| `zoom_pote_telhado` — pote de barro escrito "TELHADO", moedas e um botão | casa de manhã | `prologo_casa_pote` |
+| `zoom_enxada` — cabo da enxada com "Tadeo" e "Aurora" riscados | casa de manhã | `prologo_casa_ferramentas` |
+| `zoom_ficha_aurora` — ficha de biblioteca amarelada, "Aurora" | biblioteca | `prologo_viz_biblioteca_ficha` |
+| `zoom_cavalinho` — cavalinho de sabugo com um "I" torto | túnel | `prologo_15b_tunel_brinquedo` |
+| `zoom_rapadura` — rapadura amassada | bambuzal | `prologo_16_sobreviventes` |
+| `zoom_ovos`, `zoom_pao_de_ontem` | ao receber | `prologo_viz_custodia`, `prologo_viz_juca` |
+
+### Retratos com e sem a Pamonha (ideia do autor)
+Os retratos da Dona Custódia mostram a galinha no ombro. Enquanto a Pamonha está com Ícaro (no
+bambuzal, entre "Ah, filho." e a ida até a sargento), o retrato dela deve aparecer **sem
+galinha** e o de Ícaro **com galinha**; quando a galinha volta, tudo volta ao normal.
+
+| Retrato novo | Usado em |
+|---|---|
+| `icaro_triste_galinha` | "Tonho. Você achou a Nina." |
+| `icaro_sorriso_galinha` | "...Obrigado, Nina." |
+| `custodia_triste_sem_galinha` | reserva: a Custódia não fala nesse trecho hoje, mas qualquer fala nova dela ali usa este |
+
 ## 6. Música (laços originais; clima e instrumentos)
 
 Paleta única do jogo (decisão do autor): **violão dedilhado, marimba, flauta, celesta, cordas

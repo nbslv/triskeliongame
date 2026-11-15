@@ -392,3 +392,20 @@ Limite de texto: nenhuma fala passa de 130 caracteres.
 - Retrato só quando a fala tem emoção clara e o retrato bate com ela.
 - Narrador e pensamentos de exame sem emoção clara ficam **sem retrato** (só o texto).
 - Expressões disponíveis: ver `12_prologo_lista_assets.md`, seção 3.
+
+## Objetos ampliados (pedido do autor) — contrato proposto ao motor
+
+Quando Ícaro pega, examina ou recebe um objeto importante, a imagem dele aparece ampliada no
+centro da tela. Proposta de passo de roteiro (ainda **não existe** no motor; os roteiros só
+passam a usá-lo quando o motor implementar e a arte entregar as imagens):
+
+```json
+{ "type": "show", "image": "zoom_colar_mae" }
+{ "type": "say", "speaker": "narrador", "text": "Entre carretéis de linha e um dedal amassado, um colar..." }
+{ "type": "hide" }
+```
+
+- `show`: escurece levemente o fundo e mostra `assets/images/<image>.png` ampliada (escala inteira),
+  acima do mapa e abaixo da caixa de diálogo. Não bloqueia: as falas seguintes correm por cima.
+- `hide`: some com a imagem (fade curto). Ao fim do roteiro, o motor esconde sozinho.
+- Lista de imagens e onde cada uma entra: `12_prologo_lista_assets.md`, seção 5b.
