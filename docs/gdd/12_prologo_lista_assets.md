@@ -58,16 +58,10 @@ Paletas dos personagens principais: ver `02_personagens.md`.
 
 Total: 29 retratos.
 
-**Pedidos pós-teste (ainda não existem; os testes exigem a arte antes do uso, então os roteiros
-estão sem retrato nessas falas até a entrega):**
-
-| Id | Para quê | Falas que vão usar |
-|---|---|---|
-| `icaro_triste` | Tristeza contida, sem lágrima (olhar baixo, boca reta) | "(A biblioteca...)", "Tonho. Você achou a Nina.", lembrança do brinquedo no túnel, exame da biblioteca queimada |
-| `custodia_triste` | Olhos úmidos, sem susto | "Ah, filho.", "Eu não consegui voltar, Ícaro. Me perdoa." |
-| `tonho_triste` | Sem sorriso, chapéu mais baixo | "Ícaro." e "...Seu pai?" no bambuzal |
-
-Hoje os retratos `*_neutro` sorriem e os `*_medo` arregalam os olhos; nenhum serve para tristeza.
+**Retratos de tristeza (entregues pela arte):** `icaro_triste`, `custodia_triste`, `tonho_triste`,
+usados nas falas de tristeza leve (Custódia "Ah, filho." e "Me perdoa"; Tonho "Ícaro." e "...Seu
+pai?"; Ícaro "(A biblioteca...)", "Tonho. Você achou a Nina.", lembrança do brinquedo, biblioteca
+queimada).
 
 ## 4. Tilesets
 
@@ -91,10 +85,11 @@ Hoje os retratos `*_neutro` sorriem e os `*_medo` arregalam os olhos; nenhum ser
   **Rapadura Amassada**, **Ovos da Pamonha**, **Pão de Ontem**, moeda de cobre.
 - **Vila de manhã (pedido pós-teste):** tile de **vitrine com livros de capa de couro** para o
   Empório Prado; **cadeado grande** no portão do armazém; bilhete na porta da parteira (opcional).
-- **Pose `segurar_galinha` do Ícaro** (sentado, com a Pamonha no colo) e **emote de coração**
-  (`emote_coracao.png`): pedidos pós-teste para a cena do bambuzal. Até existirem, a galinha anda
-  até o lado de Ícaro e fica ali; quando chegarem, o roteiro passa a usar
-  `anim icaro segurar_galinha` + `emote coracao`.
+- **Pose `segurar_galinha` do Ícaro** (entregue, com variantes `_esquerda`, `_direita`, `_costas`,
+  `_sentado`): no bambuzal a Pamonha anda até Ícaro, some, e ele passa a segurá-la; ao ir falar
+  com a sargento, volta ao normal e a galinha volta para a Custódia. O `emote_coracao` também foi
+  entregue, mas ainda não está no roteiro: o teste `tests/arte.test.ts` não reconhece o símbolo ♥
+  (falta `'♥': 'coracao'` no mapa de ícones do teste).
 - Emotes (balão 16×16 sobre a cabeça): `exclamacao`, `interrogacao`, `reticencias`, `suor`.
 - Cartão de título **TRISKELION** com o símbolo das três espirais bem discreto ao fundo.
 
