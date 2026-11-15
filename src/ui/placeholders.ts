@@ -263,6 +263,26 @@ export function ensurePortrait(scene: Phaser.Scene, key: string, label: string):
   return texKey;
 }
 
+/** Placeholder 48×48 para objeto ampliado (`show`) cuja imagem ainda não existe. */
+export function ensureZoomPlaceholder(scene: Phaser.Scene, id: string): string {
+  const texKey = `zoom_placeholder:${id}`;
+  if (scene.textures.exists(texKey)) return texKey;
+  const tex = scene.textures.createCanvas(texKey, 48, 48);
+  if (!tex) return '__DEFAULT';
+  const ctx = tex.getContext();
+  ctx.fillStyle = '#f4ecd8';
+  ctx.fillRect(0, 0, 48, 48);
+  ctx.fillStyle = colorFor(id);
+  ctx.fillRect(2, 2, 44, 44);
+  ctx.fillStyle = '#f4ecd8';
+  ctx.font = '28px VT323, monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('?', 24, 24);
+  tex.refresh();
+  return texKey;
+}
+
 /**
  * Animações de POSE da arte: cada `assets/sprites/<folha>.json` com `alvo` e `anims` vira
  * `<alvo>:<nome>` (ex.: `icaro:colher`, `pai:mostrar_caixa`), tocadas pelo passo `anim` dos roteiros.

@@ -33,6 +33,8 @@ function makeHost(choices: number[] = [], scripts: Record<string, DialogueScript
     title: async (t) => void log.push(`title:${t}`),
     activity: async (id) => void log.push(`activity:${id}`),
     light: async (r) => void log.push(`light:${r}`),
+    show: (i) => void log.push(`show:${i}`),
+    hide: () => void log.push('hide'),
     loadScript: (id) => scripts[id],
   };
   return { host, log };
@@ -163,6 +165,8 @@ describe('DialogueRunner', () => {
         { type: 'title', text: 'FIM' },
         { type: 'activity', id: 'treino' },
         { type: 'light', radius: 40 },
+        { type: 'show', image: 'zoom_x' },
+        { type: 'hide' },
       ]),
       host,
       new FlagStore(false),
@@ -186,6 +190,8 @@ describe('DialogueRunner', () => {
       'title:FIM',
       'activity:treino',
       'light:40',
+      'show:zoom_x',
+      'hide',
     ]);
   });
 

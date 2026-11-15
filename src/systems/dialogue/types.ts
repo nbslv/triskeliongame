@@ -214,6 +214,16 @@ export interface LightStep {
   ms?: number;
 }
 
+export interface ShowStep {
+  type: 'show';
+  /** Objeto ampliado: assets/images/<image>.png, em escala inteira, acima do mapa e abaixo da caixa. Não bloqueia. */
+  image: string;
+}
+
+export interface HideStep {
+  type: 'hide';
+}
+
 export interface CallStep {
   type: 'call';
   /** Executa outro roteiro (content/dialogues/<id>.json) e volta. */
@@ -222,6 +232,8 @@ export interface CallStep {
 
 export type Step =
   | SayStep
+  | ShowStep
+  | HideStep
   | ChoiceStep
   | LabelStep
   | GotoStep

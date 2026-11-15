@@ -195,6 +195,17 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
 - **`move` com A\*** na grade de colisão, com fallback em linha reta; `wait:false` / `async:true` / `esperar:false` para
   andar sem bloquear. Teste de navegador: ator contorna a casa sem tocar em sólido.
 
+## Ciclo 9 — objetos ampliados (`show`/`hide`)
+
+- Merge de `claude/triskelion-narrativa` (efda7f5) e da coordenação (9175a7e).
+- Passos `show` (`image`) e `hide` do contrato em `docs/gdd/10_prologo_roteiro.md`: tipos, schema, runner e diretor.
+  A imagem fica na cena do diálogo, abaixo da caixa (depth −1), com fundo escurecido a 45% e fade de ~200 ms;
+  escala inteira que cabe entre o topo e o nome do falante, limitada a 8×. Não bloqueia. O fim do roteiro
+  (e o `abort`) esconde. Imagem ausente: placeholder 48×48 com "?" e `console.warn`, sem quebrar.
+- `tests/arte.test.ts`: todo `show` em `content/dialogues` aponta para um png em `assets/images`.
+- `scripts/testar-navegador.mjs`: escala inteira, posição acima da caixa, hide, placeholder com aviso e
+  limpeza no fim do roteiro; captura `docs/tecnico/capturas/13-objeto-ampliado.png`.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai

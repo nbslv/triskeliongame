@@ -45,6 +45,10 @@ export interface DialogueHost {
   title(text: string, subtitle: string | undefined, ms: number): Promise<void>;
   activity(id: string, params: Record<string, string | number | boolean>): Promise<void>;
   light(radius: number, ms: number): Promise<void>;
+  /** Mostra um objeto ampliado (não bloqueia). */
+  show(image: string): void;
+  /** Esconde o objeto ampliado. */
+  hide(): void;
   /** Carrega outro roteiro para `call`. */
   loadScript(id: string): DialogueScript | undefined;
 }
@@ -226,6 +230,12 @@ export class DialogueRunner {
         break;
       case 'light':
         await h.light(step.radius, step.ms ?? 600);
+        break;
+      case 'show':
+        h.show(step.image);
+        break;
+      case 'hide':
+        h.hide();
         break;
       case 'end': {
         // Dentro de um `call`, `end` só encerra o roteiro chamado.

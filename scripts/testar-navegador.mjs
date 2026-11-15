@@ -468,6 +468,61 @@ await goMap('teste', 'inicio');
   await evalWorld("w.cutDespawn('cali_1'); w.cutDespawn('toucim'); w.cutAnim('icaro', 'normal');");
 }
 
+// Objetos ampliados (show/hide): não bloqueia, fica sob a caixa, some no hide e no fim do roteiro
+{
+  const r = await page.evaluate(async () => {
+    const g = window.__TRISKELION__;
+    const d = window.__TRISKELION_DIRECTOR__;
+    const dlg = g.scene.getScene('Dialogo');
+    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    const warns = [];
+    const ow = console.warn;
+    console.warn = (...a) => { warns.push(a.join(' ')); ow(...a); };
+    const done = d.run({
+      id: 'zoom',
+      steps: [
+        { type: 'show', image: 'item_colar_mae' },
+        { type: 'say', speaker: 'narrador', text: '[teste] Entre carretéis de linha, um colar...' },
+        { type: 'hide' },
+        { type: 'say', speaker: 'narrador', text: '[teste] Sumiu.' },
+        { type: 'show', image: 'zoom_que_nao_existe' },
+        { type: 'say', speaker: 'narrador', text: '[teste] Placeholder.' },
+      ],
+    });
+    await sleep(500);
+    const shown = dlg.imageState();
+    const boxNow = dlg.boxRect();
+    console.warn = ow;
+    void done;
+    return { shown, boxNow };
+  });
+  const sh = r.shown;
+  check(!!sh && sh.id === 'item_colar_mae' && !sh.placeholder && Number.isInteger(sh.scale) && sh.scale >= 2, `show amplia em escala inteira (${JSON.stringify(sh)})`);
+  check(!!sh && r.boxNow.visible && sh.y + sh.h <= r.boxNow.y - 24, 'imagem fica acima da caixa e a fala corre por cima (não bloqueia)');
+  await page.screenshot({ path: `${OUT}/13-objeto-ampliado.png` });
+  const r2 = await page.evaluate(async () => {
+    const dlg = window.__TRISKELION__.scene.getScene('Dialogo');
+    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    const warns = [];
+    const ow = console.warn;
+    console.warn = (...a) => { warns.push(a.join(' ')); ow(...a); };
+    dlg.advance(); dlg.advance();
+    await sleep(300);
+    const afterHide = dlg.imageState();
+    dlg.advance(); dlg.advance();
+    await sleep(300);
+    const ph = dlg.imageState();
+    dlg.advance(); dlg.advance();
+    await sleep(500);
+    const end = dlg.imageState();
+    console.warn = ow;
+    return { afterHide, ph, end, warned: warns.some((w) => w.includes('zoom_que_nao_existe')) };
+  });
+  check(r2.afterHide === null, 'hide esconde o objeto ampliado');
+  check(!!r2.ph && r2.ph.placeholder && r2.warned, 'imagem ausente vira placeholder com aviso no console');
+  check(r2.end === null, 'fim do roteiro esconde o objeto ampliado');
+}
+
 // Músicas: carregadas sob demanda, com laço do manifesto (tema_lenda toca uma vez)
 {
   const r = await page.evaluate(async () => {

@@ -21,7 +21,7 @@ async function talk(f: string): Promise<string[]> {
     say: async (s) => void said.push(s.text), choice: async () => 0, move: noop, face: () => undefined, emote: noop,
     wait: noop, sfx: () => undefined, music: () => undefined, shake: noop, fade: noop, camera: noop,
     spawn: () => undefined, despawn: () => undefined, scene: async () => 'continue', checkpoint: () => undefined,
-    autosave: () => undefined, anim: () => undefined, title: noop, activity: noop, light: noop, loadScript: () => undefined,
+    autosave: () => undefined, anim: () => undefined, title: noop, activity: noop, light: noop, show: () => undefined, hide: () => undefined, loadScript: () => undefined,
   };
   await new DialogueRunner(load(f), host, flags).run();
   return said;
