@@ -23,6 +23,11 @@ export class MenuList {
   private lastAxis = { x: 0, y: 0 };
   private repeatAt = 0;
   active = true;
+  /** Toques começados antes de o menu existir são ignorados (toque "vazado" da tela anterior). */
+  private readonly createdAt = performance.now();
+  private readonly x0: number;
+  private readonly y0: number;
+  private readonly spacing: number;
 
   constructor(
     scene: Phaser.Scene,
@@ -33,30 +38,37 @@ export class MenuList {
   ) {
     const size = opts.size ?? 20;
     const spacing = opts.spacing ?? size + 6;
+    this.x0 = x;
+    this.y0 = y;
+    this.spacing = spacing;
     this.cursor = makeText(scene, x - 14, y, '▶', size, COLORS.accent).setDepth(opts.depth ?? 0);
     items.forEach((item, i) => {
       const t = makeText(scene, x, y + i * spacing, item.label, size, item.enabled === false ? COLORS.textDim : COLORS.text)
         .setDepth(opts.depth ?? 0)
         .setPadding(4, 2, 24, 2)
+        // Só para o cursor de mão no desktop; o toque é tratado em update() (posição medida na hora).
         .setInteractive({ useHandCursor: true });
-      t.on('pointerdown', () => {
-        if (!this.active || item.enabled === false) return;
-        this.index = i;
-        this.refresh();
-      });
-      t.on('pointerup', () => {
-        // Escolhe o item sob o dedo/cursor mesmo se o pointerdown se perdeu
-        // (ex.: primeiro clique dentro de um iframe só dá foco). Antes, o
-        // pointerup era ignorado e um "A" seguinte acionava o item pré-selecionado.
-        if (!this.active || item.enabled === false) return;
-        this.index = i;
-        this.refresh();
-        this.choose();
-      });
       this.texts.push(t);
     });
     this.index = Math.max(0, items.findIndex((it) => it.enabled !== false));
     this.refresh();
+  }
+
+  /** Índice do item na posição (coordenadas do jogo) ou -1. Faixa de cada linha = espaçamento inteiro. */
+  itemAt(x: number, y: number): number {
+    const width = Math.max(...this.texts.map((t) => t.width));
+    if (x < this.x0 - 24 || x > this.x0 + width + 16) return -1;
+    const i = Math.floor((y - this.y0 + (this.spacing - (this.texts[0]?.height ?? this.spacing)) / 2) / this.spacing);
+    return i >= 0 && i < this.texts.length ? i : -1;
+  }
+
+  /** Toca (seleciona e confirma) o item i, como um toque do jogador. */
+  tapItem(i: number): void {
+    const it = this.items[i];
+    if (!this.active || !it || it.enabled === false) return;
+    this.index = i;
+    this.refresh();
+    this.choose();
   }
 
   setLabel(i: number, label: string): void {
@@ -95,6 +107,15 @@ export class MenuList {
 
   update(time: number): void {
     if (!this.active) return;
+    // Toques: o item tocado é o item escolhido (nunca o selecionado antes).
+    for (let tap = input.consumeTap(); tap; tap = input.consumeTap()) {
+      if (tap.t < this.createdAt) continue;
+      const i = this.itemAt(tap.x, tap.y);
+      if (i >= 0) {
+        this.tapItem(i);
+        return;
+      }
+    }
     const a = input.axis();
     const ay = Math.abs(a.y) > 0.5 ? Math.sign(a.y) : 0;
     const ax = Math.abs(a.x) > 0.5 ? Math.sign(a.x) : 0;

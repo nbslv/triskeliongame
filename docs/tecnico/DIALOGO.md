@@ -37,7 +37,7 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `goto` | `label` | Salta para o label (de dentro de blocos aninhados também). |
 | `if` | `flag` **ou** `cond`; `equals?`; `goto` **ou** `then`; `else?` | Se `flag` estiver ligada (ou igual a `equals`), ou se `cond` for verdadeira: salta (`goto`) ou executa `then` (lista). Senão: `else` = label (texto) ou lista de passos. |
 | `flag` | `set` + `value?` (padrão `true`), `clear`, `add` + `by?` (padrão 1) | Liga/define, apaga ou soma em flags. Pode combinar no mesmo passo. |
-| `move` | `actor`, `to`, `speed?` (px/s, padrão 60), `wait?` (padrão `true`), `facing?` | Anda em linha reta até o alvo (ignora colisão). `wait:false` deixa andando enquanto o roteiro continua. |
+| `move` | `actor`, `to`, `speed?` (px/s, padrão 60; ou `"run"`/`"walk"`), `wait?` (padrão `true`), `facing?` | Anda até o alvo **contornando obstáculos** (busca de caminho A* na grade de colisão; sem caminho possível, vai em linha reta). **Não bloqueante**: `wait: false` (ou `async: true`, ou `esperar: false`) deixa o ator andando enquanto o roteiro continua — use em dois `move` seguidos para dois atores andarem juntos. |
 | `face` | `actor` + `dir` (`down`/`left`/`right`/`up`) **ou** `to` (ator/marcador) | Vira o ator. |
 | `emote` | `actor`, `emote`, `ms?` (900), `wait?` (true) | Balão sobre a cabeça: `"!"`, `"?"`, `"..."`, `"💧"`, `"♥"`, `"♪"` ou o nome (`"exclamacao"`...). Usa o ícone `assets/images/emote_<nome>.png` quando existe. |
 | `wait` | `ms` | Pausa. |
@@ -62,6 +62,12 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `title` | `text`, `subtitle?`, `ms?` (1500) | Cartão de título em tela cheia; A/toque continua. |
 | `activity` | `id`, `params?` | Abre uma atividade registrada (loja, treino, minijogo); o resultado vai para flags/save. |
 | `light` | `radius`, `ms?` (600) | Raio do círculo de luz em mapas escuros (0 = breu). |
+
+### Virar para quem fala
+
+Num `say` cujo `speaker` é um ator presente no mapa (ou `self`), o falante vira para o Ícaro e o Ícaro vira
+para ele, automaticamente. Não vira: se o roteiro já usou `face` naquele ator (o `face` manda), se o ator está
+numa pose (`anim`) ou andando. Ao falar com um NPC (botão A), os dois também se viram, inclusive nas falas padrão.
 
 ### Variáveis no texto
 

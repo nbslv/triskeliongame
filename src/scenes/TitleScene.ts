@@ -3,6 +3,7 @@ import { COLORS, GAME_HEIGHT, GAME_WIDTH, SCENES } from '../config/constants';
 import { audio } from '../core/audio';
 import { input } from '../core/input';
 import { RESUME_SLOT, saves } from '../core/save';
+import type { ConfirmData } from './ConfirmScene';
 import { formatDate, session } from '../core/session';
 import { gameConfig } from '../content';
 import { director } from '../systems/dialogue/director';
@@ -91,7 +92,29 @@ export class TitleScene extends Phaser.Scene {
     });
   }
 
+  /** "Novo jogo": com save existente, pede confirmação antes (os saves manuais ficam guardados). */
   private newGame(): void {
+    if (!saves.hasAny()) {
+      this.startNewGame();
+      return;
+    }
+    this.menu.active = false;
+    this.scene.pause();
+    this.scene.launch(SCENES.confirmar, {
+      parent: SCENES.titulo,
+      text: 'Começar do zero? Seus saves continuam guardados nos espaços.',
+      yes: 'Começar do zero',
+      no: 'Voltar',
+      onYes: () => {
+        // A retomada apontaria para a partida antiga; os espaços 1–3 e o automático continuam.
+        saves.delete(RESUME_SLOT);
+        this.scene.resume();
+        this.startNewGame();
+      },
+    } satisfies ConfirmData);
+  }
+
+  private startNewGame(): void {
     session.reset();
     this.menu.active = false;
     this.cameras.main.fadeOut(400);
