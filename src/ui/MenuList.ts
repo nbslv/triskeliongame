@@ -45,7 +45,12 @@ export class MenuList {
         this.refresh();
       });
       t.on('pointerup', () => {
-        if (!this.active || item.enabled === false || this.index !== i) return;
+        // Escolhe o item sob o dedo/cursor mesmo se o pointerdown se perdeu
+        // (ex.: primeiro clique dentro de um iframe só dá foco). Antes, o
+        // pointerup era ignorado e um "A" seguinte acionava o item pré-selecionado.
+        if (!this.active || item.enabled === false) return;
+        this.index = i;
+        this.refresh();
         this.choose();
       });
       this.texts.push(t);
