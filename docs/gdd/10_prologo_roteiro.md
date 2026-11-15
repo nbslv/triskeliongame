@@ -396,8 +396,7 @@ Limite de texto: nenhuma fala passa de 130 caracteres.
 ## Objetos ampliados (pedido do autor) — contrato proposto ao motor
 
 Quando Ícaro pega, examina ou recebe um objeto importante, a imagem dele aparece ampliada no
-centro da tela. Proposta de passo de roteiro (ainda **não existe** no motor; os roteiros só
-passam a usá-lo quando o motor implementar e a arte entregar as imagens):
+centro da tela. Passos de roteiro (implementados pelo motor; ver `docs/tecnico/DIALOGO.md`), já usados em 21 roteiros do prólogo:
 
 ```json
 { "type": "show", "image": "zoom_colar_mae" }

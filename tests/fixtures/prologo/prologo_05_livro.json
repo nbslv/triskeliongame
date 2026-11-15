@@ -1,6 +1,7 @@
 {
   "id": "prologo_05_livro",
   "steps": [
+    {"type": "show", "image": "zoom_livro_reservado"},
     {"type": "say", "speaker": "narrador", "text": "No fundo do cesto, embrulhado num pano de prato: 'Fundamentos de Magia Restauradora, Volume 1'."},
     {"type": "say", "speaker": "narrador", "text": "Na contracapa, um carimbo vermelho: 'RESERVADO. Somente para alunos matriculados na Faculdade de Magia de Luminaer.'"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(A Dona Ermelinda me emprestou sem anotar na ficha. Se alguém descobre, a bronca é dela. Então ninguém descobre.)"},

@@ -1,6 +1,7 @@
 {
   "id": "prologo_casa_fogao",
   "steps": [
+    {"type": "show", "image": "zoom_broa"},
     {"type": "say", "speaker": "narrador", "text": "O fogão a lenha. O bule ainda está quente. Na chapa, meia broa embrulhada num pano."},
     {"type": "say", "speaker": "icaro", "text": "(Ele não tinha comido a parte dele. Guardou pra mim levar.)"},
     {"type": "end"}

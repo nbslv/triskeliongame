@@ -94,6 +94,8 @@ queimada).
 ## 5b. Pedido do autor: objetos ampliados e retratos com/sem galinha
 
 ### Objetos ampliados na tela (ideia do autor)
+
+**Entregues e já em uso**: as 23 imagens estão nos roteiros com `show`/`hide`.
 Quando Ícaro pega, examina ou recebe um objeto importante, a imagem do objeto aparece **ampliada
 no centro da tela**, sobre um fundo escurecido, enquanto as falas sobre ele correm. Pede arte
 nova (desenho grande, ~96×96, mesmo estilo dos ícones) e um passo novo no motor (contrato

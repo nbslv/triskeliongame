@@ -1,6 +1,7 @@
 {
   "id": "prologo_emporio_vitrine",
   "steps": [
+    {"type": "show", "image": "zoom_vitrine"},
     {"type": "say", "speaker": "narrador", "text": "A vitrine do Empório Prado. Atrás do vidro, livros de capa de couro trazidos da capital."},
     {"type": "say", "speaker": "narrador", "text": "'Tratado de Lumnia para Iniciantes': 450 cobres. 'Runas e Barreiras, edição da Faculdade': 600 cobres."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_neutro", "text": "(Quatrocentos e cinquenta cobres. Isso é quase quarenta dias de colheita.)"},
