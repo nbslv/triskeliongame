@@ -177,6 +177,24 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
 - Portas de casas sem interior: objeto `porta_trancada` sobre a porta com `dialogue: "prologo_trancada_<dono>"` (os
   roteiros da narrativa), ou `dono: "Fulano"` para o texto genérico `padrao_porta_trancada`, ou `trancada_texto`.
 
+## Ciclo 8 — título, virar para quem fala, move com A*
+
+- **Bug do título ("Novo jogo" abrindo o carregamento)**: não reproduziu no Chromium (toque, clique, iframe, com e
+  sem retomada, nem com o canvas deslocado). Mesmo assim, removi as causas possíveis:
+  - os menus não dependem mais do mapeamento de toque do Phaser. O motor mede a posição do canvas na hora do toque e
+    escolhe o item que está sob o dedo (sem cache de posição, à prova de iframe/rolagem);
+  - um toque só conta se o dedo desce e sobe no mesmo lugar (sem arrastar);
+  - toques começados antes de o menu existir são ignorados (toque "vazado" da tela anterior, toque+mouse duplicado).
+  Novo `scripts/testar-titulo.mjs`: cada item do título, tocado, executa a própria ação, com toque, clique e iframe,
+  com e sem retomada (41 verificações OK).
+- **Confirmação no "Novo jogo"** com save existente: "Começar do zero? Seus saves continuam guardados nos espaços."
+  (padrão seguro em "Voltar"). Confirmando, apaga só o save de **retomada**, porque o "Retomar" do título apontaria para
+  a partida antiga; os espaços 1–3 e o automático ficam.
+- **Virar para quem fala** (falas de atores presentes e conversa com NPC, inclusive falas padrão); respeita `face`
+  explícito, poses e atores andando.
+- **`move` com A\*** na grade de colisão, com fallback em linha reta; `wait:false` / `async:true` / `esperar:false` para
+  andar sem bloquear. Teste de navegador: ator contorna a casa sem tocar em sólido.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai

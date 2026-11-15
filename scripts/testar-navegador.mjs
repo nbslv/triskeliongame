@@ -237,7 +237,8 @@ await tapA();
 await wait(400);
 check((await state()).cutscene, 'objeto examinável abre diálogo');
 await waitCutsceneEnd();
-s = await walkTo(104, 150, 5000);
+await teleport(104, 140, 'down'); // alinhado com a porta (1 tile de largura)
+await wait(100);
 s = await walkTo(104, 158, 3000);
 await wait(900);
 s = await state();
