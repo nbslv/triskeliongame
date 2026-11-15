@@ -1,8 +1,8 @@
 {
   "id": "prologo_casa_ferramentas",
   "steps": [
-    {"type": "say", "speaker": "narrador", "text": "A enxada e o chapéu de palha do pai. O cabo da enxada tem dois nomes riscados a canivete: 'Tadeo' e, menor, 'Aurora'."},
-    {"type": "say", "speaker": "icaro", "text": "(Ele lixa o cabo todo ano. Nunca lixa essa parte.)"},
+    {"type": "say", "speaker": "narrador", "text": "A enxada e o chapéu de palha do pai. No cabo, duas iniciais riscadas a canivete: um 'T' grande e, menor, um 'A', dentro de um coração torto."},
+    {"type": "say", "speaker": "icaro", "text": "(T de Tadeo. A de Aurora. Ele lixa o cabo todo ano. Nunca lixa essa parte.)"},
     {"type": "end"}
   ]
 }

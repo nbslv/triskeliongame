@@ -107,13 +107,25 @@ proposto em `10_prologo_roteiro.md`, "Objetos ampliados").
 | `zoom_colar_mae` — cordão gasto e pedrinha opaca cinza-rosada | despedida; brilho no túnel; fala final | `prologo_14_promessa`, `prologo_15_tunel_inicio`, `prologo_16_sobreviventes` |
 | `zoom_colar_brilho` — o mesmo colar com luz cor de fim de tarde | túnel | `prologo_15_tunel_inicio` |
 | `zoom_livro_reservado` — o livro com o carimbo vermelho "RESERVADO" | cesto, no cafezal | `prologo_05_livro` |
-| `zoom_retrato` — retrato a carvão: homem sério, mulher rindo, bebê berrando | casa de manhã | `prologo_casa_retrato` |
+| `zoom_retrato` — **o retrato que Ícaro vê**: desenho a carvão em papel amarelado, numa moldura simples. Tadeo jovem, sério, de chapéu na mão; Aurora rindo de olhos fechados, cabelo claro preso; no colo dela, Ícaro bebê berrando de boca aberta | casa de manhã; casa em ruínas à noite (mesma imagem, com a moldura chamuscada: `zoom_retrato_noite`) | `prologo_casa_retrato`, `prologo_exame_retrato` |
 | `zoom_pote_telhado` — pote de barro escrito "TELHADO", moedas e um botão | casa de manhã | `prologo_casa_pote` |
-| `zoom_enxada` — cabo da enxada com "Tadeo" e "Aurora" riscados | casa de manhã | `prologo_casa_ferramentas` |
+| `zoom_enxada` — close do cabo de madeira gasto: um **"T"** grande e, menor, um **"A"**, riscados a canivete dentro de um coração torto; o resto do cabo lixado e liso, essa parte não | casa de manhã | `prologo_casa_ferramentas` |
 | `zoom_ficha_aurora` — ficha de biblioteca amarelada, "Aurora" | biblioteca | `prologo_viz_biblioteca_ficha` |
 | `zoom_cavalinho` — cavalinho de sabugo com um "I" torto | túnel | `prologo_15b_tunel_brinquedo` |
 | `zoom_rapadura` — rapadura amassada | bambuzal | `prologo_16_sobreviventes` |
 | `zoom_ovos`, `zoom_pao_de_ontem` | ao receber | `prologo_viz_custodia`, `prologo_viz_juca` |
+| `zoom_desenho_nina` — **desenho de criança** a giz de cera: boneco de chapéu pontudo soltando raios amarelos, um sol sorrindo no canto, e embaixo, em letra torta, "ICARO MAGO" | padaria | `prologo_viz_juca_desenho` |
+| `zoom_receita` — papel amarelado emoldurado, "Broa da Vó Nena", metade dos ingredientes borrada de gordura | padaria | `prologo_viz_juca_receita` |
+| `zoom_retrato_ze` — retrato de um homem de bigode enorme, fita preta no canto, "Zé, que descanse" | casa da Custódia | `prologo_viz_custodia_retrato` |
+| `zoom_croche` — cobertorzinho de crochê com dois buracos para as asas | casa da Custódia | `prologo_viz_custodia_croche` |
+| `zoom_livro_aurelius` — página de rosto de "Vida e Obra de Aurelius Solis", com **três espirais rabiscadas a lápis** na margem (o símbolo do triskelion, sem nome) | biblioteca | `prologo_viz_biblioteca_estante` |
+| `zoom_ficha_icaro` — ficha comprida de Ícaro, só lendas, plantio e história, nenhum livro de magia | biblioteca | `prologo_viz_biblioteca_ficha` |
+| `zoom_vitrine` — livros de couro atrás do vidro com etiquetas de preço "450" e "600" | Empório Prado | `prologo_emporio_vitrine` |
+| `zoom_bilhete_parteira` — bilhete preso na porta: "Fui ajudar um bebê a nascer. Volto quando ele nascer." | casa da parteira | `prologo_trancada_lindalva` |
+
+**Regra geral:** todo exame cujo texto descreve algo **escrito ou desenhado** (bilhete, ficha,
+retrato, desenho, iniciais, etiqueta) ganha imagem ampliada, para o jogador ver o que Ícaro vê.
+Objetos comuns (fogão, cadeira, barril) não precisam.
 
 ### Retratos com e sem a Pamonha (ideia do autor)
 Os retratos da Dona Custódia mostram a galinha no ombro. Enquanto a Pamonha está com Ícaro (no

@@ -944,6 +944,10 @@ export class WorldScene extends Phaser.Scene {
     const sp = this.actors.get(speakerId);
     const pl = this.player;
     if (!sp || !pl || sp === pl || !sp.sprite.active) return;
+    // Inimigos em patrulha nunca viram sozinhos (uma fala de Caligosuin não pode
+    // apontar o cone de visão para o Ícaro), e só vira quem está perto (conversa de verdade).
+    if (this.patrols.some((p) => p.actor === sp)) return;
+    if (Math.hypot(sp.x - pl.x, sp.y - pl.y) > TILE_SIZE * 4) return;
     if (!manual.has(sp.id) && !sp.posing && !sp.isMoving) sp.faceToward(pl.x, pl.y);
     if (!manual.has(pl.id) && !pl.posing && !pl.isMoving) pl.faceToward(sp.x, sp.y);
   }
