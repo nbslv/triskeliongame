@@ -59,6 +59,15 @@ python3 tools/audio/sfx.py [id...]      # assets/audio/sfx (OGG)
   assets) fala em sentado: há as duas, a narrativa escolhe.
 - `assets/images/emote_coracao.png` (16×16).
 
+- **Objetos ampliados** (96×96, fundo transparente) em `assets/images/`: `zoom_broa`, `zoom_caixa_costura`,
+  `zoom_caixa_aberta`, `zoom_colar_mae`, `zoom_colar_brilho`, `zoom_livro_reservado`, `zoom_retrato`,
+  `zoom_pote_telhado`, `zoom_enxada`, `zoom_ficha_aurora`, `zoom_cavalinho`, `zoom_rapadura`, `zoom_ovos`,
+  `zoom_pao_de_ontem`, e as nove da segunda leva: `zoom_retrato_noite`, `zoom_desenho_nina`, `zoom_receita`,
+  `zoom_retrato_ze`, `zoom_croche`, `zoom_livro_aurelius`, `zoom_ficha_icaro`, `zoom_vitrine`,
+  `zoom_bilhete_parteira` (23 no total). `zoom_retrato` e `zoom_enxada` foram redesenhados pela descrição nova. Gerador: `python3 tools/arte/gerar_zoom.py`; prancha em `docs/arte/capturas/zoom.png`.
+- **Retratos com e sem a Pamonha**: `icaro_triste_galinha`, `icaro_sorriso_galinha`, `custodia_triste_sem_galinha`
+  (35 retratos no total).
+
 ## Pedidos ao motor (não editei `src/`)
 
 1. **Poses (`anim`)**: o motor toca `<sprite>:<anim>` se a animação existir, mas não a cria. Proposta: no Preload,
