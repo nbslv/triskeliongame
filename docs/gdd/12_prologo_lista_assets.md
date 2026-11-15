@@ -128,6 +128,8 @@ retrato, desenho, iniciais, etiqueta) ganha imagem ampliada, para o jogador ver 
 Objetos comuns (fogão, cadeira, barril) não precisam.
 
 ### Retratos com e sem a Pamonha (ideia do autor)
+
+**Entregues e já em uso** no `prologo_16_sobreviventes`.
 Os retratos da Dona Custódia mostram a galinha no ombro. Enquanto a Pamonha está com Ícaro (no
 bambuzal, entre "Ah, filho." e a ida até a sargento), o retrato dela deve aparecer **sem
 galinha** e o de Ícaro **com galinha**; quando a galinha volta, tudo volta ao normal.
