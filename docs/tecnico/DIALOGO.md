@@ -56,7 +56,7 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | type | campos | o que faz |
 |---|---|---|
 | `checkpoint` | `at?` | Define o ponto de retorno da furtividade (padrão: posição atual do jogador). |
-| `autosave` | — | Grava no espaço automático. |
+| `autosave` | — | Grava no espaço automático, com as flags atuais (ver "Cutscenes, autosave e retomada"). |
 | `call` | `id` | Executa outro roteiro e volta (útil para trechos repetidos). |
 | `anim` | `actor`, `anim` | Toca a pose da arte `<sprite do ator>:<anim>` (folhas `assets/sprites/*_poses.json`, ver ARQUITETURA.md) e mantém até o próximo `move`/`face`/`anim "normal"`. Pose inexistente é ignorada. |
 | `title` | `text`, `subtitle?`, `ms?` (1500) | Cartão de título em tela cheia; A/toque continua. |
@@ -112,6 +112,9 @@ O motor converte antes de validar (`normalizeScript` em `schema.ts`):
 Roteiros disparados por gatilho/mapa/início (não conversas com NPC ou examináveis) são **cutscenes**:
 o motor grava autosave no começo e no fim. Se a página fechar no meio, o save de retomada guarda o
 estado de **antes** da cutscene e o id do roteiro, que recomeça do início ao carregar.
+Um passo `autosave` no meio da cutscene atualiza essa foto com as flags, o estado e o tempo **atuais**
+(a posição continua a do início, que é segura). Uma cutscene que termina com `scene` (ex.: `Titulo`)
+grava o save automático antes de trocar de cena, já sem recomeçar o roteiro.
 Um gatilho com `dialogue: "a,b,c"` roda os três em sequência como uma cutscene só (ex.: 12→13→14 do prólogo).
 
 ## Dicas

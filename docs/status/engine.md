@@ -206,6 +206,20 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
 - `scripts/testar-navegador.mjs`: escala inteira, posição acima da caixa, hide, placeholder com aviso e
   limpeza no fim do roteiro; captura `docs/tecnico/capturas/13-objeto-ampliado.png`.
 
+## Ciclo 10 — autosave dentro de cutscene
+
+- Merge da coordenação (42e9191).
+- Pendência registrada pelos mapas, já corrigida: o passo `autosave` gravava a foto do INÍCIO da cutscene, por isso
+  `prologo.concluido` (prologo_16) nunca chegava ao save.
+  - Agora `session.commitCutscene()` atualiza a foto com as flags, o estado e o tempo atuais, mantendo a
+    posição segura do início.
+  - Ao trocar de cena (`scene: Titulo`), o motor grava o save automático antes, sem `resumeDialogue`.
+- Testes:
+  - `tests/save.test.ts` cobre o caso.
+  - `scripts/testar-fim-prologo.mjs` conclui o prologo_16 no navegador e confere a flag no save automático. Ele falha
+    sem a correção (conferido).
+  - `scripts/jogar-prologo.mjs` agora também confere a flag.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai
