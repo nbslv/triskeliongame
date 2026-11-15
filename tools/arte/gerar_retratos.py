@@ -419,6 +419,10 @@ def todos():
                 s2['olhos_umidos'] = nome == 'custodia'
                 s2['chapeu_baixo'] = nome == 'tonho'
             r[f'{nome}_{e}'] = retrato(nome, s2, ee)
+    # com e sem a Pamonha (enquanto a galinha está com o Ícaro, no bambuzal)
+    for e in ('triste', 'sorriso'):
+        r[f'icaro_{e}_galinha'] = retrato('icaro', dict(FICHAS['icaro'], galinha=True), e)
+    r['custodia_triste_sem_galinha'] = retrato('custodia', dict(FICHAS['custodia'], galinha=False, olhos_umidos=True), 'triste')
     r['mae_silhueta'] = retrato_mae()
     r['cali_soldado'] = retrato_cali()
     r['toucim_neutro'] = retrato_cali(True)
