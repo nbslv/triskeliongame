@@ -71,7 +71,7 @@ describe('assets da arte usados pelo prólogo', () => {
   });
 
   it('todo emote usado tem ícone em assets/images', () => {
-    const icon: Record<string, string> = { '!': 'exclamacao', '?': 'interrogacao', '...': 'reticencias', '💧': 'suor' };
+    const icon: Record<string, string> = { '!': 'exclamacao', '?': 'interrogacao', '...': 'reticencias', '💧': 'suor', '♥': 'coracao' };
     const missing = new Set<string>();
     allSteps((s) => {
       if (s.type !== 'emote') return;
