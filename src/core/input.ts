@@ -71,7 +71,11 @@ export class InputService {
   private keysDown = new Set<string>();
   private buttonDownSources = new Map<Button, Set<string>>();
   private pending = new Set<Button>();
-  private taps: { x: number; y: number }[] = [];
+  private taps: { x: number; y: number; t: number }[] = [];
+  /** Toques livres em andamento: só viram "tap" ao soltar perto de onde começaram. */
+  private tapStarts = new Map<number, { x: number; y: number; t: number }>();
+  /** Posição do dedo/mouse agora (em coordenadas do jogo), para destacar itens de menu. */
+  lastPointer: { x: number; y: number; down: boolean } = { x: -1, y: -1, down: false };
   private joyPointer: number | null = null;
   private buttonPointers = new Map<number, Button>();
   readonly joystick: JoystickState = { active: false, baseX: 0, baseY: 0, knobX: 0, knobY: 0 };
@@ -146,7 +150,7 @@ export class InputService {
   }
 
   /** Toque livre (fora do joystick/botões). Retorna a posição ou null. */
-  consumeTap(): { x: number; y: number } | null {
+  consumeTap(): { x: number; y: number; t: number } | null {
     if (this.locked) return null;
     return this.taps.shift() ?? null;
   }
@@ -155,6 +159,7 @@ export class InputService {
   clearPresses(): void {
     this.pending.clear();
     this.taps.length = 0;
+    this.tapStarts.clear();
   }
 
   // ---------- injeção (também usada por testes) ----------
@@ -225,8 +230,9 @@ export class InputService {
         return;
       }
     }
-    this.taps.push(p);
-    if (this.taps.length > 4) this.taps.shift();
+    // Toque livre: vira "tap" ao soltar (ver onPointerUp), com a posição medida na hora.
+    this.tapStarts.set(e.pointerId, { ...p, t: performance.now() });
+    this.lastPointer = { ...p, down: true };
   };
 
   private onPointerMove = (e: PointerEvent): void => {
@@ -247,6 +253,17 @@ export class InputService {
   };
 
   private onPointerUp = (e: PointerEvent): void => {
+    const start = this.tapStarts.get(e.pointerId);
+    if (start) {
+      this.tapStarts.delete(e.pointerId);
+      const p = this.toGame(e.clientX, e.clientY);
+      this.lastPointer = { ...p, down: false };
+      // Tap de verdade: soltou perto de onde tocou e sem segurar demais (evita arrastar e "toques vazados").
+      if (e.type === 'pointerup' && Math.hypot(p.x - start.x, p.y - start.y) < 14 && performance.now() - start.t < 1200) {
+        this.taps.push(start);
+        if (this.taps.length > 4) this.taps.shift();
+      }
+    }
     if (e.pointerId === this.joyPointer) {
       this.joyPointer = null;
       this.joystick.active = false;

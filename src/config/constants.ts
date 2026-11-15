@@ -40,6 +40,7 @@ export const SCENES = {
   opcoes: 'Opcoes',
   espacos: 'Espacos',
   backup: 'Backup',
+  confirmar: 'Confirmar',
   titulo_card: 'CartaoTitulo',
   mundo: 'Mundo',
   dialogo: 'Dialogo',

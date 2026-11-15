@@ -6,6 +6,7 @@ import { audio } from './core/audio';
 import { flags } from './core/flags';
 import { director } from './systems/dialogue/director';
 import { BackupScene } from './scenes/BackupScene';
+import { ConfirmScene } from './scenes/ConfirmScene';
 import { BootScene } from './scenes/BootScene';
 import { ControlsScene } from './scenes/ControlsScene';
 import { DialogueScene } from './scenes/DialogueScene';
@@ -53,6 +54,7 @@ const game = new Phaser.Game({
     SlotsScene,
     OptionsScene,
     BackupScene,
+    ConfirmScene,
     TestActivityScene,
     TitleCardScene,
     ControlsScene,
