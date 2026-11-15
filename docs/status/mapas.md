@@ -62,3 +62,8 @@ Branch: `claude/triskelion-mapas`. O Prólogo está **jogável do começo ao fim
 - NPCs com `tipo` (sem `dialogue`): `morador_1..4` (aldeao/aldea/idoso), `galinha_1..3`, `soldado_1`, `sobrevivente_1/2` e `figurante_1..3` no bambuzal.
 - Propriedade de mapa `periodo`: casa/casas/vila_manha = manha; cafezal/estrada = tarde; vila/túnel/bambuzal = noite.
 - O robô confere `prologo.abertura_vista` ao chegar ao cafezal.
+
+
+## Pendência de motor (registrada na validação final)
+
+- O passo `autosave` dentro de uma cutscene grava a foto do INÍCIO dela (`session.snapshot` usa `cutscene.flags`), e o fim de `prologo_16` termina em `scene Titulo` (sem autosave no `finally`). Resultado: a flag `prologo.concluido` nunca chega ao save. O robô confere o retorno ao título em vez da flag.

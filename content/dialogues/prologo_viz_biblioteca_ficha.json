@@ -1,8 +1,10 @@
 {
   "id": "prologo_viz_biblioteca_ficha",
   "steps": [
+    {"type": "show", "image": "zoom_ficha_icaro"},
     {"type": "say", "speaker": "narrador", "text": "O fichário de empréstimos. A ficha de Ícaro é comprida: lendas, plantio, história do reino. Nenhum livro de magia."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_sorriso", "text": "(Claro. Esses a Dona Ermelinda nunca anota.)"},
+    {"type": "show", "image": "zoom_ficha_aurora"},
     {"type": "say", "speaker": "narrador", "text": "Bem no fundo da gaveta, uma ficha amarelada, de antes da ordem da capital: 'Aurora'. Só livros de magia, um atrás do outro."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "(...A mãe vinha aqui. E naquele tempo ela podia.)"},
     {"type": "end"}

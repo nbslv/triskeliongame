@@ -11,6 +11,7 @@
     {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Sabia que ontem ele ficou parado na frente da biblioteca? Um tempão. Olhando a porta."},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "Meu pai? Na biblioteca?"},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_neutro", "text": "Não entrou. Mas ficou. Eu vi daqui, que eu vejo tudo daqui."},
+    {"type": "show", "image": "zoom_ovos"},
     {"type": "sfx", "id": "item_obtido"},
     {"type": "say", "speaker": "narrador", "text": "Ícaro recebeu Ovos da Pamonha."},
     {"type": "flag", "set": "prologo.visitou_custodia"},

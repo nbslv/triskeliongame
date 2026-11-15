@@ -1,6 +1,7 @@
 {
   "id": "prologo_casa_retrato",
   "steps": [
+    {"type": "show", "image": "zoom_retrato"},
     {"type": "say", "speaker": "narrador", "text": "Um retrato a carvão: um homem sério, uma mulher rindo, um bebê berrando."},
     {"type": "say", "speaker": "icaro", "text": "(Eu sou o que berra. A mãe ria até em retrato. Queria lembrar do som.)"},
     {"type": "end"}

@@ -9,6 +9,7 @@
     {"type": "say", "speaker": "icaro", "portrait": "icaro_surpreso", "text": "A luz do cajado? Mas ninguém enxerga aquela luz."},
     {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "Os magos enxergam. Diz que saíram correndo de pijama. Deve ser conversa de mascate."},
     {"type": "say", "speaker": "juca", "portrait": "juca_neutro", "text": "...Deve ser."},
+    {"type": "show", "image": "zoom_pao_de_ontem"},
     {"type": "sfx", "id": "item_obtido"},
     {"type": "say", "speaker": "narrador", "text": "Ícaro recebeu Pão de Ontem."},
     {"type": "flag", "set": "prologo.visitou_juca"},

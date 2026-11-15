@@ -1,6 +1,7 @@
 {
   "id": "prologo_viz_biblioteca_estante",
   "steps": [
+    {"type": "show", "image": "zoom_livro_aurelius"},
     {"type": "say", "speaker": "narrador", "text": "'Vida e Obra de Aurelius Solis'. Na capa, um velho de barba comprida segurando um cajado."},
     {"type": "say", "speaker": "narrador", "text": "Alguém, há muito tempo, rabiscou a lápis três espirais na margem da primeira página."},
     {"type": "say", "speaker": "icaro", "text": "(Li esse quatro vezes. Nunca entendi o rabisco.)"},

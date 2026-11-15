@@ -1,6 +1,7 @@
 {
   "id": "prologo_casa_caixa_costura",
   "steps": [
+    {"type": "show", "image": "zoom_caixa_costura"},
     {"type": "say", "speaker": "narrador", "text": "Na prateleira mais alta, uma caixinha de costura de madeira, com uma flor entalhada na tampa."},
     {"type": "say", "speaker": "icaro", "text": "(Era da mãe. O pai tira o pó dela todo domingo e não deixa ninguém encostar.)"},
     {"type": "say", "speaker": "pai", "portrait": "pai_ranzinza", "text": "Tira a mão daí."},
