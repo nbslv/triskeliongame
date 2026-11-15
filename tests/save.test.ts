@@ -125,6 +125,24 @@ describe('SaveManager', () => {
 describe('session', () => {
   beforeEach(() => session.reset());
 
+  it('autosave explícito na cutscene grava as flags ATUAIS e mantém a posição segura do início', () => {
+    session.position = { ...pos };
+    session.beginCutscene('prologo_16_sobreviventes');
+    session.position = { ...pos, x: 999 };
+    flags.set('prologo.concluido', true);
+    session.addCoins(5);
+    expect(session.snapshot()!.flags['prologo.concluido']).toBeUndefined();
+    session.commitCutscene();
+    const snap = session.snapshot()!;
+    expect(snap.flags['prologo.concluido']).toBe(true);
+    expect(snap.state.coins).toBe(5);
+    expect(snap.position.x).toBe(10);
+    expect(snap.resumeDialogue).toBe('prologo_16_sobreviventes');
+    session.commitCutscene(true);
+    expect(session.snapshot()!.resumeDialogue).toBeUndefined();
+    session.endCutscene();
+  });
+
   it('durante cutscene, o save usa a foto do início e marca o roteiro para recomeçar', () => {
     session.position = { ...pos };
     flags.set('antes');

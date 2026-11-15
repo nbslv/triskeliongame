@@ -204,6 +204,9 @@ export class CutsceneDirector implements DialogueHost {
   async scene(step: import('./types').SceneStep): Promise<'continue' | 'stop'> {
     if (step.scene) {
       this.dialog.hideNow();
+      // A cutscene termina trocando de cena (ex.: Título): grava antes, com as flags atuais.
+      session.commitCutscene(true);
+      this.world.autosave(true);
       this.world.leaveToScene(step.scene);
       return 'stop';
     }
@@ -219,6 +222,7 @@ export class CutsceneDirector implements DialogueHost {
   }
 
   autosave(): void {
+    session.commitCutscene();
     this.world.autosave(true);
   }
 

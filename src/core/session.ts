@@ -58,6 +58,20 @@ export const session = {
     };
   },
 
+  /**
+   * `autosave` explícito no meio de uma cutscene: a foto passa a ter as flags, o estado e o tempo
+   * ATUAIS, mas mantém a posição segura do início (e o roteiro a recomeçar, se houver).
+   * `finished` = a cutscene acabou (ex.: vai trocar para o Título): não recomeça nada ao carregar.
+   */
+  commitCutscene(finished = false): void {
+    const cs = this.cutscene;
+    if (!cs) return;
+    cs.flags = flags.toJSON();
+    cs.state = clone(this.state);
+    cs.playtimeMs = this.playtimeMs;
+    if (finished) cs.resumeDialogue = undefined;
+  },
+
   endCutscene(): void {
     this.cutscene = null;
   },
