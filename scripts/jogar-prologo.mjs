@@ -354,9 +354,12 @@ await wait(1500);
 await shot('10-bambuzal');
 await avancar(300);
 await wait(2000);
-// depois do prologo_16 o jogo volta ao título. Não dá para conferir a flag prologo.concluido no save:
-// o passo autosave dentro de cutscene grava a foto do início dela (pendência registrada em docs/status/mapas.md)
+// depois do prologo_16 o jogo volta ao título, e o save automático já tem prologo.concluido
 check(await esperarCena('Titulo', 90000), 'prólogo concluído (jogo voltou ao título após prologo_16)');
+{
+  const fim = await page.evaluate(() => JSON.parse(localStorage.getItem('triskelion.save.auto') ?? 'null'));
+  check(fim?.flags?.['prologo.concluido'] === true, 'save automático tem prologo.concluido');
+}
 await shot('11-fim');
 
 const total = ((Date.now() - wallStart) / 1000).toFixed(0);
