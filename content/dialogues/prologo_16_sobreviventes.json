@@ -36,6 +36,7 @@
     {"type": "despawn", "actor": "pamonha"},
     {"type": "face", "actor": "icaro", "dir": "down"},
     {"type": "anim", "actor": "icaro", "anim": "segurar_galinha"},
+    {"type": "emote", "actor": "icaro", "emote": "coracao"},
     {"type": "say", "speaker": "narrador", "text": "Dona Custódia não disse mais nada. Só colocou a Pamonha no colo dele, que era o jeito dela de dar um abraço."},
     {"type": "sfx", "id": "galinha"},
     {"type": "move", "actor": "tonho", "to": "marcador_bambuzal_tonho_frente"},

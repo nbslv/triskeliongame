@@ -87,9 +87,7 @@ queimada).
   Empório Prado; **cadeado grande** no portão do armazém; bilhete na porta da parteira (opcional).
 - **Pose `segurar_galinha` do Ícaro** (entregue, com variantes `_esquerda`, `_direita`, `_costas`,
   `_sentado`): no bambuzal a Pamonha anda até Ícaro, some, e ele passa a segurá-la; ao ir falar
-  com a sargento, volta ao normal e a galinha volta para a Custódia. O `emote_coracao` também foi
-  entregue, mas ainda não está no roteiro: o teste `tests/arte.test.ts` não reconhece o símbolo ♥
-  (falta `'♥': 'coracao'` no mapa de ícones do teste).
+  com a sargento, volta ao normal e a galinha volta para a Custódia. Com o `emote_coracao` sobre a cabeça.
 - Emotes (balão 16×16 sobre a cabeça): `exclamacao`, `interrogacao`, `reticencias`, `suor`.
 - Cartão de título **TRISKELION** com o símbolo das três espirais bem discreto ao fundo.
 
