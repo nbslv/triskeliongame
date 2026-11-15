@@ -82,7 +82,7 @@ Nenhuma bloqueante. Observações para as outras frentes:
 - **Tilesets da arte** conferidos: todos os `docs/arte/tilesets/tiles_*.json` têm imagem correspondente em
   `assets/tilesets/` e propriedades válidas (teste automático). Mapa `content/maps/teste_arte.json`
   (`tiles_exterior_noite` + `tiles_fogo` com animações) carrega sem avisos; fogo anima; `collides` (fogo, cerca)
-  e `hide` (arbusto) funcionam — verificado no Chromium (`docs/tecnico/capturas/07-tilesets-arte.png`).
+  e `hide` (arbusto) funcionam — verificado no Chromium (`docs/tecnico/capturas/11-tilesets-arte.png`).
 
 ## Ciclo 4 (pedidos da arte em docs/status/arte.md)
 
@@ -95,7 +95,7 @@ Nenhuma bloqueante. Observações para as outras frentes:
 - **Emotes por ícone** (`assets/images/emote_<nome>.png`), com texto de reserva.
 - **Teste** `tests/arte.test.ts`: todos os retratos (64×64), poses e emotes usados nos 48+ roteiros do prólogo
   existem nos assets — nenhum faltando. Teste de navegador: +4 verificações (poses criadas e tocadas,
-  `cali_N`/`toucim`, ícones). Captura `docs/tecnico/capturas/08-poses-emotes.png`.
+  `cali_N`/`toucim`, ícones). Captura `docs/tecnico/capturas/12-poses-emotes.png`.
 - O pedido 4 da arte (tiles animados) foi atendido no ciclo 3; falta a arte preencher `animation` em
   `tiles_fogo.json` (tabela em MAPAS.md). Alternativa `fx_fogo*` como ator decorativo também funciona
   (`spawn` com `sprite: "fx_fogo"` + `anim: "queimar"`).
@@ -194,6 +194,17 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
   explícito, poses e atores andando.
 - **`move` com A\*** na grade de colisão, com fallback em linha reta; `wait:false` / `async:true` / `esperar:false` para
   andar sem bloquear. Teste de navegador: ator contorna a casa sem tocar em sólido.
+
+## Ciclo 9 — objetos ampliados (`show`/`hide`)
+
+- Merge de `claude/triskelion-narrativa` (efda7f5) e da coordenação (9175a7e).
+- Passos `show` (`image`) e `hide` do contrato em `docs/gdd/10_prologo_roteiro.md`: tipos, schema, runner e diretor.
+  A imagem fica na cena do diálogo, abaixo da caixa (depth −1), com fundo escurecido a 45% e fade de ~200 ms;
+  escala inteira que cabe entre o topo e o nome do falante, limitada a 8×. Não bloqueia. O fim do roteiro
+  (e o `abort`) esconde. Imagem ausente: placeholder 48×48 com "?" e `console.warn`, sem quebrar.
+- `tests/arte.test.ts`: todo `show` em `content/dialogues` aponta para um png em `assets/images`.
+- `scripts/testar-navegador.mjs`: escala inteira, posição acima da caixa, hide, placeholder com aviso e
+  limpeza no fim do roteiro; captura `docs/tecnico/capturas/13-objeto-ampliado.png`.
 
 ## Decisões
 

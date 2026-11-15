@@ -6,7 +6,7 @@ import { settings } from '../core/settings';
 import { characterName, speakerVoice } from '../content';
 import type { SayStep } from '../systems/dialogue/types';
 import { MenuList } from '../ui/MenuList';
-import { ensurePortrait } from '../ui/placeholders';
+import { ensurePortrait, ensureZoomPlaceholder } from '../ui/placeholders';
 import { drawPanel, makeText } from '../ui/text';
 
 const TEXT_SIZE = 20;
@@ -47,6 +47,10 @@ export class DialogueScene extends Phaser.Scene {
   private hideTimer: Phaser.Time.TimerEvent | null = null;
   private menu: MenuList | null = null;
   private menuObjs: Phaser.GameObjects.GameObject[] = [];
+  /** Objeto ampliado (passo `show`): fundo escurecido + imagem, abaixo da caixa. */
+  private zoomLayer: Phaser.GameObjects.Container | null = null;
+  private zoomImage: string | null = null;
+  private pendingImage: string | null = null;
 
   constructor() {
     super(SCENES.dialogo);
@@ -54,6 +58,8 @@ export class DialogueScene extends Phaser.Scene {
 
   create(): void {
     layoutBox();
+    this.zoomLayer = null;
+    this.zoomImage = null;
     this.panel = this.add.graphics();
     drawPanel(this.panel, BOX.x, BOX.y, BOX.w, BOX.h);
     this.nameBox = this.add.graphics();
@@ -68,9 +74,81 @@ export class DialogueScene extends Phaser.Scene {
     this.root = this.add.container(0, 0, [this.panel, this.nameBox, this.nameText, this.portrait, this.body, this.arrow]);
     this.root.setVisible(false);
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanup());
+    if (this.pendingImage) {
+      const id = this.pendingImage;
+      this.pendingImage = null;
+      this.showImage(id);
+    }
+  }
+
+  /**
+   * Mostra `assets/images/<id>.png` ampliada em escala inteira, centralizada acima da caixa,
+   * com o fundo levemente escurecido e fade curto. Não bloqueia. Sem imagem: placeholder + aviso.
+   */
+  showImage(id: string): void {
+    if (!this.root) {
+      this.pendingImage = id;
+      return;
+    }
+    if (this.zoomImage === id && this.zoomLayer) return;
+    this.hideImage(true);
+    let key = id;
+    if (!this.textures.exists(key)) {
+      console.warn(`[show] imagem "${id}" não encontrada em assets/images/; usando placeholder`);
+      key = ensureZoomPlaceholder(this, id);
+    }
+    layoutBox();
+    const frame = this.textures.getFrame(key);
+    const top = 8;
+    const bottom = BOX.y - 30;
+    const availW = GAME_WIDTH - 32;
+    const availH = bottom - top;
+    // Escala inteira que cabe na área, limitada a 8× (um ícone 16×16 vira 128×128).
+    const scale = Math.max(1, Math.min(8, Math.floor(Math.min(availW / frame.width, availH / frame.height))));
+    const cx = Math.round(BOX.x + BOX.w / 2);
+    const cy = Math.round(top + availH / 2);
+    const dim = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.45).setOrigin(0, 0);
+    const img = this.add.image(0, 0, key).setOrigin(0, 0).setScale(scale);
+    img.setPosition(Math.round(cx - img.displayWidth / 2), Math.round(cy - img.displayHeight / 2));
+    const layer = this.add.container(0, 0, [dim, img]).setDepth(-1).setAlpha(0);
+    this.zoomLayer = layer;
+    this.zoomImage = id;
+    this.tweens.add({ targets: layer, alpha: 1, duration: 220 });
+  }
+
+  /** Esconde o objeto ampliado (fade curto; `now` = sem fade). */
+  hideImage(now = false): void {
+    this.pendingImage = null;
+    const layer = this.zoomLayer;
+    this.zoomLayer = null;
+    this.zoomImage = null;
+    if (!layer || !layer.scene) return;
+    this.tweens.killTweensOf(layer);
+    if (now || !this.sys.isActive()) {
+      layer.destroy();
+      return;
+    }
+    this.tweens.add({ targets: layer, alpha: 0, duration: 180, onComplete: () => layer.destroy() });
+  }
+
+  /** Estado do objeto ampliado (para testes). */
+  imageState(): { id: string | null; scale: number; x: number; y: number; w: number; h: number; placeholder: boolean } | null {
+    const img = this.zoomLayer?.list[1] as Phaser.GameObjects.Image | undefined;
+    if (!img || !this.zoomImage) return null;
+    return {
+      id: this.zoomImage,
+      scale: img.scaleX,
+      x: img.x,
+      y: img.y,
+      w: img.displayWidth,
+      h: img.displayHeight,
+      placeholder: img.texture.key !== this.zoomImage,
+    };
   }
 
   private cleanup(): void {
+    this.zoomLayer = null;
+    this.zoomImage = null;
     this.resolveSay?.();
     this.resolveSay = null;
     this.clearMenu();

@@ -354,7 +354,15 @@ await wait(1500);
 await shot('10-bambuzal');
 await avancar(300);
 await wait(2000);
-check((await flag('prologo.concluido')) === true, 'prólogo concluído');
+// depois do prologo_16 o jogo volta ao título: confere no save automático (e no de retomada), não no estado em memória
+{
+  let ok = false;
+  for (let i = 0; i < 40 && !ok; i++) {
+    ok = await page.evaluate(() => ['triskelion.save.auto', 'triskelion.save.retomada'].some((k) => { try { return JSON.parse(localStorage.getItem(k) ?? 'null')?.flags?.['prologo.concluido'] === true; } catch { return false; } }));
+    if (!ok) await wait(500);
+  }
+  check(ok, 'prólogo concluído (flag prologo.concluido no save automático)');
+}
 await shot('11-fim');
 
 const total = ((Date.now() - wallStart) / 1000).toFixed(0);

@@ -80,4 +80,15 @@ describe('assets da arte usados pelo prólogo', () => {
     });
     expect([...missing]).toEqual([]);
   });
+
+  it('todo `show` (objeto ampliado) aponta para um png em assets/images', () => {
+    const missing = new Set<string>();
+    for (const f of readdirSync(dlgDir).filter((x) => x.endsWith('.json'))) {
+      const json = normalizeScript(JSON.parse(readFileSync(join(dlgDir, f), 'utf8'))) as { steps: Step[] };
+      walk(json.steps, (s) => {
+        if (s.type === 'show' && !existsSync(join(root, 'assets', 'images', `${s.image}.png`))) missing.add(`${s.image} (${f})`);
+      });
+    }
+    expect([...missing]).toEqual([]);
+  });
 });

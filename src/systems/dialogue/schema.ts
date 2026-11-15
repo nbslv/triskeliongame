@@ -148,6 +148,8 @@ const step: z.ZodType<Step> = z.lazy(() =>
       .object({ type: z.literal('activity'), id: z.string().min(1), params: z.record(z.union([z.string(), z.number(), z.boolean()])).optional() })
       .strict(),
     z.object({ type: z.literal('light'), radius: z.number().min(0), ms: ms.optional() }).strict(),
+    z.object({ type: z.literal('show'), image: z.string().min(1) }).strict(),
+    z.object({ type: z.literal('hide') }).strict(),
   ]).superRefine((s, ctx) => {
     const fail = (message: string) => ctx.addIssue({ code: z.ZodIssueCode.custom, message });
     switch (s.type) {

@@ -62,6 +62,8 @@ Objetos são **estritos**: campo com nome errado (ex.: `"txt"`) é erro, para pe
 | `title` | `text`, `subtitle?`, `ms?` (1500) | Cartão de título em tela cheia; A/toque continua. |
 | `activity` | `id`, `params?` | Abre uma atividade registrada (loja, treino, minijogo); o resultado vai para flags/save. |
 | `light` | `radius`, `ms?` (600) | Raio do círculo de luz em mapas escuros (0 = breu). |
+| `show` | `image` | Objeto ampliado: `assets/images/<image>.png` em escala inteira (até 8×), centralizado acima da caixa, fundo levemente escurecido, fade curto. **Não bloqueia**: as falas seguintes correm por cima. Imagem ausente → placeholder + aviso no console. |
+| `hide` | — | Esconde o objeto ampliado (fade curto). O fim do roteiro esconde sozinho. |
 
 ### Virar para quem fala
 

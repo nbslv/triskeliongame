@@ -46,7 +46,7 @@ describe('roteiros do prólogo', () => {
       sfx: () => undefined, music: () => undefined, shake: noop, fade: noop, camera: noop,
       spawn: () => undefined, despawn: () => undefined, scene: async () => 'continue',
       checkpoint: () => undefined, autosave: () => undefined, anim: () => undefined, title: noop,
-      activity: noop, light: noop, loadScript: (id) => scripts.get(id),
+      activity: noop, light: noop, show: () => undefined, hide: () => undefined, loadScript: (id) => scripts.get(id),
     };
     const out = await new DialogueRunner(r.script!, host, new FlagStore(false)).run();
     expect(['ended', 'stopped']).toContain(out);

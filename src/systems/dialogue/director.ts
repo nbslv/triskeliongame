@@ -98,6 +98,7 @@ export class CutsceneDirector implements DialogueHost {
       this.runner = null;
       this.selfActor = undefined;
       session.endCutscene();
+      this.dialog?.hideImage();
       if (outcome !== 'scene') {
         this.dialog?.hideNow();
         this.world?.onCutsceneEnd();
@@ -114,6 +115,7 @@ export class CutsceneDirector implements DialogueHost {
     this.runner?.stop();
     this.runner = null;
     session.endCutscene();
+    this.dialog?.hideImage(true);
     this.fadeState = { color: 0, alpha: 0 };
   }
 
@@ -239,6 +241,14 @@ export class CutsceneDirector implements DialogueHost {
 
   light(radius: number, ms: number): Promise<void> {
     return guard(this.world.setLight(radius, ms), ms + 3000, 'light', undefined);
+  }
+
+  show(image: string): void {
+    this.dialog.showImage(image);
+  }
+
+  hide(): void {
+    this.dialog.hideImage();
   }
 
   loadScript(id: string): DialogueScript | undefined {
