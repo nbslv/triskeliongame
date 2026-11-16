@@ -13,6 +13,9 @@ const LABELS: Record<Button, string> = { A: 'A', B: 'B', MENU: '☰' };
 export class ControlsScene extends Phaser.Scene {
   private g!: Phaser.GameObjects.Graphics;
   private labels: Phaser.GameObjects.Text[] = [];
+  /** Diagnóstico de toque (`?toque` na URL): mostra onde o último toque caiu e o que ele acertou. */
+  private diag: Phaser.GameObjects.Text | null = null;
+  private presses: Record<string, number> = { A: 0, B: 0, MENU: 0 };
 
   constructor() {
     super({ key: SCENES.controles, active: false });
@@ -23,6 +26,17 @@ export class ControlsScene extends Phaser.Scene {
     this.labels = BUTTON_LAYOUT.map((b) =>
       makeText(this, b.x, b.y, LABELS[b.id], b.id === 'MENU' ? 18 : 22).setOrigin(0.5).setAlpha(0.85),
     );
+    if (/[?&]toque\b/.test(location.search)) {
+      this.diag = makeText(this, 6, 4, '', 14, '#8fd6a8').setDepth(10);
+      let last = -1;
+      this.events.on(Phaser.Scenes.Events.UPDATE, () => {
+        const d = input.lastDown;
+        if (d && d.t !== last) {
+          last = d.t;
+          if (d.hit in this.presses) this.presses[d.hit]!++;
+        }
+      });
+    }
   }
 
   override update(): void {
@@ -34,6 +48,17 @@ export class ControlsScene extends Phaser.Scene {
     g.clear();
     const show = input.touchMode;
     this.labels.forEach((l) => l.setVisible(show));
+    if (this.diag) {
+      const d = input.lastDown;
+      this.diag.setText(
+        `toque: ${input.touchMode ? 'sim' : 'não'} · último: ${d ? `${Math.round(d.x)},${Math.round(d.y)} ${d.type} → ${d.hit}` : '-'}` +
+          ` · A ${this.presses.A} B ${this.presses.B} ☰ ${this.presses.MENU}`,
+      );
+      if (d) {
+        g.lineStyle(1, 0x8fd6a8, 1);
+        g.strokeCircle(d.x, d.y, 6);
+      }
+    }
     if (!show) return;
 
     for (const b of BUTTON_LAYOUT) {

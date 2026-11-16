@@ -4,7 +4,7 @@
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
+const { chromium, devices } = require('playwright');
 const URL = process.argv[2] ?? 'http://localhost:4173/';
 const SENHA = process.env.SENHA ?? '';
 
@@ -196,6 +196,80 @@ for (const via of ['toque', 'teclado']) {
   await botao('B'); await g.page.waitForTimeout(300);
   check(!(await ativa('Menu')), `${V} B fecha a pausa`);
   await g.fechar();
+}
+
+// ---------------------------------------------------------------------------------------------
+// Modo realista: aparelho emulado (iPhone 13 e Pixel 7 em paisagem), jogo dentro de um iframe, toques
+// reais (CDP touchStart/touchEnd) nas coordenadas dos botões A/B desenhados na tela.
+for (const dev of ['iPhone 13 landscape', 'Pixel 7 landscape']) {
+  const ctx = await browser.newContext({ ...devices[dev] });
+  const page = await ctx.newPage();
+  const vp = page.viewportSize();
+  await page.setContent(`<body style="margin:0"><iframe id="j" src="${URL}" style="border:0;width:${vp.width}px;height:${vp.height}px"></iframe></body>`);
+  await page.waitForTimeout(2500);
+  let f = page.frames()[1];
+  if (SENHA && (await f.$('.senha-form'))) { await f.tap('.senha-form input'); await page.keyboard.type(SENHA); await f.tap('.senha-form button'); await page.waitForTimeout(1500); }
+  await f.evaluate((save) => { for (const k of Object.keys(localStorage)) if (k.startsWith('triskelion.save')) localStorage.removeItem(k); localStorage.setItem('triskelion.save.1', save); location.reload(); }, SAVE('prologo_vila_manha')).catch(() => {});
+  await page.waitForTimeout(2500);
+  f = page.frames()[1];
+  if (SENHA && (await f.$('.senha-form'))) { await f.tap('.senha-form input'); await page.keyboard.type(SENHA); await f.tap('.senha-form button'); await page.waitForTimeout(1500); }
+  for (let i = 0; i < 40 && !(await f.evaluate(() => window.__TRISKELION__?.scene.isActive('Titulo')).catch(() => false)); i++) await page.waitForTimeout(200);
+  await page.waitForTimeout(500);
+  const cdp = await ctx.newCDPSession(page);
+  const pg = async (gx, gy) => {
+    const ib = await page.locator('#j').boundingBox();
+    const cb = await f.evaluate(() => { const r = document.querySelector('#game canvas').getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
+    return { x: ib.x + cb.x + (gx / 640) * cb.w, y: ib.y + cb.y + (gy / 360) * cb.h };
+  };
+  const toque = async (gx, gy, id = 7) => {
+    const q = await pg(gx, gy);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: q.x, y: q.y, id, radiusX: 12, radiusY: 12 }] });
+    await page.waitForTimeout(90);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await page.waitForTimeout(300);
+  };
+  // O botão desenhado: lido da própria cena de controles (o que o jogador vê).
+  const botoes = await f.evaluate(() => {
+    const c = window.__TRISKELION__.scene.getScene('Controles');
+    return Object.fromEntries(c.labels.map((l) => [l.text, { x: l.x, y: l.y, visivel: l.visible }]));
+  });
+  const A = botoes.A, B = botoes.B;
+  check(A?.visivel && B?.visivel, `${dev}: botões A e B visíveis no título`);
+  const ativa = async (c) => (await f.evaluate(() => window.__TRISKELION__.scene.getScenes(true).map((x) => x.scene.key))).includes(c);
+  const label = (c) => f.evaluate((c) => { const m = window.__TRISKELION__.scene.getScene(c).menu; return m.texts[m.index].text; }, c);
+  const arrastar = async (dy) => {
+    const b = await pg(110, 250); const k = await pg(110, 250 + dy * 32);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: b.x, y: b.y, id: 3 }] }); await page.waitForTimeout(40);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: k.x, y: k.y, id: 3 }] }); await page.waitForTimeout(150);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await page.waitForTimeout(150);
+  };
+  for (let i = 0; i < 6 && (await label('Titulo')) !== 'Opções'; i++) await arrastar(1);
+  check((await label('Titulo')) === 'Opções', `${dev}: joystick leva a "Opções"`);
+  await toque(A.x, A.y);
+  check(await ativa('Opcoes'), `${dev}: A (toque no botão desenhado) abre Opções`);
+  await toque(B.x, B.y);
+  check(!(await ativa('Opcoes')) && (await ativa('Titulo')), `${dev}: B fecha Opções`);
+  // Toque perdido: um dedo no A cujo "soltar" nunca chega (ex.: saiu do iframe). O próximo A ainda vale.
+  await f.evaluate(({ x, y }) => {
+    const c = document.querySelector('#game canvas'); const r = c.getBoundingClientRect();
+    c.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 99, pointerType: 'touch', clientX: r.left + (x / 640) * r.width, clientY: r.top + (y / 360) * r.height }));
+  }, A);
+  await page.waitForTimeout(200);
+  for (let i = 0; i < 6 && (await label('Titulo')) !== 'Opções'; i++) await arrastar(1);
+  await toque(A.x, A.y);
+  check(await ativa('Opcoes'), `${dev}: A funciona mesmo com um toque anterior "preso"`);
+  await toque(B.x, B.y);
+  // A na borda do círculo desenhado (dedo grande): ainda é A.
+  await toque(A.x - 30, A.y + 6);
+  check(await ativa('Opcoes'), `${dev}: A tocado na borda do círculo ainda vale`);
+  await toque(B.x, B.y);
+  // Novo jogo com save: A pede confirmação, B volta
+  for (let i = 0; i < 6 && (await label('Titulo')) !== 'Novo jogo'; i++) await arrastar(-1);
+  await toque(A.x, A.y);
+  check(await ativa('Confirmar'), `${dev}: A em "Novo jogo" pede confirmação`);
+  await toque(B.x, B.y);
+  check(!(await ativa('Confirmar')), `${dev}: B na confirmação volta`);
+  await ctx.close();
 }
 
 await browser.close();

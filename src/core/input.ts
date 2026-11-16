@@ -108,7 +108,10 @@ export class InputService {
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
     window.addEventListener('blur', () => this.releaseAll());
-    canvas.addEventListener('pointerdown', this.onPointerDown);
+    // Na janela (captura), não só no canvas: um elemento transparente por cima do canvas não pode
+    // engolir o toque nos botões. Toques fora do canvas ou em campos/botões de formulário são ignorados.
+    window.addEventListener('pointerdown', this.onPointerDown, true);
+    if (!('PointerEvent' in window)) this.attachTouchFallback();
     window.addEventListener('pointermove', this.onPointerMove);
     window.addEventListener('pointerup', this.onPointerUp);
     window.addEventListener('pointercancel', this.onPointerUp);
@@ -171,9 +174,10 @@ export class InputService {
   // ---------- injeção (também usada por testes) ----------
 
   press(b: Button, source = 'virtual'): void {
-    const set = this.buttonDownSources.get(b)!;
-    if (set.size === 0) this.pending.add(b);
-    set.add(source);
+    // Todo pressionamento novo conta, mesmo que outra fonte tenha ficado "presa" (um pointerup ou
+    // keyup perdido num iframe não pode travar o botão para sempre). Repetição de tecla é filtrada antes.
+    this.pending.add(b);
+    this.buttonDownSources.get(b)!.add(source);
   }
 
   release(b: Button, source = 'virtual'): void {
@@ -217,17 +221,48 @@ export class InputService {
     };
   }
 
+  /** Navegadores sem Pointer Events: converte toques em "ponteiros". */
+  private attachTouchFallback(): void {
+    const conv = (type: string) => (e: TouchEvent) => {
+      for (const t of Array.from(e.changedTouches)) {
+        const ev = { pointerId: 1000 + t.identifier, clientX: t.clientX, clientY: t.clientY, pointerType: 'touch', type, target: e.target } as unknown as PointerEvent;
+        if (type === 'pointerdown') this.onPointerDown(ev);
+        else this.onPointerUp(ev);
+      }
+    };
+    window.addEventListener('touchstart', conv('pointerdown'), { passive: true, capture: true });
+    window.addEventListener('touchend', conv('pointerup'), { passive: true });
+    window.addEventListener('touchcancel', conv('pointercancel'), { passive: true });
+  }
+
+  /** Último toque/clique recebido (para o diagnóstico `?toque`). */
+  lastDown: { x: number; y: number; type: string; hit: string; t: number } | null = null;
+
   private onPointerDown = (e: PointerEvent): void => {
+    const target = e.target as HTMLElement | null;
+    if (target && target !== this.canvas && target.closest?.('input, textarea, select, button, a, .senha-form, .backup')) return;
+    const r = this.canvas?.getBoundingClientRect();
+    if (r && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) return;
     if (e.pointerType === 'touch' && !this.touchMode) this.touchMode = true;
     const p = this.toGame(e.clientX, e.clientY);
+    this.lastDown = { ...p, type: e.pointerType, hit: '-', t: performance.now() };
     // Botões só existem com controles de toque visíveis.
     if (this.touchMode) {
+      // Botão mais próximo dentro do raio (com folga de 14 px: o dedo é maior que o desenho).
+      let best: (typeof BUTTON_LAYOUT)[number] | null = null;
+      let bestD = Infinity;
       for (const btn of BUTTON_LAYOUT) {
-        if (Math.hypot(p.x - btn.x, p.y - btn.y) <= btn.r + 8) {
-          this.buttonPointers.set(e.pointerId, btn.id);
-          this.press(btn.id, 'ptr:' + e.pointerId);
-          return;
+        const d = Math.hypot(p.x - btn.x, p.y - btn.y);
+        if (d <= btn.r + 14 && d - btn.r < bestD) {
+          best = btn;
+          bestD = d - btn.r;
         }
+      }
+      if (best) {
+        this.lastDown.hit = best.id;
+        this.buttonPointers.set(e.pointerId, best.id);
+        this.press(best.id, 'ptr:' + e.pointerId);
+        return;
       }
       const menuOpen = performance.now() - this.menuSeenAt < 250;
       if ((this.joystickEnabled || menuOpen) && this.joyPointer === null && p.x < GAME_WIDTH * JOYSTICK_ZONE) {
