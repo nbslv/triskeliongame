@@ -1,5 +1,9 @@
 // Valesol: a MESMA planta de manhã (prologo_vila_manha) e à noite em chamas (prologo_vila).
+import { existsSync } from 'node:fs';
 import { Mapa, rng } from './lib.mjs';
+
+// Exame de placa/janela: só entra no mapa quando a narrativa já entregou o roteiro (content/dialogues/<id>.json)
+const temRoteiro = (id) => existsSync(new URL(`../../content/dialogues/${id}.json`, import.meta.url));
 
 const W = 70;
 const H = 45;
@@ -240,8 +244,7 @@ function vila(noite) {
   for (const [x, y] of [[20, 34], [21, 34], [20, 33], [21, 33]]) m.put('objetos', x, y, E, 'arbusto');
   // decoração: caixotes, cestos, lenha, galinhas, varal
   for (const [x, y, t] of [[52, 9, 'barril'], [47, 9, 'caixote'], [58, 9, 'cesto_cheio'], [37, 24, 'barril'], [42, 23, 'caixote'], [50, 9, 'lenha'], [44, 19, 'arbusto'], [36, 29, 'caixote'], [37, 31, 'cesto']]) m.put('objetos', x, y, E, t);
-  m.put('objetos', 38, 34, E, 'placa_poste');
-  m.put('objetos', 64, 9, E, 'placa_poste');
+  if (!noite) { m.put('objetos', 38, 34, E, 'placa_poste'); m.put('objetos', 64, 9, E, 'placa_poste'); } // placas só de manhã (na vila em chamas não há)
   if (!noite) {
     m.bloco('objetos', 50, 20, E, 'varal');
   } else {
@@ -259,7 +262,7 @@ function vila(noite) {
     marcador_vila_panoramica: [36, 18],
     marcador_vila_cali_intro_a: [50, 11],
     marcador_vila_cali_intro_b: [58, 11],
-    marcador_vila_esconderijo_1: [61, 15],
+    marcador_vila_esconderijo_1: [60, 15],
     marcador_vila_esconderijo_praca: [44, 15],
     marcador_vila_praca_centro: [36, 22],
     marcador_vila_biblioteca: [36, 8],
@@ -301,13 +304,24 @@ function vila(noite) {
       ['trancada_lindalva', 49, 18, 1, 2, 'prologo_trancada_lindalva', 'Dona Lindalva'], ['trancada_armazem', 58, 20, 2, 2, 'prologo_trancada_armazem', 'Seu Otaviano Prado'],
       ['trancada_rosario', 40, 31, 1, 2, 'prologo_trancada_rosario', 'Dona Rosário'],
     ]) m.zona(n, 'porta_trancada', x, y, w, h, { dialogue: d, dono });
+    // placas e janelas que se leem (só de manhã): examinar de 1×2 (o tile e o de baixo) para o jogador ler de frente
+    for (const [x, y] of [[62, 11], [60, 21], [35, 17], [41, 14]]) m.put('objetos', x, y, E, 'placa_poste');
+    const lerPlaca = (id, x, y) => { const pid = `prologo_placa_${id}`; if (temRoteiro(pid)) m.examinar(`exame_placa_${id}`, x, y, { dialogue: pid, once: false }, 1, 2); };
+    lerPlaca('entrada', 64, 9); lerPlaca('caminhos', 62, 11); lerPlaca('padaria', 31, 30); lerPlaca('biblioteca', 37, 6);
+    lerPlaca('emporio', 60, 6); lerPlaca('armazem', 60, 21); lerPlaca('chafariz', 35, 17); lerPlaca('terreiro', 38, 34); lerPlaca('avisos', 41, 14);
+    for (const [casa, x, y] of [['laudelina', 27, 7], ['orlando', 42, 7], ['quim_quiteria', 50, 7], ['lindalva', 48, 18], ['rosario', 39, 31]]) {
+      m.put('objetos', x, y, E, 'janela_flores');
+      const pid = `prologo_janela_${casa}`;
+      if (temRoteiro(pid)) m.examinar(`exame_janela_${casa}`, x, y, { dialogue: pid, once: false }, 1, 2);
+    }
     m.examinar('emporio_vitrine', 58, 8, { dialogue: 'prologo_emporio_vitrine', once: false }, 1, 1);
     m.marcador('marcador_vila_manha_inicio', 10, 36);
   } else {
     // ---------------------------------------------------------------- noite: gatilhos, examináveis, furtividade
     m.zona('gatilho_vila_entrada', 'gatilho', 64, 10, 1, 3, { dialogue: 'prologo_08_vila_entrada', activation: 'load' });
     m.zona('gatilho_vila_praca', 'gatilho', 44, 10, 2, 4, { dialogue: 'prologo_10_praca' });
-    m.zona('gatilho_casa', 'gatilho', HX + 1, HY + 5, 10, 1, { dialogue: 'prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa' });
+    // cobre o interior inteiro: vale pela porta de baixo, pelo buraco da parede esquerda e por qualquer outra entrada
+    m.zona('gatilho_casa', 'gatilho', HX + 1, HY + 3, 12, 7, { dialogue: 'prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa' });
     m.zona('checkpoint_entrada', 'checkpoint', 59, 15, 4, 1, {});
     m.zona('checkpoint_praca', 'checkpoint', 44, 14, 1, 3, {});
     m.zona('checkpoint_beco', 'checkpoint', 33, 27, 3, 1, {});
