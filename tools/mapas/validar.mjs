@@ -116,8 +116,22 @@ export function validar() {
         const dest = mapas.get(x.p.map);
         if (x.p.entry && dest && !dest.marcadores.has(x.p.entry)) erros.push(`${ctx(x)}: marcador "${x.p.entry}" não existe em ${x.p.map}`);
         if (!x.p.map && !x.p.return) erros.push(`${ctx(x)}: saída sem destino`);
+        // o ponto de chegada não pode cair dentro de uma zona de porta/saída/gatilho de toque do destino (o jogo reentraria nela)
+        if (x.p.entry && dest && dest.marcadores.has(x.p.entry)) {
+          const mk = dest.objs.find((q) => q.t === 'marcador' && q.o.name === x.p.entry);
+          const px = mk.o.x, py = mk.o.y - 3;
+          for (const z of dest.objs) {
+            const ativ = String(z.p.activation ?? z.p.ativacao ?? 'touch');
+            const zona = z.t === 'saida' || z.t === 'porta_trancada' || (z.t === 'gatilho' && ativ !== 'interact' && ativ !== 'interagir' && ativ !== 'load');
+            if (!zona || !(z.o.width > 0)) continue;
+            const m = 3; // folga em pixels: o jogador não pode chegar colado na borda
+            if (px >= z.o.x - m && px < z.o.x + z.o.width + m && py >= z.o.y - m && py < z.o.y + z.o.height + m) erros.push(`${ctx(x)}: chegada "${x.p.entry}" em ${x.p.map} cai dentro/colada na zona "${z.o.name}"`);
+          }
+        }
         if (x.p.return && !x.p.map) erros.push(`${ctx(x)}: return sem map/entry de reserva`);
       }
+      // todo NPC responde ao toque: `tipo` (fala padrão) ou `dialogue`
+      if (x.t === 'npc' && !(x.p.tipo || x.p.dialogue || x.p.dialogo)) erros.push(`${ctx(x)}: NPC sem "tipo" nem "dialogue"`);
       // esconderijo / checkpoint: retângulo
       if ((x.t === 'esconderijo' || x.t === 'checkpoint') && !(x.o.width > 0 && x.o.height > 0)) erros.push(`${ctx(x)}: precisa ser retângulo`);
       // rotas dos inimigos (por marcadores <rota>_pN)

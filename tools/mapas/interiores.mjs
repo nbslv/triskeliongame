@@ -38,7 +38,8 @@ const peca = (m, x, y, nome, camada = 'objetos') => m.bloco(camada, x, y, I, nom
 function porta({ m, y0, h, soleiraX, aqui, vila, entrada, voltar, trancada, semRetorno }) {
   // `return` volta ao ponto de onde entrou; na casa de Ícaro as idas ao terreiro também gravam esse ponto,
   // então lá a porta da frente usa sempre o marcador fixo na vila.
-  const p = { map: vila, entry: voltar, facing: 'down', ...(semRetorno ? {} : { return: true }) };
+  // Sem `return`: o ponto guardado (último pixel antes da porta) fica na borda da zona e reentra a porta. Volta pelo marcador fixo.
+  const p = { map: vila, entry: voltar, facing: 'down' };
   if (trancada) {
     p.locked_if = '!prologo.cafe_com_pai';
     p.locked_dialogue = 'prologo_00c_porta_sem_cafe';
@@ -78,8 +79,8 @@ export function casaIcaro() {
   m.put('objetos', 12, 4, E, 'cesto_cheio');
   m.put('objetos', 1, 4, E, 'barril');
   m.put('objetos', 5, 2, E, 'alcapao');
-  m.put('objetos2', 4, 4, E, 'galinha_1');
-  m.put('objetos2', 8, 5, E, 'galinha_2');
+  m.npc('galinha_1', 4, 4, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
+  m.npc('galinha_2', 8, 5, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
   m.put('chao2', 2, 5, E, 'grama_flores_1');
   m.put('chao2', 9, 4, E, 'terreiro_1');
   m.bloco('objetos', 10, 4, E, 'canteiro');
@@ -102,8 +103,9 @@ export function casaIcaro() {
   peca(m, 11, iy(3), 'catre');
   peca(m, 10, iy(6), 'colchao_palha');
   m.bloco('objetos', 5, iy(5), I, 'mesa_posta');
-  m.put('objetos', 6, iy(4), I, 'cadeira_costas');
-  m.put('objetos', 6, iy(7), I, 'cadeira_frente');
+  // cadeira ao norte da mesa: o assento olha para o jogador (frente); ao sul, de costas
+  m.put('objetos', 6, iy(4), I, 'cadeira_frente');
+  m.put('objetos', 6, iy(7), I, 'cadeira_costas');
   peca(m, 1, iy(5), 'cadeira_balanco');
   m.put('objetos', 2, iy(7), I, 'pote_barro');
   m.put('objetos', 12, iy(8), I, 'vaso_flor');
@@ -146,7 +148,7 @@ export function casaCustodia() {
   m.bloco('chao2', 2, 5, I, 'tapete');
   m.put('objetos', 8, 5, I, 'vaso_flor');
   m.put('objetos', 1, 6, I, 'barril_melado');
-  m.put('objetos', 6, 5, I, 'cadeira_lado');
+  m.put('objetos', 5, 6, I, 'cadeira_costas'); // ao sul da mesa, de costas para o jogador (o assento olha para a mesa)
   m.marcador('marcador_custodia_porta', 3, 6);
   porta({ m, y0: 0, h: 8, soleiraX: 3, aqui: 'porta', vila: 'prologo_vila_manha', entrada: 'marcador_custodia_entrada', voltar: 'marcador_vila_manha_porta_custodia' });
   m.npc('npc_custodia_casa', 4, 3, { dialogue: 'prologo_viz_custodia', sprite: 'custodia', facing: 'down' });

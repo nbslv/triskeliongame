@@ -115,8 +115,14 @@ function vila(noite) {
   m.put('objetos', 17, 18, E, 'lenha');
   m.put('objetos', 8, 22, E, 'barril');
   m.put('objetos', 17, 21, E, 'cesto_cheio');
-  m.put('objetos2', 10, 22, E, 'galinha_1');
-  m.put('objetos2', 15, 22, E, 'galinha_2');
+  // o quintal fica atrás da casa fechada de manhã (inalcançável): lá as galinhas são só enfeite
+  if (noite) {
+    m.npc('galinha_q1', 10, 22, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
+    m.npc('galinha_q2', 15, 22, { facing: 'down', sprite: 'galinha', tipo: 'galinha' });
+  } else {
+    m.put('objetos2', 10, 22, E, 'galinha_1');
+    m.put('objetos2', 15, 22, E, 'galinha_2');
+  }
   if (!noite) {
     // casa fechada: telhado, parede e porta
     const T = m.ind(E, 'telhado');
@@ -306,7 +312,7 @@ function vila(noite) {
     m.zona('checkpoint_praca', 'checkpoint', 44, 14, 1, 3, {});
     m.zona('checkpoint_beco', 'checkpoint', 33, 27, 3, 1, {});
     m.zona('checkpoint_casa', 'checkpoint', HX + 1, HY + 8, 9, 1, {});
-    m.npc('pai', HX + 3, HY + 6, { facing: 'right', sprite: 'pai' });
+    m.npc('pai', HX + 3, HY + 6, { facing: 'right', sprite: 'pai', tipo: 'aldeao' });
     m.examinar('exame_biblioteca', 35, 8, { dialogue: 'prologo_exame_biblioteca' }, 3, 1);
     m.examinar('exame_padaria', 29, 32, { dialogue: 'prologo_exame_padaria' }, 3, 1);
     m.examinar('exame_chafariz', 34, 17, { dialogue: 'prologo_exame_chafariz' }, 5, 5);

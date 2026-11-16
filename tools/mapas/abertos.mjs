@@ -140,7 +140,7 @@ export function estrada() {
   m.marcador('marcador_estrada_saida_pasto', 41, 4);
   m.marcador('marcador_estrada_fim', 2, 8);
   // personagens e gatilhos
-  m.npc('tonho', 41, 8, { facing: 'right' });
+  m.npc('tonho', 41, 8, { facing: 'right', tipo: 'aldeao' });
   m.zona('gatilho_estrada_inicio', 'gatilho', 57, 8, 1, 2, { dialogue: 'prologo_07_estrada', activation: 'load' });
   m.zona('gatilho_estrada_fugitivos', 'gatilho', 34, 7, 1, 4, { dialogue: 'prologo_07b_estrada_fugitivos' });
   m.zona('saida_estrada_vila', 'saida', 0, 7, 2, 4, { map: 'prologo_vila', entry: 'marcador_vila_entrada', facing: 'left' });
@@ -247,10 +247,10 @@ export function bambuzal() {
   m.marcador('marcador_bambuzal_vista_capital', 20, 7);
   // personagens (ids estáveis do roteiro)
   m.npc('soldado_1', 11, 12, { facing: 'down', tipo: 'soldado' });
-  m.npc('sargento', 17, 11, { facing: 'left' });
-  m.npc('custodia', 15, 18, { facing: 'right' });
-  m.npc('tonho', 22, 18, { facing: 'left' });
-  m.npc('nina', 23, 18, { facing: 'left' });
+  m.npc('sargento', 17, 11, { facing: 'left', tipo: 'soldado' });
+  m.npc('custodia', 15, 18, { facing: 'right', tipo: 'sobrevivente' });
+  m.npc('tonho', 22, 18, { facing: 'left', tipo: 'sobrevivente' });
+  m.npc('nina', 23, 18, { facing: 'left', tipo: 'sobrevivente' });
   m.npc('sobrevivente_1', 19, 14, { facing: 'right', tipo: 'sobrevivente' });
   m.npc('sobrevivente_2', 24, 13, { facing: 'left', tipo: 'sobrevivente' });
   m.npc('figurante_1', 26, 16, { facing: 'left', tipo: 'sobrevivente', sprite: 'sobrevivente_1' });
