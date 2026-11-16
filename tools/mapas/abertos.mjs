@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 // Mapas ao ar livre do Prólogo (exceto a vila): cafezal, estrada, túnel e bambuzal.
 import { Mapa, rng } from './lib.mjs';
 
@@ -102,7 +103,7 @@ export function cafezal() {
   m.examinar('cesto_icaro', 5, 22, { dialogue: 'prologo_05_livro' });
   m.zona('gatilho_abertura', 'gatilho', 5, 21, 1, 1, { dialogue: 'prologo_01_abertura', activation: 'load' });
   maduros.forEach(([x, y], i) =>
-    m.examinar(`pe_cafe_maduro_${i + 1}`, x, y, { dialogue: 'prologo_03_pe_de_cafe', counter: 'prologo.colheita', counter_goal: 5, counter_flag: 'prologo.colheita_completa', glow: true }, 1, 2),
+    m.examinar(`pe_cafe_maduro_${i + 1}`, x, y, { dialogue: 'prologo_03_pe_de_cafe', counter: 'prologo.colheita', counter_goal: 5, counter_flag: 'prologo.colheita_completa', glow: true, ordem: i + 1 }, 1, 2),
   );
   verdes.forEach(([x, y], i) => m.examinar(`pe_cafe_verde_${i + 1}`, x, y, { dialogue: 'prologo_03b_pe_verde' }, 1, 2));
   return m;
@@ -140,7 +141,13 @@ export function estrada() {
   m.marcador('marcador_estrada_saida_pasto', 41, 4);
   m.marcador('marcador_estrada_fim', 2, 8);
   // personagens e gatilhos
-  m.npc('tonho', 41, 8, { facing: 'right', tipo: 'aldeao' });
+  // Tonho NÃO pode ser NPC solto na estrada: o roteiro o spawna (spawn tonho at marcador_estrada_tonho_inicio / _alcance) e ele corre junto com o Ícaro.
+  // Enquanto o roteiro (07 ou 07b) não tiver esse `spawn`, o mapa mantém o NPC antigo para não quebrar `face/say tonho`.
+  const tonhoSpawnado = ['prologo_07_estrada', 'prologo_07b_estrada_fugitivos'].some((d) => /"type":\s*"spawn",\s*"actor":\s*"tonho"/.test(readFileSync(new URL(`../../content/dialogues/${d}.json`, import.meta.url), 'utf8')));
+  if (!tonhoSpawnado) m.npc('tonho', 41, 8, { facing: 'right', tipo: 'aldeao' });
+  m.marcador('marcador_estrada_tonho_inicio', 58, 9);
+  m.marcador('marcador_estrada_tonho_alcance', 35, 9);
+  m.marcador('marcador_estrada_tonho_encontro', 29, 9);
   m.zona('gatilho_estrada_inicio', 'gatilho', 57, 8, 1, 2, { dialogue: 'prologo_07_estrada', activation: 'load' });
   m.zona('gatilho_estrada_fugitivos', 'gatilho', 34, 7, 1, 4, { dialogue: 'prologo_07b_estrada_fugitivos' });
   m.zona('saida_estrada_vila', 'saida', 0, 7, 2, 4, { map: 'prologo_vila', entry: 'marcador_vila_entrada', facing: 'left' });

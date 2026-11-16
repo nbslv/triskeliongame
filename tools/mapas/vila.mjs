@@ -1,5 +1,9 @@
 // Valesol: a MESMA planta de manhã (prologo_vila_manha) e à noite em chamas (prologo_vila).
+import { existsSync } from 'node:fs';
 import { Mapa, rng } from './lib.mjs';
+
+// Exame de placa/janela: só entra no mapa quando a narrativa já entregou o roteiro (content/dialogues/<id>.json)
+const temRoteiro = (id) => existsSync(new URL(`../../content/dialogues/${id}.json`, import.meta.url));
 
 const W = 70;
 const H = 45;
@@ -123,6 +127,7 @@ function vila(noite) {
     m.put('objetos2', 10, 22, E, 'galinha_1');
     m.put('objetos2', 15, 22, E, 'galinha_2');
   }
+  for (const [pid, x, y] of [['prologo_placa_poste_1', 38, 34], ['prologo_placa_poste_2', 64, 9]]) if (temRoteiro(pid)) m.examinar(pid.replace('prologo_', 'exame_'), x, y, { dialogue: pid, once: false }, 1, 2);
   if (!noite) {
     // casa fechada: telhado, parede e porta
     const T = m.ind(E, 'telhado');
@@ -259,7 +264,7 @@ function vila(noite) {
     marcador_vila_panoramica: [36, 18],
     marcador_vila_cali_intro_a: [50, 11],
     marcador_vila_cali_intro_b: [58, 11],
-    marcador_vila_esconderijo_1: [61, 15],
+    marcador_vila_esconderijo_1: [60, 15],
     marcador_vila_esconderijo_praca: [44, 15],
     marcador_vila_praca_centro: [36, 22],
     marcador_vila_biblioteca: [36, 8],
@@ -301,13 +306,15 @@ function vila(noite) {
       ['trancada_lindalva', 49, 18, 1, 2, 'prologo_trancada_lindalva', 'Dona Lindalva'], ['trancada_armazem', 58, 20, 2, 2, 'prologo_trancada_armazem', 'Seu Otaviano Prado'],
       ['trancada_rosario', 40, 31, 1, 2, 'prologo_trancada_rosario', 'Dona Rosário'],
     ]) m.zona(n, 'porta_trancada', x, y, w, h, { dialogue: d, dono });
+    for (const [pid, x, y] of [['prologo_placa_biblioteca', 37, 6], ['prologo_placa_emporio', 60, 6], ['prologo_placa_padaria', 31, 30]]) if (temRoteiro(pid)) m.examinar(pid.replace('prologo_', 'exame_'), x, y, { dialogue: pid, once: false }, 1, 2);
     m.examinar('emporio_vitrine', 58, 8, { dialogue: 'prologo_emporio_vitrine', once: false }, 1, 1);
     m.marcador('marcador_vila_manha_inicio', 10, 36);
   } else {
     // ---------------------------------------------------------------- noite: gatilhos, examináveis, furtividade
     m.zona('gatilho_vila_entrada', 'gatilho', 64, 10, 1, 3, { dialogue: 'prologo_08_vila_entrada', activation: 'load' });
     m.zona('gatilho_vila_praca', 'gatilho', 44, 10, 2, 4, { dialogue: 'prologo_10_praca' });
-    m.zona('gatilho_casa', 'gatilho', HX + 1, HY + 5, 10, 1, { dialogue: 'prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa' });
+    // cobre o interior inteiro: vale pela porta de baixo, pelo buraco da parede esquerda e por qualquer outra entrada
+    m.zona('gatilho_casa', 'gatilho', HX + 1, HY + 3, 12, 7, { dialogue: 'prologo_12_pai_confissao,prologo_13_cura,prologo_14_promessa' });
     m.zona('checkpoint_entrada', 'checkpoint', 59, 15, 4, 1, {});
     m.zona('checkpoint_praca', 'checkpoint', 44, 14, 1, 3, {});
     m.zona('checkpoint_beco', 'checkpoint', 33, 27, 3, 1, {});

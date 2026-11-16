@@ -180,6 +180,13 @@ export function validar() {
               }
               if (lados.length) posicoes.set('icaro', { lados });
             }
+            // gatilho de toque em retângulo grande (várias entradas): vale se ao menos um tile livre do retângulo tiver linha reta livre
+            if (x.t === 'gatilho' && x.o.width > 16 && String(x.p.activation ?? 'touch') !== 'load' && String(x.p.activation ?? '') !== 'interact') {
+              const r = rectTiles(x.o, 0);
+              const lados = [];
+              for (let ty = r.y0; ty <= r.y1; ty++) for (let tx = r.x0; tx <= r.x1; tx++) if (!mapa.bloq[ty * mapa.m.width + tx]) lados.push({ x: tx * 16 + 8, y: ty * 16 + 15 });
+              if (lados.length) posicoes.set('icaro', { lados });
+            }
           }
           percorrer(DIALOGOS.get(d).steps, (s) => {
             if (s.type === 'spawn') { alvo(s.at, 'marcador'); atores.add(s.actor); const q = px(s.at); if (q) posicoes.set(s.actor, q); return; }
