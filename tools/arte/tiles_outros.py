@@ -340,7 +340,7 @@ def pan_vila():
     for k, x in enumerate(range(118, 190, 10)):
         y = 62 + (k % 3)
         c.rect(x, y, 8, 5, '#f4ead8').rect(x - 1, y - 3, 10, 3, '#cf7350').px(x + 3, y + 2, '#6b8fb0')
-    c.rect(150, 52, 4, 12, '#f4ead8').rect(149, 49, 6, 3, '#cf7350')
+    # (Valesol não tem torre)
     # coluna de fumaça
     for k in range(16):
         y = 50 - k * 3
