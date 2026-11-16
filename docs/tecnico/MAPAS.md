@@ -139,6 +139,10 @@ Cada interior é um mapa próprio (`content/maps/<casa>.json`), pequeno, com uma
 4. **Moradores**: objetos `npc` no interior (podem usar `requires`/`unless` para aparecer só em certos momentos).
 5. **Objetos que contam história**: `examinar` com `dialogue`.
 6. A transição tem fade automático; a música do interior vem da propriedade `music` do mapa.
+7. **Proteção contra laço de porta** (motor): se o ponto de chegada cair dentro de uma `saida`/porta trancada,
+   o motor desloca o jogador 1 tile para fora (primeiro para onde ele olha) e avisa no console. Quem chega
+   dentro de uma zona de porta precisa sair dela antes de a porta valer, e nenhuma porta dispara nos primeiros
+   400 ms do mapa. Mesmo assim, ponha o marcador de chegada **fora** da zona da porta.
 
 Exemplo completo: `content/maps/teste_casa.json` (dois cômodos, moradora, retrato, baú com `alt_dialogue`),
 ligado à casa de `teste.json` (porta trancada até falar com o aldeão).

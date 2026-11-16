@@ -220,6 +220,24 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
     sem a correção (conferido).
   - `scripts/jogar-prologo.mjs` agora também confere a flag.
 
+## Ciclo 11 — bugs do autor (menus e porta da padaria)
+
+- **Menus:**
+  - Nos testes, os botões A/B da tela e o teclado já funcionavam. O que faltava era o joystick: fora do mundo ele
+    ficava desligado. Por isso, pelo toque não dava para mudar de item, e o A só confirmava o item padrão.
+  - Agora, enquanto um menu lê a entrada (`input.menuTick()`), o joystick navega nele. Um toque parado no lado do
+    joystick ainda conta como toque no item.
+  - O joystick de menu não vaza para o mundo.
+  - `testar-titulo.mjs` cobre título, confirmação, espaços, opções e pausa com joystick+A/B e com setas+Enter/X:
+    navegar, ajustar, abrir, voltar e fechar.
+- **Porta (laço da padaria):** proteção geral no `WorldScene`.
+  - Uma chegada dentro de uma zona de saída ou porta trancada é deslocada 1 tile para fora.
+  - Quem já está na zona precisa sair dela antes de a porta valer.
+  - Portas e saídas ficam desligadas por 400 ms depois de chegar.
+  - `scripts/testar-portas.mjs` entra e sai da padaria, da casa da Custódia, da biblioteca e da casa de Ícaro,
+    3× cada, e força a chegada dentro e na borda da porta. Sem a proteção, esse teste entra em laço (conferido).
+- `window.__TRISKELION_INPUT__` exposto para testes.
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai
