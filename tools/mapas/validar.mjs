@@ -25,7 +25,8 @@ export const ENTRADAS = {
 };
 
 /** Movimentos que atravessam sólidos de propósito (ex.: o pai empurra Ícaro). Formato mapa:roteiro:ator. */
-const ISENTOS = new Set([]);
+// Tonho já correu até (36,8) em prologo_07_estrada antes de prologo_07b; o validador não encadeia roteiros
+const ISENTOS = new Set(['prologo_estrada:prologo_07b_estrada_fugitivos:tonho']);
 const props = (o) => Object.fromEntries((o.properties ?? []).map((p) => [p.name, p.value]));
 const tipo = (o, camada) => ((o.type || o.class || '') || (camada === 'markers' ? 'marcador' : '')).toLowerCase();
 

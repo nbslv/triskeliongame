@@ -59,7 +59,7 @@ export function cafezal() {
   // corredores horizontais aparecem como terra
   // toco, cesto e a clareira
   m.put('objetos', 5, 20, E, 'toco');
-  m.put('objetos', 5, 22, E, 'cesto');
+  m.put('objetos', 16, 21, E, 'cesto');
   m.put('objetos', 7, 18, E, 'arbusto');
   m.put('objetos', 3, 17, E, 'arbusto_frutas');
   m.bloco('objetos', 2, 11, E, 'arvore_1');
@@ -90,7 +90,7 @@ export function cafezal() {
   m.bloco('objetos', 46, 20, E, 'lampiao');
 
   // marcadores
-  m.marcador('marcador_cafezal_inicio', 6, 21);
+  m.marcador('marcador_cafezal_inicio', 17, 21); // de pé no corredor entre duas fileiras, com o cesto ao lado (16,21)
   m.marcador('marcador_cafezal_tonho', 12, 20);
   m.marcador('marcador_cafezal_balanca', 46, 19);
   m.marcador('marcador_cafezal_balanca_tonho', 47, 20);
@@ -100,8 +100,8 @@ export function cafezal() {
   // personagens e interativos
   m.npc('tonho', 13, 20, { dialogue: 'prologo_02_tonho_tutorial', facing: 'left' });
   m.npc('zefa', 46, 17, { dialogue: 'prologo_04_zefa', alt_dialogue: 'prologo_06_colheita_fim', alt_if: 'prologo.colheita_completa', facing: 'left' });
-  m.examinar('cesto_icaro', 5, 22, { dialogue: 'prologo_05_livro' });
-  m.zona('gatilho_abertura', 'gatilho', 5, 21, 1, 1, { dialogue: 'prologo_01_abertura', activation: 'load' });
+  m.examinar('cesto_icaro', 16, 21, { dialogue: 'prologo_05_livro' });
+  m.zona('gatilho_abertura', 'gatilho', 17, 21, 1, 1, { dialogue: 'prologo_01_abertura', activation: 'load' });
   maduros.forEach(([x, y], i) =>
     m.examinar(`pe_cafe_maduro_${i + 1}`, x, y, { dialogue: 'prologo_03_pe_de_cafe', counter: 'prologo.colheita', counter_goal: 5, counter_flag: 'prologo.colheita_completa', glow: true, ordem: i + 1 }, 1, 2),
   );
@@ -141,13 +141,8 @@ export function estrada() {
   m.marcador('marcador_estrada_saida_pasto', 41, 4);
   m.marcador('marcador_estrada_fim', 2, 8);
   // personagens e gatilhos
-  // Tonho NÃO pode ser NPC solto na estrada: o roteiro o spawna (spawn tonho at marcador_estrada_tonho_inicio / _alcance) e ele corre junto com o Ícaro.
-  // Enquanto o roteiro (07 ou 07b) não tiver esse `spawn`, o mapa mantém o NPC antigo para não quebrar `face/say tonho`.
-  const tonhoSpawnado = ['prologo_07_estrada', 'prologo_07b_estrada_fugitivos'].some((d) => /"type":\s*"spawn",\s*"actor":\s*"tonho"/.test(readFileSync(new URL(`../../content/dialogues/${d}.json`, import.meta.url), 'utf8')));
-  if (!tonhoSpawnado) m.npc('tonho', 41, 8, { facing: 'right', tipo: 'aldeao' });
-  m.marcador('marcador_estrada_tonho_inicio', 58, 9);
-  m.marcador('marcador_estrada_tonho_alcance', 35, 9);
-  m.marcador('marcador_estrada_tonho_encontro', 29, 9);
+  // Tonho começa ao lado da entrada do Ícaro; prologo_07_estrada o faz correr até (36,8), perto do gatilho dos fugitivos
+  m.npc('tonho', 56, 8, { facing: 'left', tipo: 'aldeao' });
   m.zona('gatilho_estrada_inicio', 'gatilho', 57, 8, 1, 2, { dialogue: 'prologo_07_estrada', activation: 'load' });
   m.zona('gatilho_estrada_fugitivos', 'gatilho', 34, 7, 1, 4, { dialogue: 'prologo_07b_estrada_fugitivos' });
   m.zona('saida_estrada_vila', 'saida', 0, 7, 2, 4, { map: 'prologo_vila', entry: 'marcador_vila_entrada', facing: 'left' });
