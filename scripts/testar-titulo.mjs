@@ -109,6 +109,95 @@ for (const modo of ['toque', 'clique', 'iframe']) {
   check(c.includes('Titulo') && !c.includes('Confirmar') && !(await g.mapa()), 'confirmação: Voltar fica no título');
   await g.fechar();
 }
+// ---------------------------------------------------------------------------------------------
+// Botões A/B da tela, joystick e teclado em todos os menus (título, confirmação, espaços, opções, pausa)
+for (const via of ['toque', 'teclado']) {
+  const g = await abrir(via === 'toque' ? 'toque' : 'clique', semRetomada);
+  const cdp = via === 'toque' ? await g.ctx.newCDPSession(g.page) : null;
+  const canvasBox = () => g.f.evaluate(() => { const b = document.querySelector('#game canvas').getBoundingClientRect(); return { x: b.left, y: b.top, w: b.width, h: b.height }; });
+  const pg = async (gx, gy) => { const b = await canvasBox(); return { x: b.x + (gx / 640) * b.w, y: b.y + (gy / 360) * b.h }; };
+  const t = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts });
+  const BOT = { A: [588, 278], B: [532, 316], MENU: [610, 26] };
+  const TECLA = { A: 'Enter', B: 'KeyX', MENU: 'KeyM', cima: 'ArrowUp', baixo: 'ArrowDown', esq: 'ArrowLeft', dir: 'ArrowRight' };
+  const segurar = async (key, ms = 90) => { await g.page.keyboard.down(key); await g.page.waitForTimeout(ms); await g.page.keyboard.up(key); await g.page.waitForTimeout(120); };
+  const botao = async (b) => {
+    if (via === 'teclado') return segurar(TECLA[b]);
+    const p = await pg(...BOT[b]);
+    await t('touchStart', [{ x: p.x, y: p.y, id: 5 }]); await g.page.waitForTimeout(70); await t('touchEnd', []); await g.page.waitForTimeout(150);
+  };
+  /** Um passo de navegação: joystick (arrasta e solta) ou seta. */
+  const mover = async (dir) => {
+    if (via === 'teclado') return segurar(TECLA[dir]);
+    const d = { cima: [0, -1], baixo: [0, 1], esq: [-1, 0], dir: [1, 0] }[dir];
+    const b = await pg(110, 250); const k = await pg(110 + d[0] * 32, 250 + d[1] * 32);
+    await t('touchStart', [{ x: b.x, y: b.y, id: 2 }]); await g.page.waitForTimeout(40);
+    await t('touchMove', [{ x: k.x, y: k.y, id: 2 }]); await g.page.waitForTimeout(150);
+    await t('touchEnd', []); await g.page.waitForTimeout(120);
+  };
+  const idx = (c) => g.f.evaluate((c) => window.__TRISKELION__.scene.getScene(c).menu.index, c);
+  const label = (c) => g.f.evaluate((c) => { const m = window.__TRISKELION__.scene.getScene(c).menu; return m.texts[m.index].text; }, c);
+  const irPara = async (c, texto) => { for (let i = 0; i < 8 && (await label(c)) !== texto; i++) await mover('baixo'); return (await label(c)) === texto; };
+  const ativa = async (c) => (await g.cenas()).includes(c);
+  const V = `${via}:`;
+
+  // Título: navegar e voltar
+  const i0 = await idx('Titulo');
+  await mover('baixo');
+  const i1 = await idx('Titulo');
+  check(i1 !== i0, `${V} título navega (${i0} → ${i1})`);
+  await mover('cima');
+  check((await idx('Titulo')) === i0, `${V} título volta para cima`);
+  // Opções: A abre, navega, esquerda/direita ajusta, B volta
+  check(await irPara('Titulo', 'Opções'), `${V} chega em "Opções"`);
+  await botao('A'); await g.page.waitForTimeout(300);
+  check(await ativa('Opcoes'), `${V} A abre Opções`);
+  const o0 = await label('Opcoes');
+  await mover('dir');
+  const o1 = await label('Opcoes');
+  check(o1 !== o0, `${V} Opções: direita ajusta o volume (${o0} → ${o1})`);
+  await mover('esq');
+  await mover('baixo');
+  check((await idx('Opcoes')) === 1, `${V} Opções navega`);
+  await botao('B'); await g.page.waitForTimeout(300);
+  check(!(await ativa('Opcoes')) && (await ativa('Titulo')), `${V} B fecha Opções e volta ao título`);
+  // Espaços (Continuar): A abre, B volta
+  check(await irPara('Titulo', 'Continuar'), `${V} chega em "Continuar"`);
+  await botao('A'); await g.page.waitForTimeout(300);
+  check(await ativa('Espacos'), `${V} A abre os espaços`);
+  await mover('baixo');
+  check((await idx('Espacos')) !== undefined, `${V} espaços navegam`);
+  await botao('B'); await g.page.waitForTimeout(300);
+  check(!(await ativa('Espacos')) && (await ativa('Titulo')), `${V} B fecha os espaços`);
+  // Confirmação: B = não; A em "Começar do zero" = sim
+  check(await irPara('Titulo', 'Novo jogo'), `${V} chega em "Novo jogo"`);
+  await botao('A'); await g.page.waitForTimeout(400);
+  check(await ativa('Confirmar'), `${V} A em Novo jogo pede confirmação`);
+  await botao('B'); await g.page.waitForTimeout(300);
+  check(!(await ativa('Confirmar')) && (await ativa('Titulo')), `${V} B na confirmação volta ao título`);
+  await botao('A'); await g.page.waitForTimeout(400);
+  await mover('cima');
+  check((await label('Confirmar')) === 'Começar do zero', `${V} confirmação navega até "Começar do zero"`);
+  await botao('A'); await g.page.waitForTimeout(1600);
+  check((await g.mapa()) === 'prologo_casa_icaro', `${V} A confirma e começa o jogo`);
+  // Pausa: termina a abertura, MENU abre, navega, A abre Opções, B volta, B fecha
+  for (let i = 0; i < 120; i++) {
+    const cut = await g.f.evaluate(() => window.__TRISKELION__.scene.getScene('Mundo').debugState().cutscene);
+    if (!cut) break;
+    await botao('A');
+  }
+  await g.page.waitForTimeout(500);
+  await botao('MENU'); await g.page.waitForTimeout(400);
+  check(await ativa('Menu'), `${V} MENU abre a pausa`);
+  check(await irPara('Menu', 'Opções'), `${V} pausa navega até Opções`);
+  await botao('A'); await g.page.waitForTimeout(300);
+  check(await ativa('Opcoes'), `${V} A abre Opções na pausa`);
+  await botao('B'); await g.page.waitForTimeout(300);
+  check(!(await ativa('Opcoes')) && (await ativa('Menu')), `${V} B volta à pausa`);
+  await botao('B'); await g.page.waitForTimeout(300);
+  check(!(await ativa('Menu')), `${V} B fecha a pausa`);
+  await g.fechar();
+}
+
 await browser.close();
 console.log(ok ? '\nTUDO OK' : '\nFALHAS ACIMA');
 process.exit(ok ? 0 : 1);

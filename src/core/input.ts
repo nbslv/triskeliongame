@@ -77,6 +77,10 @@ export class InputService {
   /** Posição do dedo/mouse agora (em coordenadas do jogo), para destacar itens de menu. */
   lastPointer: { x: number; y: number; down: boolean } = { x: -1, y: -1, down: false };
   private joyPointer: number | null = null;
+  /** O joystick atual nasceu num menu (fora do mundo): um toque parado nele também vale como tap. */
+  private joyFromMenu = false;
+  /** Última vez (ms) que um menu leu a entrada; enquanto há menu aberto o joystick navega nele. */
+  private menuSeenAt = -1e9;
   private buttonPointers = new Map<number, Button>();
   readonly joystick: JoystickState = { active: false, baseX: 0, baseY: 0, knobX: 0, knobY: 0 };
   private joyVec = { x: 0, y: 0 };
@@ -132,6 +136,8 @@ export class InputService {
       const len = Math.hypot(kx, ky);
       return { x: kx / len, y: ky / len };
     }
+    // Joystick que nasceu num menu não vaza para o mundo depois que o menu fecha.
+    if (this.joyFromMenu && performance.now() - this.menuSeenAt > 250) return { x: 0, y: 0 };
     return { ...this.joyVec };
   }
 
@@ -223,8 +229,12 @@ export class InputService {
           return;
         }
       }
-      if (this.joystickEnabled && this.joyPointer === null && p.x < GAME_WIDTH * JOYSTICK_ZONE) {
+      const menuOpen = performance.now() - this.menuSeenAt < 250;
+      if ((this.joystickEnabled || menuOpen) && this.joyPointer === null && p.x < GAME_WIDTH * JOYSTICK_ZONE) {
         this.joyPointer = e.pointerId;
+        this.joyFromMenu = !this.joystickEnabled;
+        // Num menu, o mesmo toque ainda pode ser um tap num item (se o dedo não arrastar).
+        if (this.joyFromMenu) this.tapStarts.set(e.pointerId, { ...p, t: performance.now() });
         Object.assign(this.joystick, { active: true, baseX: p.x, baseY: p.y, knobX: p.x, knobY: p.y });
         this.joyVec = { x: 0, y: 0 };
         return;
@@ -276,10 +286,15 @@ export class InputService {
     }
   };
 
+  /** Chamado pelos menus a cada quadro: com menu aberto, o joystick navega mesmo desligado no mundo. */
+  menuTick(): void {
+    this.menuSeenAt = performance.now();
+  }
+
   /** Desliga o joystick (e solta o dedo que o controlava). */
   setJoystickEnabled(on: boolean): void {
     this.joystickEnabled = on;
-    if (!on && this.joyPointer !== null) {
+    if (!on && this.joyPointer !== null && !this.joyFromMenu) {
       this.joyPointer = null;
       this.joystick.active = false;
       this.joyVec = { x: 0, y: 0 };

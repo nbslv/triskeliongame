@@ -44,7 +44,7 @@ export class ControlsScene extends Phaser.Scene {
       g.strokeCircle(b.x, b.y, b.r);
     }
     const j = input.joystick;
-    if (input.joystickEnabled && j.active) {
+    if (j.active) {
       g.fillStyle(0x0b0a12, 0.3);
       g.fillCircle(j.baseX, j.baseY, JOYSTICK_RADIUS);
       g.lineStyle(2, 0xf4ecd8, 0.5);

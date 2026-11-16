@@ -107,6 +107,7 @@ export class MenuList {
 
   update(time: number): void {
     if (!this.active) return;
+    input.menuTick();
     // Toques: o item tocado é o item escolhido (nunca o selecionado antes).
     for (let tap = input.consumeTap(); tap; tap = input.consumeTap()) {
       if (tap.t < this.createdAt) continue;
