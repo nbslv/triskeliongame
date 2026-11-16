@@ -103,6 +103,8 @@ export class WorldScene extends Phaser.Scene {
   private caught = false;
   private hidden = false;
   private ready = false;
+  /** Até quando (tempo da cena) portas e saídas ficam desligadas depois de chegar no mapa. */
+  private doorGuardUntil = 0;
   private pendingDialogue: string | undefined;
   /** Há gatilhos "load" esperando a cutscene atual terminar. */
   private loadPending = false;
@@ -154,8 +156,9 @@ export class WorldScene extends Phaser.Scene {
     this.buildObjects();
 
     // Jogador
-    const start = this.resolveStart(data);
     const facing = data.facing ?? 'down';
+    // A chegada nunca fica dentro de uma porta/saída (senão a porta dispara de novo: laço).
+    const start = this.outsideDoors(this.resolveStart(data), facing);
     this.player = new Actor(this, gameConfig.playerId, gameConfig.playerSprite, start.x, start.y, facing);
     this.actors.set(gameConfig.playerId, this.player);
     for (const l of this.collisionLayers) this.physics.add.collider(this.player.sprite, l);
@@ -186,6 +189,11 @@ export class WorldScene extends Phaser.Scene {
     // Mapa escuro (túnel): círculo de luz em volta do jogador
     const mp0 = props(this.mapData);
     if (isTrue(mp0.escuro ?? mp0.dark)) this.createDarkness(num(mp0.luz_raio ?? mp0.light_radius, 56));
+
+    // Portas: quem chega já "está" na zona onde apareceu (precisa sair e voltar), e por 400 ms
+    // depois de chegar nenhuma porta/saída dispara.
+    for (const z of [...this.exits, ...this.lockedDoors]) z.inside = contains(z.rect, this.player.x, this.player.y - 3);
+    this.doorGuardUntil = this.time.now + 400;
 
     // Posição e checkpoint
     session.active = true;
@@ -463,6 +471,31 @@ export class WorldScene extends Phaser.Scene {
       if (r) return r;
     }
     return this.markers.get(gameConfig.startMarker) ?? this.markers.values().next().value ?? { x: 32, y: 32 };
+  }
+
+  /** O ponto (pés) cai dentro de uma porta/saída? */
+  private inDoor(x: number, y: number): boolean {
+    return [...this.exits, ...this.lockedDoors].some((z) => contains(z.rect, x, y - 3));
+  }
+
+  /**
+   * Se o ponto de chegada cair dentro de uma porta/saída, desloca para fora (1 tile por vez, primeiro
+   * para onde o jogador olha, depois nas outras direções), sem entrar em parede.
+   */
+  private outsideDoors(p: { x: number; y: number }, facing: Direction): { x: number; y: number } {
+    if (!this.inDoor(p.x, p.y)) return p;
+    const vec: Record<Direction, [number, number]> = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+    const dirs: Direction[] = [facing, OPPOSITE[facing], ...(['down', 'up', 'left', 'right'] as Direction[]).filter((d) => d !== facing && d !== OPPOSITE[facing])];
+    for (let step = 1; step <= 3; step++) {
+      for (const d of dirs) {
+        const q = { x: p.x + vec[d][0] * TILE_SIZE * step, y: p.y + vec[d][1] * TILE_SIZE * step };
+        if (!this.inDoor(q.x, q.y) && !this.isSolid(q.x, q.y - 3)) {
+          console.warn(`[mundo] chegada em ${this.mapId} caía numa porta; deslocada para (${Math.round(q.x)},${Math.round(q.y)})`);
+          return q;
+        }
+      }
+    }
+    return p;
   }
 
   /** Converte tile [x,y] / nome de marcador / id de ator em pixels (ponto nos pés). */
@@ -743,17 +776,18 @@ export class WorldScene extends Phaser.Scene {
       z.inside = inside;
       if (entered && this.fireTrigger(z)) return true;
     }
+    const doorsOn = this.time.now >= this.doorGuardUntil;
     for (const z of this.lockedDoors) {
       const inside = contains(z.rect, x, y);
       const entered = inside && !z.inside;
       z.inside = inside;
-      if (entered && this.showLockedDoor(z)) return true;
+      if (entered && doorsOn && this.showLockedDoor(z)) return true;
     }
     for (const z of this.exits) {
       const inside = contains(z.rect, x, y);
       const entered = inside && !z.inside;
       z.inside = inside;
-      if (entered && this.conditionsMet(z.p)) {
+      if (entered && doorsOn && this.conditionsMet(z.p)) {
         if (this.takeExit(z)) return true;
       }
     }
