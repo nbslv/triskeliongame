@@ -89,6 +89,7 @@ assets/sprites/caixa_costura.png,sprites/caixa_costura__48x16.png,48,16
 assets/sprites/cali_poses.png,sprites/cali_poses__176x24.png,176,24
 assets/sprites/cali_soldado.png,sprites/cali_soldado__64x96.png,64,96
 assets/sprites/caligosuin.png,sprites/caligosuin__64x96.png,64,96
+assets/sprites/cesto_livro.png,sprites/cesto_livro__16x16.png,16,16
 assets/sprites/custodia.png,sprites/custodia__64x96.png,64,96
 assets/sprites/ermelinda.png,sprites/ermelinda__64x96.png,64,96
 assets/sprites/ermelinda_poses.png,sprites/ermelinda_poses__32x24.png,32,24
@@ -98,7 +99,7 @@ assets/sprites/fx_fogo_negro.png,sprites/fx_fogo_negro__48x32.png,48,32
 assets/sprites/fx_fumaca.png,sprites/fx_fumaca__48x32.png,48,32
 assets/sprites/galinha.png,sprites/galinha__64x96.png,64,96
 assets/sprites/icaro.png,sprites/icaro__64x96.png,64,96
-assets/sprites/icaro_poses.png,sprites/icaro_poses__432x24.png,432,24
+assets/sprites/icaro_poses.png,sprites/icaro_poses__512x24.png,512,24
 assets/sprites/juca.png,sprites/juca__64x96.png,64,96
 assets/sprites/nina.png,sprites/nina__64x96.png,64,96
 assets/sprites/pai.png,sprites/pai__64x96.png,64,96
@@ -114,9 +115,9 @@ assets/sprites/toucim.png,sprites/toucim__64x128.png,64,128
 assets/sprites/toucim_poses.png,sprites/toucim_poses__64x32.png,64,32
 assets/sprites/zefa.png,sprites/zefa__64x96.png,64,96
 assets/tilesets/placeholder.png,tilesets/placeholder__128x32.png,128,32
-assets/tilesets/tiles_exterior.png,tilesets/tiles_exterior__256x480.png,256,480
-assets/tilesets/tiles_exterior_noite.png,tilesets/tiles_exterior_noite__256x480.png,256,480
-assets/tilesets/tiles_exterior_tarde.png,tilesets/tiles_exterior_tarde__256x480.png,256,480
+assets/tilesets/tiles_exterior.png,tilesets/tiles_exterior__256x496.png,256,496
+assets/tilesets/tiles_exterior_noite.png,tilesets/tiles_exterior_noite__256x496.png,256,496
+assets/tilesets/tiles_exterior_tarde.png,tilesets/tiles_exterior_tarde__256x496.png,256,496
 assets/tilesets/tiles_fogo.png,tilesets/tiles_fogo__192x96.png,192,96
 assets/tilesets/tiles_interior.png,tilesets/tiles_interior__256x208.png,256,208
 assets/tilesets/tiles_interior_noite.png,tilesets/tiles_interior_noite__256x208.png,256,208

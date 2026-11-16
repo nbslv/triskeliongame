@@ -199,6 +199,43 @@ def galinha(d='down', f=0):
 
 # ------------------------------------------------------------------ poses
 
+def livrinho(c, x, y, girado=False):
+    if girado:
+        c.rect(x, y, 4, 6, OUT).rect(x + 1, y + 1, 2, 4, '#a52a33').px(x + 2, y + 1, '#f6f0e0')
+    else:
+        c.rect(x, y, 6, 4, OUT).rect(x + 1, y + 1, 4, 2, '#a52a33').px(x + 4, y + 2, '#f6f0e0')
+
+
+def cestinho(c, x, y, livro=True):
+    """Cesto de colheita pequeno (5×6), com o livro caído dentro."""
+    c.rect(x, y + 1, 6, 6, OUT)
+    c.rect(x + 1, y + 2, 4, 4, '#c9a05a').rect(x + 1, y + 2, 4, 1, '#8a6a35').px(x + 2, y + 4, '#a8823f').px(x + 4, y + 5, '#a8823f')
+    if livro:
+        c.rect(x + 1, y, 4, 3, OUT).rect(x + 2, y, 3, 2, '#a52a33').px(x + 4, y + 1, '#f6f0e0')
+
+
+def susto(s, q):
+    """Pulo de susto: braços para cima e o livro escapando (q=0 no ar, q=1 caindo)."""
+    base = boneco(s, 'down', 0, 'colher')
+    c = C(16, 24)
+    c.blit(base, 0, -2 if q == 0 else 0)
+    if q == 0:
+        c.rect(5, 22, 6, 1, '#3b2a3560')
+        livrinho(c, 10, 0, True)
+        c.px(2, 3, '#f6f0e0').px(1, 5, '#f6f0e0').px(14, 8, '#f6f0e0')
+    else:
+        livrinho(c, 10, 12)
+    return c
+
+
+def sem_graca(s):
+    """Parado, sem graça, olhando o cesto aos pés com o livro dentro."""
+    c = boneco(s, 'down', 0, 'olhar_baixo')
+    cestinho(c, 10, 16)
+    c.px(13, 4, '#8fcbe0').px(13, 5, '#8fcbe0').px(13, 3, '#d6eef6')
+    return c
+
+
 def tira(quadros, w=16, h=24):
     sh = C(w * len(quadros), h)
     for i, q in enumerate(quadros):
@@ -231,14 +268,18 @@ def poses():
          b(I, 'galinha', 'left'), b(I, 'galinha2', 'left'),   # 19-20 esquerda
          b(I, 'galinha', 'right'), b(I, 'galinha2', 'right'), # 21-22 direita
          b(I, 'galinha', 'up'), b(I, 'galinha2', 'up'),       # 23-24 costas
-         b(I, 'galinha_sentado'), b(I, 'galinha_sentado2')]   # 25-26 sentado
+         b(I, 'galinha_sentado'), b(I, 'galinha_sentado2'),   # 25-26 sentado
+         b(I, 'ler'), b(I, 'ler2'),                           # 27-28 ler_livro
+         susto(I, 0), susto(I, 1),                            # 29-30 susto_derruba_livro
+         sem_graca(I)]                                        # 31 cesto_com_livro
     A = lambda fr, rate=4, rep=-1: dict(frames=fr, frameRate=rate, repeat=rep)
     out['icaro_poses'] = (tira(q), 16, 24, 'icaro', {
         'acordar': A([0, 0, 1], 2, 0), 'esconder_livro': A([2]), 'colher': A([3, 4, 3], 5, 0), 'agachar': A([5]), 'ajoelhar': A([6]),
         'conjurar': A([7, 8], 4), 'conjurar_brilho': A([9, 10], 5), 'erguer_viga': A([11, 12], 3), 'encolhido': A([13]),
         'colar_brilho': A([14, 15], 5), 'segurar_colar': A([16]),
         'segurar_galinha': A([17, 18], 2), 'segurar_galinha_esquerda': A([19, 20], 2), 'segurar_galinha_direita': A([21, 22], 2),
-        'segurar_galinha_costas': A([23, 24], 2), 'segurar_galinha_sentado': A([25, 26], 2)})
+        'segurar_galinha_costas': A([23, 24], 2), 'segurar_galinha_sentado': A([25, 26], 2),
+        'ler_livro': A([27, 27, 27, 28], 2), 'susto_derruba_livro': A([29, 30], 5, 0), 'cesto_com_livro': A([31])})
     q = [b(P, 'sentado'), b(P, 'beber')]
     out['pai_poses'] = (tira(q), 16, 24, 'pai', {'sentado': A([0]), 'beber_cafe': A([0, 1, 1, 0], 2, 0)})
     q = [deitar(b(P, 'sentado_fechado')), deitar(b(P, 'sentado')), deitar(b(P, 'caixa')), deitar(b(P, 'empurrar')), deitar(b(P, 'entregar'))]
@@ -269,6 +310,11 @@ def poses():
     bc.outline(OUT2)
     out['barril_custodia'] = (tira([bf, ba, bc], 16, 32), 16, 32, 'barril_custodia', {'fechado': A([0]), 'abrir': A([0, 1, 2], 4, 0), 'aberto': A([2])})
     out['fx_bufo'] = (tira([bufo(k) for k in range(4)], 16, 16), 16, 16, 'fx_bufo', {'bufar': A([0, 1, 2, 3], 8, 0), 'respirar': A([0, 1, 0], 4)})
+    ck = C(16, 16)
+    from ext_vila import cesto as _cesto
+    ck.blit(_cesto(False))
+    ck.rect(5, 2, 7, 5, OUT).rect(6, 3, 5, 3, '#a52a33').rect(6, 3, 5, 1, '#c8545a').px(10, 5, '#f6f0e0')
+    out['cesto_livro'] = (tira([ck], 16, 16), 16, 16, 'cesto_livro', {'parado': A([0])})
     # efeitos (tiles_fogo animados)
     T_ = tiles_outros
     out['fx_fogo'] = (tira([T_.chama(k, False, True) for k in range(3)], 16, 32), 16, 32, 'fx_fogo', {'queimar': A([0, 1, 2], 8)})

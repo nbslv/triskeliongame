@@ -1,0 +1,14 @@
+{
+ "frameWidth": 16,
+ "frameHeight": 16,
+ "alvo": "cesto_livro",
+ "anims": {
+  "parado": {
+   "frames": [
+    0
+   ],
+   "frameRate": 4,
+   "repeat": -1
+  }
+ }
+}
