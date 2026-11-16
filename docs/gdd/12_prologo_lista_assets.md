@@ -142,6 +142,37 @@ galinha** e o de Ícaro **com galinha**; quando a galinha volta, tudo volta ao n
 | `icaro_sorriso_galinha` | "...Obrigado, Nina." |
 | `custodia_triste_sem_galinha` | reserva: a Custódia não fala nesse trecho hoje, mas qualquer fala nova dela ali usa este |
 
+## 5c. Pedidos pós-teste da autora (16/11)
+
+### Poses do Ícaro (abertura do cafezal)
+| Pose (`icaro_poses`) | Descrição |
+|---|---|
+| `ler_livro` | De pé, livro aberto nas mãos, cabeça baixa, distraído (2 quadros: virar página) |
+| `susto_derruba_livro` | Pulo de susto, braços abertos, o livro escapando das mãos (1–2 quadros) |
+| `cesto_com_livro` | Parado, sem graça, olhando o cesto aos pés com o livro dentro (pode ser só objeto de mapa: cesto com livro) |
+
+### Retratos sem felicidade para a cena dos sobreviventes
+Os retratos `*_neutro` sorriem, então não servem para a noite no bambuzal. Até chegarem, essas
+falas estão sem retrato (ou com `*_triste`/`*_medo` quando existe).
+
+| Retrato | Para quê |
+|---|---|
+| `soldado_tenso` | "Alto! Quem vem lá?!" — lança erguida, olhos arregalados |
+| `sargento_tensa` | Interrogatório e ordens de marcha — cansada, séria, sem sorriso |
+| `sargento_triste` | "Sinto muito, garoto." — olhar baixo, sem sorriso |
+| `nina_triste` | "Toma. É rapadura." — olhos úmidos, tentando ser forte |
+| `custodia_choro` | "Ícaro! Ah, meu menino..." — alívio com lágrimas, galinha no ombro |
+| `sobrevivente_medo` | Para os figurantes, se ganharem fala com retrato |
+
+### Janelas (imagens ampliadas do interior)
+| Imagem | Conteúdo |
+|---|---|
+| `zoom_janela_laudelina` | Moldura de janela; dentro, manequim com vestido de noiva pela metade, alfinetes, fita métrica |
+| `zoom_janela_orlando` | Cama feita, sela no cavalete, retrato emoldurado de uma mula |
+| `zoom_janela_quim_quiteria` | Dois velhinhos de pijama apontando um para o outro; uma chave num prego ao lado da porta |
+| `zoom_janela_lindalva` | Mesa com panos dobrados, bacia de cobre, xícara de chá pela metade |
+| `zoom_janela_rosario` | Cestos de roupa limpa empilhados, ferro de brasa no fogão, uma camisola remendada num varal interno |
+
 ## 6. Música (laços originais; clima e instrumentos)
 
 Paleta única do jogo (decisão do autor): **violão dedilhado, marimba, flauta, celesta, cordas

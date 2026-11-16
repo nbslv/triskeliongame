@@ -25,7 +25,8 @@ export const ENTRADAS = {
 };
 
 /** Movimentos que atravessam sólidos de propósito (ex.: o pai empurra Ícaro). Formato mapa:roteiro:ator. */
-const ISENTOS = new Set([]);
+// Tonho já correu até (36,8) em prologo_07_estrada antes de prologo_07b; o validador não encadeia roteiros
+const ISENTOS = new Set(['prologo_estrada:prologo_07b_estrada_fugitivos:tonho']);
 const props = (o) => Object.fromEntries((o.properties ?? []).map((p) => [p.name, p.value]));
 const tipo = (o, camada) => ((o.type || o.class || '') || (camada === 'markers' ? 'marcador' : '')).toLowerCase();
 
@@ -178,6 +179,13 @@ export function validar() {
                 if (tx < 0 || ty < 0 || tx >= mapa.m.width || ty >= mapa.m.height || mapa.bloq[ty * mapa.m.width + tx]) continue;
                 lados.push({ x: tx * 16 + 8, y: ty * 16 + 15 });
               }
+              if (lados.length) posicoes.set('icaro', { lados });
+            }
+            // gatilho de toque em retângulo grande (várias entradas): vale se ao menos um tile livre do retângulo tiver linha reta livre
+            if (x.t === 'gatilho' && x.o.width > 16 && String(x.p.activation ?? 'touch') !== 'load' && String(x.p.activation ?? '') !== 'interact') {
+              const r = rectTiles(x.o, 0);
+              const lados = [];
+              for (let ty = r.y0; ty <= r.y1; ty++) for (let tx = r.x0; tx <= r.x1; tx++) if (!mapa.bloq[ty * mapa.m.width + tx]) lados.push({ x: tx * 16 + 8, y: ty * 16 + 15 });
               if (lados.length) posicoes.set('icaro', { lados });
             }
           }

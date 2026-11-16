@@ -1,0 +1,8 @@
+{
+  "id": "prologo_janela_lindalva",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Pela janela da Dona Lindalva: panos fervidos dobrados na mesa, uma bacia de cobre e uma xícara de chá esquecida pela metade."},
+    {"type": "say", "speaker": "icaro", "text": "(Saiu com pressa. Alguém de Valesol nasce hoje.)"},
+    {"type": "end"}
+  ]
+}

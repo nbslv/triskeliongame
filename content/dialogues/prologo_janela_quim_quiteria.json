@@ -1,0 +1,8 @@
+{
+  "id": "prologo_janela_quim_quiteria",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Pela janela: Seu Quim e Dona Quitéria, de pijama, apontando um para o outro. A chave está pendurada num prego, do lado da porta."},
+    {"type": "say", "speaker": "icaro", "text": "(A chave tá bem ali. Nenhum dos dois vai admitir que viu.)"},
+    {"type": "end"}
+  ]
+}

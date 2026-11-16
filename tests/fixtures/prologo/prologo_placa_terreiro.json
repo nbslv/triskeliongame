@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_terreiro",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Rua do Terreiro. Devagar: galinhas têm a preferência.'"},
+    {"type": "end"}
+  ]
+}

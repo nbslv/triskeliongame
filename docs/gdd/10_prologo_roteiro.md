@@ -107,8 +107,10 @@ a mãe na biblioteca; as três espirais; a luz que piscou. Tudo volta.
 `prologo_03b_pe_verde`, `prologo_04_zefa`, `prologo_05_livro`, `prologo_06_colheita_fim`.
 
 **Imagem.** Luz dourada de fim de tarde, fileiras de pés de café em morro suave, frutos
-vermelhos. Ícaro está sentado num toco, lendo, com o cesto vazio do lado. Tonho grita o nome
-dele; Ícaro esconde o livro no cesto (animação `esconder_livro`).
+vermelhos. Ícaro está **de pé entre dois pés de café**, distraído, lendo, com o cesto vazio aos
+pés. Tonho grita o nome dele; Ícaro se assusta e o livro **cai direto dentro do cesto** (poses
+pedidas à arte: `ler_livro` → `susto_derruba_livro` → `cesto_com_livro`; até chegarem, usa
+`esconder_livro` + `livro_fechando` + `cesto_balanca` e uma linha de narração).
 
 **Jogabilidade — a colheita (prévia leve do "treino de força"):**
 1. **Andar:** ir até o Tonho (marcador `marcador_cafezal_tonho`).
@@ -408,3 +410,18 @@ centro da tela. Passos de roteiro (implementados pelo motor; ver `docs/tecnico/D
   acima do mapa e abaixo da caixa de diálogo. Não bloqueia: as falas seguintes correm por cima.
 - `hide`: some com a imagem (fade curto). Ao fim do roteiro, o motor esconde sozinho.
 - Lista de imagens e onde cada uma entra: `12_prologo_lista_assets.md`, seção 5b.
+
+## Ajustes pós-teste da autora (16/11)
+
+- **Cafezal:** Ícaro lendo de pé; o livro cai no cesto com o susto (ver Cena 1).
+- **Pai:** Lucian "vai ser um bom mentor pra você" (antes: "mestre").
+- **Colar:** logo antes de Toucim gritar, o colar brilha de novo (`brilho_colar`, pose
+  `colar_brilho`, `zoom_colar_brilho` por ~1 s) e a fala vira "Viram aquele brilho? Tem luz
+  naquela casa!". Assim o jogador entende o que os Caligosuins viram.
+- **Sobreviventes:** nenhum retrato feliz. Os `*_neutro` sorriem; até a arte entregar as
+  expressões tensas, sargento, soldado e Nina falam sem retrato, e Ícaro, Custódia e Tonho usam
+  `*_triste`/`*_medo`.
+- **Galinha:** `anim normal` + `face` logo que Ícaro solta a Pamonha; nenhum retrato com galinha
+  depois disso.
+- **Estrada:** Tonho chama Ícaro e corre na frente até o ponto do encontro com os fugitivos.
+- **Placas e janelas:** roteiros `prologo_placa_*` e `prologo_janela_*` (lista em `11`).

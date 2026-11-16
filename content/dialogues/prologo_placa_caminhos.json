@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_caminhos",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'← Cafezal dos Prado.  → Estrada da Capital: três dias a pé, dois de carroça, um se a mula quiser.'"},
+    {"type": "end"}
+  ]
+}

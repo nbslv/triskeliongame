@@ -1,0 +1,8 @@
+{
+  "id": "prologo_janela_rosario",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Pela janela da Dona Rosário: cestos de roupa limpa até o teto, um ferro de brasa no fogão e, num varal de dentro, uma única camisola remendada."},
+    {"type": "say", "speaker": "icaro", "text": "(Lava a roupa da vila inteira. A dela fica pra depois.)"},
+    {"type": "end"}
+  ]
+}

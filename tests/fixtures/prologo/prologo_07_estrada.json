@@ -2,6 +2,9 @@
   "id": "prologo_07_estrada",
   "steps": [
     {"type": "fade", "to": "clear", "ms": 500},
+    {"type": "face", "actor": "tonho", "to": "icaro"},
+    {"type": "say", "speaker": "tonho", "portrait": "tonho_medo", "text": "Corre, Ícaro! Pela estrada é mais rápido!"},
+    {"type": "move", "actor": "tonho", "to": [36, 8], "speed": "run", "wait": false},
     {"type": "say", "speaker": "tutorial", "text": "Segure B para correr."},
     {"type": "end"}
   ]

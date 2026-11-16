@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_biblioteca",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Biblioteca de Valesol. Entrada livre. Silêncio obrigatório. Limpe os pés.'"},
+    {"type": "end"}
+  ]
+}

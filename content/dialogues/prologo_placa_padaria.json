@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_padaria",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Padaria do Seu Juca. Pão quente às seis. Pão de ontem para quem chega às sete.'"},
+    {"type": "end"}
+  ]
+}
