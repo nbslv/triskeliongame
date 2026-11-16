@@ -285,6 +285,8 @@ for (const [casa, sala] of [['saida_padaria', 'prologo_padaria'], ['saida_custod
     await entrarNaZona(sala, 'saida_porta');
     await wait(1200);
     check((await state()).map === 'prologo_vila_manha', `voltou da ${sala}`);
+    await wait(2500);
+    check((await state()).map === 'prologo_vila_manha', `não reentrou em ${sala} (sem loop de porta)`);
   }
 }
 // portão da vila → cafezal
