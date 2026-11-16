@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_armazem",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Armazém Prado. Proibida a entrada de pessoas não autorizadas.' Embaixo, alguém riscou a giz: 'ou seja, quase todo mundo'."},
+    {"type": "end"}
+  ]
+}

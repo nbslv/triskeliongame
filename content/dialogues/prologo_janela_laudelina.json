@@ -1,0 +1,8 @@
+{
+  "id": "prologo_janela_laudelina",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Pela janela da Dona Laudelina: um manequim com um vestido de noiva pela metade, cheio de alfinetes, e uma fita métrica no pescoço."},
+    {"type": "say", "speaker": "icaro", "text": "(A filha do seu Orlando casa no mês que vem. Metade da vila já sabe a cor da renda.)"},
+    {"type": "end"}
+  ]
+}

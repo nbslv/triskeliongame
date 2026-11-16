@@ -1,0 +1,10 @@
+{
+  "id": "prologo_placa_avisos",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "Quadro de avisos da praça."},
+    {"type": "say", "speaker": "narrador", "text": "'Sumiu uma cabra marrom. Atende por Dona. Não atende por mais nada.'"},
+    {"type": "say", "speaker": "narrador", "text": "'Aula de leitura com Dona Ermelinda, quinta à tarde. De graça. Traga o pé limpo.'"},
+    {"type": "say", "speaker": "narrador", "text": "'Festa da Colheita adiada: a colheita ainda não acabou.'"},
+    {"type": "end"}
+  ]
+}
