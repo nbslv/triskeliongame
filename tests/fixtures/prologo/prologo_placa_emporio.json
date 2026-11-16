@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_emporio",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Empório Prado. Secos, molhados e importados da capital. Preço de capital também.'"},
+    {"type": "end"}
+  ]
+}

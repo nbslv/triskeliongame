@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_chafariz",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Praça do Chafariz. Proibido lavar roupa no chafariz.' — Assinado: todos que já beberam dessa água."},
+    {"type": "end"}
+  ]
+}

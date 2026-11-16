@@ -45,7 +45,7 @@ checkpoints, patrulhas, examináveis).
 ### `prologo_cafezal`
 | Marcador | Uso |
 |---|---|
-| `marcador_cafezal_inicio` | Posição inicial de Ícaro (sentado no toco) |
+| `marcador_cafezal_inicio` | Posição inicial de Ícaro: **de pé entre duas fileiras de café**, com o cesto ao lado |
 | `marcador_cafezal_tonho` | Tonho parado (destino do 1º tutorial) |
 | `marcador_cafezal_balanca` | Onde Ícaro para em frente à balança |
 | `marcador_cafezal_balanca_tonho` | Onde Tonho para ao lado dele |
@@ -129,7 +129,7 @@ checkpoints, patrulhas, examináveis).
 | `npc_zefa` | cafezal | `prologo_04_zefa`; com `prologo.colheita_completa` → `prologo_06_colheita_fim` |
 | `pe_cafe_maduro_1`…`5` | cafezal | `prologo_03_pe_de_cafe` (+1 no contador; some o brilho) |
 | `pe_cafe_verde_1`…`3` | cafezal | `prologo_03b_pe_verde` |
-| `cesto_icaro` | cafezal, ao lado do toco | `prologo_05_livro` |
+| `cesto_icaro` | cafezal, aos pés de Ícaro (onde o livro caiu) | `prologo_05_livro` |
 | `barril_custodia` | vila, Rua do Terreiro | `prologo_11_custodia` (também funciona como esconderijo) |
 | `exame_biblioteca`, `exame_chafariz`, `exame_padaria`, `exame_saca_cafe` | vila | `prologo_exame_*` |
 | `exame_retrato`, `exame_colchao` | casa | `prologo_exame_retrato`, `prologo_exame_colchao` |
@@ -168,6 +168,42 @@ a sessão de mapas ajusta à porta real.
 
 Na vila **em chamas** (`prologo_vila`) estes objetos não existem (`requires`/`unless` ou mapa
 separado): à noite não se examina porta, só se foge.
+
+## Placas (`prologo_vila_manha`) — pedido pós-teste
+
+Objeto `examinar` (ou gatilho `interact`) de 1 tile na placa, `once: false`. Posições
+aproximadas pela captura do mapa; ajustar à placa real. **Não existem na vila em chamas.**
+
+| Objeto | Posição aprox. (tile) | `dialogue` | Texto |
+|---|---|---|---|
+| `placa_entrada` | portão, (64, 9) | `prologo_placa_entrada` | "Bem-vindo a Valesol, onde o sol nasce primeiro e o café, logo depois." |
+| `placa_caminhos` | perto do portão, do lado de dentro, (62, 11) | `prologo_placa_caminhos` | Direções: cafezal e capital ("um dia, se a mula quiser") |
+| `placa_padaria` | fachada da padaria, (31, 31) | `prologo_placa_padaria` | Pão quente às seis; pão de ontem às sete |
+| `placa_biblioteca` | fachada da biblioteca, (37, 8) | `prologo_placa_biblioteca` | Entrada livre, silêncio, limpe os pés |
+| `placa_emporio` | fachada do Empório, (60, 6) | `prologo_placa_emporio` | Secos, molhados, importados... e preço de capital |
+| `placa_armazem` | portão do armazém, (60, 21) | `prologo_placa_armazem` | "Proibida a entrada..." e o giz: "ou seja, quase todo mundo" |
+| `placa_chafariz` | borda da praça, (35, 17) | `prologo_placa_chafariz` | Proibido lavar roupa no chafariz |
+| `placa_terreiro` | início da Rua do Terreiro, (38, 34) | `prologo_placa_terreiro` | Galinhas têm a preferência |
+| `placa_avisos` | quadro de avisos na praça, (42, 14) | `prologo_placa_avisos` | Cabra sumida, aula de leitura, festa adiada |
+
+## Janelas (`prologo_vila_manha`) — pedido pós-teste
+
+Objeto `examinar` de 1 tile **na janela** (ao lado da porta), `once: false`. Mostram o interior
+visto de fora. Quando a arte entregar `zoom_janela_<casa>`, os roteiros ganham `show`.
+
+| Objeto | Posição aprox. (tile) | `dialogue` | O que se vê |
+|---|---|---|---|
+| `janela_laudelina` | (27, 7), à esquerda da porta | `prologo_janela_laudelina` | Manequim com vestido de noiva pela metade, alfinetes, fita métrica |
+| `janela_orlando` | (42, 7) | `prologo_janela_orlando` | Cama feita, sela no cavalete, retrato da mula |
+| `janela_quim_quiteria` | (50, 7) | `prologo_janela_quim_quiteria` | Os dois de pijama discutindo; a chave no prego ao lado da porta |
+| `janela_lindalva` | (48, 18) | `prologo_janela_lindalva` | Panos fervidos, bacia de cobre, xícara de chá pela metade |
+| `janela_rosario` | (39, 31) | `prologo_janela_rosario` | Cestos de roupa limpa, ferro de brasa, uma camisola remendada |
+
+## Estrada: Tonho corre na frente (pedido pós-teste)
+
+`prologo_07_estrada` agora vira Tonho para Ícaro, ele grita "Corre, Ícaro!" e corre
+(`wait:false`) até [36, 8], perto do gatilho dos fugitivos. **Para os mapas:** o `npc` `tonho`
+em `prologo_estrada` deve começar **ao lado da entrada de Ícaro** (≈ (56, 8)), e não em (40, 8).
 
 ## Falas padrão dos moradores
 

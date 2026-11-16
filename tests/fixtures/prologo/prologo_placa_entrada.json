@@ -1,0 +1,7 @@
+{
+  "id": "prologo_placa_entrada",
+  "steps": [
+    {"type": "say", "speaker": "narrador", "text": "'Bem-vindo a Valesol, onde o sol nasce primeiro e o café, logo depois.'"},
+    {"type": "end"}
+  ]
+}
