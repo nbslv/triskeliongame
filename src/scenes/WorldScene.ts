@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
+import { makeText } from '../ui/text';
 import {
+  COLORS,
   DEPTH,
   GAME_HEIGHT,
   GAME_WIDTH,
@@ -122,6 +124,8 @@ export class WorldScene extends Phaser.Scene {
     this.hides = [];
     this.checkpoints = [];
     this.inspects = [];
+    this.hudText = null;
+    this.hudArrow = null;
     this.lockedDoors = [];
     this.glows = new Map();
     this.dark = null;
@@ -509,6 +513,91 @@ export class WorldScene extends Phaser.Scene {
     return null;
   }
 
+  // ------------- HUD de objetivo (contador + seta) -------------
+
+  private hudText: Phaser.GameObjects.Text | null = null;
+  private hudArrow: Phaser.GameObjects.Graphics | null = null;
+
+  /**
+   * Examináveis com `counter` + `counter_goal` (ex.: a colheita) ganham, sozinhos, um contador no topo
+   * da tela ("Café colhido: 2/5") e uma seta para o próximo ainda não usado (menor `ordem`, senão o mais
+   * perto). Some com o objetivo cumprido (`counter_flag`), durante cutscenes e se `hud_if` for falso.
+   * Rótulo: `counter_label` (padrão: última parte do nome do contador).
+   */
+  private objectiveGroup(): { label: string; n: number; goal: number; next: Zone | null } | null {
+    const zs = this.inspects.filter((z) => str(z.p.counter ?? z.p.contador) && num(z.p.counter_goal ?? z.p.contador_meta, 0) > 0);
+    if (!zs.length) return null;
+    const p = zs[0]!.p;
+    const counter = str(p.counter ?? p.contador)!;
+    const done = str(p.counter_flag ?? p.contador_flag);
+    if (done && flags.isSet(done)) return null;
+    const hudIf = str(p.hud_if ?? p.hud_se);
+    if (hudIf && !evaluateCondition(hudIf, flags)) return null;
+    if (!this.conditionsMet(p)) return null;
+    const goal = num(p.counter_goal ?? p.contador_meta, 0);
+    const n = Number(flags.get(counter) ?? 0) || 0;
+    if (n >= goal) return null;
+    const last = counter.split('.').pop() ?? counter;
+    const label = str(p.counter_label ?? p.contador_rotulo) ?? last.charAt(0).toUpperCase() + last.slice(1).replace(/_/g, ' ');
+    const left = zs.filter((z) => z.p.counter === counter && !flags.isSet(this.usedFlag(z)));
+    const ord = (z: Zone) => num(z.p.ordem ?? z.p.order, Infinity);
+    const dist = (z: Zone) => Math.hypot(z.rect.x + z.rect.w / 2 - this.player.x, z.rect.y + z.rect.h / 2 - this.player.y);
+    left.sort((a, b) => ord(a) - ord(b) || dist(a) - dist(b));
+    return { label, n, goal, next: left[0] ?? null };
+  }
+
+  private updateObjectiveHud(time: number): void {
+    const o = director.active || this.transitioning ? null : this.objectiveGroup();
+    if (!o) {
+      this.hudText?.setVisible(false);
+      this.hudArrow?.clear();
+      return;
+    }
+    if (!this.hudText) {
+      this.hudText = makeText(this, 8, 6, '', 18, COLORS.text).setScrollFactor(0).setDepth(DEPTH.overlay - 2);
+      this.hudText.setBackgroundColor('#0b0a12aa').setPadding(6, 2, 6, 2);
+      this.hudArrow = this.add.graphics().setScrollFactor(0).setDepth(DEPTH.overlay - 2);
+    }
+    const hud = this.hudText;
+    hud.setText(`${o.label}: ${o.n}/${o.goal}`).setVisible(true);
+    const g = this.hudArrow!;
+    g.clear();
+    if (!o.next) return;
+    const cam = this.cameras.main;
+    const tx = o.next.rect.x + o.next.rect.w / 2 - cam.worldView.x;
+    const ty = o.next.rect.y - cam.worldView.y;
+    const pulse = 0.6 + 0.4 * Math.sin(time / 180);
+    g.fillStyle(0xe8b04a, pulse);
+    g.lineStyle(1, 0x0b0a12, pulse);
+    const m = 18;
+    if (tx >= m && tx <= GAME_WIDTH - m && ty >= m && ty <= GAME_HEIGHT - m) {
+      // Na tela: seta para baixo pulando sobre o alvo.
+      const y = ty - 6 + Math.sin(time / 160) * 3;
+      g.fillTriangle(tx - 6, y - 10, tx + 6, y - 10, tx, y);
+      g.strokeTriangle(tx - 6, y - 10, tx + 6, y - 10, tx, y);
+      return;
+    }
+    // Fora da tela: seta na borda apontando para o alvo.
+    const cx = GAME_WIDTH / 2;
+    const cy = GAME_HEIGHT / 2;
+    const ang = Math.atan2(ty - cy, tx - cx);
+    const k = Math.min((cx - m) / Math.abs(Math.cos(ang) || 1e-6), (cy - m) / Math.abs(Math.sin(ang) || 1e-6));
+    const ex = cx + Math.cos(ang) * k;
+    const ey = cy + Math.sin(ang) * k;
+    const pt = (r: number, a: number) => [ex + Math.cos(ang + a) * r, ey + Math.sin(ang + a) * r] as const;
+    const [ax, ay] = pt(9, 0);
+    const [bx, by] = pt(8, 2.4);
+    const [ccx, ccy] = pt(8, -2.4);
+    g.fillTriangle(ax, ay, bx, by, ccx, ccy);
+    g.strokeTriangle(ax, ay, bx, by, ccx, ccy);
+  }
+
+  /** Estado do HUD (para testes). */
+  hudState(): { text: string; next: string | null } | null {
+    const o = this.objectiveGroup();
+    return o && !director.active ? { text: `${o.label}: ${o.n}/${o.goal}`, next: o.next?.obj.name ?? null } : null;
+  }
+
   isSolid(x: number, y: number): boolean {
     for (const l of this.collisionLayers) {
       const t = l.getTileAtWorldXY(x, y);
@@ -533,6 +622,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateAnimatedTiles(time);
     const cutscene = director.active;
     this.drawDarkness();
+    this.updateObjectiveHud(time);
     if (!cutscene && !this.transitioning) {
       session.playtimeMs += delta;
       this.exploreMs += delta;

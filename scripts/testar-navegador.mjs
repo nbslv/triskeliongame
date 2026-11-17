@@ -523,6 +523,24 @@ await goMap('teste', 'inicio');
   check(r2.end === null, 'fim do roteiro esconde o objeto ampliado');
 }
 
+// HUD de objetivo no cafezal: contador da colheita + seta para o próximo pé maduro
+await goMap('prologo_cafezal');
+await waitCutsceneEnd(80);
+{
+  const h0 = await evalWorld('return w.hudState();');
+  check(!!h0 && /: 0\/5$/.test(h0.text) && h0.next === 'pe_cafe_maduro_1', `HUD da colheita aparece (${JSON.stringify(h0)})`);
+  await page.screenshot({ path: `${OUT}/14-hud-colheita.png` });
+  const h1 = await evalWorld(`const z = w.inspects.find((i) => i.obj.name === 'pe_cafe_maduro_1');
+    window.__TRISKELION_FLAGS__.set(w.usedFlag(z), true); window.__TRISKELION_FLAGS__.add('prologo.colheita', 1);
+    return w.hudState();`);
+  check(!!h1 && /: 1\/5$/.test(h1.text) && h1.next === 'pe_cafe_maduro_2', `HUD conta e aponta o próximo pé (${JSON.stringify(h1)})`);
+  await wait(100);
+  const h2 = await evalWorld("window.__TRISKELION_FLAGS__.set('prologo.colheita_completa', true); return w.hudState();");
+  await wait(100);
+  const vis = await evalWorld('return !!w.hudText && w.hudText.visible;');
+  check(h2 === null && !vis, 'HUD some com a colheita completa');
+}
+
 // Músicas: carregadas sob demanda, com laço do manifesto (tema_lenda toca uma vez)
 {
   const r = await page.evaluate(async () => {

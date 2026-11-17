@@ -147,6 +147,15 @@ Cada interior é um mapa próprio (`content/maps/<casa>.json`), pequeno, com uma
 Exemplo completo: `content/maps/teste_casa.json` (dois cômodos, moradora, retrato, baú com `alt_dialogue`),
 ligado à casa de `teste.json` (porta trancada até falar com o aldeão).
 
+## HUD de objetivo (contador + seta)
+
+Examináveis com `counter` + `counter_goal` (ex.: os pés maduros da colheita) ganham sozinhos um contador no
+topo da tela e uma seta pulsando sobre o próximo ainda não usado (ou na borda da tela, apontando para ele).
+- `counter_label`: texto do contador (ex.: `"Café colhido"` → "Café colhido: 2/5"). Padrão: última parte do nome do contador.
+- `ordem`: ordem sugerida (a seta vai no menor `ordem` restante; sem `ordem`, no mais perto).
+- `hud_if`: condição opcional para mostrar o HUD (ex.: só depois do tutorial).
+O HUD some durante cutscenes e quando `counter_flag` é marcada.
+
 ## Exemplo
 
 `content/maps/teste.json` (gerado por `scripts/gerar-mapas-teste.mjs`) tem um NPC, um Caligosuin patrulhando
