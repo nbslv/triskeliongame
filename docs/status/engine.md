@@ -238,6 +238,22 @@ Os outros roteiros que terminam escuros são intencionais e corretos, porque o p
     3× cada, e força a chegada dentro e na borda da porta. Sem a proteção, esse teste entra em laço (conferido).
 - `window.__TRISKELION_INPUT__` exposto para testes.
 
+## Ciclo 12 — A/B no toque real, HUD da colheita, atores de roteiro
+
+- **A/B (d469fc4):** não reproduzi a falha. Emulei iPhone 13 e Pixel 7 em paisagem, dentro de iframe, com toques CDP nos
+  botões desenhados, com e sem senha e saves. Mesmo assim, endureci os pontos frágeis:
+  - todo pressionamento novo conta (um pointerup/keyup perdido não trava mais o botão);
+  - o botão escolhido é o mais próximo, com folga de 14 px;
+  - `pointerdown` é capturado na janela (um elemento por cima do canvas não engole o toque);
+  - há fallback de touch events para navegadores sem Pointer Events.
+  Diagnóstico: abra o jogo com **`?toque`** na URL. O topo mostra onde cai cada toque, o tipo do ponteiro, qual botão
+  acertou e a contagem de A/B/☰. O teste realista está em `testar-titulo.mjs`.
+- **Atores de roteiro (7195fd2):** um NPC cujo id é personagem com nome em characters.json (não figurante `_N`), sem
+  `dialogue`, não usa a fala padrão nem é interagível.
+- **HUD de objetivo (a6c166d):** automático para examináveis com `counter` + `counter_goal`. Mostra o contador no topo e
+  uma seta para o próximo item (menor `ordem`, senão o mais perto). Propriedades em MAPAS.md.
+  - **Pedido aos mapas:** pôr `counter_label: "Café colhido"` nos pés maduros. Sem isso, o rótulo é "Colheita".
+
 ## Decisões
 
 - **Senha**: `VITE_GAME_PASSWORD` é lida no `vite.config.ts`, que embute só o **SHA-256** (o texto não vai
