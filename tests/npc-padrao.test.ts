@@ -44,3 +44,13 @@ describe('período do dia (flags periodo.*)', () => {
     expect(currentPeriod()).toBe('noite');
   });
 });
+
+import { isNamedCharacter } from '../src/content';
+describe('atores de roteiro', () => {
+  it('personagens com nome não caem na fala padrão; figurantes numerados sim', () => {
+    expect(isNamedCharacter('tonho')).toBe(true);
+    expect(isNamedCharacter('pai')).toBe(true);
+    expect(isNamedCharacter('soldado_1')).toBe(false);
+    expect(isNamedCharacter('galinha_1')).toBe(false);
+  });
+});

@@ -114,6 +114,14 @@ export function setRuntimeName(id: string, name: string): void {
   runtimeNames.set(id, name);
 }
 
+/**
+ * Personagem com nome próprio (id em characters.json que não é figurante numerado como `soldado_1`).
+ * Esses atores de roteiro nunca usam a fala padrão nem o nome genérico.
+ */
+export function isNamedCharacter(id: string): boolean {
+  return characters.has(id) && !/_\d+$/.test(id);
+}
+
 export function characterName(id: string | undefined): string {
   if (!id) return '';
   const rt = runtimeNames.get(id);

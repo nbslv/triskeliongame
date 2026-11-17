@@ -16,7 +16,7 @@ import { evaluateCondition, flags } from '../core/flags';
 import { input } from '../core/input';
 import { session } from '../core/session';
 import { currentPeriod, setPeriod } from '../core/period';
-import { SPRITE_ALIASES, characterName, characterSprite, gameConfig, maps, setRuntimeName } from '../content';
+import { SPRITE_ALIASES, characterName, characterSprite, gameConfig, isNamedCharacter, maps, setRuntimeName } from '../content';
 import { director, resolveScript } from '../systems/dialogue/director';
 import { runActivity } from '../systems/activity/registry';
 import type { Target } from '../systems/dialogue/types';
@@ -606,6 +606,8 @@ export class WorldScene extends Phaser.Scene {
     let bestD = 14;
     for (const n of this.npcs) {
       if (!n.actor.sprite.active) continue;
+      // Ator de roteiro (personagem com nome) sem `dialogue` próprio: não é interagível.
+      if (!this.dialogueFor(n.p) && isNamedCharacter(n.actor.id)) continue;
       const d = Phaser.Math.Distance.Between(px, py, n.actor.x, n.actor.y - 4);
       if (d < bestD) {
         bestD = d;
