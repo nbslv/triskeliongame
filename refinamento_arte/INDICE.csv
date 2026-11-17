@@ -89,6 +89,7 @@ sprites/caixa_costura__48x16.png,48x16,16x16,assets/sprites/caixa_costura.png,co
 sprites/cali_poses__176x24.png,176x24,16x24,assets/sprites/cali_poses.png,copiado
 sprites/cali_soldado__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/cali_soldado.png,copiado
 sprites/caligosuin__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/caligosuin.png,copiado
+sprites/cesto_livro__16x16.png,16x16,16x16,assets/sprites/cesto_livro.png,mantido (editado)
 sprites/custodia__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/custodia.png,copiado
 sprites/ermelinda__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/ermelinda.png,copiado
 sprites/ermelinda_poses__32x24.png,32x24,16x24,assets/sprites/ermelinda_poses.png,copiado
@@ -98,7 +99,7 @@ sprites/fx_fogo_negro__48x32.png,48x32,16x32,assets/sprites/fx_fogo_negro.png,co
 sprites/fx_fumaca__48x32.png,48x32,16x32,assets/sprites/fx_fumaca.png,copiado
 sprites/galinha__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/galinha.png,copiado
 sprites/icaro__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/icaro.png,copiado
-sprites/icaro_poses__432x24.png,432x24,16x24,assets/sprites/icaro_poses.png,copiado
+sprites/icaro_poses__512x24.png,512x24,16x24,assets/sprites/icaro_poses.png,mantido (editado)
 sprites/juca__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/juca.png,copiado
 sprites/nina__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/nina.png,copiado
 sprites/pai__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/pai.png,copiado
@@ -114,9 +115,9 @@ sprites/toucim__64x128.png,64x128,16x32,assets/sprites/toucim.png,copiado
 sprites/toucim_poses__64x32.png,64x32,16x32,assets/sprites/toucim_poses.png,copiado
 sprites/zefa__64x96.png,64x96,"16x24 (4 linhas x 3-4 colunas, padrão)",assets/sprites/zefa.png,copiado
 tilesets/placeholder__128x32.png,128x32,16x16 (tile),assets/tilesets/placeholder.png,copiado
-tilesets/tiles_exterior__256x480.png,256x480,16x16 (tile),assets/tilesets/tiles_exterior.png,copiado
-tilesets/tiles_exterior_noite__256x480.png,256x480,16x16 (tile),assets/tilesets/tiles_exterior_noite.png,copiado
-tilesets/tiles_exterior_tarde__256x480.png,256x480,16x16 (tile),assets/tilesets/tiles_exterior_tarde.png,copiado
+tilesets/tiles_exterior__256x496.png,256x496,16x16 (tile),assets/tilesets/tiles_exterior.png,mantido (editado)
+tilesets/tiles_exterior_noite__256x496.png,256x496,16x16 (tile),assets/tilesets/tiles_exterior_noite.png,mantido (editado)
+tilesets/tiles_exterior_tarde__256x496.png,256x496,16x16 (tile),assets/tilesets/tiles_exterior_tarde.png,mantido (editado)
 tilesets/tiles_fogo__192x96.png,192x96,16x16 (tile),assets/tilesets/tiles_fogo.png,copiado
 tilesets/tiles_interior__256x208.png,256x208,16x16 (tile),assets/tilesets/tiles_interior.png,copiado
 tilesets/tiles_interior_noite__256x208.png,256x208,16x16 (tile),assets/tilesets/tiles_interior_noite.png,copiado

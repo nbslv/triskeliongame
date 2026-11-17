@@ -447,6 +447,11 @@ def montar():
     s.add('fogueira_apagada', V.fogueira(False), 'Fogueira coberta apagada.', col=True)
     s.add('trouxa', V.trouxa(0), 'Trouxa de roupa.', col=True)
     s.add('cobertor', V.trouxa(1), 'Cobertor enrolado.')
+
+    s.section('Acréscimos (pedidos pós-teste)')
+    ck = V.cesto()
+    ck.rect(5, 2, 7, 5, OUT).rect(6, 3, 5, 3, '#a52a33').rect(6, 3, 5, 1, '#c8545a').px(10, 5, '#f6f0e0')
+    s.add('cesto_livro', ck, 'Cesto de colheita com o livro do Ícaro caído dentro (abertura do cafezal).', col=True)
     return s
 
 

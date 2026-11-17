@@ -2,10 +2,10 @@
  "name": "tiles_exterior_noite",
  "image": "../../assets/tilesets/tiles_exterior_noite.png",
  "imagewidth": 256,
- "imageheight": 480,
+ "imageheight": 496,
  "tilewidth": 16,
  "tileheight": 16,
- "tilecount": 480,
+ "tilecount": 496,
  "columns": 16,
  "margin": 0,
  "spacing": 0,
@@ -1652,6 +1652,16 @@
   },
   {
    "id": 466,
+   "properties": [
+    {
+     "name": "collides",
+     "type": "bool",
+     "value": true
+    }
+   ]
+  },
+  {
+   "id": 480,
    "properties": [
     {
      "name": "collides",
