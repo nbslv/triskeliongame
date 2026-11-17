@@ -86,7 +86,7 @@ Os índices não mudam: tiles novos entram sempre **no fim** de cada tileset. Se
 
 ## `tiles_exterior`
 
-- Arquivo: `assets/tilesets/tiles_exterior.png` — 256×480 px, **16 colunas**, 480 tiles.
+- Arquivo: `assets/tilesets/tiles_exterior.png` — 256×496 px, **16 colunas**, 496 tiles.
 - Variações de luz com os **mesmos índices**: `tiles_exterior_tarde`, `tiles_exterior_noite`.
 - Tileset pronto para embutir: `docs/arte/tilesets/tiles_exterior.json` · nomes → índices: `docs/arte/tilesets/tiles_exterior.indices.json`.
 - Prancha ampliada: ![tiles_exterior](tilesets/tiles_exterior_prancha.png)
@@ -278,6 +278,12 @@ Objetos sólidos servem de esconderijo com um objeto `esconderijo` (retângulo) 
 | `fogueira_apagada` | **465** | 1×1 | sim | Fogueira coberta apagada. |
 | `trouxa` | **466** | 1×1 | sim | Trouxa de roupa. |
 | `cobertor` | **467** | 1×1 | — | Cobertor enrolado. |
+
+### Acréscimos (pedidos pós-teste)
+
+| Nome | Índices | Tam. | Sólido | Uso |
+|---|---|---|---|---|
+| `cesto_livro` | **480** | 1×1 | sim | Cesto de colheita com o livro do Ícaro caído dentro (abertura do cafezal). |
 
 ---
 

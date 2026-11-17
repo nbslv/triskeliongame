@@ -77,7 +77,7 @@ def fundo_titulo():
         w = 11 + (k % 3) * 2
         c.rect(x, y, w, 9, '#2b2244').rect(x - 1, y - 4, w + 2, 4, '#3d2f55')
         c.rect(x + 2 + (k % 2) * 4, y + 3, 2, 3, '#ffd98a')
-    c.rect(326, 232, 5, 22, '#2b2244').rect(325, 228, 7, 4, '#3d2f55').px(328, 236, '#ffe27a')
+    # (Valesol não tem torre)
     for k in range(4):                                     # fumaça branca de chaminé (manhã/tarde em paz)
         c.ell(262 + k * 2, 240 - k * 6, 2 + k * 0.7, 1.6 + k * 0.5, '#6a5a8580')
     # árvores e bambus em silhueta na frente

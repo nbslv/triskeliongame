@@ -116,7 +116,7 @@ def boneco(s, d='down', f=0, pose=None):
         TH, LH, FH = 5, 0, 1
     if pose in ('colher', 'erguer', 'erguer2', 'alerta'):
         bra = 'cima'
-    if pose in ('conjurar', 'conjurar2', 'brilho', 'brilho2', 'colar', 'colar2', 'segurar', 'livro', 'beber', 'caixa', 'entregar', 'varrer', 'carimbar', 'empurrar', 'galinha', 'galinha2', 'galinha_sentado', 'galinha_sentado2'):
+    if pose in ('conjurar', 'conjurar2', 'brilho', 'brilho2', 'colar', 'colar2', 'segurar', 'livro', 'beber', 'caixa', 'entregar', 'varrer', 'carimbar', 'empurrar', 'galinha', 'galinha2', 'galinha_sentado', 'galinha_sentado2', 'ler', 'ler2'):
         bra = 'frente'
     hy = 23 - (10 + TH + LH + FH) + bob + (1 if pose in ('encolhido', 'erguer2') else 0)
     by = hy + 10
@@ -247,7 +247,7 @@ def boneco(s, d='down', f=0, pose=None):
     if d == 'down':
         c.rect(4, hy + 3, 8, 6, pele).rect(5, hy + 9, 6, 1, pele).rect(3, hy + 4, 1, 4, pele).rect(12, hy + 4, 1, 4, pele)
         c.rect(5, hy + 9, 6, 1, pele_e)
-        fechado = pose in ('sentado_fechado', 'encolhido')
+        fechado = pose in ('sentado_fechado', 'encolhido', 'ler', 'ler2', 'olhar_baixo')
         for x in (5, 10):
             if fechado:
                 c.px(x, hy + 7, OLHO)
@@ -321,6 +321,13 @@ def boneco(s, d='down', f=0, pose=None):
             c.px(0, by + 3 - r2, '#e8884a').px(1, by + 3 - r2, OLHO).px(3, by + 5, ge).rect(3, by + 4, 2, 1, pele)
         else:
             c.px(3, by + 4 - r2, gb).px(12, by + 3 - r2, gb).px(12, by + 4 - r2, ge)
+    if pose in ('ler', 'ler2') and d == 'down':                    # livro aberto nas mãos (2º quadro: virando a página)
+        c.rect(3, by + 1, 10, 6, OUT)
+        c.rect(4, by + 2, 8, 4, '#f6f0e0').rect(7, by + 2, 2, 4, '#ddd0b8').rect(4, by + 5, 8, 1, '#a52a33')
+        c.px(5, by + 3, '#8e8a8a').px(6, by + 4, '#8e8a8a').px(10, by + 3, '#8e8a8a')
+        if pose == 'ler2':
+            c.rect(8, by, 2, 3, '#f6f0e0').px(9, by - 1, '#ddd0b8')
+        c.px(3, by + 4, pele).px(12, by + 4, pele)
     if pose == 'beber' and d == 'down':
         c.rect(6, by - 1, 4, 3, '#f3e6c8').px(10, by, '#f3e6c8').rect(6, by - 1, 4, 1, '#ddd0b8')
     if pose in ('caixa', 'entregar') and d == 'down':

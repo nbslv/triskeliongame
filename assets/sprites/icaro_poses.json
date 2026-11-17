@@ -127,6 +127,31 @@
    ],
    "frameRate": 2,
    "repeat": -1
+  },
+  "ler_livro": {
+   "frames": [
+    27,
+    27,
+    27,
+    28
+   ],
+   "frameRate": 2,
+   "repeat": -1
+  },
+  "susto_derruba_livro": {
+   "frames": [
+    29,
+    30
+   ],
+   "frameRate": 5,
+   "repeat": 0
+  },
+  "cesto_com_livro": {
+   "frames": [
+    31
+   ],
+   "frameRate": 4,
+   "repeat": -1
   }
  }
 }
