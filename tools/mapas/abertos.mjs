@@ -103,7 +103,7 @@ export function cafezal() {
   m.examinar('cesto_icaro', 16, 21, { dialogue: 'prologo_05_livro' });
   m.zona('gatilho_abertura', 'gatilho', 17, 21, 1, 1, { dialogue: 'prologo_01_abertura', activation: 'load' });
   maduros.forEach(([x, y], i) =>
-    m.examinar(`pe_cafe_maduro_${i + 1}`, x, y, { dialogue: 'prologo_03_pe_de_cafe', counter: 'prologo.colheita', counter_goal: 5, counter_flag: 'prologo.colheita_completa', glow: true, ordem: i + 1 }, 1, 2),
+    m.examinar(`pe_cafe_maduro_${i + 1}`, x, y, { dialogue: 'prologo_03_pe_de_cafe', counter: 'prologo.colheita', counter_goal: 5, counter_flag: 'prologo.colheita_completa', counter_label: 'Café colhido', glow: true, ordem: i + 1 }, 1, 2),
   );
   verdes.forEach(([x, y], i) => m.examinar(`pe_cafe_verde_${i + 1}`, x, y, { dialogue: 'prologo_03b_pe_verde' }, 1, 2));
   return m;
