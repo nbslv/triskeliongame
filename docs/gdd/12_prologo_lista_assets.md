@@ -142,7 +142,7 @@ galinha** e o de Ícaro **com galinha**; quando a galinha volta, tudo volta ao n
 | `icaro_sorriso_galinha` | "...Obrigado, Nina." |
 | `custodia_triste_sem_galinha` | reserva: a Custódia não fala nesse trecho hoje, mas qualquer fala nova dela ali usa este |
 
-## 5c. Pedidos pós-teste da autora (16/11)
+## 5c. Pedidos pós-teste da autora (16/11) — todos entregues e em uso
 
 ### Poses do Ícaro (abertura do cafezal) — entregues e em uso
 | Pose (`icaro_poses`) | Descrição |

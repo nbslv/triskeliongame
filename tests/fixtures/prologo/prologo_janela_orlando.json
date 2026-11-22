@@ -1,8 +1,10 @@
 {
   "id": "prologo_janela_orlando",
   "steps": [
+    {"type": "show", "image": "zoom_janela_orlando"},
     {"type": "say", "speaker": "narrador", "text": "Pela janela do Seu Orlando: a cama feita, uma sela velha no cavalete e, na parede, um retrato da mula. Só da mula."},
     {"type": "say", "speaker": "icaro", "text": "(Ele tem retrato da mula e não tem da sogra. Ele diz que a mula reclama menos.)"},
+    {"type": "hide"},
     {"type": "end"}
   ]
 }

@@ -3,7 +3,7 @@
   "steps": [
     {"type": "if", "flag": "prologo.falou_custodia", "goto": "curto"},
     {"type": "emote", "actor": "icaro", "emote": "interrogacao"},
-    {"type": "say", "speaker": "custodia", "text": "Psiu. Ícaro. Aqui, no barril."},
+    {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Psiu. Ícaro. Aqui, no barril."},
     {"type": "anim", "actor": "barril_custodia", "anim": "abrir"},
     {"type": "say", "speaker": "icaro", "portrait": "icaro_medo", "text": "Dona Custódia! A senhora tá machucada?"},
     {"type": "say", "speaker": "custodia", "portrait": "custodia_medo", "text": "Não. Só com medo. Eu e a Pamonha. Fala baixo, filho."},
