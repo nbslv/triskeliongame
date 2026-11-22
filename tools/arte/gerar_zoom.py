@@ -580,16 +580,153 @@ def bilhete():
     return c
 
 
+# ---- janelas do prólogo: o interior visto de fora, emoldurado pela janela ----
+def janela(conteudo, parede='#d9b98a', chao='#9c7048', cortina='#c8a0b8'):
+    c = base()
+    c.rect(2, 2, 92, 92, MAD['b']).rect(2, 2, 92, 3, MAD['l']).rect(89, 5, 5, 89, MAD['e'])      # batente
+    c.rect(9, 9, 78, 74, parede)
+    for y in range(9, 60):                                                    # parede caiada, meio gasta
+        for x in range(9, 87):
+            if rnd(x, y, 11) < 0.05:
+                c.px(x, y, mul(parede, 0.92))
+    c.rect(9, 60, 78, 23, chao).rect(9, 60, 78, 1, mul(chao, 0.8))
+    for y in range(64, 83, 5):
+        c.rect(9, y, 78, 1, mul(chao, 0.85))
+    k = base()
+    conteudo(k)
+    c.blit(k.outline(OUT2))
+    for y in range(9, 83):                                                    # luz morna de dentro
+        for x in range(9, 87):
+            if (x + y) % 2 == 0 and (x < 13 or x > 82 or y < 12):
+                c.p[x, y] = col(mix(c.p[x, y], '#3b2a35', 0.25))
+    for t in range(60):                                                       # reflexo no vidro
+        for dx in (0, 1, 7):
+            x, y = 14 + t + dx, 78 - t
+            if 9 <= x < 87 and 9 <= y < 83:
+                c.p[x, y] = col(mix(c.p[x, y], '#ffffff', 0.18))
+    c.rect(47, 9, 2, 74, MAD['o']).rect(9, 44, 78, 2, MAD['o'])               # caixilho em cruz
+    for (x, d) in ((9, 1), (86, -1)):                                         # cortininhas presas
+        for t in range(14):
+            w = 9 - abs(t - 6) // 2 if t < 12 else 3
+            c.rect(x if d > 0 else x - w + 1, 9 + t * 2, w, 2, cortina)
+        c.rect(x if d > 0 else x - 2, 37, 3, 2, mul(cortina, 0.75))
+    c.rect(0, 82, 96, 7, MAD['l']).rect(0, 88, 96, 3, MAD['e'])                # peitoril
+    return fim(c)
+
+
+def jan_laudelina():
+    def f(k):
+        k.rect(40, 66, 16, 2, '#6b4a35').rect(47, 52, 2, 15, '#6b4a35')          # pé do manequim
+        k.ell(48, 26, 11, 8, '#e8d2b0').rect(37, 26, 22, 14, '#e8d2b0')           # busto de pano cru
+        k.ell(48, 40, 11, 4, '#e8d2b0').rect(45, 16, 6, 5, '#e8d2b0').ell(48, 15, 3, 2, '#6b4a35')
+        k.rect(48, 25, 11, 16, '#fbf6ec').ell(53, 50, 9, 10, '#fbf6ec').rect(48, 40, 10, 14, '#fbf6ec')   # meio vestido
+        for (x, y) in [(51, 28), (55, 31), (52, 35), (56, 39), (50, 44), (54, 48), (58, 52)]:
+            k.px(x, y, '#e6dcf0')                                                  # renda
+        for (x, y, cor) in [(47, 29, '#d8413a'), (47, 34, '#3f6fb0'), (47, 39, '#e0b83a'), (46, 45, '#d8413a'), (47, 51, '#3f6fb0')]:
+            k.px(x, y, cor).px(x + 1, y, '#8e8a8a')                                # alfinetes na costura
+        k.line(43, 20, 40, 38, '#e0b83a').line(53, 20, 56, 30, '#e0b83a')         # fita métrica no pescoço
+        k.rect(44, 19, 9, 1, '#e0b83a')
+        for y in range(22, 38, 3):
+            k.px(40 + (y - 20) // 6, y, '#6b4a35')
+        k.rect(66, 62, 12, 7, '#b98a5c').rect(66, 62, 12, 1, '#cfa273').ell(72, 61, 3, 2, '#d98aa8')   # cesto de retalhos
+        k.rect(17, 48, 14, 3, '#ddd0b8').rect(19, 51, 2, 10, '#6b4a35')            # mesinha com tesoura
+        k.line(21, 47, 26, 45, '#8e99a8').line(21, 45, 26, 47, '#8e99a8')
+    return janela(f, '#e6cfc0', '#9c7048', '#d98aa8')
+
+
+def jan_orlando():
+    def f(k):
+        k.rect(58, 18, 18, 16, MADE['b']).rect(60, 20, 14, 12, '#f2e2b8')        # retrato da mula
+        k.ell(67, 27, 4, 4, '#8a6a55').rect(64, 29, 6, 3, '#8a6a55').ell(67, 31, 3, 1.5, '#a88a72')
+        k.line(64, 24, 62, 20, '#8a6a55').line(70, 24, 72, 20, '#8a6a55')         # orelhonas
+        k.px(66, 26, '#3b2a35').px(68, 26, '#3b2a35').px(67, 17, '#8e8a8a')
+        k.rect(12, 50, 32, 14, '#5b7fa6').rect(12, 50, 32, 2, '#7a9ac0')          # cama feita
+        k.rect(12, 46, 10, 5, '#f6f0e0').rect(10, 40, 3, 26, MADE['e']).rect(43, 52, 3, 14, MADE['e'])
+        for x in range(14, 44, 6):
+            k.rect(x, 54, 3, 1, '#f6f0e0')
+        k.rect(56, 56, 22, 3, MAD['e']).rect(58, 58, 2, 12, MAD['e']).rect(74, 58, 2, 12, MAD['e'])   # cavalete
+        k.ell(67, 53, 10, 5, '#7a4a35').rect(57, 53, 20, 5, '#7a4a35').ell(64, 50, 5, 2, '#a3674a')  # sela velha
+        k.rect(60, 58, 3, 6, '#5a3a2a').rect(72, 58, 3, 6, '#5a3a2a').px(66, 52, '#c9a23a')
+    return janela(f, '#d9c9a0', '#8a5f41', '#a8b880')
+
+
+def pijama(k, x, d, cor, cab, coque=False):
+    k.ell(x, 30, 5, 6, '#e8b88a')
+    if coque:
+        k.ell(x, 26, 6, 4, cab).ell(x - d * 2, 23, 3, 3, cab)
+    else:
+        k.ell(x, 25, 6, 3, cab).rect(x - 6, 25, 3, 4, cab)
+    k.px(x + d * 2, 29, '#3b2a35').rect(x + d, 33, 3, 1, '#8a4a4a')              # cara de quem tem razão
+    k.rect(x - 6, 36, 12, 28, cor)
+    for y in range(38, 64, 4):
+        k.rect(x - 6, y, 12, 1, mix(cor, '#ffffff', 0.45))
+    k.rect(x - 5, 64, 4, 3, '#e8b88a').rect(x + 1, 64, 4, 3, '#e8b88a')
+    k.rect(x + d * 6 - (6 if d < 0 else 0), 40, 7, 3, cor).rect(x + d * 12 - (1 if d < 0 else 0), 40, 2, 3, '#e8b88a')  # braço apontando
+    k.rect(x + d * 14 - (2 if d < 0 else 0), 41, 3, 1, '#e8b88a')
+
+
+def jan_quim_quiteria():
+    def f(k):
+        k.rect(70, 14, 14, 50, MAD['e']).rect(72, 16, 10, 46, MAD['b']).ell(80, 40, 1, 1, '#e0b83a')   # porta
+        k.px(66, 32, '#8e8a8a').line(66, 33, 64, 37, '#6b4a35').line(66, 33, 68, 37, '#6b4a35')       # prego e chave
+        k.rect(64, 37, 5, 1, '#6b4a35').ell(66, 39, 2, 2, '#e0b83a').rect(66, 41, 1, 5, '#e0b83a').rect(67, 44, 2, 1, '#e0b83a')
+        pijama(k, 15, 1, '#5b7fa6', '#d6d6e0')
+        pijama(k, 55, -1, '#d98aa8', '#8e8a8a', coque=True)
+    return janela(f, '#e0d0a8', '#9c7048', '#8fb0d0')
+
+
+def jan_lindalva():
+    def f(k):
+        k.rect(14, 46, 62, 4, MAD['l']).rect(14, 50, 62, 2, MAD['e'])            # mesa
+        k.rect(17, 52, 3, 14, MAD['e']).rect(70, 52, 3, 14, MAD['e'])
+        for i, cor in enumerate(['#f6f0e0', '#e6dcc8', '#f6f0e0', '#ddd0b8']):   # panos dobrados
+            k.rect(18, 42 - i * 3, 20, 3, cor).px(18, 42 - i * 3, mul(cor, 0.85))
+        k.ell(52, 38, 12, 8, '#c87a48').clear(38, 28, 28, 10)                    # bacia de cobre
+        k.ell(52, 38, 12, 3, '#e09a64').ell(52, 38, 10, 2, '#7a3a20').rect(43, 41, 6, 1, '#f2c088')
+        k.rect(64, 39, 6, 6, '#f6f0e0').rect(70, 40, 2, 3, '#f6f0e0').rect(65, 40, 4, 1, '#b8844a')      # xícara pela metade
+        k.ell(67, 45, 5, 1, '#ddd0b8')
+        k.rect(14, 18, 2, 1, '#8e8a8a').line(15, 19, 13, 30, '#8a7a85')          # avental pendurado
+        k.rect(10, 24, 9, 12, '#f6f0e0')
+        k.rect(56, 16, 16, 10, MADE['b']).rect(58, 18, 12, 6, '#ddd0f0')         # prateleira de vidrinhos
+        for x, cor in [(58, '#8fcbe0'), (62, '#a8d890'), (66, '#e0b83a')]:
+            k.rect(x, 12, 3, 5, cor)
+    return janela(f, '#e6dcc0', '#9c7048', '#f6f0e0')
+
+
+def jan_rosario():
+    def f(k):
+        for (x, n) in ((10, 5), (24, 4)):                                         # cestos até o teto
+            for i in range(n):
+                y = 64 - i * 11
+                k.rect(x, y - 9, 13, 10, '#c9a273').rect(x, y - 9, 13, 1, '#e0bf8a')
+                for xx in range(x + 1, x + 13, 3):
+                    k.rect(xx, y - 8, 1, 9, '#a88050')
+                for j, cor in enumerate(['#f6f0e0', '#8fb0d0', '#d98aa8']):
+                    k.ell(x + 3 + j * 4, y - 10, 2.5, 1.5, cor)
+        k.rect(58, 50, 26, 16, '#6b6a72').rect(58, 50, 26, 2, '#8e8a92').rect(62, 56, 8, 6, '#3b2a35')   # fogão
+        k.ell(66, 60, 3, 1.5, '#e8884a').px(65, 59, '#f2c84a')
+        k.rect(72, 46, 10, 4, '#3b3a42').rect(74, 43, 6, 3, '#3b3a42').px(76, 42, '#e8884a')            # ferro de brasa
+        k.line(42, 14, 84, 18, '#8a7a85')                                         # varal de dentro
+        k.rect(55, 16, 14, 4, '#f2e8f2').rect(53, 20, 18, 20, '#f2e8f2')         # a camisola remendada
+        k.rect(56, 15, 1, 2, '#b98a5c').rect(67, 16, 1, 2, '#b98a5c')
+        k.rect(57, 26, 5, 5, '#8fb0d0').rect(64, 33, 4, 4, '#e0b83a')
+        for (x, y) in [(57, 26), (61, 26), (57, 30), (64, 33), (67, 36)]:
+            k.px(x, y, '#5b7fa6')
+    return janela(f, '#dcd0b8', '#8a5f41', '#c8d8b0')
+
+
 ZOOM = dict(broa=broa, caixa_costura=caixa, caixa_aberta=lambda: caixa(True), colar_mae=colar, colar_brilho=lambda: colar(True),
             livro_reservado=livro, retrato=retrato, pote_telhado=pote, enxada=enxada, ficha_aurora=ficha, cavalinho=cavalinho,
             rapadura=rapadura, ovos=ovos, pao_de_ontem=pao,
             retrato_noite=lambda: retrato(True), desenho_nina=desenho_nina, receita=receita, retrato_ze=retrato_ze, croche=croche,
-            livro_aurelius=livro_aurelius, ficha_icaro=ficha_icaro, vitrine=vitrine, bilhete_parteira=bilhete)
+            livro_aurelius=livro_aurelius, ficha_icaro=ficha_icaro, vitrine=vitrine, bilhete_parteira=bilhete,
+            janela_laudelina=jan_laudelina, janela_orlando=jan_orlando, janela_quim_quiteria=jan_quim_quiteria,
+            janela_lindalva=jan_lindalva, janela_rosario=jan_rosario)
 
 
 def main():
     os.makedirs(IMG, exist_ok=True)
-    pr = Image.new('RGBA', (8 * 100 + 4, 3 * 100 + 4), (43, 34, 51, 255))
+    pr = Image.new('RGBA', (8 * 100 + 4, 4 * 100 + 4), (43, 34, 51, 255))
     for i, (nome, f) in enumerate(ZOOM.items()):
         c = f()
         c.save(os.path.join(IMG, f'zoom_{nome}.png'))
