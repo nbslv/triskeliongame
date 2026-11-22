@@ -466,6 +466,10 @@ await goMap('teste', 'inicio');
   await wait(300);
   await page.screenshot({ path: `${OUT}/12-poses-emotes.png` });
   await evalWorld("w.cutDespawn('cali_1'); w.cutDespawn('toucim'); w.cutAnim('icaro', 'normal');");
+  // Pose com objeto no braço (galinha) some com anim "normal": volta à folha comum do Ícaro.
+  const pose = await evalWorld(`w.cutAnim('icaro', 'segurar_galinha'); const tex0 = w.player.sprite.texture.key;
+    w.cutAnim('icaro', 'normal'); return { com: tex0, sem: w.player.sprite.texture.key, anim: w.player.sprite.anims.currentAnim?.key, posing: w.player.posing };`);
+  check(pose.com === 'icaro_poses' && pose.sem === 'icaro' && !pose.posing && /idle/.test(pose.anim), `anim normal tira a galinha do braço (${JSON.stringify(pose)})`);
 }
 
 // Objetos ampliados (show/hide): não bloqueia, fica sob a caixa, some no hide e no fim do roteiro
