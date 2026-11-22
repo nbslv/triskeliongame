@@ -1,4 +1,4 @@
-"""Gera os 29 retratos 64×64 de assets/portraits/ e a prancha docs/arte/capturas/retratos.png.
+"""Gera os 41 retratos 64×64 de assets/portraits/ e a prancha docs/arte/capturas/retratos.png.
 
 Uso: python3 tools/arte/gerar_retratos.py
 """
@@ -27,6 +27,7 @@ EXPR = {
     'brava': ('brava', 'normal', 'aberta_brava', ()),
     'suave': ('reta', 'fechado', 'sorriso', ()),
     'triste': ('triste', 'baixo', 'triste', ()),
+    'tenso': ('triste', 'normal', 'firme', ('suor',)),
 }
 
 FUNDOS = {'icaro': '#f6dfa8', 'pai': '#d9c9b0', 'tonho': '#cfe0a8', 'zefa': '#f0c8a0', 'custodia': '#ddd0f0', 'nina': '#fbe9a0', 'juca': '#f6e3c8',
@@ -396,11 +397,11 @@ LISTA = [
     ('juca', 'juca', ['neutro']), ('ermelinda', 'ermelinda', ['neutro']),
     ('tonho', 'tonho', ['neutro', 'riso', 'medo', 'triste']),
     ('zefa', 'zefa', ['neutro', 'brava']),
-    ('custodia', 'custodia', ['neutro', 'medo', 'triste']),
-    ('nina', 'nina', ['neutro']),
+    ('custodia', 'custodia', ['neutro', 'medo', 'triste', 'choro']),
+    ('nina', 'nina', ['neutro', 'triste']),
     ('aldeao', 'sobrevivente_1', ['medo']), ('aldea', 'sobrevivente_2', ['medo']),
-    ('soldado', 'soldado_1', ['neutro']),
-    ('sargento', 'sargento', ['neutro', 'suave']),
+    ('soldado', 'soldado_1', ['neutro', 'tenso']),
+    ('sargento', 'sargento', ['neutro', 'suave', 'triste']),
 ]
 
 
@@ -423,6 +424,8 @@ def todos():
     for e in ('triste', 'sorriso'):
         r[f'icaro_{e}_galinha'] = retrato('icaro', dict(FICHAS['icaro'], galinha=True), e)
     r['custodia_triste_sem_galinha'] = retrato('custodia', dict(FICHAS['custodia'], galinha=False, olhos_umidos=True), 'triste')
+    r['sargento_tensa'] = retrato('sargento', dict(FICHAS['sargento']), 'tenso')
+    r['sobrevivente_medo'] = retrato('sobrevivente', dict(FICHAS['sobrevivente_1'], xale='#b8644a'), 'medo', '#d8d0c4')
     r['mae_silhueta'] = retrato_mae()
     r['cali_soldado'] = retrato_cali()
     r['toucim_neutro'] = retrato_cali(True)

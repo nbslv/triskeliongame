@@ -34,6 +34,11 @@ images/zoom_desenho_nina__96x96.png,96x96,,assets/images/zoom_desenho_nina.png,c
 images/zoom_enxada__96x96.png,96x96,,assets/images/zoom_enxada.png,copiado
 images/zoom_ficha_aurora__96x96.png,96x96,,assets/images/zoom_ficha_aurora.png,copiado
 images/zoom_ficha_icaro__96x96.png,96x96,,assets/images/zoom_ficha_icaro.png,copiado
+images/zoom_janela_laudelina__96x96.png,96x96,,assets/images/zoom_janela_laudelina.png,mantido (editado)
+images/zoom_janela_lindalva__96x96.png,96x96,,assets/images/zoom_janela_lindalva.png,mantido (editado)
+images/zoom_janela_orlando__96x96.png,96x96,,assets/images/zoom_janela_orlando.png,mantido (editado)
+images/zoom_janela_quim_quiteria__96x96.png,96x96,,assets/images/zoom_janela_quim_quiteria.png,mantido (editado)
+images/zoom_janela_rosario__96x96.png,96x96,,assets/images/zoom_janela_rosario.png,mantido (editado)
 images/zoom_livro_aurelius__96x96.png,96x96,,assets/images/zoom_livro_aurelius.png,copiado
 images/zoom_livro_reservado__96x96.png,96x96,,assets/images/zoom_livro_reservado.png,copiado
 images/zoom_ovos__96x96.png,96x96,,assets/images/zoom_ovos.png,copiado
@@ -48,6 +53,7 @@ images/zoom_vitrine__96x96.png,96x96,,assets/images/zoom_vitrine.png,copiado
 portraits/aldea_medo__64x64.png,64x64,,assets/portraits/aldea_medo.png,copiado
 portraits/aldeao_medo__64x64.png,64x64,,assets/portraits/aldeao_medo.png,copiado
 portraits/cali_soldado__64x64.png,64x64,,assets/portraits/cali_soldado.png,copiado
+portraits/custodia_choro__64x64.png,64x64,,assets/portraits/custodia_choro.png,mantido (editado)
 portraits/custodia_medo__64x64.png,64x64,,assets/portraits/custodia_medo.png,copiado
 portraits/custodia_neutro__64x64.png,64x64,,assets/portraits/custodia_neutro.png,copiado
 portraits/custodia_triste__64x64.png,64x64,,assets/portraits/custodia_triste.png,copiado
@@ -65,13 +71,18 @@ portraits/icaro_triste_galinha__64x64.png,64x64,,assets/portraits/icaro_triste_g
 portraits/juca_neutro__64x64.png,64x64,,assets/portraits/juca_neutro.png,copiado
 portraits/mae_silhueta__64x64.png,64x64,,assets/portraits/mae_silhueta.png,copiado
 portraits/nina_neutro__64x64.png,64x64,,assets/portraits/nina_neutro.png,copiado
+portraits/nina_triste__64x64.png,64x64,,assets/portraits/nina_triste.png,mantido (editado)
 portraits/pai_ferido__64x64.png,64x64,,assets/portraits/pai_ferido.png,copiado
 portraits/pai_neutro__64x64.png,64x64,,assets/portraits/pai_neutro.png,copiado
 portraits/pai_ranzinza__64x64.png,64x64,,assets/portraits/pai_ranzinza.png,copiado
 portraits/pai_sorriso_fraco__64x64.png,64x64,,assets/portraits/pai_sorriso_fraco.png,copiado
 portraits/sargento_neutro__64x64.png,64x64,,assets/portraits/sargento_neutro.png,copiado
 portraits/sargento_suave__64x64.png,64x64,,assets/portraits/sargento_suave.png,copiado
+portraits/sargento_tensa__64x64.png,64x64,,assets/portraits/sargento_tensa.png,mantido (editado)
+portraits/sargento_triste__64x64.png,64x64,,assets/portraits/sargento_triste.png,mantido (editado)
+portraits/sobrevivente_medo__64x64.png,64x64,,assets/portraits/sobrevivente_medo.png,mantido (editado)
 portraits/soldado_neutro__64x64.png,64x64,,assets/portraits/soldado_neutro.png,copiado
+portraits/soldado_tenso__64x64.png,64x64,,assets/portraits/soldado_tenso.png,mantido (editado)
 portraits/tonho_medo__64x64.png,64x64,,assets/portraits/tonho_medo.png,copiado
 portraits/tonho_neutro__64x64.png,64x64,,assets/portraits/tonho_neutro.png,copiado
 portraits/tonho_riso__64x64.png,64x64,,assets/portraits/tonho_riso.png,copiado
