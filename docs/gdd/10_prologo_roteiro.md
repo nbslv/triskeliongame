@@ -109,8 +109,8 @@ a mãe na biblioteca; as três espirais; a luz que piscou. Tudo volta.
 **Imagem.** Luz dourada de fim de tarde, fileiras de pés de café em morro suave, frutos
 vermelhos. Ícaro está **de pé entre dois pés de café**, distraído, lendo, com o cesto vazio aos
 pés. Tonho grita o nome dele; Ícaro se assusta e o livro **cai direto dentro do cesto** (poses
-pedidas à arte: `ler_livro` → `susto_derruba_livro` → `cesto_com_livro`; até chegarem, usa
-`esconder_livro` + `livro_fechando` + `cesto_balanca` e uma linha de narração).
+`ler_livro` → `susto_derruba_livro` → `cesto_com_livro`, com `livro_fechando` + `cesto_balanca`
+e uma linha de narração; volta a `normal` antes do tutorial).
 
 **Jogabilidade — a colheita (prévia leve do "treino de força"):**
 1. **Andar:** ir até o Tonho (marcador `marcador_cafezal_tonho`).

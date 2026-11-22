@@ -144,7 +144,7 @@ galinha** e o de Ícaro **com galinha**; quando a galinha volta, tudo volta ao n
 
 ## 5c. Pedidos pós-teste da autora (16/11)
 
-### Poses do Ícaro (abertura do cafezal)
+### Poses do Ícaro (abertura do cafezal) — entregues e em uso
 | Pose (`icaro_poses`) | Descrição |
 |---|---|
 | `ler_livro` | De pé, livro aberto nas mãos, cabeça baixa, distraído (2 quadros: virar página) |
